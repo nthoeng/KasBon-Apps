@@ -210,9 +210,25 @@ export const HomeScreen = ({ navigation }: any) => {
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Transaksi terbaru</Text>
+          <Text style={styles.sectionTitle}>Insight bulan ini</Text>
+        </View>
+
+        <View style={styles.insightCard}>
+          <View style={styles.insightRow}>
+            <View style={styles.insightIcon}>
+              <Ionicons name="bulb-outline" size={18} color={colors.project} />
+            </View>
+            <View style={styles.insightText}>
+              <Text style={styles.insightTitle}>Pengeluaran makan turun 18%</Text>
+              <Text style={styles.insightSub}>Hemat Rp 320rb dibanding Mei. Pertahankan!</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Aktivitas terbaru</Text>
           <TouchableOpacity onPress={() => navigation.navigate('TransactionHistory')}>
-            <Text style={styles.sectionLink}>Lihat semua ↗</Text>
+            <Text style={styles.sectionLink}>Semua ↗</Text>
           </TouchableOpacity>
         </View>
 
@@ -228,6 +244,33 @@ export const HomeScreen = ({ navigation }: any) => {
               onPress={() => navigation.navigate('TransactionDetail')}
             />
           ))}
+        </View>
+
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Aktivitas anggota</Text>
+        </View>
+
+        <View style={styles.membersColumn}>
+          <View style={styles.memberRow}>
+            <View style={[styles.avatar, { backgroundColor: colors.tagProject }]}> 
+              <Text style={styles.avatarText}>B</Text>
+            </View>
+            <View style={styles.memberInfo}>
+              <Text style={styles.memberName}>Bayu</Text>
+              <Text style={styles.memberLast}>Terakhir: Transfer kas · tadi</Text>
+            </View>
+            <Text style={styles.memberTx}>12 tx</Text>
+          </View>
+          <View style={styles.memberRowLast}>
+            <View style={[styles.avatar, { backgroundColor: colors.tagIncome }]}> 
+              <Text style={styles.avatarText}>I</Text>
+            </View>
+            <View style={styles.memberInfo}>
+              <Text style={styles.memberName}>Istri</Text>
+              <Text style={styles.memberLast}>Terakhir: Belanja · 11:24</Text>
+            </View>
+            <Text style={styles.memberTx}>8 tx</Text>
+          </View>
         </View>
 
         <View style={{ height: 120 }} />
@@ -464,5 +507,83 @@ const styles = StyleSheet.create({
   },
   transactionsList: {
     marginBottom: spacing.xl,
+  },
+  insightCard: {
+    backgroundColor: colors.surface,
+    borderRadius: 20,
+    borderWidth: 0.5,
+    borderColor: colors.borderLight,
+    padding: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  insightRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  insightIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: 'rgba(124,111,247,0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: spacing.sm,
+  },
+  insightText: {
+    flex: 1,
+  },
+  insightTitle: {
+    ...typography.body1,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: spacing.xs,
+  },
+  insightSub: {
+    ...typography.caption,
+    color: colors.textMuted,
+  },
+  membersColumn: {
+    backgroundColor: colors.surface,
+    borderRadius: 20,
+    borderWidth: 0.5,
+    borderColor: colors.borderLight,
+    padding: spacing.md,
+    marginBottom: spacing.xl,
+  },
+  memberRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: spacing.sm,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.borderLight,
+  },
+  memberRowLast: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: spacing.sm,
+  },
+  avatar: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: spacing.sm,
+  },
+  memberInfo: {
+    flex: 1,
+  },
+  memberName: {
+    ...typography.body2,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  memberLast: {
+    ...typography.caption,
+    color: colors.textMuted,
+  },
+  memberTx: {
+    ...typography.body2,
+    color: colors.textMuted,
   },
 });
