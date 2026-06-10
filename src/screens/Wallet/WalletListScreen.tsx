@@ -12,9 +12,10 @@ interface WalletProps {
   type: 'global' | 'private' | 'business';
   balance: number;
   owner: string;
+  onPress?: () => void;
 }
 
-const WalletCard = ({ name, type, balance, owner }: WalletProps) => {
+const WalletCard = ({ name, type, balance, owner, onPress }: WalletProps) => {
   const getIconAndColor = () => {
     switch (type) {
       case 'global': return { icon: 'people', color: colors.primary, bg: colors.tagGlobal, label: 'Keluarga' };
@@ -26,7 +27,7 @@ const WalletCard = ({ name, type, balance, owner }: WalletProps) => {
   const { icon, color, bg, label } = getIconAndColor();
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <GlassCard style={styles.walletCard}>
         <View style={styles.walletHeader}>
           <View style={styles.walletHeaderLeft}>
@@ -79,13 +80,15 @@ export const WalletListScreen = () => {
           name="Kas Keluarga Utama" 
           type="global" 
           balance={12500000} 
-          owner="Bisa dilihat & dipakai semua" 
+          owner="Bisa dilihat & dipakai semua"
+          onPress={() => navigation.navigate('WalletDetail')} 
         />
         <WalletCard 
           name="Tabungan Liburan" 
           type="global" 
           balance={5000000} 
-          owner="Bisa dilihat & dipakai semua" 
+          owner="Bisa dilihat & dipakai semua"
+          onPress={() => navigation.navigate('WalletDetail')} 
         />
 
         <Text style={[styles.sectionTitle, { marginTop: spacing.lg }]}>Dompet Pribadi</Text>
