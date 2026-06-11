@@ -1,0 +1,246 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;
+--kb-bg2:#0F1E35;
+--kb-card:#152238;
+--kb-card2:#1A2A42;
+--kb-border:rgba(255,255,255,0.09);
+--kb-border2:rgba(255,255,255,0.16);
+--kb-gold:#F5C842;
+--kb-mint:#2DD4A4;
+--kb-red:#FF6B6B;
+--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;
+--kb-text2:#8FA8CC;
+--kb-text3:#3E5878;
+--kb-input:#111E30;
+}
+.phone{
+background:var(--kb-bg);
+border-radius:44px;
+width:320px;
+margin:0 auto;
+border:2px solid rgba(255,255,255,0.1);
+overflow:hidden;
+font-family:var(--font-sans,-apple-system,sans-serif);
+}
+.statusbar{
+display:flex;justify-content:space-between;align-items:center;
+padding:14px 24px 6px;
+font-size:11px;color:var(--kb-text2);
+}
+.screen{padding:0 0 36px}
+.logo-row{
+display:flex;flex-direction:column;align-items:center;
+padding:36px 24px 28px;
+}
+.coin{
+width:60px;height:60px;border-radius:50%;
+background:#F5C842;
+display:flex;align-items:center;justify-content:center;
+margin-bottom:14px;
+}
+.coin-inner{
+width:48px;height:48px;border-radius:50%;
+background:#E8A800;
+display:flex;align-items:center;justify-content:center;
+}
+.app-name{
+font-size:26px;font-weight:600;color:var(--kb-text);
+letter-spacing:-0.5px;margin-bottom:4px;
+}
+.app-name span{color:var(--kb-gold);}
+.app-sub{font-size:12px;color:var(--kb-text3);}
+.form-area{padding:0 20px}
+.section-label{
+font-size:11px;color:var(--kb-text2);
+letter-spacing:.05em;margin-bottom:18px;font-weight:500;
+}
+.field{margin-bottom:14px;}
+.field-label{
+font-size:11px;color:var(--kb-text2);
+margin-bottom:6px;display:block;
+}
+.field-wrap{
+display:flex;align-items:center;
+background:var(--kb-input);
+border:0.5px solid var(--kb-border2);
+border-radius:12px;
+padding:0 14px;height:46px;gap:10px;
+}
+.field-wrap.focused{border-color:var(--kb-gold);}
+.field-wrap i{color:var(--kb-text3);font-size:17px;flex-shrink:0}
+.field-text{
+font-size:14px;color:var(--kb-text);
+flex:1;
+}
+.field-text.placeholder{color:var(--kb-text3);}
+.eye-btn{color:var(--kb-text3);font-size:16px;cursor:pointer;flex-shrink:0;}
+.pw-dots{
+display:flex;gap:5px;align-items:center;flex:1;padding:2px 0;
+}
+.pw-dot{
+width:7px;height:7px;border-radius:50%;
+background:var(--kb-text2);
+}
+.forgot{
+text-align:right;margin-bottom:24px;margin-top:4px;
+}
+.forgot a{font-size:12px;color:var(--kb-violet);text-decoration:none;}
+.btn-primary{
+width:100%;height:48px;border-radius:14px;
+background:var(--kb-gold);
+border:none;cursor:pointer;
+font-size:15px;font-weight:500;
+color:#0A1628;
+margin-bottom:16px;
+}
+.divider{
+display:flex;align-items:center;gap:12px;
+margin-bottom:16px;
+}
+.div-line{flex:1;height:0.5px;background:var(--kb-border2);}
+.div-txt{font-size:11px;color:var(--kb-text3);}
+.btn-google{
+width:100%;height:44px;border-radius:12px;
+background:var(--kb-card2);
+border:0.5px solid var(--kb-border2);
+cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+gap:8px;
+margin-bottom:6px;
+}
+.btn-google-txt{font-size:13px;color:var(--kb-text2);}
+.register-row{
+display:flex;justify-content:center;gap:4px;
+padding-top:16px;
+}
+.reg-txt{font-size:12px;color:var(--kb-text3);}
+.reg-link{font-size:12px;color:var(--kb-gold);text-decoration:none;cursor:pointer;font-weight:500;}
+.error-chip{
+display:flex;align-items:center;gap:6px;
+background:rgba(255,107,107,0.12);
+border:0.5px solid rgba(255,107,107,0.3);
+border-radius:10px;
+padding:8px 12px;
+margin-bottom:14px;
+}
+.error-chip i{color:var(--kb-red);font-size:15px;flex-shrink:0}
+.error-txt{font-size:12px;color:var(--kb-red);}
+.check-row{
+display:flex;align-items:center;gap:8px;margin-bottom:20px;
+}
+.check-box{
+width:18px;height:18px;border-radius:5px;
+border:0.5px solid var(--kb-border2);
+background:var(--kb-input);
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;
+}
+.check-box.checked{background:var(--kb-gold);border-color:var(--kb-gold);}
+.check-box i{font-size:12px;color:#0A1628;}
+.check-lbl{font-size:12px;color:var(--kb-text2);}
+</style>
+
+<h2 class="sr-only">Mockup tampilan login screen KasBon — dark mode dengan form email, password, dan tombol masuk.</h2>
+
+<div style="padding:20px 0;background:transparent">
+
+<div class="phone">
+  <div class="statusbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:12px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:12px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="screen">
+
+    <div class="logo-row">
+      <div class="coin">
+        <div class="coin-inner">
+          <svg width="26" height="26" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <polygon points="20,7 32,15 32,30 8,30 8,15" fill="#F5C842"/>
+            <polygon points="20,3 34,14 6,14" fill="#FDE8D8"/>
+            <rect x="15" y="22" width="10" height="8" rx="1.5" fill="#E8A800"/>
+          </svg>
+        </div>
+      </div>
+      <div class="app-name"><span>Kas</span>Bon</div>
+      <div class="app-sub">Masuk ke akun keluargamu</div>
+    </div>
+
+    <div class="form-area">
+
+      <div class="field">
+        <span class="field-label">Email</span>
+        <div class="field-wrap focused">
+          <i class="ti ti-mail" aria-hidden="true"></i>
+          <div class="field-text">bayu@email.com</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Password</span>
+        <div class="field-wrap">
+          <i class="ti ti-lock" aria-hidden="true"></i>
+          <div class="pw-dots">
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div>
+          </div>
+          <i class="ti ti-eye eye-btn" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;margin-top:2px">
+        <div class="check-row" style="margin:0">
+          <div class="check-box checked"><i class="ti ti-check" aria-hidden="true"></i></div>
+          <span class="check-lbl">Ingat saya</span>
+        </div>
+        <div class="forgot" style="margin:0">
+          <a href="#">Lupa password?</a>
+        </div>
+      </div>
+
+      <button class="btn-primary">Masuk</button>
+
+      <div class="divider">
+        <div class="div-line"></div>
+        <span class="div-txt">atau masuk dengan</span>
+        <div class="div-line"></div>
+      </div>
+
+      <div class="btn-google">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span class="btn-google-txt">Lanjutkan dengan Google</span>
+      </div>
+
+      <div class="register-row">
+        <span class="reg-txt">Belum punya akun?</span>
+        <span class="reg-link" onclick="sendPrompt('Buatkan mockup UI screen Register KasBon')">Daftar sekarang ↗</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:20px">
+  <p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:12px">State lain — klik untuk preview</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI screen Login KasBon state error password salah')" style="font-size:12px;padding:6px 12px;border-radius:8px">Error state ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI screen Register KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Register ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI screen Lupa Password KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Lupa password ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI screen Onboarding KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Onboarding ↗</button>
+  </div>
+</div>
+
+</div>

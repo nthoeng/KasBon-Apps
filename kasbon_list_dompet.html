@@ -1,0 +1,369 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.09);--kb-b2:rgba(255,255,255,0.16);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 6px}
+.page-title{font-size:17px;font-weight:500;color:var(--kb-text)}
+.page-sub{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.icon-btn{width:34px;height:34px;border-radius:11px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.total-card{margin:6px 16px 14px;background:var(--kb-card2);border-radius:20px;border:0.5px solid var(--kb-b2);padding:16px}
+.total-lbl{font-size:11px;color:var(--kb-t2);margin-bottom:4px}
+.total-amt{font-size:28px;font-weight:500;color:var(--kb-text);letter-spacing:-0.5px;margin-bottom:12px}
+.total-amt span{font-size:16px;font-weight:400;color:var(--kb-t2)}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mstat{background:rgba(255,255,255,0.04);border-radius:12px;padding:9px 11px;border:0.5px solid var(--kb-b1)}
+.mstat-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+.mstat-lbl{font-size:10px;color:var(--kb-t2);margin-bottom:3px;display:flex;align-items:center}
+.mstat-val{font-size:13px;font-weight:500;color:var(--kb-text)}
+.sec-header{display:flex;justify-content:space-between;align-items:center;padding:6px 18px 8px}
+.sec-title{font-size:12px;font-weight:500;color:var(--kb-t2);letter-spacing:.04em;text-transform:uppercase}
+.sec-add{width:26px;height:26px;border-radius:8px;background:rgba(245,200,66,0.12);border:0.5px solid rgba(245,200,66,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.wallet-card{margin:0 16px 8px;background:var(--kb-card);border-radius:16px;border:0.5px solid var(--kb-b2);padding:14px;cursor:pointer}
+.wallet-card:active{opacity:.85}
+.wc-row{display:flex;align-items:center;gap:12px}
+.wc-icon{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wc-main{flex:1;min-width:0}
+.wc-name{font-size:14px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-meta{display:flex;align-items:center;gap:6px;margin-top:2px}
+.wc-type{font-size:10px;color:var(--kb-t3)}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500}
+.badge-global{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-private{background:rgba(255,255,255,0.06);color:var(--kb-t2)}
+.badge-saving{background:rgba(124,111,247,0.15);color:#A89FF9}
+.badge-debt{background:rgba(255,107,107,0.12);color:#FF9090}
+.wc-right{text-align:right;flex-shrink:0}
+.wc-saldo{font-size:15px;font-weight:500;color:var(--kb-text)}
+.wc-change{font-size:10px;margin-top:2px}
+.change-up{color:var(--kb-mint)}
+.change-dn{color:var(--kb-red)}
+.change-neutral{color:var(--kb-t3)}
+.progress-row{margin-top:10px}
+.prog-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-t3);margin-bottom:4px}
+.prog-track{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
+.prog-fill{height:4px;border-radius:2px}
+.members-row{display:flex;gap:-4px;margin-top:2px}
+.avatar-xs{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;border:1.5px solid var(--kb-bg);margin-right:-5px}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:3px 8px;border-radius:10px;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item.active .bnav-lbl{color:var(--kb-gold)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.bnav-item.active i{color:var(--kb-gold)}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+.spacer-sec{height:6px}
+</style>
+
+<h2 class="sr-only">Mockup halaman list dompet KasBon — menampilkan semua dompet keluarga dikelompokkan: global bersama, dompet pribadi, tabungan, dan hutang/piutang.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div class="page-title">Dompet</div>
+      <div class="page-sub">Total 7 dompet aktif</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="icon-btn" aria-label="Cari dompet">
+        <i class="ti ti-search" style="font-size:16px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Baru KasBon')" aria-label="Tambah dompet">
+        <i class="ti ti-plus" style="font-size:16px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-card">
+    <div class="total-lbl">Total saldo semua dompet</div>
+    <div class="total-amt"><span>Rp </span>22.750.000</div>
+    <div class="mini-stats">
+      <div class="mstat">
+        <div class="mstat-lbl"><span class="mstat-dot" style="background:#2DD4A4"></span>Dompet global</div>
+        <div class="mstat-val">Rp 9.300.000</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-lbl"><span class="mstat-dot" style="background:#8FA8CC"></span>Dompet pribadi</div>
+        <div class="mstat-val">Rp 8.150.000</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-lbl"><span class="mstat-dot" style="background:#7C6FF7"></span>Tabungan</div>
+        <div class="mstat-val">Rp 5.300.000</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-lbl"><span class="mstat-dot" style="background:#FF6B6B"></span>Sisa hutang</div>
+        <div class="mstat-val" style="color:#FF6B6B">Rp 8.200.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-header">
+    <span class="sec-title">Bersama keluarga</span>
+    <div class="sec-add" onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Baru KasBon')" aria-label="Tambah dompet global">
+      <i class="ti ti-plus" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon untuk dompet Kas Keluarga')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(245,200,66,0.12)">
+        <i class="ti ti-home" style="font-size:18px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">Kas keluarga</div>
+        <div class="wc-meta">
+          <span class="wc-type">Kas tunai</span>
+          <span class="badge badge-global">Global — catat</span>
+          <div class="members-row">
+            <div class="avatar-xs" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+            <div class="avatar-xs" style="background:linear-gradient(135deg,#F5C842,#FF6B6B)">I</div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 6.800.000</div>
+        <div class="wc-change change-up">+Rp 500rb bulan ini</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon untuk dompet Dana Darurat')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-shield" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">Dana darurat</div>
+        <div class="wc-meta">
+          <span class="wc-type">Tabungan</span>
+          <span class="badge badge-global">Global — lihat</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 2.500.000</div>
+        <div class="wc-change change-up">+Rp 200rb</div>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-labels">
+        <span>Progress target</span>
+        <span style="color:#2DD4A4">25% dari Rp 10jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:25%;background:#2DD4A4"></div></div>
+    </div>
+  </div>
+
+  <div class="spacer-sec"></div>
+
+  <div class="sec-header">
+    <span class="sec-title">Dompet pribadi</span>
+    <div class="sec-add" onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Baru KasBon')" aria-label="Tambah dompet pribadi">
+      <i class="ti ti-plus" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon untuk BCA Bayu')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-building-bank" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">BCA Bayu</div>
+        <div class="wc-meta">
+          <span class="wc-type">Rekening bank</span>
+          <span class="badge badge-private">Private</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 4.100.000</div>
+        <div class="wc-change change-neutral">tidak berubah</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon untuk GoPay Istri')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-device-mobile" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">GoPay Istri</div>
+        <div class="wc-meta">
+          <span class="wc-type">E-wallet</span>
+          <span class="badge badge-private">Private</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 850.000</div>
+        <div class="wc-change change-dn">-Rp 120rb</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon untuk OVO Bayu')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(186,117,23,0.12)">
+        <i class="ti ti-device-mobile" style="font-size:18px;color:#EF9F27" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">OVO Bayu</div>
+        <div class="wc-meta">
+          <span class="wc-type">E-wallet</span>
+          <span class="badge badge-private">Private</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 3.200.000</div>
+        <div class="wc-change change-up">+Rp 300rb</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer-sec"></div>
+
+  <div class="sec-header">
+    <span class="sec-title">Tabungan & target</span>
+    <div class="sec-add" onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Baru KasBon tipe tabungan')" aria-label="Tambah tabungan">
+      <i class="ti ti-plus" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet Tabungan KasBon untuk beli mobil')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-car" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">Beli mobil</div>
+        <div class="wc-meta">
+          <span class="wc-type">Target: Rp 80jt</span>
+          <span class="badge badge-saving">Tabungan</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 4.800.000</div>
+        <div class="wc-change change-up">+Rp 500rb</div>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-labels">
+        <span>6% tercapai</span>
+        <span style="color:#7C6FF7">sisa Rp 75,2jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:6%;background:#7C6FF7"></div></div>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet Tabungan KasBon untuk liburan')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-plane" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">Liburan keluarga</div>
+        <div class="wc-meta">
+          <span class="wc-type">Target: Rp 15jt</span>
+          <span class="badge badge-saving">Tabungan</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo">Rp 500.000</div>
+        <div class="wc-change change-up">baru mulai</div>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-labels">
+        <span>3% tercapai</span>
+        <span style="color:#2DD4A4">sisa Rp 14,5jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:3%;background:#2DD4A4"></div></div>
+    </div>
+  </div>
+
+  <div class="spacer-sec"></div>
+
+  <div class="sec-header">
+    <span class="sec-title">Hutang & piutang</span>
+    <div class="sec-add" onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Hutang KasBon')" aria-label="Tambah hutang">
+      <i class="ti ti-plus" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="wallet-card" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet Hutang KasBon untuk cicilan motor')">
+    <div class="wc-row">
+      <div class="wc-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-motorbike" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="wc-main">
+        <div class="wc-name">Cicilan motor</div>
+        <div class="wc-meta">
+          <span class="wc-type">Jatuh tempo: 25 Jun</span>
+          <span class="badge badge-debt">Hutang</span>
+        </div>
+      </div>
+      <div class="wc-right">
+        <div class="wc-saldo" style="color:#FF6B6B">Rp 8.200.000</div>
+        <div class="wc-change change-dn">cicilan Rp 800rb/bln</div>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-labels">
+        <span>Terlunasi 63%</span>
+        <span style="color:#FF6B6B">14 bulan lagi</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:63%;background:#FF6B6B"></div></div>
+    </div>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item active">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <span class="bnav-lbl">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Klik kartu dompet untuk lanjut ke detail-nya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Buat Dompet Baru KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Buat dompet baru ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman QR Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">QR dompet ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Catat transaksi ↗</button>
+  </div>
+</div>
+</div>
