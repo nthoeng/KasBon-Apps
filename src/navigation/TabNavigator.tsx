@@ -7,7 +7,7 @@ import { colors } from '../theme/colors';
 // Screens
 import { HomeScreen } from '../screens/Home/HomeScreen';
 import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
-import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
+import { TransactionTypeSelectionScreen } from '../screens/Transaction/TransactionTypeSelectionScreen';
 import { ProjectListScreen } from '../screens/Project/ProjectListScreen';
 import { ProfileScreen } from '../screens/Profile/ProfileScreen';
 
@@ -55,7 +55,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen 
         name="Add" 
-        component={AddTransactionScreen} 
+        component={TransactionTypeSelectionScreen} 
         options={{
           tabBarIcon: () => <Ionicons name="add" size={32} color={colors.background} />,
           tabBarButton: (props) => <CustomTabBarButton {...props} />
