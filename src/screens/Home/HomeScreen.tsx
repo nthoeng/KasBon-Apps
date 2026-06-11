@@ -54,6 +54,7 @@ const quickActions = [
     iconColor: colors.expense,
     backgroundColor: 'rgba(255,107,107,0.15)',
     screen: 'Add',
+    params: { type: 'expense' },
   },
   {
     id: 'action-2',
@@ -62,6 +63,7 @@ const quickActions = [
     iconColor: colors.income,
     backgroundColor: 'rgba(45,212,164,0.15)',
     screen: 'Add',
+    params: { type: 'income' },
   },
   {
     id: 'action-3',
@@ -70,6 +72,7 @@ const quickActions = [
     iconColor: colors.primary,
     backgroundColor: 'rgba(245,200,66,0.15)',
     screen: 'Add',
+    params: { type: 'transfer' },
   },
   {
     id: 'action-4',
@@ -81,7 +84,16 @@ const quickActions = [
   },
 ];
 
-const recentTransactions = [
+type TransactionType = 'income' | 'expense' | 'transfer';
+
+const recentTransactions: Array<{
+  id: string;
+  title: string;
+  category: string;
+  amount: number;
+  type: TransactionType;
+  date: string;
+}> = [
   {
     id: 'tx-1',
     title: 'Beli Token Listrik',
@@ -199,7 +211,7 @@ export const HomeScreen = ({ navigation }: any) => {
               key={action.id}
               style={styles.quickButton}
               activeOpacity={0.85}
-              onPress={() => navigation.navigate(action.screen)}
+              onPress={() => navigation.navigate(action.screen, action.params)}
             >
               <View style={[styles.quickIcon, { backgroundColor: action.backgroundColor }]}>
                 <Ionicons name={action.icon as any} size={18} color={action.iconColor} />

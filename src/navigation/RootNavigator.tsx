@@ -10,6 +10,8 @@ import { ForgotPasswordScreen } from '../screens/Auth/ForgotPasswordScreen';
 import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
 import { TabNavigator } from './TabNavigator';
 import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
+import { AddWalletScreen } from '../screens/Wallet/AddWalletScreen';
+import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
 import { TransactionDetailScreen } from '../screens/Transaction/TransactionDetailScreen';
 import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
 import { colors } from '../theme/colors';
@@ -36,6 +38,8 @@ export const RootNavigator = () => {
         <Stack.Screen name="SetupFamily" component={SetupFamilyScreen} />
         <Stack.Screen name="MainTabs" component={TabNavigator} />
         <Stack.Screen name="WalletDetail" component={WalletDetailScreen} />
+        <Stack.Screen name="AddWallet" component={AddWalletScreen} />
+        <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
         <Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
         <Stack.Screen name="TransactionDetail" component={TransactionDetailScreen} />
       </Stack.Navigator>

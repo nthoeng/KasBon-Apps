@@ -6,8 +6,9 @@ import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
 import { GlassCard } from '../../components/ui/GlassCard';
 
-export const AddTransactionScreen = ({ navigation }: any) => {
-  const [transactionType, setTransactionType] = useState<'expense' | 'income' | 'transfer'>('expense');
+export const AddTransactionScreen = ({ navigation, route }: any) => {
+  const initialType = route?.params?.type ?? 'expense';
+  const [transactionType, setTransactionType] = useState<'expense' | 'income' | 'transfer'>(initialType);
 
   return (
     <SafeAreaView style={styles.safeArea}>

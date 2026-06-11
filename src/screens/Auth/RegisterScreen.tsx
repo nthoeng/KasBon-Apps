@@ -35,7 +35,7 @@ export const RegisterScreen = ({ navigation }: any) => {
           <View style={styles.stepsRow}>
             <View style={styles.step}>
               <View style={[styles.stepCircle, styles.stepDone]}>
-                <Ionicons name="check" size={14} color={colors.background} />
+                <Ionicons name="checkmark" size={14} color={colors.background} />
               </View>
               <Text style={[styles.stepLabel, styles.stepLabelDone]}>Profil</Text>
             </View>
