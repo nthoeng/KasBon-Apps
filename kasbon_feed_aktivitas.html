@@ -1,0 +1,417 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.search-bar{flex:1;display:flex;align-items:center;gap:8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:12px;padding:0 12px;height:36px}
+.search-txt{font-size:13px;color:var(--kb-t3);flex:1}
+.summary-strip{display:flex;gap:8px;padding:8px 18px 10px}
+.sum-card{flex:1;background:var(--kb-card2);border-radius:12px;padding:9px 10px;border:0.5px solid var(--kb-b1)}
+.sum-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.sum-val{font-size:13px;font-weight:500}
+.filter-scroll{display:flex;gap:7px;padding:0 18px 10px;overflow-x:auto;scrollbar-width:none}
+.filter-scroll::-webkit-scrollbar{display:none}
+.filter-chip{flex-shrink:0;display:flex;align-items:center;gap:5px;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:500;cursor:pointer;border:0.5px solid transparent}
+.fc-active{background:#7C6FF7;color:#fff;border-color:#7C6FF7}
+.fc-idle{background:var(--kb-card);border-color:var(--kb-b2);color:var(--kb-t2)}
+.day-group{margin-bottom:4px}
+.day-label{display:flex;align-items:center;gap:10px;padding:10px 18px 6px}
+.day-txt{font-size:11px;font-weight:500;color:var(--kb-t3);letter-spacing:.04em;white-space:nowrap}
+.day-line{flex:1;height:0.5px;background:var(--kb-b1)}
+.day-summary{font-size:11px;color:var(--kb-t3);white-space:nowrap}
+.tx-item{display:flex;align-items:center;gap:11px;padding:10px 18px;cursor:pointer}
+.tx-item:active{background:rgba(255,255,255,0.02)}
+.tx-left{position:relative;flex-shrink:0}
+.tx-icon{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.tx-avatar{position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;border:1.5px solid var(--kb-bg)}
+.tx-info{flex:1;min-width:0}
+.tx-name{font-size:13px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-meta{display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap}
+.tx-cat{font-size:10px;color:var(--kb-t3)}
+.tx-dot{width:3px;height:3px;border-radius:50%;background:var(--kb-t3);flex-shrink:0}
+.tx-wallet{font-size:10px;color:var(--kb-t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px}
+.tx-time{font-size:10px;color:var(--kb-t3);white-space:nowrap}
+.tx-right{text-align:right;flex-shrink:0}
+.tx-amt{font-size:14px;font-weight:500}
+.tx-saldo{font-size:10px;color:var(--kb-t3);margin-top:1px}
+.tx-sep{height:0.5px;background:var(--kb-b1);margin:0 18px}
+.transfer-item{display:flex;align-items:center;gap:11px;padding:10px 18px;cursor:pointer}
+.transfer-flow-mini{display:flex;align-items:center;gap:6px;margin-top:3px}
+.tf-pill{display:flex;align-items:center;gap:4px;background:rgba(124,111,247,0.1);border-radius:6px;padding:2px 6px}
+.tf-pill span{font-size:10px;color:#A89FF9}
+.tf-arrow-txt{font-size:10px;color:var(--kb-t3)}
+.load-more{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;cursor:pointer}
+.lm-txt{font-size:12px;color:var(--kb-t3)}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman aktivitas feed transaksi KasBon — timeline semua transaksi keluarga dikelompokkan per hari, dengan filter, search, dan ringkasan harian.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div style="font-size:17px;font-weight:500;color:var(--kb-text)">Aktivitas</div>
+      <div style="font-size:11px;color:var(--kb-t3)">Juni 2025 · 24 transaksi</div>
+    </div>
+    <div style="display:flex;gap:7px;margin-left:auto">
+      <div class="icon-btn" aria-label="Cari transaksi">
+        <i class="ti ti-search" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" aria-label="Export">
+        <i class="ti ti-download" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-strip">
+    <div class="sum-card">
+      <div class="sum-lbl">Pemasukan</div>
+      <div class="sum-val" style="color:#2DD4A4">Rp 8,5jt</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-lbl">Pengeluaran</div>
+      <div class="sum-val" style="color:#FF6B6B">Rp 4,25jt</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-lbl">Transfer</div>
+      <div class="sum-val" style="color:#7C6FF7">Rp 2jt</div>
+    </div>
+  </div>
+
+  <div class="filter-scroll">
+    <div class="filter-chip fc-active">
+      <i class="ti ti-list" style="font-size:12px" aria-hidden="true"></i>
+      Semua
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-arrow-up-right" style="font-size:12px" aria-hidden="true"></i>
+      Keluar
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-arrow-down-left" style="font-size:12px" aria-hidden="true"></i>
+      Masuk
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-arrows-exchange" style="font-size:12px" aria-hidden="true"></i>
+      Transfer
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-user" style="font-size:12px" aria-hidden="true"></i>
+      Bayu
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-user" style="font-size:12px" aria-hidden="true"></i>
+      Istri
+    </div>
+    <div class="filter-chip fc-idle">
+      <i class="ti ti-wallet" style="font-size:12px" aria-hidden="true"></i>
+      Kas keluarga
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">
+      <span class="day-txt">Hari ini — 11 Jun</span>
+      <div class="day-line"></div>
+      <span class="day-summary" style="color:#FF6B6B">-Rp 272.500</span>
+    </div>
+
+    <div class="tx-item" onclick="sendPrompt('Buatkan mockup UI screen Konfirmasi Transaksi KasBon')">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-shopping-cart" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#F5C842,#FF6B6B)">I</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Belanja Indomaret</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Belanja</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">Kas keluarga</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">11:24</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 87.500</div>
+        <div class="tx-saldo">saldo 6,8jt</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-tools-kitchen-2" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Makan siang warung</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Makan</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">Kas keluarga</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">12:05</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 35.000</div>
+        <div class="tx-saldo">saldo 6,76jt</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-bolt" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Listrik PLN</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Tagihan</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">GoPay Istri</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">09:15</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 150.000</div>
+        <div class="tx-saldo">saldo 680rb</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">
+      <span class="day-txt">Kemarin — 10 Jun</span>
+      <div class="day-line"></div>
+      <span class="day-summary" style="color:#2DD4A4">+Rp 4,3jt</span>
+    </div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(45,212,164,0.1)">
+          <i class="ti ti-briefcase" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Gaji Juni 2025</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Gaji</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">BCA Bayu</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">08:00</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#2DD4A4">+Rp 6.500.000</div>
+        <div class="tx-saldo">saldo 4,1jt</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="transfer-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(124,111,247,0.1)">
+          <i class="ti ti-arrows-exchange" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Transfer kas bulanan</div>
+        <div class="transfer-flow-mini">
+          <div class="tf-pill">
+            <i class="ti ti-building-bank" style="font-size:10px;color:#A89FF9" aria-hidden="true"></i>
+            <span>BCA Bayu</span>
+          </div>
+          <span class="tf-arrow-txt">→</span>
+          <div class="tf-pill">
+            <i class="ti ti-home" style="font-size:10px;color:#A89FF9" aria-hidden="true"></i>
+            <span>Kas keluarga</span>
+          </div>
+          <span class="tx-dot"></span>
+          <span class="tx-time">09:41</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#7C6FF7">Rp 2.000.000</div>
+        <div class="tx-saldo">transfer</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-car" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Bensin Pertamax</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Transport</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">BCA Bayu</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">17:30</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 100.000</div>
+        <div class="tx-saldo">saldo 4,1jt</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-shopping-bag" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#F5C842,#FF6B6B)">I</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Shopee — baju anak</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Belanja</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">GoPay Istri</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">14:22</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 98.000</div>
+        <div class="tx-saldo">saldo 800rb</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">
+      <span class="day-txt">9 Jun</span>
+      <div class="day-line"></div>
+      <span class="day-summary" style="color:#FF6B6B">-Rp 320.000</span>
+    </div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(45,212,164,0.1)">
+          <i class="ti ti-heart-rate-monitor" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#F5C842,#FF6B6B)">I</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Apotek — vitamin</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Kesehatan</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">Kas keluarga</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">10:11</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 85.000</div>
+        <div class="tx-saldo">saldo 7,3jt</div>
+      </div>
+    </div>
+    <div class="tx-sep"></div>
+
+    <div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-icon" style="background:rgba(124,111,247,0.1)">
+          <i class="ti ti-device-gamepad-2" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+        </div>
+        <div class="tx-avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Netflix langganan</div>
+        <div class="tx-meta">
+          <span class="tx-cat">Hiburan</span>
+          <span class="tx-dot"></span>
+          <span class="tx-wallet">OVO Bayu</span>
+          <span class="tx-dot"></span>
+          <span class="tx-time">00:00</span>
+        </div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:#FF6B6B">-Rp 54.000</div>
+        <div class="tx-saldo">berulang</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="load-more">
+    <i class="ti ti-chevron-down" style="font-size:16px;color:#3E5878" aria-hidden="true"></i>
+    <span class="lm-txt">Muat lebih banyak — 18 transaksi lagi</span>
+  </div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <span class="bnav-lbl">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman QR Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">QR dompet ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">List project ↗</button>
+  </div>
+</div>
+</div>

@@ -1,0 +1,291 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:300px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 4px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.mode-tabs{display:flex;background:var(--kb-card2);border-radius:14px;padding:3px;margin:8px 18px 0}
+.tab{flex:1;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;gap:6px;cursor:pointer}
+.tab-active-gold{background:#F5C842;color:#0A1628}
+.tab-active-violet{background:#7C6FF7;color:#fff}
+.tab-idle{color:var(--kb-t3)}
+.qr-screen{padding:16px 18px 24px;display:flex;flex-direction:column;align-items:center}
+.wallet-chip{display:flex;align-items:center;gap:10px;background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:14px;padding:10px 14px;width:100%;margin-bottom:18px;cursor:pointer}
+.wc-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wc-info{flex:1}
+.wc-name{font-size:13px;font-weight:500;color:var(--kb-text)}
+.wc-saldo{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.wc-change{color:var(--kb-t3);font-size:15px}
+.qr-card{background:#F8FAFC;border-radius:20px;padding:18px;width:196px;display:flex;flex-direction:column;align-items:center;margin-bottom:14px;border:0.5px solid rgba(255,255,255,0.15)}
+.qr-logo-area{display:flex;flex-direction:column;align-items:center;margin-bottom:12px}
+.qr-logo{width:36px;height:36px;border-radius:50%;background:#E8A800;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.qr-brand{font-size:11px;font-weight:500;color:#0F1923}
+.qr-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:2px;width:154px;height:154px}
+.qc{border-radius:1px}
+.qr-name{font-size:12px;font-weight:500;color:#1E2D3D;margin-top:10px}
+.qr-type{font-size:10px;color:#5F7A96;margin-top:2px}
+.timer-row{display:flex;align-items:center;gap:6px;margin-bottom:18px}
+.timer-icon{color:var(--kb-t3);font-size:14px}
+.timer-txt{font-size:11px;color:var(--kb-t3)}
+.timer-val{font-size:11px;font-weight:500;color:var(--kb-gold)}
+.actions-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-bottom:10px}
+.act-btn{height:44px;border-radius:13px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:12px;color:var(--kb-t2)}
+.btn-scan-full{width:100%;height:48px;border-radius:14px;background:#7C6FF7;border:none;cursor:pointer;font-size:14px;font-weight:500;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px}
+.scan-screen{position:relative;background:#000;overflow:hidden}
+.camera-area{width:100%;height:240px;background:#0A0F18;display:flex;align-items:center;justify-content:center;position:relative}
+.cam-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.scan-frame{width:160px;height:160px;position:relative}
+.sf-corner{position:absolute;width:24px;height:24px;border-color:#F5C842;border-style:solid}
+.sf-tl{top:0;left:0;border-width:3px 0 0 3px;border-radius:4px 0 0 0}
+.sf-tr{top:0;right:0;border-width:3px 3px 0 0;border-radius:0 4px 0 0}
+.sf-bl{bottom:0;left:0;border-width:0 0 3px 3px;border-radius:0 0 0 4px}
+.sf-br{bottom:0;right:0;border-width:0 3px 3px 0;border-radius:0 0 4px 0}
+.scan-line{position:absolute;left:4px;right:4px;height:2px;background:rgba(245,200,66,0.6);top:50%;animation:scanline 2s ease-in-out infinite}
+@keyframes scanline{0%{top:10%}50%{top:90%}100%{top:10%}}
+.cam-hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:rgba(255,255,255,0.5)}
+.cam-topbar{display:flex;align-items:center;gap:10px;padding:8px 16px;position:absolute;top:0;left:0;right:0}
+.torch-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.scan-body{background:var(--kb-bg);padding:16px 18px 24px}
+.scan-info{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+.si-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.scan-recents{margin-bottom:14px}
+.sr-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;margin-bottom:8px}
+.sr-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.sr-scroll::-webkit-scrollbar{display:none}
+.sr-chip{flex-shrink:0;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:7px;cursor:pointer}
+.sr-wicon{width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sr-name{font-size:11px;color:var(--kb-text);white-space:nowrap}
+.sr-sub{font-size:10px;color:var(--kb-t3);margin-top:1px;white-space:nowrap}
+.state-lbl{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-t3);text-align:center;padding-bottom:6px;text-transform:uppercase}
+</style>
+
+<h2 class="sr-only">Mockup dua mode halaman QR dompet KasBon: tampil QR untuk menerima transfer, dan kamera scan QR untuk mengirim transfer.</h2>
+
+<div style="padding:20px 0">
+<p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:6px">Dua mode — tampil QR & scan kamera</p>
+
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="state-lbl">Mode 1 — tampilkan QR</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+          <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+        <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">QR dompet</div>
+        <div class="icon-btn" aria-label="Bagikan QR">
+          <i class="ti ti-share" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div style="padding:6px 18px 0">
+        <div class="mode-tabs">
+          <div class="tab tab-active-gold">
+            <i class="ti ti-qrcode" style="font-size:14px" aria-hidden="true"></i>
+            Tampilkan
+          </div>
+          <div class="tab tab-idle">
+            <i class="ti ti-scan" style="font-size:14px" aria-hidden="true"></i>
+            Scan
+          </div>
+        </div>
+      </div>
+
+      <div class="qr-screen">
+        <div class="wallet-chip">
+          <div class="wc-icon" style="background:rgba(245,200,66,0.12)">
+            <i class="ti ti-home" style="font-size:17px;color:#F5C842" aria-hidden="true"></i>
+          </div>
+          <div class="wc-info">
+            <div class="wc-name">Kas keluarga</div>
+            <div class="wc-saldo">Saldo: Rp 6.800.000</div>
+          </div>
+          <i class="ti ti-chevron-down wc-change" aria-hidden="true"></i>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-logo-area">
+            <div class="qr-logo">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <polygon points="20,7 32,15 32,30 8,30 8,15" fill="#F5C842"/>
+                <polygon points="20,3 34,14 6,14" fill="#FDE8D8"/>
+                <rect x="15" y="22" width="10" height="8" rx="1.5" fill="#E8A800"/>
+              </svg>
+            </div>
+            <span class="qr-brand">KasBon</span>
+          </div>
+          <div class="qr-grid" id="qr-display" aria-label="QR code untuk dompet Kas keluarga"></div>
+          <div class="qr-name">Kas keluarga</div>
+          <div class="qr-type">Dompet keluarga — Global</div>
+        </div>
+
+        <div class="timer-row">
+          <i class="ti ti-clock timer-icon" aria-hidden="true"></i>
+          <span class="timer-txt">QR aktif selama</span>
+          <span class="timer-val">08:42</span>
+          <span class="timer-txt">— lalu refresh otomatis</span>
+        </div>
+
+        <div class="actions-row">
+          <div class="act-btn">
+            <i class="ti ti-refresh" style="font-size:16px" aria-hidden="true"></i>
+            Refresh QR
+          </div>
+          <div class="act-btn">
+            <i class="ti ti-download" style="font-size:16px" aria-hidden="true"></i>
+            Simpan foto
+          </div>
+        </div>
+
+        <div style="width:100%;background:rgba(124,111,247,0.08);border:0.5px solid rgba(124,111,247,0.2);border-radius:12px;padding:10px 12px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <i class="ti ti-shield-check" style="font-size:16px;color:#7C6FF7;flex-shrink:0" aria-hidden="true"></i>
+            <div>
+              <div style="font-size:12px;font-weight:500;color:#A89FF9">QR aman & terenkripsi</div>
+              <div style="font-size:11px;color:var(--kb-t3);margin-top:1px">Berisi ID terenkripsi, bukan data saldo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="state-lbl">Mode 2 — scan QR</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <div class="back-btn">
+          <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+        <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">QR dompet</div>
+        <div class="icon-btn" aria-label="Riwayat scan">
+          <i class="ti ti-history" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div style="padding:6px 18px 0">
+        <div class="mode-tabs">
+          <div class="tab tab-idle">
+            <i class="ti ti-qrcode" style="font-size:14px" aria-hidden="true"></i>
+            Tampilkan
+          </div>
+          <div class="tab tab-active-violet">
+            <i class="ti ti-scan" style="font-size:14px" aria-hidden="true"></i>
+            Scan
+          </div>
+        </div>
+      </div>
+
+      <div class="scan-screen">
+        <div class="camera-area">
+          <div class="cam-topbar">
+            <div style="flex:1;font-size:11px;color:rgba(255,255,255,0.5)">Arahkan ke QR dompet</div>
+            <div class="torch-btn" aria-label="Senter">
+              <i class="ti ti-bulb" style="font-size:15px;color:rgba(255,255,255,0.7)" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="cam-overlay">
+            <div class="scan-frame">
+              <div class="sf-corner sf-tl"></div>
+              <div class="sf-corner sf-tr"></div>
+              <div class="sf-corner sf-bl"></div>
+              <div class="sf-corner sf-br"></div>
+              <div class="scan-line"></div>
+            </div>
+          </div>
+          <div class="cam-hint">Scan QR dompet atau QR profil anggota</div>
+        </div>
+      </div>
+
+      <div class="scan-body">
+        <div class="scan-info">
+          <div class="si-row">
+            <i class="ti ti-info-circle" style="font-size:16px;color:#7C6FF7;flex-shrink:0" aria-hidden="true"></i>
+            <div style="font-size:12px;font-weight:500;color:#A89FF9">Cara pakai scan QR</div>
+          </div>
+          <div style="font-size:11px;color:var(--kb-t3);line-height:1.6;padding-left:24px">Minta anggota keluarga tampilkan QR dompet mereka, lalu scan — form transfer akan terisi otomatis.</div>
+        </div>
+
+        <div class="scan-recents">
+          <div class="sr-lbl">Scan terakhir</div>
+          <div class="sr-scroll">
+            <div class="sr-chip" onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')">
+              <div class="sr-wicon" style="background:rgba(124,111,247,0.12)">
+                <i class="ti ti-device-mobile" style="font-size:13px;color:#7C6FF7" aria-hidden="true"></i>
+              </div>
+              <div>
+                <div class="sr-name">GoPay Istri</div>
+                <div class="sr-sub">kemarin · 14:22</div>
+              </div>
+            </div>
+            <div class="sr-chip" onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')">
+              <div class="sr-wicon" style="background:rgba(245,200,66,0.1)">
+                <i class="ti ti-home" style="font-size:13px;color:#F5C842" aria-hidden="true"></i>
+              </div>
+              <div>
+                <div class="sr-name">Kas keluarga</div>
+                <div class="sr-sub">2 hari lalu · 09:41</div>
+              </div>
+            </div>
+            <div class="sr-chip" onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')">
+              <div class="sr-wicon" style="background:rgba(45,212,164,0.1)">
+                <i class="ti ti-building-bank" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i>
+              </div>
+              <div>
+                <div class="sr-name">BCA Bayu</div>
+                <div class="sr-sub">3 hari lalu · 11:05</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-scan-full" onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')">
+          <i class="ti ti-scan" style="font-size:18px" aria-hidden="true"></i>
+          Atau pilih dompet manual
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">List project ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Profil ↗</button>
+  </div>
+</div>
+</div>
+
+<script>
+const p=[1,1,1,1,1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,1,1,0,1,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,1,1,1,0,1,0,0,1,0,0,1,1,1,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,1,0,1,0,1,0,0,1,0,1];
+const g=document.getElementById('qr-display');
+if(g){p.forEach(v=>{const d=document.createElement('div');d.className='qc';d.style.background=v?'#0F1923':'transparent';g.appendChild(d);})}
+</script>

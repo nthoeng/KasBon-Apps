@@ -1,0 +1,295 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.08);--kb-b2:rgba(255,255,255,0.15);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 4px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.tipe-tabs{display:flex;gap:0;background:var(--kb-card2);border-radius:12px;padding:3px;margin:0 18px 14px}
+.tab{flex:1;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;gap:5px}
+.tab.active-green{background:#2DD4A4;color:#0A1628}
+.tab.idle{color:var(--kb-t3)}
+.nominal-area{padding:8px 18px 16px;text-align:center}
+.nominal-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:8px;letter-spacing:.04em}
+.nominal-display{display:flex;align-items:baseline;justify-content:center;gap:6px;margin-bottom:8px}
+.nominal-prefix{font-size:20px;color:var(--kb-t2);font-weight:400}
+.nominal-val{font-size:40px;font-weight:500;color:#2DD4A4;letter-spacing:-1px}
+.nominal-cursor{width:2px;height:36px;background:#2DD4A4;display:inline-block;vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.income-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(45,212,164,0.1);border:0.5px solid rgba(45,212,164,0.25);border-radius:20px;padding:4px 10px;font-size:11px;color:#2DD4A4}
+.section{padding:0 18px;margin-bottom:10px}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;margin-bottom:8px}
+.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px}
+.source-card{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.source-card.selected{border-color:rgba(45,212,164,0.5);background:rgba(45,212,164,0.06)}
+.source-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.source-icon{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.source-name{font-size:12px;font-weight:500;color:var(--kb-text)}
+.source-type{font-size:10px;color:var(--kb-t3)}
+.source-check{width:16px;height:16px;border-radius:50%;background:#2DD4A4;display:flex;align-items:center;justify-content:center;margin-left:auto}
+.field-row{display:flex;align-items:center;gap:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:13px;padding:11px 13px;margin-bottom:8px;cursor:pointer}
+.field-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.field-info{flex:1;min-width:0}
+.field-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:1px}
+.field-val{font-size:13px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.field-val.ph{color:var(--kb-t3);font-weight:400}
+.field-right{color:var(--kb-t3);font-size:16px;flex-shrink:0}
+.split-card{background:rgba(45,212,164,0.06);border:0.5px solid rgba(45,212,164,0.2);border-radius:13px;padding:12px 13px;margin-bottom:8px}
+.split-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.split-title{font-size:13px;font-weight:500;color:#2DD4A4;flex:1}
+.split-toggle{width:36px;height:20px;border-radius:10px;background:#2DD4A4;position:relative;cursor:pointer}
+.split-toggle::after{content:'';position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:#0A1628}
+.split-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.split-row:last-child{margin-bottom:0}
+.split-wallet{display:flex;align-items:center;gap:7px}
+.split-w-icon{width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.split-w-name{font-size:12px;color:var(--kb-text)}
+.split-pct{font-size:12px;font-weight:500}
+.split-bar-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:4px}
+.split-bar-fill{height:3px;border-radius:2px;background:#2DD4A4}
+.note-field{display:flex;align-items:center;gap:10px;background:var(--kb-card);border:0.5px solid rgba(45,212,164,0.25);border-radius:13px;padding:11px 13px;margin-bottom:8px}
+.extras-row{display:flex;gap:8px;margin-bottom:12px}
+.extra-btn{flex:1;height:36px;border-radius:11px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;font-size:11px;color:var(--kb-t2)}
+.numpad{background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1);padding:10px 16px 16px}
+.numpad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.nkey{height:46px;border-radius:13px;background:var(--kb-card);border:0.5px solid var(--kb-b1);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:500;color:var(--kb-text);cursor:pointer}
+.nkey.del{background:rgba(45,212,164,0.06);border-color:rgba(45,212,164,0.15)}
+.nkey.dot{font-size:24px;color:var(--kb-t2)}
+.btn-save{width:100%;height:50px;border-radius:16px;background:#2DD4A4;border:none;cursor:pointer;font-size:15px;font-weight:500;color:#0A1628;display:flex;align-items:center;justify-content:center;gap:8px}
+</style>
+
+<h2 class="sr-only">Mockup form catat pemasukan KasBon — input nominal dengan numpad, pilih sumber pemasukan, dompet tujuan, dan fitur split otomatis ke beberapa dompet.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center">
+      <div style="font-size:15px;font-weight:500;color:var(--kb-text)">Catat transaksi</div>
+    </div>
+    <div style="width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer" aria-label="Riwayat">
+      <i class="ti ti-clock" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="tipe-tabs">
+    <div class="tab idle" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon')">
+      <i class="ti ti-arrow-up-right" style="font-size:13px" aria-hidden="true"></i>
+      Keluar
+    </div>
+    <div class="tab active-green">
+      <i class="ti ti-arrow-down-left" style="font-size:13px" aria-hidden="true"></i>
+      Masuk
+    </div>
+    <div class="tab idle" onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')">
+      <i class="ti ti-arrows-exchange" style="font-size:13px" aria-hidden="true"></i>
+      Transfer
+    </div>
+  </div>
+
+  <div class="nominal-area">
+    <div class="nominal-lbl">Nominal pemasukan</div>
+    <div class="nominal-display">
+      <span class="nominal-prefix">Rp</span>
+      <span class="nominal-val">6.500.000</span>
+      <span class="nominal-cursor"></span>
+    </div>
+    <div class="income-badge">
+      <i class="ti ti-trending-up" style="font-size:13px" aria-hidden="true"></i>
+      +Rp 6,5jt akan masuk ke saldo keluarga
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-lbl">Sumber pemasukan</div>
+    <div class="source-grid">
+      <div class="source-card selected">
+        <div class="source-top">
+          <div class="source-icon" style="background:rgba(45,212,164,0.12)">
+            <i class="ti ti-briefcase" style="font-size:14px;color:#2DD4A4" aria-hidden="true"></i>
+          </div>
+          <div style="flex:1">
+            <div class="source-name">Gaji</div>
+            <div class="source-type">Rutin bulanan</div>
+          </div>
+          <div class="source-check">
+            <i class="ti ti-check" style="font-size:10px;color:#0A1628" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-top">
+          <div class="source-icon" style="background:rgba(124,111,247,0.12)">
+            <i class="ti ti-code" style="font-size:14px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div class="source-name">Freelance</div>
+            <div class="source-type">Project lepas</div>
+          </div>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-top">
+          <div class="source-icon" style="background:rgba(245,200,66,0.12)">
+            <i class="ti ti-building-store" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div class="source-name">Usaha</div>
+            <div class="source-type">Bisnis keluarga</div>
+          </div>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-top">
+          <div class="source-icon" style="background:rgba(255,255,255,0.06)">
+            <i class="ti ti-dots" style="font-size:14px;color:#8FA8CC" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div class="source-name">Lainnya</div>
+            <div class="source-type">Hadiah, bonus</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="field-row">
+      <div class="field-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-building-bank" style="font-size:16px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="field-info">
+        <div class="field-lbl">Masuk ke dompet</div>
+        <div class="field-val">BCA Bayu — saldo Rp 4.100.000</div>
+      </div>
+      <i class="ti ti-chevron-right field-right" aria-hidden="true"></i>
+    </div>
+
+    <div class="split-card">
+      <div class="split-header">
+        <i class="ti ti-arrows-split" style="font-size:16px;color:#2DD4A4" aria-hidden="true"></i>
+        <span class="split-title">Split otomatis ke dompet lain</span>
+        <div class="split-toggle"></div>
+      </div>
+      <div class="split-row">
+        <div class="split-wallet">
+          <div class="split-w-icon" style="background:rgba(45,212,164,0.1)">
+            <i class="ti ti-building-bank" style="font-size:12px;color:#2DD4A4" aria-hidden="true"></i>
+          </div>
+          <span class="split-w-name">BCA Bayu</span>
+        </div>
+        <span class="split-pct" style="color:#2DD4A4">60% — Rp 3.900.000</span>
+      </div>
+      <div style="padding:0 0 8px 30px"><div class="split-bar-track"><div class="split-bar-fill" style="width:60%"></div></div></div>
+      <div class="split-row">
+        <div class="split-wallet">
+          <div class="split-w-icon" style="background:rgba(245,200,66,0.1)">
+            <i class="ti ti-home" style="font-size:12px;color:#F5C842" aria-hidden="true"></i>
+          </div>
+          <span class="split-w-name">Kas keluarga</span>
+        </div>
+        <span class="split-pct" style="color:#F5C842">30% — Rp 1.950.000</span>
+      </div>
+      <div style="padding:0 0 8px 30px"><div class="split-bar-track"><div class="split-bar-fill" style="width:30%;background:#F5C842"></div></div></div>
+      <div class="split-row">
+        <div class="split-wallet">
+          <div class="split-w-icon" style="background:rgba(124,111,247,0.1)">
+            <i class="ti ti-piggy-bank" style="font-size:12px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <span class="split-w-name">Dana darurat</span>
+        </div>
+        <span class="split-pct" style="color:#7C6FF7">10% — Rp 650.000</span>
+      </div>
+      <div style="padding:0 0 0 30px"><div class="split-bar-track"><div class="split-bar-fill" style="width:10%;background:#7C6FF7"></div></div></div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-calendar" style="font-size:16px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="field-info">
+        <div class="field-lbl">Tanggal & waktu</div>
+        <div class="field-val">Hari ini, 11 Jun 2025 · 08:00</div>
+      </div>
+      <i class="ti ti-chevron-right field-right" aria-hidden="true"></i>
+    </div>
+
+    <div class="note-field">
+      <div class="field-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-pencil" style="font-size:16px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="field-info">
+        <div class="field-lbl">Catatan</div>
+        <div class="field-val">Gaji Juni 2025</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="extras-row">
+      <div class="extra-btn">
+        <i class="ti ti-repeat" style="font-size:15px" aria-hidden="true"></i>
+        Rutin bulanan
+      </div>
+      <div class="extra-btn">
+        <i class="ti ti-tag" style="font-size:15px" aria-hidden="true"></i>
+        Tambah tag
+      </div>
+      <div class="extra-btn" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+        <i class="ti ti-briefcase" style="font-size:15px" aria-hidden="true"></i>
+        Link project
+      </div>
+    </div>
+  </div>
+
+  <div class="numpad">
+    <div class="numpad-grid">
+      <div class="nkey">1</div>
+      <div class="nkey">2</div>
+      <div class="nkey">3</div>
+      <div class="nkey">4</div>
+      <div class="nkey">5</div>
+      <div class="nkey">6</div>
+      <div class="nkey">7</div>
+      <div class="nkey">8</div>
+      <div class="nkey">9</div>
+      <div class="nkey dot">.</div>
+      <div class="nkey">0</div>
+      <div class="nkey del">
+        <i class="ti ti-backspace" style="font-size:20px;color:#5DCAA5" aria-hidden="true"></i>
+      </div>
+    </div>
+    <button class="btn-save" onclick="sendPrompt('Buatkan mockup UI screen Konfirmasi Transaksi KasBon')">
+      <i class="ti ti-check" style="font-size:18px" aria-hidden="true"></i>
+      Simpan pemasukan
+    </button>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI Form Transfer Antar Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Form transfer ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI screen Konfirmasi Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Konfirmasi ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">List project ↗</button>
+  </div>
+</div>
+</div>

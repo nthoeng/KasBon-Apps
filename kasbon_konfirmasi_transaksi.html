@@ -1,0 +1,247 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.08);--kb-b2:rgba(255,255,255,0.15);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.screen-body{padding:0 18px 28px}
+.amount-hero{text-align:center;padding:20px 0 18px}
+.tipe-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;margin-bottom:12px}
+.amount-big{font-size:38px;font-weight:500;letter-spacing:-1px;margin-bottom:4px}
+.amount-sub{font-size:12px;color:var(--kb-t3)}
+.receipt-card{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:18px;overflow:hidden;margin-bottom:12px}
+.receipt-header{padding:12px 14px;border-bottom:0.5px solid var(--kb-b1);display:flex;align-items:center;gap:10px}
+.receipt-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.receipt-title{font-size:13px;font-weight:500;color:var(--kb-text)}
+.receipt-sub{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.receipt-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.receipt-row:last-child{border-bottom:none}
+.row-lbl{font-size:12px;color:var(--kb-t2);display:flex;align-items:center;gap:6px}
+.row-val{font-size:12px;font-weight:500;color:var(--kb-text);text-align:right;max-width:180px}
+.row-val.green{color:#2DD4A4}
+.row-val.red{color:#FF6B6B}
+.row-val.violet{color:#7C6FF7}
+.row-val.gold{color:#F5C842}
+.wallet-pill{display:flex;align-items:center;gap:6px}
+.w-icon-xs{width:20px;height:20px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.divider-dashed{border:none;border-top:1px dashed rgba(255,255,255,0.08);margin:0}
+.transfer-visual{display:flex;align-items:center;gap:0;padding:12px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.tw-block{flex:1;min-width:0}
+.tw-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:3px}
+.tw-name{font-size:12px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tw-saldo{font-size:11px;margin-top:1px}
+.tw-arrow{display:flex;flex-direction:column;align-items:center;padding:0 10px;flex-shrink:0}
+.ta-line{width:32px;height:1px;background:rgba(124,111,247,0.4)}
+.ta-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid rgba(124,111,247,0.6)}
+.saldo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px;background:rgba(255,255,255,0.02)}
+.sg-item{text-align:center}
+.sg-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.sg-val{font-size:13px;font-weight:500}
+.security-row{display:flex;align-items:center;gap:8px;background:rgba(45,212,164,0.06);border:0.5px solid rgba(45,212,164,0.15);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.actions-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.btn-secondary{height:46px;border-radius:14px;background:var(--kb-card);border:0.5px solid var(--kb-b2);cursor:pointer;font-size:13px;color:var(--kb-t2);display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-primary-red{width:100%;height:50px;border-radius:16px;background:#FF6B6B;border:none;cursor:pointer;font-size:15px;font-weight:500;color:#0A1628;display:flex;align-items:center;justify-content:center;gap:8px}
+.state-label{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-t3);text-align:center;padding-bottom:6px;text-transform:uppercase}
+.success-screen{background:var(--kb-bg);border-radius:44px;width:300px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.success-body{padding:40px 24px 32px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.success-ring{width:80px;height:80px;border-radius:50%;background:rgba(45,212,164,0.1);border:0.5px solid rgba(45,212,164,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.success-title{font-size:20px;font-weight:500;color:var(--kb-text);margin-bottom:6px}
+.success-amt{font-size:14px;color:#FF6B6B;font-weight:500;margin-bottom:4px}
+.success-sub{font-size:12px;color:var(--kb-t3);margin-bottom:24px;line-height:1.6}
+.success-card{width:100%;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;padding:12px;margin-bottom:20px}
+.sc-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:0.5px solid var(--kb-b1)}
+.sc-row:last-child{border-bottom:none}
+.sc-lbl{font-size:11px;color:var(--kb-t3)}
+.sc-val{font-size:11px;font-weight:500;color:var(--kb-text)}
+.success-actions{display:flex;flex-direction:column;gap:8px;width:100%}
+.btn-home{width:100%;height:46px;border-radius:14px;background:#2DD4A4;border:none;cursor:pointer;font-size:14px;font-weight:500;color:#0A1628;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-share{width:100%;height:40px;border-radius:12px;background:var(--kb-card);border:0.5px solid var(--kb-b2);cursor:pointer;font-size:13px;color:var(--kb-t2);display:flex;align-items:center;justify-content:center;gap:6px}
+.tx-id{font-size:11px;color:var(--kb-t3);margin-top:12px}
+</style>
+
+<h2 class="sr-only">Mockup dua state screen konfirmasi transaksi KasBon: review detail transaksi pengeluaran dan halaman sukses setelah transaksi tersimpan.</h2>
+
+<div style="padding:20px 0">
+<p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:6px">Dua state — konfirmasi & sukses</p>
+
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="state-label">State 1 — review & konfirmasi</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon')">
+          <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+        <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">Konfirmasi transaksi</div>
+        <div style="width:32px"></div>
+      </div>
+
+      <div class="screen-body">
+        <div class="amount-hero">
+          <div class="tipe-badge" style="background:rgba(255,107,107,0.1);color:#FF9090">
+            <i class="ti ti-arrow-up-right" style="font-size:13px" aria-hidden="true"></i>
+            Pengeluaran
+          </div>
+          <div class="amount-big" style="color:#FF6B6B">Rp 87.500</div>
+          <div class="amount-sub">dari Kas keluarga · barusan</div>
+        </div>
+
+        <div class="receipt-card">
+          <div class="receipt-header">
+            <div class="receipt-icon" style="background:rgba(255,107,107,0.12)">
+              <i class="ti ti-shopping-cart" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+            </div>
+            <div>
+              <div class="receipt-title">Belanja Indomaret</div>
+              <div class="receipt-sub">Kategori: Belanja</div>
+            </div>
+          </div>
+          <div class="receipt-row">
+            <span class="row-lbl"><i class="ti ti-wallet" style="font-size:14px" aria-hidden="true"></i>Dari dompet</span>
+            <div class="wallet-pill">
+              <div class="w-icon-xs" style="background:rgba(245,200,66,0.12)">
+                <i class="ti ti-home" style="font-size:12px;color:#F5C842" aria-hidden="true"></i>
+              </div>
+              <span class="row-val gold">Kas keluarga</span>
+            </div>
+          </div>
+          <div class="receipt-row">
+            <span class="row-lbl"><i class="ti ti-user" style="font-size:14px" aria-hidden="true"></i>Dicatat oleh</span>
+            <span class="row-val">Istri</span>
+          </div>
+          <div class="receipt-row">
+            <span class="row-lbl"><i class="ti ti-calendar" style="font-size:14px" aria-hidden="true"></i>Tanggal</span>
+            <span class="row-val">11 Jun 2025 · 11:24</span>
+          </div>
+          <div class="receipt-row">
+            <span class="row-lbl"><i class="ti ti-pencil" style="font-size:14px" aria-hidden="true"></i>Catatan</span>
+            <span class="row-val">Belanja Indomaret — snack + minum</span>
+          </div>
+          <hr class="divider-dashed">
+          <div class="receipt-row">
+            <span class="row-lbl">Saldo sebelum</span>
+            <span class="row-val">Rp 6.887.500</span>
+          </div>
+          <div class="receipt-row">
+            <span class="row-lbl">Nominal</span>
+            <span class="row-val red">- Rp 87.500</span>
+          </div>
+          <div class="receipt-row" style="background:rgba(255,107,107,0.04)">
+            <span class="row-lbl" style="font-weight:500;color:var(--kb-text)">Saldo sesudah</span>
+            <span class="row-val" style="font-size:14px;color:#FF6B6B">Rp 6.800.000</span>
+          </div>
+        </div>
+
+        <div class="security-row">
+          <i class="ti ti-shield-check" style="font-size:18px;color:#2DD4A4;flex-shrink:0" aria-hidden="true"></i>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:#2DD4A4">Transaksi aman & terenkripsi</div>
+            <div style="font-size:11px;color:var(--kb-t3);margin-top:1px">Data tersimpan hanya untuk keluargamu</div>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <div class="btn-secondary" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon')">
+            <i class="ti ti-edit" style="font-size:16px" aria-hidden="true"></i>
+            Edit
+          </div>
+          <div class="btn-secondary">
+            <i class="ti ti-camera" style="font-size:16px" aria-hidden="true"></i>
+            Foto struk
+          </div>
+        </div>
+
+        <button class="btn-primary-red">
+          <i class="ti ti-check" style="font-size:18px" aria-hidden="true"></i>
+          Simpan transaksi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="state-label">State 2 — berhasil tersimpan</div>
+    <div class="success-screen">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="success-body">
+        <div class="success-ring">
+          <i class="ti ti-check" style="font-size:36px;color:#2DD4A4" aria-hidden="true"></i>
+        </div>
+
+        <div class="success-title">Transaksi tersimpan!</div>
+        <div class="success-amt">- Rp 87.500</div>
+        <div class="success-sub">Pengeluaran berhasil dicatat dan saldo dompet sudah diperbarui.</div>
+
+        <div class="success-card">
+          <div class="sc-row">
+            <span class="sc-lbl">Kategori</span>
+            <span class="sc-val">Belanja</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-lbl">Dompet</span>
+            <span class="sc-val" style="color:#F5C842">Kas keluarga</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-lbl">Saldo baru</span>
+            <span class="sc-val" style="color:#2DD4A4">Rp 6.800.000</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-lbl">Budget Belanja</span>
+            <span class="sc-val" style="color:#F5C842">84% terpakai</span>
+          </div>
+        </div>
+
+        <div class="success-actions">
+          <button class="btn-home" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+            <i class="ti ti-home-2" style="font-size:17px" aria-hidden="true"></i>
+            Kembali ke home
+          </button>
+          <button class="btn-share">
+            <i class="ti ti-plus" style="font-size:16px" aria-hidden="true"></i>
+            Catat transaksi lagi
+          </button>
+          <button class="btn-share" onclick="sendPrompt('Buatkan mockup UI halaman Aktivitas Feed Transaksi KasBon')">
+            <i class="ti ti-list" style="font-size:16px" aria-hidden="true"></i>
+            Lihat semua aktivitas
+          </button>
+        </div>
+
+        <div class="tx-id">ID transaksi: TXN-2025061100042</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Aktivitas Feed Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Feed aktivitas ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman QR Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">QR dompet ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+  </div>
+</div>
+</div>
