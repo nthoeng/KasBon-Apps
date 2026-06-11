@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../theme/colors';
 import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
@@ -12,6 +12,7 @@ interface TransactionItemProps {
   amount: number;
   type: 'income' | 'expense' | 'transfer';
   date?: string;
+  onPress?: () => void;
 }
 
 export const TransactionItem: React.FC<TransactionItemProps> = ({
@@ -20,22 +21,25 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
   amount,
   type,
   date,
+  onPress,
 }) => {
   return (
-    <GlassCard style={styles.container}>
-      <View style={styles.leftContent}>
-        <View style={[styles.iconPlaceholder, type === 'income' ? styles.iconIncome : type === 'expense' ? styles.iconExpense : styles.iconTransfer]} />
-        <View style={styles.details}>
-          <Text style={styles.title} numberOfLines={1}>{title}</Text>
-          <Text style={styles.category}>{category}</Text>
+    <TouchableOpacity activeOpacity={onPress ? 0.8 : 1} onPress={onPress}>
+      <GlassCard style={styles.container}>
+        <View style={styles.leftContent}>
+          <View style={[styles.iconPlaceholder, type === 'income' ? styles.iconIncome : type === 'expense' ? styles.iconExpense : styles.iconTransfer]} />
+          <View style={styles.details}>
+            <Text style={styles.title} numberOfLines={1}>{title}</Text>
+            <Text style={styles.category}>{category}</Text>
+          </View>
         </View>
-      </View>
-      
-      <View style={styles.rightContent}>
-        <AmountText amount={amount} type={type === 'transfer' ? 'neutral' : type} style={styles.amount} />
-        {date && <Text style={styles.date}>{date}</Text>}
-      </View>
-    </GlassCard>
+        
+        <View style={styles.rightContent}>
+          <AmountText amount={amount} type={type === 'transfer' ? 'neutral' : type} style={styles.amount} />
+          {date && <Text style={styles.date}>{date}</Text>}
+        </View>
+      </GlassCard>
+    </TouchableOpacity>
   );
 };
 

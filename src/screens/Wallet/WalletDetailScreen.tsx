@@ -67,7 +67,7 @@ export const WalletDetailScreen = ({ navigation }: any) => {
 
         <View style={styles.transactionHeader}>
           <Text style={styles.sectionTitle}>Riwayat Dompet</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('TransactionHistory')}>
             <Text style={styles.seeAllText}>Semua</Text>
           </TouchableOpacity>
         </View>
