@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 
 // Screens
-import HomeScreen from '../screens/Home/HomeScreen';
-import WalletListScreen from '../screens/Wallet/WalletListScreen';
+import { HomeScreen } from '../screens/Home/HomeScreen';
+import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
 import TransactionTypeSelectionScreen from '../screens/Transaction/TransactionTypeSelectionScreen';
 import ProjectListScreen from '../screens/Project/ProjectListScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
