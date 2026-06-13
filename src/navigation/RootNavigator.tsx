@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { colors } from '../theme/colors';
 
 import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { LoginScreen } from '../screens/Auth/LoginScreen';
+import { ForgotPasswordScreen } from '../screens/Auth/ForgotPasswordScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { TabNavigator } from './TabNavigator';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
-
-import { colors } from '../theme/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +25,7 @@ export function RootNavigator() {
 		
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+		<Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
 		<Stack.Screen name="Register" component={RegisterScreen} />
 		<Stack.Screen name="MainTabs" component={TabNavigator} />
 		<Stack.Screen name="NotificationScreen" component={NotificationScreen} />

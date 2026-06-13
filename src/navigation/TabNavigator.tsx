@@ -6,7 +6,6 @@ import { colors } from '../theme/colors';
 
 // Screens
 import { HomeScreen } from '../screens/Home/HomeScreen';
-import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
 import { TransactionTypeSelectionScreen } from '../screens/Transaction/TransactionTypeSelectionScreen';
 import { ProjectListScreen } from '../screens/Project/ProjectListScreen';
