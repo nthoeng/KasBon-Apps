@@ -13,7 +13,7 @@ const UI_COLORS = {
   card: '#152238',
   card2: '#1A2A42',
   text: '#F0F4FF',
-  textSub: '#8FA8CC', // Menggantikan #3E5878 yang terlalu gelap
+  textSub: '#8FA8CC', 
   gold: '#F5C842',
   mint: '#2DD4A4',
   violet: '#7C6FF7',
@@ -33,7 +33,6 @@ const MenuItem = ({ icon, iconColor, iconBg, name, sub, rightType, rightValue, i
         {sub && <Text style={styles.menuSub}>{sub}</Text>}
       </View>
       
-      {/* Logic untuk area kanan menu */}
       {rightType === 'chevron' && <Ionicons name="chevron-forward" size={16} color={UI_COLORS.textSub} />}
       {rightType === 'external' && <Ionicons name="open-outline" size={16} color={UI_COLORS.textSub} />}
       {rightType === 'toggle' && (
@@ -98,6 +97,22 @@ export const ProfileScreen = ({ navigation }: any) => {
           </View>
         </View>
 
+        {/* ⭐ PREMIUM BANNER (FREEMIUM ENTRY POINT) */}
+        <TouchableOpacity 
+          style={styles.premiumBanner} 
+          activeOpacity={0.8}
+          onPress={() => console.log('Arahkan ke Halaman Paywall/Upgrade nantinya')}
+        >
+          <View style={styles.premiumIconWrap}>
+            <Ionicons name="star" size={18} color={UI_COLORS.bg} />
+          </View>
+          <View style={styles.premiumInfo}>
+            <Text style={styles.premiumTitle}>KasBon PRO</Text>
+            <Text style={styles.premiumSub}>Buka semua limit & fitur premium</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={UI_COLORS.gold} />
+        </TouchableOpacity>
+
         {/* STATS GRID */}
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
@@ -130,8 +145,6 @@ export const ProfileScreen = ({ navigation }: any) => {
         <View style={styles.sectionBlock}>
           <Text style={styles.secLbl}>ANGGOTA KELUARGA</Text>
           <GlassCard style={styles.cardContainer}>
-            
-            {/* Bayu (Admin) */}
             <View style={styles.memberRow}>
               <View style={[styles.mAvatar, { backgroundColor: UI_COLORS.violet }]}>
                 <Text style={{ color: '#fff', fontSize: 13, fontWeight: '600' }}>B</Text>
@@ -139,7 +152,6 @@ export const ProfileScreen = ({ navigation }: any) => {
               <View style={styles.mInfo}>
                 <View style={styles.mNameRow}>
                   <Text style={styles.mName}>Bayu Pratama</Text>
-                  {/* Badge nempel di kanan nama (Rata kiri di dalam flex) */}
                   <View style={[styles.mRoleBadge, { backgroundColor: 'rgba(245,200,66,0.12)' }]}>
                     <Text style={{ color: UI_COLORS.gold, fontSize: 9, fontWeight: '600' }}>Admin</Text>
                   </View>
@@ -148,7 +160,6 @@ export const ProfileScreen = ({ navigation }: any) => {
               </View>
             </View>
 
-            {/* Istri (Member) */}
             <View style={styles.memberRow}>
               <View style={[styles.mAvatar, { backgroundColor: UI_COLORS.gold }]}>
                 <Text style={{ color: UI_COLORS.bg, fontSize: 13, fontWeight: '600' }}>I</Text>
@@ -164,7 +175,6 @@ export const ProfileScreen = ({ navigation }: any) => {
               </View>
             </View>
 
-            {/* Undang Anggota */}
             <TouchableOpacity style={styles.inviteRow} activeOpacity={0.7}>
               <View style={styles.inviteCircle}>
                 <Ionicons name="add" size={18} color={UI_COLORS.violet} />
@@ -175,7 +185,6 @@ export const ProfileScreen = ({ navigation }: any) => {
               </View>
               <Ionicons name="chevron-forward" size={16} color={UI_COLORS.textSub} />
             </TouchableOpacity>
-
           </GlassCard>
         </View>
 
@@ -323,6 +332,47 @@ const styles = StyleSheet.create({
     color: UI_COLORS.gold,
     fontWeight: '600',
   },
+
+  /* PREMIUM BANNER STYLES */
+  premiumBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(245,200,66,0.08)',
+    marginHorizontal: 18,
+    marginBottom: 20,
+    padding: 14,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(245,200,66,0.3)',
+  },
+  premiumIconWrap: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: UI_COLORS.gold,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+    shadowColor: UI_COLORS.gold,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  premiumInfo: {
+    flex: 1,
+  },
+  premiumTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: UI_COLORS.gold,
+    marginBottom: 2,
+  },
+  premiumSub: {
+    fontSize: 11,
+    color: UI_COLORS.textSub,
+  },
+
   statsGrid: {
     flexDirection: 'row',
     gap: 8,
@@ -496,7 +546,7 @@ const styles = StyleSheet.create({
     backgroundColor: UI_COLORS.mint,
     justifyContent: 'center',
     paddingHorizontal: 3,
-    alignItems: 'flex-end', // Circle di kanan
+    alignItems: 'flex-end', 
   },
   toggleCircle: {
     width: 18,
@@ -513,7 +563,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '600',
   },
-  /* DANGER & FOOTER */
   btnDanger: {
     flexDirection: 'row',
     alignItems: 'center',
