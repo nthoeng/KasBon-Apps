@@ -6,6 +6,7 @@ import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { LoginScreen } from '../screens/Auth/LoginScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { TabNavigator } from './TabNavigator';
+import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 
 import { colors } from '../theme/colors';
 
@@ -26,6 +27,7 @@ export function RootNavigator() {
         <Stack.Screen name="Login" component={LoginScreen} />
 		<Stack.Screen name="Register" component={RegisterScreen} />
 		<Stack.Screen name="MainTabs" component={TabNavigator} />
+		<Stack.Screen name="NotificationScreen" component={NotificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
