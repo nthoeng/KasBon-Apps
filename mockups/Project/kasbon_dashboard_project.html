@@ -1,0 +1,322 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.hero{padding:8px 18px 16px}
+.hero-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.hero-icon{width:48px;height:48px;border-radius:16px;background:rgba(45,212,164,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hero-info{flex:1}
+.hero-name{font-size:17px;font-weight:500;color:var(--kb-text);margin-bottom:3px}
+.hero-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500}
+.badge-aktif{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-proj{background:rgba(45,212,164,0.08);color:#6EE7C0}
+.hero-actions{display:flex;gap:7px}
+.act-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card2);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.progress-card{background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:16px;padding:14px;margin-bottom:14px}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-title{font-size:12px;font-weight:500;color:var(--kb-text)}
+.deadline-chip{display:flex;align-items:center;gap:5px;background:rgba(245,200,66,0.1);border-radius:20px;padding:3px 9px}
+.deadline-txt{font-size:10px;color:#F5C842}
+.prog-bar-track{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.prog-bar-fill{height:8px;border-radius:4px;background:#2DD4A4}
+.prog-labels{display:flex;justify-content:space-between;font-size:11px}
+.milestone-row{display:flex;gap:6px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.milestone-row::-webkit-scrollbar{display:none}
+.ms{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ms-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.ms-done{background:#2DD4A4}
+.ms-active{background:#7C6FF7;border:2px solid rgba(124,111,247,0.4)}
+.ms-idle{background:var(--kb-card);border:0.5px solid var(--kb-b2)}
+.ms-lbl{font-size:9px;color:var(--kb-t3);text-align:center;white-space:nowrap}
+.ms-lbl.done{color:#2DD4A4}
+.ms-lbl.active{color:#7C6FF7}
+.ms-line{flex:1;height:1px;background:var(--kb-b1);margin-top:9px}
+.ms-line.done{background:rgba(45,212,164,0.3)}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.kpi{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:12px 13px}
+.kpi-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.kpi-val{font-size:18px;font-weight:500;margin-bottom:2px}
+.kpi-sub{font-size:10px;color:var(--kb-t3)}
+.tagihan-card{background:var(--kb-card);border:0.5px solid rgba(245,200,66,0.25);border-radius:16px;overflow:hidden;margin-bottom:14px}
+.tg-header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.tg-icon{width:32px;height:32px;border-radius:10px;background:rgba(245,200,66,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tg-info{flex:1}
+.tg-title{font-size:13px;font-weight:500;color:var(--kb-text)}
+.tg-sub{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.tg-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.tg-row:last-child{border-bottom:none}
+.tr-lbl{font-size:12px;color:var(--kb-t2);display:flex;align-items:center;gap:6px}
+.tr-val{font-size:12px;font-weight:500}
+.tr-status{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.st-lunas{background:rgba(45,212,164,0.1);color:#2DD4A4}
+.st-pending{background:rgba(245,200,66,0.1);color:#F5C842}
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase}
+.sec-link{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.tx-item{display:flex;align-items:center;gap:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:13px;padding:11px 13px;margin-bottom:8px;cursor:pointer}
+.tx-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tx-info{flex:1;min-width:0}
+.tx-name{font-size:13px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-meta{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.tx-amt{font-size:13px;font-weight:500;flex-shrink:0}
+.note-card{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+.note-row{display:flex;gap:8px;margin-bottom:6px}
+.note-row:last-child{margin-bottom:0}
+.note-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note-txt{font-size:12px;color:var(--kb-t2);line-height:1.5}
+.fab-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.fab-btn{height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:13px;font-weight:500;border:none}
+.fab-income{background:#2DD4A4;color:#0A1628}
+.fab-expense{background:rgba(255,107,107,0.12);border:0.5px solid rgba(255,107,107,0.25);color:#FF9090}
+</style>
+
+<h2 class="sr-only">Mockup dashboard project freelance KasBon untuk Web Company Profile — progress pengerjaan, KPI keuangan, tagihan client, cashflow, dan catatan operasional.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center">
+      <div style="font-size:14px;font-weight:500;color:var(--kb-text)">Detail project</div>
+    </div>
+    <div style="display:flex;gap:7px">
+      <div class="icon-btn" aria-label="Export cashflow">
+        <i class="ti ti-download" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" aria-label="Pengaturan project">
+        <i class="ti ti-dots" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-icon">
+        <i class="ti ti-code" style="font-size:24px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="hero-info">
+        <div class="hero-name">Web Company Profile</div>
+        <div class="hero-meta">
+          <span class="badge badge-aktif">Aktif</span>
+          <span class="badge badge-proj">Freelance</span>
+          <span style="font-size:10px;color:var(--kb-t3)">PT Maju Jaya</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <div class="act-btn" aria-label="Edit project">
+          <i class="ti ti-edit" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="prog-header">
+        <span class="prog-title">Progress pengerjaan</span>
+        <div class="deadline-chip">
+          <i class="ti ti-calendar" style="font-size:12px;color:#F5C842" aria-hidden="true"></i>
+          <span class="deadline-txt">Deadline 30 Jun · 19 hari lagi</span>
+        </div>
+      </div>
+      <div class="prog-bar-track">
+        <div class="prog-bar-fill" style="width:50%"></div>
+      </div>
+      <div class="prog-labels">
+        <span style="color:#2DD4A4;font-weight:500">50% selesai</span>
+        <span style="color:var(--kb-t3)">estimasi on track</span>
+      </div>
+      <div class="milestone-row">
+        <div class="ms">
+          <div class="ms-dot ms-done"><i class="ti ti-check" style="font-size:11px;color:#0A1628" aria-hidden="true"></i></div>
+          <span class="ms-lbl done">Kickoff</span>
+        </div>
+        <div class="ms-line done"></div>
+        <div class="ms">
+          <div class="ms-dot ms-done"><i class="ti ti-check" style="font-size:11px;color:#0A1628" aria-hidden="true"></i></div>
+          <span class="ms-lbl done">Desain</span>
+        </div>
+        <div class="ms-line done"></div>
+        <div class="ms">
+          <div class="ms-dot ms-active"><i class="ti ti-code" style="font-size:11px;color:#fff" aria-hidden="true"></i></div>
+          <span class="ms-lbl active">Dev</span>
+        </div>
+        <div class="ms-line"></div>
+        <div class="ms">
+          <div class="ms-dot ms-idle"></div>
+          <span class="ms-lbl">Testing</span>
+        </div>
+        <div class="ms-line"></div>
+        <div class="ms">
+          <div class="ms-dot ms-idle"></div>
+          <span class="ms-lbl">Launch</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-lbl">
+          <i class="ti ti-file-invoice" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i>
+          Nilai kontrak
+        </div>
+        <div class="kpi-val" style="color:var(--kb-text)">Rp 7.500.000</div>
+        <div class="kpi-sub">total proyek</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">
+          <i class="ti ti-cash" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i>
+          Diterima
+        </div>
+        <div class="kpi-val" style="color:#2DD4A4">Rp 3.750.000</div>
+        <div class="kpi-sub">DP 50% lunas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">
+          <i class="ti ti-receipt" style="font-size:13px;color:#FF6B6B" aria-hidden="true"></i>
+          Biaya operasional
+        </div>
+        <div class="kpi-val" style="color:#FF6B6B">Rp 850.000</div>
+        <div class="kpi-sub">domain, hosting, tools</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">
+          <i class="ti ti-trending-up" style="font-size:13px;color:#F5C842" aria-hidden="true"></i>
+          Laba bersih
+        </div>
+        <div class="kpi-val" style="color:#F5C842">Rp 2.900.000</div>
+        <div class="kpi-sub">dari yang diterima</div>
+      </div>
+    </div>
+
+    <div class="tagihan-card">
+      <div class="tg-header">
+        <div class="tg-icon">
+          <i class="ti ti-file-invoice" style="font-size:16px;color:#F5C842" aria-hidden="true"></i>
+        </div>
+        <div class="tg-info">
+          <div class="tg-title">Tagihan ke client</div>
+          <div class="tg-sub">PT Maju Jaya</div>
+        </div>
+        <div style="font-size:12px;color:#F5C842;font-weight:500">Rp 3,75jt pending</div>
+      </div>
+      <div class="tg-row">
+        <span class="tr-lbl"><i class="ti ti-circle-check" style="font-size:14px;color:#2DD4A4" aria-hidden="true"></i>DP 50%</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="tr-val" style="color:#2DD4A4">Rp 3.750.000</span>
+          <span class="tr-status st-lunas">Lunas</span>
+        </div>
+      </div>
+      <div class="tg-row">
+        <span class="tr-lbl"><i class="ti ti-clock" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>Pelunasan 50%</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="tr-val" style="color:#F5C842">Rp 3.750.000</span>
+          <span class="tr-status st-pending">Belum</span>
+        </div>
+      </div>
+      <div style="padding:10px 14px;background:rgba(245,200,66,0.04)">
+        <div style="font-size:11px;color:var(--kb-t3)">Pelunasan saat serah terima — estimasi 30 Jun 2025</div>
+      </div>
+    </div>
+
+    <div class="sec-header">
+      <span class="sec-lbl">Cashflow project</span>
+      <span class="sec-link" onclick="sendPrompt('Buatkan mockup UI halaman Cashflow Project KasBon untuk Web Company Profile')">Lihat semua ↗</span>
+    </div>
+
+    <div class="tx-item">
+      <div class="tx-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-cash" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">DP dari PT Maju Jaya</div>
+        <div class="tx-meta">Pemasukan · 1 Jun 2025</div>
+      </div>
+      <div class="tx-amt" style="color:#2DD4A4">+Rp 3,75jt</div>
+    </div>
+
+    <div class="tx-item">
+      <div class="tx-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-world" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Beli domain + hosting</div>
+        <div class="tx-meta">Biaya operasional · 3 Jun 2025</div>
+      </div>
+      <div class="tx-amt" style="color:#FF6B6B">-Rp 450.000</div>
+    </div>
+
+    <div class="tx-item">
+      <div class="tx-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-plug" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Langganan plugin premium</div>
+        <div class="tx-meta">Biaya operasional · 5 Jun 2025</div>
+      </div>
+      <div class="tx-amt" style="color:#FF6B6B">-Rp 400.000</div>
+    </div>
+
+    <div class="sec-header" style="margin-top:14px">
+      <span class="sec-lbl">Catatan operasional</span>
+      <span class="sec-link">+ Tambah</span>
+    </div>
+
+    <div class="note-card">
+      <div class="note-row">
+        <div class="note-dot" style="background:#2DD4A4"></div>
+        <span class="note-txt">Desain mockup sudah disetujui client 7 Jun — revisi warna header</span>
+      </div>
+      <div class="note-row">
+        <div class="note-dot" style="background:#F5C842"></div>
+        <span class="note-txt">Konten halaman About & Services masih menunggu dari client</span>
+      </div>
+      <div class="note-row">
+        <div class="note-dot" style="background:#FF6B6B"></div>
+        <span class="note-txt">Reminder: kirim invoice pelunasan saat serah terima</span>
+      </div>
+    </div>
+
+    <div class="fab-row">
+      <button class="fab-btn fab-income" onclick="sendPrompt('Buatkan mockup UI Form Catat Pemasukan KasBon untuk project')">
+        <i class="ti ti-arrow-down-left" style="font-size:17px" aria-hidden="true"></i>
+        Catat masuk
+      </button>
+      <button class="fab-btn fab-expense" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon untuk project')">
+        <i class="ti ti-arrow-up-right" style="font-size:17px" aria-hidden="true"></i>
+        Catat biaya
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Detail Bisnis Usaha KasBon untuk Jualan Cimol')" style="font-size:12px;padding:6px 12px;border-radius:8px">Detail bisnis cimol ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Budget Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Budget bulanan ↗</button>
+  </div>
+</div>
+</div>

@@ -1,0 +1,277 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-border:rgba(255,255,255,0.09);--kb-border2:rgba(255,255,255,0.16);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-text2:#8FA8CC;--kb-text3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:300px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-text2)}
+.skip-row{display:flex;justify-content:flex-end;padding:6px 18px 0}
+.skip-btn{font-size:12px;color:var(--kb-text3);cursor:pointer;padding:4px 0}
+.illus-area{display:flex;justify-content:center;align-items:center;padding:20px 24px 10px;min-height:210px}
+.slide-content{padding:0 24px 0}
+.slide-badge{display:inline-flex;align-items:center;gap:6px;background:var(--kb-card2);border:0.5px solid var(--kb-border2);border-radius:20px;padding:5px 12px;margin-bottom:14px}
+.slide-badge i{font-size:14px}
+.slide-badge span{font-size:11px;font-weight:500}
+.slide-title{font-size:22px;font-weight:500;color:var(--kb-text);line-height:1.3;margin-bottom:10px}
+.slide-desc{font-size:13px;color:var(--kb-text2);line-height:1.7;margin-bottom:24px}
+.feat-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+.pill{display:flex;align-items:center;gap:5px;background:var(--kb-card);border:0.5px solid var(--kb-border2);border-radius:20px;padding:5px 10px}
+.pill i{font-size:13px}
+.pill span{font-size:11px;color:var(--kb-text2)}
+.dots-row{display:flex;justify-content:center;gap:6px;margin-bottom:20px}
+.dot-ob{width:8px;height:8px;border-radius:50%;transition:all .2s}
+.dot-active{background:var(--kb-gold);width:22px;border-radius:4px}
+.dot-idle{background:var(--kb-text3)}
+.btn-next{width:100%;height:48px;border-radius:14px;border:none;cursor:pointer;font-size:15px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-ghost{width:100%;height:40px;border-radius:14px;background:transparent;border:0.5px solid var(--kb-border2);cursor:pointer;font-size:13px;color:var(--kb-text2);margin-top:10px;margin-bottom:24px}
+.mini-ui{background:var(--kb-card2);border-radius:16px;border:0.5px solid var(--kb-border2);padding:12px;width:100%}
+.mini-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:0.5px solid var(--kb-border)}
+.mini-row:last-child{border-bottom:none;padding-bottom:0}
+.mini-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mini-info{flex:1}
+.mini-name{font-size:12px;color:var(--kb-text);font-weight:500}
+.mini-sub{font-size:10px;color:var(--kb-text3)}
+.mini-amt{font-size:13px;font-weight:500}
+.qr-box{width:90px;height:90px;background:var(--kb-card);border:0.5px solid var(--kb-border2);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qr-inner{width:66px;height:66px;display:grid;grid-template-columns:repeat(7,1fr);gap:1.5px}
+.qr-cell{border-radius:1px}
+.stat-mini{background:var(--kb-card2);border-radius:16px;border:0.5px solid var(--kb-border2);padding:12px;width:100%}
+.stat-bar-row{margin-bottom:8px}
+.stat-bar-label{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px}
+.stat-bar-track{height:6px;background:var(--kb-border2);border-radius:3px;overflow:hidden}
+.stat-bar-fill{height:6px;border-radius:3px}
+.stat-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-num-card{background:var(--kb-card);border-radius:10px;padding:8px 10px}
+.stat-num-lbl{font-size:10px;color:var(--kb-text3);margin-bottom:2px}
+.stat-num-val{font-size:14px;font-weight:500}
+.slide-label{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-text3);text-align:center;padding-bottom:6px}
+</style>
+
+<h2 class="sr-only">Mockup 3 slide onboarding KasBon: dompet keluarga terpusat, transfer via QR, dan statistik & budget.</h2>
+
+<div style="padding:20px 0">
+<p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:6px">Onboarding — 3 slide</p>
+
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="slide-label">Slide 1 dari 3</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></div>
+      </div>
+      <div class="skip-row"><span class="skip-btn">Lewati</span></div>
+
+      <div class="illus-area">
+        <div class="mini-ui">
+          <div style="font-size:10px;color:var(--kb-text3);margin-bottom:8px;letter-spacing:.04em">Dompet keluarga</div>
+          <div style="font-size:20px;font-weight:500;color:var(--kb-text);margin-bottom:2px">Rp 14.250.000</div>
+          <div style="font-size:10px;color:var(--kb-text3);margin-bottom:12px">Saldo terpusat</div>
+          <div class="mini-row">
+            <div class="mini-icon" style="background:rgba(245,200,66,0.12)"><i class="ti ti-home" style="font-size:15px;color:#F5C842" aria-hidden="true"></i></div>
+            <div class="mini-info"><div class="mini-name">Kas keluarga</div><div class="mini-sub">Global · semua bisa akses</div></div>
+            <div class="mini-amt" style="color:#F5C842">Rp 6,8jt</div>
+          </div>
+          <div class="mini-row">
+            <div class="mini-icon" style="background:rgba(45,212,164,0.1)"><i class="ti ti-building-bank" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i></div>
+            <div class="mini-info"><div class="mini-name">BCA Bayu</div><div class="mini-sub">Private · hanya kamu</div></div>
+            <div class="mini-amt" style="color:#2DD4A4">Rp 4,1jt</div>
+          </div>
+          <div class="mini-row">
+            <div class="mini-icon" style="background:rgba(124,111,247,0.1)"><i class="ti ti-piggy-bank" style="font-size:15px;color:#7C6FF7" aria-hidden="true"></i></div>
+            <div class="mini-info"><div class="mini-name">Dana darurat</div><div class="mini-sub">Global · target Rp 10jt</div></div>
+            <div class="mini-amt" style="color:#7C6FF7">Rp 2,5jt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-content">
+        <div class="slide-badge">
+          <i class="ti ti-wallet" style="color:#F5C842" aria-hidden="true"></i>
+          <span style="color:#F5C842">Dompet keluarga</span>
+        </div>
+        <div class="slide-title">Semua keuangan, satu tempat</div>
+        <div class="slide-desc">Kelola dompet bersama keluarga. Pilih mana yang dibagi, mana yang private.</div>
+        <div class="feat-pills">
+          <div class="pill"><i class="ti ti-users" style="color:#F5C842" aria-hidden="true"></i><span>Multi user</span></div>
+          <div class="pill"><i class="ti ti-eye" style="color:#2DD4A4" aria-hidden="true"></i><span>Global & private</span></div>
+          <div class="pill"><i class="ti ti-refresh" style="color:#7C6FF7" aria-hidden="true"></i><span>Sync real-time</span></div>
+        </div>
+        <div class="dots-row">
+          <div class="dot-ob dot-active"></div>
+          <div class="dot-ob dot-idle"></div>
+          <div class="dot-ob dot-idle"></div>
+        </div>
+        <div style="padding:0 0 24px">
+          <button class="btn-next" style="background:var(--kb-gold);color:#0A1628">
+            Selanjutnya <i class="ti ti-arrow-right" style="font-size:16px" aria-hidden="true"></i>
+          </button>
+          <button class="btn-ghost">Masuk ke akun</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="slide-label">Slide 2 dari 3</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></div>
+      </div>
+      <div class="skip-row"><span class="skip-btn">Lewati</span></div>
+
+      <div class="illus-area">
+        <div style="display:flex;gap:14px;align-items:center;width:100%">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div style="font-size:10px;color:var(--kb-text3)">Dompet Bayu</div>
+            <div class="qr-box">
+              <div class="qr-inner">
+                <script>
+                  const p=[1,1,1,1,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,1,1,1,1,1,1,0,0,0,1,1,0,1,0,1,1,0,0,0,1,0,1,0,0,1,1,0,0,1,1,0,1,0,1,0,1,1,0,1,1,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0];
+                  document.addEventListener('DOMContentLoaded',()=>{
+                    document.querySelectorAll('.qr-inner').forEach((q,qi)=>{
+                      p.forEach((v,i)=>{
+                        const d=document.createElement('div');
+                        d.className='qr-cell';
+                        d.style.background=v?'#F5C842':'transparent';
+                        q.appendChild(d);
+                      });
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+            <div style="font-size:10px;color:var(--kb-text3)">Tunjukkan QR ini</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <i class="ti ti-arrows-exchange" style="font-size:24px;color:#7C6FF7" aria-hidden="true"></i>
+            <div style="font-size:10px;color:var(--kb-text3)">Scan</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div style="font-size:10px;color:var(--kb-text3)">Dompet Istri</div>
+            <div class="qr-box" style="background:rgba(45,212,164,0.05);border-color:rgba(45,212,164,0.2)">
+              <i class="ti ti-scan" style="font-size:28px;color:#2DD4A4" aria-hidden="true"></i>
+            </div>
+            <div style="font-size:10px;color:var(--kb-text3)">Scan untuk transfer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-content">
+        <div class="slide-badge">
+          <i class="ti ti-qrcode" style="color:#7C6FF7" aria-hidden="true"></i>
+          <span style="color:#7C6FF7">QR Transfer</span>
+        </div>
+        <div class="slide-title">Transfer semudah scan QR</div>
+        <div class="slide-desc">Tunjukkan QR dompetmu, minta pasangan scan — transfer langsung tercatat otomatis.</div>
+        <div class="feat-pills">
+          <div class="pill"><i class="ti ti-bolt" style="color:#F5C842" aria-hidden="true"></i><span>Instan & otomatis</span></div>
+          <div class="pill"><i class="ti ti-device-mobile" style="color:#7C6FF7" aria-hidden="true"></i><span>Antar HP</span></div>
+          <div class="pill"><i class="ti ti-check" style="color:#2DD4A4" aria-hidden="true"></i><span>Langsung tercatat</span></div>
+        </div>
+        <div class="dots-row">
+          <div class="dot-ob dot-idle"></div>
+          <div class="dot-ob dot-active"></div>
+          <div class="dot-ob dot-idle"></div>
+        </div>
+        <div style="padding:0 0 24px">
+          <button class="btn-next" style="background:var(--kb-violet);color:#fff">
+            Selanjutnya <i class="ti ti-arrow-right" style="font-size:16px" aria-hidden="true"></i>
+          </button>
+          <button class="btn-ghost">Masuk ke akun</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="slide-label">Slide 3 dari 3</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></div>
+      </div>
+      <div class="skip-row"><span class="skip-btn">Lewati</span></div>
+
+      <div class="illus-area">
+        <div class="stat-mini">
+          <div style="font-size:10px;color:var(--kb-text3);margin-bottom:10px">Ringkasan Juni 2025</div>
+          <div class="stat-bar-row">
+            <div class="stat-bar-label">
+              <span style="font-size:11px;color:var(--kb-text2)">Pemasukan</span>
+              <span style="font-size:11px;color:#2DD4A4;font-weight:500">Rp 8.500.000</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="width:85%;background:#2DD4A4"></div></div>
+          </div>
+          <div class="stat-bar-row" style="margin-bottom:12px">
+            <div class="stat-bar-label">
+              <span style="font-size:11px;color:var(--kb-text2)">Pengeluaran</span>
+              <span style="font-size:11px;color:#FF6B6B;font-weight:500">Rp 4.250.000</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="width:42%;background:#FF6B6B"></div></div>
+          </div>
+          <div class="stat-nums">
+            <div class="stat-num-card">
+              <div class="stat-num-lbl">Budget terpakai</div>
+              <div class="stat-num-val" style="color:#F5C842">68%</div>
+            </div>
+            <div class="stat-num-card">
+              <div class="stat-num-lbl">Sisa bulan ini</div>
+              <div class="stat-num-val" style="color:#2DD4A4">Rp 4,25jt</div>
+            </div>
+            <div class="stat-num-card">
+              <div class="stat-num-lbl">Target tabungan</div>
+              <div class="stat-num-val" style="color:#7C6FF7">Rp 10jt</div>
+            </div>
+            <div class="stat-num-card">
+              <div class="stat-num-lbl">Sisa hutang</div>
+              <div class="stat-num-val" style="color:#FF6B6B">Rp 3,2jt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-content">
+        <div class="slide-badge">
+          <i class="ti ti-chart-bar" style="color:#2DD4A4" aria-hidden="true"></i>
+          <span style="color:#2DD4A4">Statistik & budget</span>
+        </div>
+        <div class="slide-title">Pantau & rencanakan bersama</div>
+        <div class="slide-desc">Statistik lengkap, atur budget bulanan, tabungan bertarget, dan pantau hutang — semua di satu layar.</div>
+        <div class="feat-pills">
+          <div class="pill"><i class="ti ti-trending-up" style="color:#2DD4A4" aria-hidden="true"></i><span>Statistik bulanan</span></div>
+          <div class="pill"><i class="ti ti-piggy-bank" style="color:#7C6FF7" aria-hidden="true"></i><span>Target tabungan</span></div>
+          <div class="pill"><i class="ti ti-calendar" style="color:#F5C842" aria-hidden="true"></i><span>Budget rutin</span></div>
+        </div>
+        <div class="dots-row">
+          <div class="dot-ob dot-idle"></div>
+          <div class="dot-ob dot-idle"></div>
+          <div class="dot-ob dot-active"></div>
+        </div>
+        <div style="padding:0 0 24px">
+          <button class="btn-next" style="background:var(--kb-mint);color:#0A1628" onclick="sendPrompt('Buatkan mockup UI screen Login KasBon')">
+            Mulai sekarang <i class="ti ti-arrow-right" style="font-size:16px" aria-hidden="true"></i>
+          </button>
+          <button class="btn-ghost" onclick="sendPrompt('Buatkan mockup UI screen Login KasBon')">Sudah punya akun? Masuk</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')" style="font-size:12px;padding:6px 12px;border-radius:8px">Home Dashboard ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">List Dompet ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Catat Transaksi ↗</button>
+  </div>
+</div>
+</div>

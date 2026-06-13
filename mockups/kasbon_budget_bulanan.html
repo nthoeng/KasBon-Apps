@@ -1,0 +1,398 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.month-nav{display:flex;align-items:center;gap:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:12px;padding:6px 14px;margin:2px 18px 10px}
+.month-btn{width:28px;height:28px;border-radius:8px;background:var(--kb-card2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.month-txt{flex:1;text-align:center;font-size:13px;font-weight:500;color:var(--kb-text)}
+.overview-card{margin:0 16px 12px;background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:18px;padding:14px}
+.ov-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.ov-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:3px}
+.ov-val{font-size:24px;font-weight:500;color:var(--kb-text)}
+.ov-sub{font-size:11px;margin-top:2px}
+.donut-wrap{position:relative;width:64px;height:64px;flex-shrink:0}
+.donut-svg{width:64px;height:64px}
+.donut-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-pct{font-size:14px;font-weight:500;color:var(--kb-text)}
+.donut-sub{font-size:9px;color:var(--kb-t3)}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mstat{background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;border:0.5px solid var(--kb-b1)}
+.mstat-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.mstat-val{font-size:12px;font-weight:500}
+.alert-card{margin:0 16px 12px;background:rgba(255,107,107,0.08);border:0.5px solid rgba(255,107,107,0.25);border-radius:14px;padding:11px 13px;display:flex;align-items:flex-start;gap:9px}
+.alert-icon{width:30px;height:30px;border-radius:9px;background:rgba(255,107,107,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.alert-title{font-size:12px;font-weight:500;color:#FF9090;margin-bottom:2px}
+.alert-sub{font-size:11px;color:rgba(255,107,107,0.65);line-height:1.5}
+.insight-card{margin:0 16px 12px;background:rgba(45,212,164,0.07);border:0.5px solid rgba(45,212,164,0.2);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:9px}
+.insight-icon{width:30px;height:30px;border-radius:9px;background:rgba(45,212,164,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.insight-txt{font-size:12px;color:#6EE7C0;line-height:1.5}
+.sec-header{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 8px}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase}
+.sec-link{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.bcat{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden;cursor:pointer}
+.bcat-main{display:flex;align-items:center;gap:11px;padding:12px 13px 8px}
+.bcat-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bcat-info{flex:1;min-width:0}
+.bcat-name{font-size:13px;font-weight:500;color:var(--kb-text);margin-bottom:2px}
+.bcat-meta{display:flex;align-items:center;gap:6px}
+.bcat-spent{font-size:11px;color:var(--kb-t2)}
+.bcat-dot{width:3px;height:3px;border-radius:50%;background:var(--kb-t3)}
+.bcat-days{font-size:11px;color:var(--kb-t3)}
+.bcat-right{text-align:right;flex-shrink:0}
+.bcat-limit{font-size:13px;font-weight:500;color:var(--kb-text)}
+.bcat-sisa{font-size:11px;margin-top:1px}
+.bar-wrap{padding:0 13px 11px}
+.bar-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.bar-fill{height:5px;border-radius:3px}
+.bar-labels{display:flex;justify-content:space-between;font-size:10px;margin-top:4px}
+.exceed-strip{background:rgba(255,107,107,0.07);padding:6px 13px;border-top:0.5px solid rgba(255,107,107,0.15);display:flex;align-items:center;gap:6px;font-size:11px;color:#FF9090}
+.add-btn{margin:0 16px 8px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--kb-card);border:1.5px dashed rgba(124,111,247,0.25);border-radius:16px;padding:13px;cursor:pointer;font-size:13px;font-weight:500;color:#7C6FF7}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman budget bulanan KasBon — ringkasan penggunaan budget, alert kategori hampir habis, dan daftar budget per kategori dengan progress bar real-time.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div style="font-size:17px;font-weight:500;color:var(--kb-text)">Budget bulanan</div>
+      <div style="font-size:11px;color:var(--kb-t3)">Atur anggaran per kategori</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="icon-btn" aria-label="Riwayat budget">
+        <i class="ti ti-history" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" aria-label="Pengaturan budget">
+        <i class="ti ti-settings" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="month-nav">
+    <div class="month-btn" aria-label="Bulan sebelumnya">
+      <i class="ti ti-chevron-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <span class="month-txt">Juni 2025</span>
+    <div class="month-btn" aria-label="Bulan berikutnya">
+      <i class="ti ti-chevron-right" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="ov-top">
+      <div>
+        <div class="ov-lbl">Total budget bulan ini</div>
+        <div class="ov-val">Rp 8.000.000</div>
+        <div class="ov-sub" style="color:#FF6B6B">Rp 5.455.000 terpakai · 68%</div>
+      </div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" viewBox="0 0 64 64" aria-label="Donut chart 68% budget terpakai">
+          <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#F5C842" stroke-width="8"
+            stroke-dasharray="110.9 163.4" stroke-dashoffset="40.8" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-label">
+          <span class="donut-pct" style="color:#F5C842">68%</span>
+          <span class="donut-sub">terpakai</span>
+        </div>
+      </div>
+    </div>
+    <div class="mini-stats">
+      <div class="mstat">
+        <div class="mstat-lbl">Sisa budget</div>
+        <div class="mstat-val" style="color:#2DD4A4">Rp 2,55jt</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-lbl">Sisa hari</div>
+        <div class="mstat-val" style="color:#7C6FF7">19 hari</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-lbl">Budget/hari</div>
+        <div class="mstat-val" style="color:#F5C842">Rp 134rb</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-card">
+    <div class="alert-icon">
+      <i class="ti ti-alert-triangle" style="font-size:16px;color:#FF6B6B" aria-hidden="true"></i>
+    </div>
+    <div>
+      <div class="alert-title">2 kategori hampir habis</div>
+      <div class="alert-sub">Belanja (84%) dan Makan (78%) mendekati batas. Hemat lebih atau naikkan limitnya.</div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-icon">
+      <i class="ti ti-bulb" style="font-size:16px;color:#2DD4A4" aria-hidden="true"></i>
+    </div>
+    <div class="insight-txt">Transport hemat 32% dari budget. Sisa Rp 136rb aman sampai akhir bulan.</div>
+  </div>
+
+  <div class="sec-header">
+    <span class="sec-lbl">Per kategori</span>
+    <span class="sec-link" onclick="sendPrompt('Buatkan mockup UI halaman Atur Budget Kategori KasBon')">+ Tambah kategori ↗</span>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Belanja KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(255,107,107,0.12)">
+        <i class="ti ti-shopping-cart" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Belanja</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 420.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 80rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 500.000</div>
+        <div class="bcat-sisa" style="color:#FF6B6B">84% — hampir habis</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:84%;background:#FF6B6B"></div></div>
+      <div class="bar-labels">
+        <span style="color:#FF6B6B">Rp 420rb</span>
+        <span style="color:var(--kb-t3)">dari Rp 500rb</span>
+      </div>
+    </div>
+    <div class="exceed-strip">
+      <i class="ti ti-alert-circle" style="font-size:14px" aria-hidden="true"></i>
+      Hati-hati — hanya Rp 80rb tersisa untuk 19 hari lagi
+    </div>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Makan KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(245,200,66,0.12)">
+        <i class="ti ti-tools-kitchen-2" style="font-size:18px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Makan & minum</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 1.170.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 330rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 1.500.000</div>
+        <div class="bcat-sisa" style="color:#F5C842">78% — waspada</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:78%;background:#F5C842"></div></div>
+      <div class="bar-labels">
+        <span style="color:#F5C842">Rp 1,17jt</span>
+        <span style="color:var(--kb-t3)">dari Rp 1,5jt</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Tagihan KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-bolt" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Tagihan & utilitas</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 785.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 215rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 1.000.000</div>
+        <div class="bcat-sisa" style="color:#7C6FF7">78% — waspada</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:78%;background:#7C6FF7"></div></div>
+      <div class="bar-labels">
+        <span style="color:#7C6FF7">Rp 785rb</span>
+        <span style="color:var(--kb-t3)">dari Rp 1jt</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Transport KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-car" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Transportasi</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 204.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 296rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 500.000 · sisa 59%</div>
+        <div class="bcat-sisa" style="color:#2DD4A4">Aman</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:41%;background:#2DD4A4"></div></div>
+      <div class="bar-labels">
+        <span style="color:#2DD4A4">Rp 204rb</span>
+        <span style="color:var(--kb-t3)">dari Rp 500rb</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Kesehatan KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-heart-rate-monitor" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Kesehatan</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 296.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 504rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 800.000 · 37%</div>
+        <div class="bcat-sisa" style="color:#2DD4A4">Aman</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:37%;background:#2DD4A4"></div></div>
+      <div class="bar-labels">
+        <span style="color:#2DD4A4">Rp 296rb</span>
+        <span style="color:var(--kb-t3)">dari Rp 800rb</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bcat" onclick="sendPrompt('Buatkan mockup UI halaman Detail Budget Kategori Hiburan KasBon')">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(124,111,247,0.1)">
+        <i class="ti ti-device-gamepad-2" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Hiburan</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 330.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">sisa Rp 170rb</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 500.000 · 66%</div>
+        <div class="bcat-sisa" style="color:#F5C842">Perhatian</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:66%;background:#7C6FF7"></div></div>
+      <div class="bar-labels">
+        <span style="color:#7C6FF7">Rp 330rb</span>
+        <span style="color:var(--kb-t3)">dari Rp 500rb</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bcat" style="border-color:rgba(255,107,107,0.3)">
+    <div class="bcat-main">
+      <div class="bcat-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-motorbike" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="bcat-info">
+        <div class="bcat-name">Cicilan motor</div>
+        <div class="bcat-meta">
+          <span class="bcat-spent">Rp 800.000 terpakai</span>
+          <span class="bcat-dot"></span>
+          <span class="bcat-days">rutin bulanan</span>
+        </div>
+      </div>
+      <div class="bcat-right">
+        <div class="bcat-limit">Rp 800.000</div>
+        <div class="bcat-sisa" style="color:#FF6B6B">100% — lunas</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:#FF6B6B"></div></div>
+      <div class="bar-labels">
+        <span style="color:#2DD4A4;display:flex;align-items:center;gap:4px">
+          <i class="ti ti-check" style="font-size:13px" aria-hidden="true"></i>
+          Cicilan bulan ini sudah dibayar
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-btn" onclick="sendPrompt('Buatkan mockup UI halaman Tambah Budget Kategori Baru KasBon')">
+    <i class="ti ti-plus" style="font-size:18px" aria-hidden="true"></i>
+    Tambah kategori budget baru
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <span class="bnav-lbl">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Rencana Tabungan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Rencana tabungan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Manajemen Hutang KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Manajemen hutang ↗</button>
+  </div>
+</div>
+</div>

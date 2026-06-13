@@ -1,0 +1,248 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b2:rgba(255,255,255,0.16);--kb-b1:rgba(255,255,255,0.08);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;--kb-input:#111E30;
+}
+.wrap{padding:20px 0;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.phone{background:var(--kb-bg);border-radius:44px;width:290px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.screen{padding:0 0 36px}
+.lbl{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-t3);text-align:center;padding-bottom:6px;text-transform:uppercase}
+.logo-row{display:flex;flex-direction:column;align-items:center;padding:28px 20px 20px}
+.coin{width:52px;height:52px;border-radius:50%;background:#F5C842;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.coin-inner{width:42px;height:42px;border-radius:50%;background:#E8A800;display:flex;align-items:center;justify-content:center}
+.app-name{font-size:22px;font-weight:500;color:var(--kb-text);letter-spacing:-0.5px;margin-bottom:3px}
+.app-name span{color:var(--kb-gold)}
+.app-sub{font-size:12px;color:var(--kb-t3)}
+.form-area{padding:0 18px}
+.field-lbl{font-size:11px;color:var(--kb-t2);margin-bottom:5px;display:block}
+.field-wrap{display:flex;align-items:center;background:var(--kb-input);border-radius:12px;padding:0 12px;height:44px;gap:8px;margin-bottom:5px}
+.field-wrap.neutral{border:0.5px solid var(--kb-b2)}
+.field-wrap.error{border:0.5px solid #FF6B6B;background:rgba(255,107,107,0.06)}
+.field-wrap.locked{border:0.5px solid rgba(255,107,107,0.4);background:rgba(255,107,107,0.08)}
+.field-wrap i{font-size:16px;flex-shrink:0}
+.field-text{font-size:13px;color:var(--kb-text);flex:1}
+.field-text.ph{color:var(--kb-t3)}
+.pw-dots{display:flex;gap:4px;align-items:center;flex:1}
+.pw-dot{width:6px;height:6px;border-radius:50%;background:var(--kb-t2)}
+.err-inline{font-size:11px;color:#FF6B6B;display:flex;align-items:center;gap:5px;margin-bottom:10px;padding-left:2px}
+.err-block{display:flex;align-items:flex-start;gap:8px;background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.3);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.err-block i{font-size:16px;color:#FF6B6B;flex-shrink:0;margin-top:1px}
+.err-block-title{font-size:12px;font-weight:500;color:#FF9090;margin-bottom:2px}
+.err-block-sub{font-size:11px;color:rgba(255,107,107,0.7);line-height:1.5}
+.attempt-chip{display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:14px}
+.attempt-dot{width:8px;height:8px;border-radius:50%}
+.attempt-txt{font-size:11px;color:#FF9090}
+.btn-primary{width:100%;height:46px;border-radius:13px;background:var(--kb-gold);border:none;cursor:pointer;font-size:14px;font-weight:500;color:#0A1628;margin-bottom:12px}
+.btn-primary.disabled{background:#3E5878;color:var(--kb-t3);cursor:not-allowed}
+.btn-ghost{width:100%;height:40px;border-radius:12px;background:transparent;border:0.5px solid var(--kb-b2);cursor:pointer;font-size:12px;color:var(--kb-t2);margin-bottom:6px}
+.forgot-row{text-align:right;margin-bottom:16px}
+.forgot-row a{font-size:12px;color:var(--kb-violet)}
+.check-row{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.check-box{width:18px;height:18px;border-radius:5px;border:0.5px solid var(--kb-b2);background:var(--kb-input);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.check-box.on{background:var(--kb-gold);border-color:var(--kb-gold)}
+.check-lbl{font-size:12px;color:var(--kb-t2)}
+.countdown-card{background:rgba(255,107,107,0.08);border:0.5px solid rgba(255,107,107,0.25);border-radius:14px;padding:14px;text-align:center;margin-bottom:14px}
+.cd-title{font-size:13px;font-weight:500;color:#FF9090;margin-bottom:6px}
+.cd-timer{font-size:32px;font-weight:500;color:#FF6B6B;letter-spacing:2px;margin-bottom:4px;animation:pulse-red 1s ease-in-out infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.7}}
+.cd-sub{font-size:11px;color:rgba(255,107,107,0.6)}
+.shake{animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.register-row{display:flex;justify-content:center;gap:4px;padding-top:8px}
+.reg-txt{font-size:12px;color:var(--kb-t3)}
+.reg-link{font-size:12px;color:var(--kb-gold);cursor:pointer;font-weight:500}
+.lock-icon-wrap{display:flex;justify-content:center;padding:4px 0 14px}
+.lock-circle{width:56px;height:56px;border-radius:50%;background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.3);display:flex;align-items:center;justify-content:center}
+</style>
+
+<h2 class="sr-only">Mockup tiga state error login KasBon: password salah pertama kali, percobaan ke-2 dengan sisa percobaan, dan akun terkunci sementara dengan countdown timer.</h2>
+
+<div class="wrap">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="lbl">State 1 — salah pertama kali</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="logo-row">
+          <div class="coin"><div class="coin-inner">
+            <svg width="22" height="22" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <polygon points="20,7 32,15 32,30 8,30 8,15" fill="#F5C842"/>
+              <polygon points="20,3 34,14 6,14" fill="#FDE8D8"/>
+              <rect x="15" y="22" width="10" height="8" rx="1.5" fill="#E8A800"/>
+            </svg>
+          </div></div>
+          <div class="app-name"><span>Kas</span>Bon</div>
+          <div class="app-sub">Masuk ke akun keluargamu</div>
+        </div>
+        <div class="form-area">
+          <span class="field-lbl">Email</span>
+          <div class="field-wrap neutral" style="margin-bottom:12px">
+            <i class="ti ti-mail" style="color:#2DD4A4" aria-hidden="true"></i>
+            <div class="field-text">bayu@email.com</div>
+            <i class="ti ti-circle-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+          </div>
+          <span class="field-lbl">Password</span>
+          <div class="field-wrap error shake">
+            <i class="ti ti-lock" style="color:#FF6B6B" aria-hidden="true"></i>
+            <div class="pw-dots">
+              <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+              <div class="pw-dot"></div><div class="pw-dot"></div>
+            </div>
+            <i class="ti ti-eye" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+          </div>
+          <div class="err-inline">
+            <i class="ti ti-alert-circle" style="font-size:14px" aria-hidden="true"></i>
+            Password salah. Coba lagi.
+          </div>
+          <div class="forgot-row"><a href="#">Lupa password?</a></div>
+          <div class="check-row">
+            <div class="check-box on"><i class="ti ti-check" style="font-size:11px;color:#0A1628" aria-hidden="true"></i></div>
+            <span class="check-lbl">Ingat saya</span>
+            <div style="margin-left:auto;font-size:11px;color:#FF9090;display:flex;align-items:center;gap:4px">
+              <i class="ti ti-shield-exclamation" style="font-size:14px" aria-hidden="true"></i>
+              2 kesempatan lagi
+            </div>
+          </div>
+          <button class="btn-primary">Coba lagi</button>
+          <div class="register-row">
+            <span class="reg-txt">Belum punya akun?</span>
+            <span class="reg-link" onclick="sendPrompt('Buatkan mockup UI screen Register KasBon')"> Daftar ↗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="lbl">State 2 — percobaan ke-2</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:42</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="logo-row" style="padding-bottom:12px">
+          <div class="coin"><div class="coin-inner">
+            <svg width="22" height="22" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <polygon points="20,7 32,15 32,30 8,30 8,15" fill="#F5C842"/>
+              <polygon points="20,3 34,14 6,14" fill="#FDE8D8"/>
+              <rect x="15" y="22" width="10" height="8" rx="1.5" fill="#E8A800"/>
+            </svg>
+          </div></div>
+          <div class="app-name"><span>Kas</span>Bon</div>
+          <div class="app-sub">Masuk ke akun keluargamu</div>
+        </div>
+        <div class="form-area">
+          <div class="err-block">
+            <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div>
+              <div class="err-block-title">Password salah lagi</div>
+              <div class="err-block-sub">Sisa 1 percobaan sebelum akun dikunci sementara. Yakin ingat password-mu?</div>
+            </div>
+          </div>
+          <span class="field-lbl">Email</span>
+          <div class="field-wrap neutral" style="margin-bottom:12px">
+            <i class="ti ti-mail" style="color:#2DD4A4" aria-hidden="true"></i>
+            <div class="field-text">bayu@email.com</div>
+            <i class="ti ti-circle-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+          </div>
+          <span class="field-lbl">Password</span>
+          <div class="field-wrap error">
+            <i class="ti ti-lock" style="color:#FF6B6B" aria-hidden="true"></i>
+            <div class="pw-dots">
+              <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+              <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            </div>
+            <i class="ti ti-eye" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+          </div>
+          <div style="margin-bottom:14px;padding-top:6px">
+            <div class="attempt-chip">
+              <div class="attempt-dot" style="background:#FF6B6B"></div>
+              <div class="attempt-dot" style="background:#FF6B6B"></div>
+              <div class="attempt-dot" style="background:#3E5878"></div>
+              <span class="attempt-txt">2 dari 3 percobaan digunakan</span>
+            </div>
+          </div>
+          <button class="btn-primary">Coba sekali lagi</button>
+          <button class="btn-ghost" onclick="sendPrompt('Buatkan mockup UI screen Lupa Password KasBon')">
+            Lupa password? Reset sekarang
+          </button>
+          <div class="register-row">
+            <span class="reg-txt">Belum punya akun?</span>
+            <span class="reg-link" onclick="sendPrompt('Buatkan mockup UI screen Register KasBon')"> Daftar ↗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="lbl">State 3 — akun terkunci</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:43</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="logo-row" style="padding-bottom:10px">
+          <div class="coin"><div class="coin-inner">
+            <svg width="22" height="22" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <polygon points="20,7 32,15 32,30 8,30 8,15" fill="#F5C842"/>
+              <polygon points="20,3 34,14 6,14" fill="#FDE8D8"/>
+              <rect x="15" y="22" width="10" height="8" rx="1.5" fill="#E8A800"/>
+            </svg>
+          </div></div>
+          <div class="app-name"><span>Kas</span>Bon</div>
+        </div>
+        <div class="form-area">
+          <div class="lock-icon-wrap">
+            <div class="lock-circle">
+              <i class="ti ti-lock" style="font-size:26px;color:#FF6B6B" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="countdown-card">
+            <div class="cd-title">Akun dikunci sementara</div>
+            <div class="cd-timer">04:37</div>
+            <div class="cd-sub">Terlalu banyak percobaan gagal. Tunggu sebentar atau reset password.</div>
+          </div>
+          <div class="field-wrap locked" style="margin-bottom:12px">
+            <i class="ti ti-mail" style="color:rgba(255,107,107,0.5)" aria-hidden="true"></i>
+            <div class="field-text">bayu@email.com</div>
+            <i class="ti ti-lock" style="font-size:14px;color:rgba(255,107,107,0.4)" aria-hidden="true"></i>
+          </div>
+          <div class="field-wrap locked" style="margin-bottom:18px">
+            <i class="ti ti-lock" style="color:rgba(255,107,107,0.5)" aria-hidden="true"></i>
+            <div class="field-text ph">••••••••</div>
+            <i class="ti ti-lock" style="font-size:14px;color:rgba(255,107,107,0.4)" aria-hidden="true"></i>
+          </div>
+          <button class="btn-primary disabled" disabled>Masuk (terkunci)</button>
+          <button class="btn-ghost" style="border-color:rgba(245,200,66,0.3);color:#F5C842;margin-top:8px" onclick="sendPrompt('Buatkan mockup UI screen Lupa Password KasBon')">
+            Reset password sekarang
+          </button>
+          <div style="text-align:center;padding-top:12px;font-size:11px;color:var(--kb-t3)">
+            Bukan kamu? Hubungi admin keluarga
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,347 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.hero{padding:8px 18px 14px}
+.hero-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.biz-icon{width:52px;height:52px;border-radius:18px;background:rgba(245,200,66,0.12);border:0.5px solid rgba(245,200,66,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.biz-name{font-size:18px;font-weight:500;color:var(--kb-text);margin-bottom:4px}
+.biz-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.badge{font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500}
+.badge-aktif{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-biz{background:rgba(245,200,66,0.1);color:#F5C842}
+.period-row{display:flex;gap:7px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.period-row::-webkit-scrollbar{display:none}
+.period-chip{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer}
+.pc-on{background:#F5C842;color:#0A1628}
+.pc-off{background:var(--kb-card);border:0.5px solid var(--kb-b2);color:var(--kb-t2)}
+.main-kpi{background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:18px;padding:14px;margin-bottom:12px}
+.mk-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.mk-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:3px}
+.mk-val{font-size:26px;font-weight:500;color:var(--kb-gold)}
+.mk-sub{font-size:11px;margin-top:2px}
+.mk-trend{display:flex;align-items:center;gap:5px;background:rgba(45,212,164,0.1);border-radius:10px;padding:5px 9px}
+.mk-trend-txt{font-size:11px;color:#2DD4A4;font-weight:500}
+.hpp-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:center}
+.hpp-block{background:rgba(255,255,255,0.04);border-radius:12px;padding:9px;text-align:center;border:0.5px solid var(--kb-b1)}
+.hpp-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:3px}
+.hpp-val{font-size:13px;font-weight:500}
+.hpp-arrow{font-size:16px;color:var(--kb-t3);text-align:center;padding:0 4px}
+.margin-bar-row{margin-top:12px}
+.mb-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-t3);margin-bottom:4px}
+.mb-track{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.mb-fill{height:6px;border-radius:3px;background:#F5C842}
+.kpi2-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.kpi2{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:11px 12px}
+.kpi2-lbl{font-size:10px;color:var(--kb-t3);display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.kpi2-val{font-size:16px;font-weight:500}
+.kpi2-sub{font-size:10px;color:var(--kb-t3);margin-top:2px}
+.chart-area{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.chart-title{font-size:12px;font-weight:500;color:var(--kb-text)}
+.chart-legend{display:flex;gap:10px}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--kb-t3)}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:70px;margin-bottom:6px}
+.bar-group{flex:1;display:flex;gap:2px;align-items:flex-end}
+.bar{border-radius:3px 3px 0 0;min-width:0}
+.bar-labels{display:flex;gap:6px}
+.bar-lbl{flex:1;text-align:center;font-size:10px;color:var(--kb-t3)}
+.stok-card{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.stok-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.stok-title{font-size:12px;font-weight:500;color:var(--kb-text)}
+.stok-add{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.stok-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:0.5px solid var(--kb-b1)}
+.stok-row:last-child{border-bottom:none}
+.stok-color{width:4px;height:36px;border-radius:2px;flex-shrink:0}
+.stok-info{flex:1}
+.stok-name{font-size:12px;font-weight:500;color:var(--kb-text)}
+.stok-detail{font-size:10px;color:var(--kb-t3);margin-top:1px}
+.stok-right{text-align:right;flex-shrink:0}
+.stok-qty{font-size:12px;font-weight:500;color:var(--kb-text)}
+.stok-status{font-size:10px;margin-top:1px}
+.status-ok{color:#2DD4A4}
+.status-warn{color:#F5C842}
+.status-low{color:#FF6B6B}
+.note-card{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.note-item{display:flex;gap:8px;margin-bottom:8px}
+.note-item:last-child{margin-bottom:0}
+.note-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note-txt{font-size:12px;color:var(--kb-t2);line-height:1.5}
+.fab-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+.fab-btn{height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:12px;font-weight:500;border:none}
+.fab-omset{background:#2DD4A4;color:#0A1628}
+.fab-hpp{background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.25);color:#FF9090}
+.fab-full{width:100%;height:44px;border-radius:14px;background:rgba(245,200,66,0.1);border:0.5px solid rgba(245,200,66,0.25);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:12px;font-weight:500;color:#F5C842}
+</style>
+
+<h2 class="sr-only">Mockup detail halaman bisnis usaha Jualan Cimol KasBon — menampilkan omset, HPP, laba, margin, grafik mingguan, stok bahan baku, dan catatan operasional harian.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center;font-size:14px;font-weight:500;color:var(--kb-text)">Detail usaha</div>
+    <div style="display:flex;gap:7px">
+      <div class="icon-btn" aria-label="Export laporan">
+        <i class="ti ti-download" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" aria-label="Menu lainnya">
+        <i class="ti ti-dots" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+
+    <div class="hero-top">
+      <div class="biz-icon">
+        <i class="ti ti-building-store" style="font-size:26px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div>
+        <div class="biz-name">Jualan Cimol</div>
+        <div class="biz-meta">
+          <span class="badge badge-aktif">Aktif</span>
+          <span class="badge badge-biz">Kuliner</span>
+          <span style="font-size:10px;color:var(--kb-t3)">Mulai Jan 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="period-row">
+      <div class="period-chip pc-off">Hari ini</div>
+      <div class="period-chip pc-off">Pekan ini</div>
+      <div class="period-chip pc-on">Bulan ini</div>
+      <div class="period-chip pc-off">3 bulan</div>
+      <div class="period-chip pc-off">Semua waktu</div>
+    </div>
+
+    <div class="main-kpi">
+      <div class="mk-top">
+        <div>
+          <div class="mk-lbl">Laba bersih — Juni 2025</div>
+          <div class="mk-val">Rp 2.400.000</div>
+          <div class="mk-sub" style="color:#2DD4A4">Margin 38,7% dari omset</div>
+        </div>
+        <div class="mk-trend">
+          <i class="ti ti-trending-up" style="font-size:14px;color:#2DD4A4" aria-hidden="true"></i>
+          <span class="mk-trend-txt">+22% vs Mei</span>
+        </div>
+      </div>
+      <div class="hpp-flow">
+        <div class="hpp-block">
+          <div class="hpp-lbl">Omset</div>
+          <div class="hpp-val" style="color:#2DD4A4">Rp 6,2jt</div>
+        </div>
+        <div class="hpp-arrow">
+          <i class="ti ti-minus" style="font-size:14px" aria-hidden="true"></i>
+        </div>
+        <div class="hpp-block">
+          <div class="hpp-lbl">HPP / Modal</div>
+          <div class="hpp-val" style="color:#FF6B6B">Rp 3,8jt</div>
+        </div>
+        <div class="hpp-arrow">
+          <i class="ti ti-equal" style="font-size:14px" aria-hidden="true"></i>
+        </div>
+        <div class="hpp-block" style="border-color:rgba(245,200,66,0.25)">
+          <div class="hpp-lbl">Laba kotor</div>
+          <div class="hpp-val" style="color:#F5C842">Rp 2,4jt</div>
+        </div>
+      </div>
+      <div class="margin-bar-row">
+        <div class="mb-labels">
+          <span>Margin laba kotor</span>
+          <span style="color:#F5C842;font-weight:500">38,7%</span>
+        </div>
+        <div class="mb-track"><div class="mb-fill" style="width:39%"></div></div>
+      </div>
+    </div>
+
+    <div class="kpi2-grid">
+      <div class="kpi2">
+        <div class="kpi2-lbl">
+          <i class="ti ti-calendar-stats" style="font-size:13px;color:#7C6FF7" aria-hidden="true"></i>
+          Rata-rata harian
+        </div>
+        <div class="kpi2-val" style="color:#7C6FF7">Rp 207rb</div>
+        <div class="kpi2-sub">omset per hari buka</div>
+      </div>
+      <div class="kpi2">
+        <div class="kpi2-lbl">
+          <i class="ti ti-clock" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i>
+          Hari buka bulan ini
+        </div>
+        <div class="kpi2-val" style="color:#2DD4A4">30 hari</div>
+        <div class="kpi2-sub">dari 30 hari aktif</div>
+      </div>
+      <div class="kpi2">
+        <div class="kpi2-lbl">
+          <i class="ti ti-package" style="font-size:13px;color:#F5C842" aria-hidden="true"></i>
+          Porsi terjual
+        </div>
+        <div class="kpi2-val" style="color:#F5C842">620 pcs</div>
+        <div class="kpi2-sub">est. @Rp 10.000/pcs</div>
+      </div>
+      <div class="kpi2">
+        <div class="kpi2-lbl">
+          <i class="ti ti-receipt-2" style="font-size:13px;color:#FF6B6B" aria-hidden="true"></i>
+          Biaya operasional
+        </div>
+        <div class="kpi2-val" style="color:#FF6B6B">Rp 380rb</div>
+        <div class="kpi2-sub">gas, plastik, bumbu</div>
+      </div>
+    </div>
+
+    <div class="chart-area">
+      <div class="chart-header">
+        <span class="chart-title">Omset vs HPP — mingguan</span>
+        <div class="chart-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#2DD4A4"></div>Omset</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#FF6B6B"></div>HPP</div>
+        </div>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-group">
+          <div class="bar" style="height:52px;width:100%;background:#2DD4A4;opacity:.9"></div>
+          <div class="bar" style="height:32px;width:100%;background:#FF6B6B;opacity:.7"></div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:44px;width:100%;background:#2DD4A4;opacity:.9"></div>
+          <div class="bar" style="height:28px;width:100%;background:#FF6B6B;opacity:.7"></div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:60px;width:100%;background:#2DD4A4;opacity:.9"></div>
+          <div class="bar" style="height:36px;width:100%;background:#FF6B6B;opacity:.7"></div>
+        </div>
+        <div class="bar-group" style="border:0.5px solid rgba(245,200,66,0.3);border-radius:4px;padding:2px">
+          <div class="bar" style="height:70px;width:100%;background:#2DD4A4"></div>
+          <div class="bar" style="height:42px;width:100%;background:#FF6B6B"></div>
+        </div>
+      </div>
+      <div class="bar-labels">
+        <span class="bar-lbl">Mgg 1</span>
+        <span class="bar-lbl">Mgg 2</span>
+        <span class="bar-lbl">Mgg 3</span>
+        <span class="bar-lbl" style="color:#F5C842">Mgg 4</span>
+      </div>
+    </div>
+
+    <div class="stok-card">
+      <div class="stok-header">
+        <span class="stok-title">Stok bahan baku</span>
+        <span class="stok-add">+ Perbarui stok</span>
+      </div>
+      <div class="stok-row">
+        <div class="stok-color" style="background:#2DD4A4"></div>
+        <div class="stok-info">
+          <div class="stok-name">Tepung tapioka</div>
+          <div class="stok-detail">Rp 8.000/kg · beli 20 Jun</div>
+        </div>
+        <div class="stok-right">
+          <div class="stok-qty">4,5 kg</div>
+          <div class="stok-status status-ok">Cukup</div>
+        </div>
+      </div>
+      <div class="stok-row">
+        <div class="stok-color" style="background:#F5C842"></div>
+        <div class="stok-info">
+          <div class="stok-name">Bumbu balado sachet</div>
+          <div class="stok-detail">Rp 2.500/pcs · 30 pcs/kotak</div>
+        </div>
+        <div class="stok-right">
+          <div class="stok-qty">12 pcs</div>
+          <div class="stok-status status-warn">Hampir habis</div>
+        </div>
+      </div>
+      <div class="stok-row">
+        <div class="stok-color" style="background:#FF6B6B"></div>
+        <div class="stok-info">
+          <div class="stok-name">Minyak goreng</div>
+          <div class="stok-detail">Rp 18.000/liter</div>
+        </div>
+        <div class="stok-right">
+          <div class="stok-qty">0,5 liter</div>
+          <div class="stok-status status-low">Stok kritis!</div>
+        </div>
+      </div>
+      <div class="stok-row">
+        <div class="stok-color" style="background:#8FA8CC"></div>
+        <div class="stok-info">
+          <div class="stok-name">Plastik kemasan</div>
+          <div class="stok-detail">Rp 15.000/100 pcs</div>
+        </div>
+        <div class="stok-right">
+          <div class="stok-qty">80 pcs</div>
+          <div class="stok-status status-ok">Cukup</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase">Catatan hari ini</span>
+      <span style="font-size:11px;color:var(--kb-violet);cursor:pointer">+ Tambah</span>
+    </div>
+
+    <div class="note-card">
+      <div class="note-item">
+        <div class="note-dot" style="background:#FF6B6B"></div>
+        <span class="note-txt">Minyak goreng hampir habis — beli besok pagi sebelum buka</span>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#2DD4A4"></div>
+        <span class="note-txt">Minggu ke-4 omset tertinggi bulan ini — ramai karena dekat akhir bulan</span>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#F5C842"></div>
+        <span class="note-txt">Pertimbangkan tambah varian rasa keju minggu depan</span>
+      </div>
+    </div>
+
+    <div class="fab-row">
+      <button class="fab-btn fab-omset" onclick="sendPrompt('Buatkan mockup UI Form Catat Pemasukan KasBon untuk usaha cimol')">
+        <i class="ti ti-arrow-down-left" style="font-size:17px" aria-hidden="true"></i>
+        Catat omset
+      </button>
+      <button class="fab-btn fab-hpp" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon untuk HPP cimol')">
+        <i class="ti ti-arrow-up-right" style="font-size:17px" aria-hidden="true"></i>
+        Catat HPP
+      </button>
+    </div>
+    <button class="fab-full" onclick="sendPrompt('Buatkan mockup UI halaman Cashflow Project KasBon untuk usaha cimol')">
+      <i class="ti ti-chart-bar" style="font-size:17px" aria-hidden="true"></i>
+      Lihat cashflow lengkap
+    </button>
+
+  </div>
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Budget Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Budget bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Rencana tabungan ↗</button>
+  </div>
+</div>
+</div>

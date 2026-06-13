@@ -1,0 +1,248 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-border:rgba(255,255,255,0.09);--kb-border2:rgba(255,255,255,0.16);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-text2:#8FA8CC;--kb-text3:#3E5878;--kb-input:#111E30;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 6px;font-size:11px;color:var(--kb-text2)}
+.screen{padding:0 0 36px}
+.topnav{display:flex;align-items:center;gap:12px;padding:8px 20px 4px}
+.back-btn{width:34px;height:34px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-border2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.page-title{font-size:16px;font-weight:500;color:var(--kb-text)}
+.page-sub{font-size:11px;color:var(--kb-text3)}
+.steps-row{display:flex;align-items:center;gap:0;padding:16px 20px 20px}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative}
+.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;z-index:1}
+.step-circle.done{background:var(--kb-mint);color:#0A1628}
+.step-circle.active{background:var(--kb-gold);color:#0A1628}
+.step-circle.idle{background:var(--kb-card2);border:0.5px solid var(--kb-border2);color:var(--kb-text3)}
+.step-lbl{font-size:10px;color:var(--kb-text3)}
+.step-lbl.active{color:var(--kb-gold)}
+.step-lbl.done{color:var(--kb-mint)}
+.step-line{flex:1;height:1px;background:var(--kb-border2);margin-top:-20px;z-index:0}
+.step-line.done{background:var(--kb-mint)}
+.avatar-section{display:flex;flex-direction:column;align-items:center;padding:4px 20px 20px}
+.avatar-wrap{position:relative;width:72px;height:72px;margin-bottom:10px}
+.avatar-circle{width:72px;height:72px;border-radius:50%;background:var(--kb-card2);border:2px solid var(--kb-border2);display:flex;align-items:center;justify-content:center}
+.avatar-add{position:absolute;bottom:0;right:0;width:22px;height:22px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;border:2px solid var(--kb-bg)}
+.avatar-hint{font-size:11px;color:var(--kb-text3)}
+.form-area{padding:0 20px}
+.field{margin-bottom:12px}
+.field-label{font-size:11px;color:var(--kb-text2);margin-bottom:5px;display:block}
+.field-wrap{display:flex;align-items:center;background:var(--kb-input);border:0.5px solid var(--kb-border2);border-radius:12px;padding:0 14px;height:44px;gap:10px}
+.field-wrap.focused{border-color:var(--kb-gold)}
+.field-wrap.valid{border-color:var(--kb-mint)}
+.field-wrap.error{border-color:var(--kb-red)}
+.field-wrap i{color:var(--kb-text3);font-size:17px;flex-shrink:0}
+.field-text{font-size:13px;color:var(--kb-text);flex:1}
+.field-text.placeholder{color:var(--kb-text3)}
+.valid-icon{color:var(--kb-mint);font-size:15px;flex-shrink:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.pw-dots{display:flex;gap:4px;align-items:center;flex:1;padding:2px 0}
+.pw-dot{width:6px;height:6px;border-radius:50%;background:var(--kb-text2)}
+.strength-row{margin-top:4px;margin-bottom:12px}
+.strength-label{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-text3);margin-bottom:4px}
+.strength-label span{color:var(--kb-mint)}
+.strength-bar{display:flex;gap:3px}
+.sbar{flex:1;height:3px;border-radius:2px}
+.sbar.fill-g{background:var(--kb-mint)}
+.sbar.fill-y{background:var(--kb-gold)}
+.sbar.fill-e{background:var(--kb-border2)}
+.invite-card{background:var(--kb-card);border:0.5px solid var(--kb-border2);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.invite-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.invite-icon{width:28px;height:28px;border-radius:8px;background:rgba(124,111,247,0.15);display:flex;align-items:center;justify-content:center}
+.invite-title{font-size:12px;font-weight:500;color:var(--kb-text);flex:1}
+.invite-skip{font-size:11px;color:var(--kb-text3)}
+.invite-field{display:flex;align-items:center;background:var(--kb-input);border:0.5px solid var(--kb-border2);border-radius:10px;padding:0 12px;height:38px;gap:8px}
+.invite-field i{color:var(--kb-text3);font-size:16px}
+.invite-field-txt{font-size:12px;color:var(--kb-text3);flex:1}
+.terms-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:18px}
+.check-box{width:18px;height:18px;border-radius:5px;border:0.5px solid var(--kb-border2);background:var(--kb-input);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-box.checked{background:var(--kb-gold);border-color:var(--kb-gold)}
+.check-box i{font-size:11px;color:#0A1628}
+.terms-txt{font-size:11px;color:var(--kb-text3);line-height:1.5}
+.terms-link{color:var(--kb-violet)}
+.btn-primary{width:100%;height:48px;border-radius:14px;background:var(--kb-gold);border:none;cursor:pointer;font-size:15px;font-weight:500;color:#0A1628;margin-bottom:14px}
+.login-row{display:flex;justify-content:center;gap:4px}
+.login-txt{font-size:12px;color:var(--kb-text3)}
+.login-link{font-size:12px;color:var(--kb-gold);cursor:pointer;font-weight:500}
+</style>
+
+<h2 class="sr-only">Mockup tampilan halaman register KasBon — form pendaftaran akun baru dengan langkah upload avatar, isi data diri, dan kode undangan keluarga.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="statusbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:12px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:12px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="screen">
+
+    <div class="topnav">
+      <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI screen Login KasBon')">
+        <i class="ti ti-arrow-left" style="font-size:16px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div>
+        <div class="page-title">Buat akun baru</div>
+        <div class="page-sub">Bergabung ke keluargamu</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-circle done"><i class="ti ti-check" style="font-size:13px" aria-hidden="true"></i></div>
+        <span class="step-lbl done">Profil</span>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step">
+        <div class="step-circle active">2</div>
+        <span class="step-lbl active">Akun</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-circle idle">3</div>
+        <span class="step-lbl">Keluarga</span>
+      </div>
+    </div>
+
+    <div class="avatar-section">
+      <div class="avatar-wrap">
+        <div class="avatar-circle">
+          <i class="ti ti-user" style="font-size:28px;color:#3E5878" aria-hidden="true"></i>
+        </div>
+        <div class="avatar-add">
+          <i class="ti ti-camera" style="font-size:11px;color:#0A1628" aria-hidden="true"></i>
+        </div>
+      </div>
+      <span class="avatar-hint">Ketuk untuk upload foto profil</span>
+    </div>
+
+    <div class="form-area">
+
+      <div class="row2">
+        <div class="field" style="margin-bottom:0">
+          <span class="field-label">Nama depan</span>
+          <div class="field-wrap valid">
+            <div class="field-text">Bayu</div>
+            <i class="ti ti-circle-check valid-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <span class="field-label">Nama belakang</span>
+          <div class="field-wrap focused">
+            <div class="field-text placeholder">Pratama</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:12px">
+        <span class="field-label">Alamat email</span>
+        <div class="field-wrap valid">
+          <i class="ti ti-mail" aria-hidden="true"></i>
+          <div class="field-text">bayu@email.com</div>
+          <i class="ti ti-circle-check valid-icon" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Nomor HP (opsional)</span>
+        <div class="field-wrap">
+          <i class="ti ti-phone" aria-hidden="true"></i>
+          <div class="field-text placeholder">+62 8xx xxxx xxxx</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Password</span>
+        <div class="field-wrap valid">
+          <i class="ti ti-lock" aria-hidden="true"></i>
+          <div class="pw-dots">
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+          </div>
+          <i class="ti ti-eye" style="color:#3E5878;font-size:16px;flex-shrink:0;cursor:pointer" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="strength-row">
+        <div class="strength-label">
+          <span>Kekuatan password</span>
+          <span>Kuat</span>
+        </div>
+        <div class="strength-bar">
+          <div class="sbar fill-g"></div>
+          <div class="sbar fill-g"></div>
+          <div class="sbar fill-g"></div>
+          <div class="sbar fill-y"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Konfirmasi password</span>
+        <div class="field-wrap valid">
+          <i class="ti ti-lock" aria-hidden="true"></i>
+          <div class="pw-dots">
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+            <div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div>
+          </div>
+          <i class="ti ti-circle-check valid-icon" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="invite-card">
+        <div class="invite-top">
+          <div class="invite-icon">
+            <i class="ti ti-users" style="font-size:15px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <span class="invite-title">Kode undangan keluarga</span>
+          <span class="invite-skip">Lewati</span>
+        </div>
+        <div class="invite-field">
+          <i class="ti ti-key" aria-hidden="true"></i>
+          <span class="invite-field-txt">Masukkan kode dari anggota keluarga</span>
+        </div>
+      </div>
+
+      <div class="terms-row">
+        <div class="check-box checked">
+          <i class="ti ti-check" aria-hidden="true"></i>
+        </div>
+        <div class="terms-txt">
+          Saya setuju dengan <span class="terms-link">Syarat &amp; Ketentuan</span> dan <span class="terms-link">Kebijakan Privasi</span> KasBon
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="sendPrompt('Buatkan mockup UI screen Onboarding KasBon')">
+        Buat akun
+      </button>
+
+      <div class="login-row">
+        <span class="login-txt">Sudah punya akun?</span>
+        <span class="login-link" onclick="sendPrompt('Buatkan mockup UI screen Login KasBon')"> Masuk ↗</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:20px">
+  <p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:12px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI screen Onboarding KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Onboarding ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI screen Lupa Password KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Lupa password ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')" style="font-size:12px;padding:6px 12px;border-radius:8px">Home Dashboard ↗</button>
+  </div>
+</div>
+
+</div>

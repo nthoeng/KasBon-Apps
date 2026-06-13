@@ -1,0 +1,326 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;
+--kb-bg2:#0F1E35;
+--kb-card:#152238;
+--kb-card2:#1A2A42;
+--kb-border:rgba(255,255,255,0.08);
+--kb-border2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;
+--kb-gold2:#E8A800;
+--kb-mint:#2DD4A4;
+--kb-red:#FF6B6B;
+--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;
+--kb-text2:#8FA8CC;
+--kb-text3:#4A6080;
+}
+.phone-wrap{background:var(--kb-bg);border-radius:44px;width:360px;margin:0 auto;overflow:hidden;border:2px solid rgba(255,255,255,0.1);font-family:var(--font-sans,-apple-system,sans-serif)}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 6px;font-size:11px;color:var(--kb-text2)}
+.sb-right{display:flex;gap:6px;align-items:center}
+.screen{padding:0 0 90px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 8px}
+.greeting-sub{font-size:11px;color:var(--kb-text2)}
+.greeting-name{font-size:16px;font-weight:500;color:var(--kb-text)}
+.topbar-right{display:flex;gap:10px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:50%;background:var(--kb-card);border:0.5px solid var(--kb-border2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.notif-dot{position:relative}
+.notif-dot::after{content:'';position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#FF6B6B;border:1.5px solid var(--kb-bg)}
+.hero-card{margin:4px 16px 0;background:var(--kb-card2);border-radius:24px;border:0.5px solid var(--kb-border2);padding:20px}
+.hero-label{font-size:11px;color:var(--kb-text2);margin-bottom:4px;letter-spacing:.04em}
+.hero-saldo{font-size:30px;font-weight:500;color:var(--kb-text);letter-spacing:-0.5px}
+.hero-saldo span{font-size:17px;font-weight:400;color:var(--kb-text2)}
+.hero-sub{font-size:11px;color:var(--kb-text3);margin-top:3px}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.hstat{background:rgba(255,255,255,0.05);border-radius:14px;padding:12px;border:0.5px solid var(--kb-border)}
+.hstat-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.hstat-dot{width:8px;height:8px;border-radius:50%}
+.hstat-lbl{font-size:10px;color:var(--kb-text2)}
+.hstat-val{font-size:14px;font-weight:500;color:var(--kb-text)}
+.hstat-change{font-size:10px;color:var(--kb-text3);margin-top:1px}
+.budget-row{margin-top:14px}
+.budget-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-text2);margin-bottom:5px}
+.budget-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px}
+.budget-fill{height:4px;border-radius:2px;background:var(--kb-gold)}
+.section-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px 10px}
+.sec-title{font-size:13px;font-weight:500;color:var(--kb-text)}
+.sec-link{font-size:11px;color:var(--kb-violet)}
+.wallets-scroll{display:flex;gap:10px;padding:0 20px 4px;overflow-x:auto;scrollbar-width:none}
+.wallets-scroll::-webkit-scrollbar{display:none}
+.wallet-chip{flex-shrink:0;background:var(--kb-card);border-radius:16px;border:0.5px solid var(--kb-border2);padding:12px 14px;min-width:130px}
+.wc-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wc-icon{width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.wc-name{font-size:11px;color:var(--kb-text2);flex:1}
+.wc-badge{font-size:9px;padding:2px 6px;border-radius:20px;background:rgba(124,111,247,0.2);color:#A89FF9}
+.wc-saldo{font-size:14px;font-weight:500;color:var(--kb-text);letter-spacing:-0.3px}
+.wc-sub{font-size:10px;color:var(--kb-text3);margin-top:2px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 20px}
+.qbtn{background:var(--kb-card);border-radius:16px;border:0.5px solid var(--kb-border);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.qbtn-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.qbtn-lbl{font-size:10px;color:var(--kb-text2);text-align:center;line-height:1.3}
+.tx-list{padding:0 16px}
+.tx-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:0.5px solid var(--kb-border)}
+.tx-item:last-child{border-bottom:none}
+.tx-icon{width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tx-info{flex:1;min-width:0}
+.tx-name{font-size:13px;color:var(--kb-text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-meta{font-size:11px;color:var(--kb-text3);margin-top:1px}
+.tx-amt{font-size:13px;font-weight:500;flex-shrink:0}
+.tx-plus{color:var(--kb-mint)}
+.tx-minus{color:var(--kb-red)}
+.members-row{display:flex;gap:8px;padding:0 20px;align-items:center}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;border:2px solid var(--kb-bg)}
+.avatar-more{background:var(--kb-card2);color:var(--kb-text2);font-size:10px;border:0.5px solid var(--kb-border2)}
+.member-info{flex:1}
+.member-name{font-size:12px;color:var(--kb-text)}
+.member-last{font-size:10px;color:var(--kb-text3)}
+.member-tx{font-size:12px;font-weight:500}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:12px 8px 20px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-border);position:relative}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 8px;border-radius:12px;flex:1}
+.bnav-item.active .bnav-lbl{color:var(--kb-gold)}
+.bnav-item.active i{color:var(--kb-gold)}
+.bnav-lbl{font-size:9px;color:var(--kb-text3)}
+.bnav-item i{color:var(--kb-text3);font-size:20px}
+.fab-wrap{flex:0 0 56px;display:flex;justify-content:center}
+.fab{width:52px;height:52px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-18px;border:3px solid var(--kb-bg);cursor:pointer}
+.fab i{color:#0A1628;font-size:22px}
+.insight-card{margin:0 16px;background:var(--kb-card);border:0.5px solid rgba(124,111,247,0.3);border-radius:18px;padding:14px 16px}
+.insight-row{display:flex;align-items:center;gap:10px}
+.insight-icon{width:36px;height:36px;border-radius:12px;background:rgba(124,111,247,0.15);display:flex;align-items:center;justify-content:center}
+.insight-text{flex:1}
+.insight-title{font-size:12px;font-weight:500;color:var(--kb-text)}
+.insight-sub{font-size:11px;color:var(--kb-text2);margin-top:2px}
+.insight-cta{font-size:11px;color:var(--kb-violet)}
+.tag-global{font-size:9px;padding:2px 6px;border-radius:20px;background:rgba(45,212,164,0.15);color:#2DD4A4}
+.tag-private{font-size:9px;padding:2px 6px;border-radius:20px;background:rgba(255,255,255,0.08);color:var(--kb-text2)}
+</style>
+
+<div style="background:var(--kb-bg);padding:20px 0;min-height:100px">
+<div class="phone-wrap">
+
+<div class="statusbar">
+<span>09:41</span>
+<div class="sb-right">
+<i class="ti ti-wifi" style="font-size:13px" aria-hidden="true"></i>
+<i class="ti ti-battery-2" style="font-size:13px" aria-hidden="true"></i>
+</div>
+</div>
+
+<div class="screen">
+
+<div class="topbar">
+<div class="greeting-wrap">
+<div class="greeting-sub">Selamat pagi,</div>
+<div class="greeting-name">Bayu</div>
+</div>
+<div class="topbar-right">
+<div class="icon-btn notif-dot" aria-label="Notifikasi">
+<i class="ti ti-bell" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+</div>
+<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7C6FF7,#2DD4A4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff">B</div>
+</div>
+</div>
+
+<div class="hero-card">
+<div class="hero-label">Saldo dompet keluarga</div>
+<div class="hero-saldo"><span>Rp </span>14.250.000</div>
+<div class="hero-sub">Diperbarui barusan &nbsp;·&nbsp; Juni 2025</div>
+<div class="hero-stats">
+<div class="hstat">
+<div class="hstat-row">
+<div class="hstat-dot" style="background:var(--kb-mint)"></div>
+<div class="hstat-lbl">Pemasukan</div>
+</div>
+<div class="hstat-val" style="color:var(--kb-mint)">Rp 8.500.000</div>
+<div class="hstat-change">+12% vs bulan lalu</div>
+</div>
+<div class="hstat">
+<div class="hstat-row">
+<div class="hstat-dot" style="background:var(--kb-red)"></div>
+<div class="hstat-lbl">Pengeluaran</div>
+</div>
+<div class="hstat-val" style="color:var(--kb-red)">Rp 4.250.000</div>
+<div class="hstat-change">-5% vs bulan lalu</div>
+</div>
+</div>
+<div class="budget-row">
+<div class="budget-lbl">
+<span>Budget bulan ini</span>
+<span style="color:var(--kb-gold)">68% terpakai</span>
+</div>
+<div class="budget-bar"><div class="budget-fill" style="width:68%"></div></div>
+</div>
+</div>
+
+<div class="section-header">
+<span class="sec-title">Dompet saya</span>
+<span class="sec-link" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">Lihat semua ↗</span>
+</div>
+
+<div class="wallets-scroll">
+<div class="wallet-chip">
+<div class="wc-top">
+<div class="wc-icon" style="background:rgba(245,200,66,0.15)"><i class="ti ti-home" style="color:var(--kb-gold);font-size:14px" aria-hidden="true"></i></div>
+<div class="wc-name">Kas keluarga</div>
+<span class="tag-global">Global</span>
+</div>
+<div class="wc-saldo">Rp 6.800.000</div>
+<div class="wc-sub">Tunai bersama</div>
+</div>
+<div class="wallet-chip">
+<div class="wc-top">
+<div class="wc-icon" style="background:rgba(45,212,164,0.12)"><i class="ti ti-building-bank" style="color:var(--kb-mint);font-size:14px" aria-hidden="true"></i></div>
+<div class="wc-name">BCA Bayu</div>
+<span class="tag-private">Private</span>
+</div>
+<div class="wc-saldo">Rp 4.100.000</div>
+<div class="wc-sub">Rekening bank</div>
+</div>
+<div class="wallet-chip">
+<div class="wc-top">
+<div class="wc-icon" style="background:rgba(124,111,247,0.12)"><i class="ti ti-device-mobile" style="color:var(--kb-violet);font-size:14px" aria-hidden="true"></i></div>
+<div class="wc-name">GoPay Istri</div>
+<span class="tag-private">Private</span>
+</div>
+<div class="wc-saldo">Rp 850.000</div>
+<div class="wc-sub">E-wallet</div>
+</div>
+<div class="wallet-chip">
+<div class="wc-top">
+<div class="wc-icon" style="background:rgba(255,107,107,0.12)"><i class="ti ti-piggy-bank" style="color:var(--kb-red);font-size:14px" aria-hidden="true"></i></div>
+<div class="wc-name">Dana darurat</div>
+<span class="tag-global">Global</span>
+</div>
+<div class="wc-saldo">Rp 2.500.000</div>
+<div class="wc-sub">Target Rp 10jt</div>
+</div>
+</div>
+
+<div class="section-header" style="padding-top:16px">
+<span class="sec-title">Aksi cepat</span>
+</div>
+<div class="quick-grid">
+<div class="qbtn" onclick="sendPrompt('Buatkan mockup UI Form Catat Pengeluaran KasBon')">
+<div class="qbtn-icon" style="background:rgba(255,107,107,0.15)"><i class="ti ti-minus" style="color:var(--kb-red);font-size:18px" aria-hidden="true"></i></div>
+<div class="qbtn-lbl">Catat keluar</div>
+</div>
+<div class="qbtn" onclick="sendPrompt('Buatkan mockup UI Form Catat Pemasukan KasBon')">
+<div class="qbtn-icon" style="background:rgba(45,212,164,0.15)"><i class="ti ti-plus" style="color:var(--kb-mint);font-size:18px" aria-hidden="true"></i></div>
+<div class="qbtn-lbl">Catat masuk</div>
+</div>
+<div class="qbtn" onclick="sendPrompt('Buatkan mockup UI QR Transfer KasBon')">
+<div class="qbtn-icon" style="background:rgba(245,200,66,0.15)"><i class="ti ti-qrcode" style="color:var(--kb-gold);font-size:18px" aria-hidden="true"></i></div>
+<div class="qbtn-lbl">Transfer QR</div>
+</div>
+<div class="qbtn" onclick="sendPrompt('Buatkan mockup UI Statistik Bulanan KasBon')">
+<div class="qbtn-icon" style="background:rgba(124,111,247,0.15)"><i class="ti ti-chart-bar" style="color:var(--kb-violet);font-size:18px" aria-hidden="true"></i></div>
+<div class="qbtn-lbl">Statistik</div>
+</div>
+</div>
+
+<div class="section-header" style="padding-top:18px">
+<span class="sec-title">Insight bulan ini</span>
+</div>
+<div class="insight-card">
+<div class="insight-row">
+<div class="insight-icon"><i class="ti ti-bulb" style="color:var(--kb-violet);font-size:18px" aria-hidden="true"></i></div>
+<div class="insight-text">
+<div class="insight-title">Pengeluaran makan turun 18%</div>
+<div class="insight-sub">Hemat Rp 320rb dibanding Mei. Pertahankan!</div>
+</div>
+</div>
+</div>
+
+<div class="section-header" style="padding-top:16px">
+<span class="sec-title">Aktivitas terbaru</span>
+<span class="sec-link" onclick="sendPrompt('Buatkan mockup UI halaman Aktivitas / Feed Transaksi KasBon')">Semua ↗</span>
+</div>
+
+<div class="tx-list">
+<div class="tx-item">
+<div class="tx-icon" style="background:rgba(255,107,107,0.15)"><i class="ti ti-shopping-cart" style="color:var(--kb-red);font-size:17px" aria-hidden="true"></i></div>
+<div class="tx-info">
+<div class="tx-name">Belanja Indomaret</div>
+<div class="tx-meta">Istri &nbsp;·&nbsp; Kas keluarga &nbsp;·&nbsp; 11:24</div>
+</div>
+<div class="tx-amt tx-minus">-Rp 87.500</div>
+</div>
+<div class="tx-item">
+<div class="tx-icon" style="background:rgba(45,212,164,0.12)"><i class="ti ti-briefcase" style="color:var(--kb-mint);font-size:17px" aria-hidden="true"></i></div>
+<div class="tx-info">
+<div class="tx-name">Gaji Juni</div>
+<div class="tx-meta">Bayu &nbsp;·&nbsp; BCA Bayu &nbsp;·&nbsp; Kemarin</div>
+</div>
+<div class="tx-amt tx-plus">+Rp 6.500.000</div>
+</div>
+<div class="tx-item">
+<div class="tx-icon" style="background:rgba(124,111,247,0.12)"><i class="ti ti-arrows-exchange" style="color:var(--kb-violet);font-size:17px" aria-hidden="true"></i></div>
+<div class="tx-info">
+<div class="tx-name">Transfer ke kas keluarga</div>
+<div class="tx-meta">Bayu &nbsp;·&nbsp; via QR &nbsp;·&nbsp; Kemarin</div>
+</div>
+<div class="tx-amt tx-minus">-Rp 2.000.000</div>
+</div>
+<div class="tx-item">
+<div class="tx-icon" style="background:rgba(255,107,107,0.15)"><i class="ti ti-bolt" style="color:var(--kb-red);font-size:17px" aria-hidden="true"></i></div>
+<div class="tx-info">
+<div class="tx-name">Listrik PLN</div>
+<div class="tx-meta">Bayu &nbsp;·&nbsp; GoPay Istri &nbsp;·&nbsp; 2 hari lalu</div>
+</div>
+<div class="tx-amt tx-minus">-Rp 185.000</div>
+</div>
+</div>
+
+<div class="section-header" style="padding-top:16px">
+<span class="sec-title">Aktivitas anggota</span>
+</div>
+<div class="members-row" style="flex-direction:column;gap:0;padding:0 16px">
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:0.5px solid var(--kb-border)">
+<div class="avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+<div class="member-info">
+<div class="member-name">Bayu</div>
+<div class="member-last">Terakhir: Transfer kas · tadi</div>
+</div>
+<div class="member-tx" style="color:var(--kb-text2)">12 tx</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0">
+<div class="avatar" style="background:linear-gradient(135deg,#F5C842,#FF6B6B)">I</div>
+<div class="member-info">
+<div class="member-name">Istri</div>
+<div class="member-last">Terakhir: Belanja · 11:24</div>
+</div>
+<div class="member-tx" style="color:var(--kb-text2)">8 tx</div>
+</div>
+</div>
+
+</div>
+
+<div class="bottomnav">
+<div class="bnav-item active">
+<i class="ti ti-home-2" aria-hidden="true"></i>
+<span class="bnav-lbl" style="color:var(--kb-gold)">Home</span>
+</div>
+<div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+<i class="ti ti-wallet" aria-hidden="true"></i>
+<span class="bnav-lbl">Dompet</span>
+</div>
+<div class="fab-wrap">
+<div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+<i class="ti ti-plus" aria-hidden="true"></i>
+</div>
+</div>
+<div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+<i class="ti ti-briefcase" aria-hidden="true"></i>
+<span class="bnav-lbl">Project</span>
+</div>
+<div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+<i class="ti ti-user" aria-hidden="true"></i>
+<span class="bnav-lbl">Profil</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>

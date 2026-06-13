@@ -1,0 +1,385 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.tab-row{display:flex;background:var(--kb-card2);border-radius:13px;padding:3px;margin:4px 18px 12px}
+.tab{flex:1;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;gap:5px}
+.tab-on-red{background:#FF6B6B;color:#0A1628}
+.tab-on-green{background:#2DD4A4;color:#0A1628}
+.tab-off{color:var(--kb-t3)}
+.summary-card{margin:0 16px 12px;background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:18px;padding:14px}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.sc-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:3px}
+.sc-val{font-size:24px;font-weight:500}
+.sc-sub{font-size:11px;margin-top:2px}
+.health-bar{margin-bottom:0}
+.hb-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-t3);margin-bottom:5px}
+.hb-track{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.hb-fill{height:6px;border-radius:3px;background:#2DD4A4}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.mg-item{background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;border:0.5px solid var(--kb-b1)}
+.mg-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.mg-val{font-size:12px;font-weight:500}
+.alert-card{margin:0 16px 10px;background:rgba(245,200,66,0.08);border:0.5px solid rgba(245,200,66,0.25);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:9px;cursor:pointer}
+.ac-icon{width:30px;height:30px;border-radius:9px;background:rgba(245,200,66,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ac-info{flex:1}
+.ac-title{font-size:12px;font-weight:500;color:#F5C842;margin-bottom:2px}
+.ac-sub{font-size:11px;color:rgba(245,200,66,0.6)}
+.sec-header{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 8px}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase}
+.sec-link{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.debt-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden;cursor:pointer}
+.dc-top{display:flex;align-items:center;gap:11px;padding:13px 13px 10px}
+.dc-icon{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dc-info{flex:1;min-width:0}
+.dc-name{font-size:13px;font-weight:500;color:var(--kb-text);margin-bottom:2px}
+.dc-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.dc-type{font-size:10px;color:var(--kb-t3)}
+.dc-dot{width:3px;height:3px;border-radius:50%;background:var(--kb-t3)}
+.dc-due{font-size:10px}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500}
+.badge-aktif{background:rgba(255,107,107,0.12);color:#FF9090}
+.badge-lunas{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-warn{background:rgba(245,200,66,0.1);color:#F5C842}
+.dc-right{text-align:right;flex-shrink:0}
+.dc-total{font-size:14px;font-weight:500;color:#FF6B6B}
+.dc-cicilan{font-size:10px;color:var(--kb-t3);margin-top:2px}
+.prog-wrap{padding:0 13px 12px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-t3);margin-bottom:4px}
+.prog-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;border-radius:3px}
+.dc-footer{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:0.5px solid var(--kb-b1)}
+.dcf-item{padding:9px 0;text-align:center;border-right:0.5px solid var(--kb-b1)}
+.dcf-item:last-child{border-right:none}
+.dcf-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.dcf-val{font-size:12px;font-weight:500}
+.due-strip{background:rgba(245,200,66,0.06);border-top:0.5px solid rgba(245,200,66,0.15);display:flex;align-items:center;gap:6px;padding:7px 13px;font-size:11px;color:#F5C842}
+.due-strip-red{background:rgba(255,107,107,0.06);border-top:0.5px solid rgba(255,107,107,0.15);color:#FF9090}
+.piutang-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid rgba(45,212,164,0.2);border-radius:16px;overflow:hidden;cursor:pointer}
+.pc-top{display:flex;align-items:center;gap:11px;padding:13px 13px 10px}
+.pc-icon{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pc-info{flex:1}
+.pc-name{font-size:13px;font-weight:500;color:var(--kb-text);margin-bottom:2px}
+.pc-meta{font-size:11px;color:var(--kb-t3)}
+.pc-right{text-align:right}
+.pc-total{font-size:14px;font-weight:500;color:#2DD4A4}
+.pc-eta{font-size:10px;color:var(--kb-t3);margin-top:2px}
+.pc-footer{display:flex;align-items:center;gap:10px;padding:8px 13px;border-top:0.5px solid var(--kb-b1);background:rgba(45,212,164,0.04)}
+.pc-remind{font-size:11px;color:#2DD4A4;flex:1}
+.add-btn{margin:0 16px 8px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--kb-card);border:1.5px dashed rgba(255,107,107,0.2);border-radius:16px;padding:13px;cursor:pointer;font-size:13px;font-weight:500;color:#FF9090}
+.add-btn-green{border-color:rgba(45,212,164,0.2);color:#2DD4A4}
+.pay-btn{margin:0 16px 14px;width:calc(100% - 32px);height:48px;border-radius:14px;background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.25);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-size:14px;font-weight:500;color:#FF9090}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman manajemen hutang KasBon — daftar hutang aktif dengan progress cicilan, piutang, ringkasan kesehatan finansial, dan alert jatuh tempo.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div style="font-size:17px;font-weight:500;color:var(--kb-text)">Hutang & piutang</div>
+      <div style="font-size:11px;color:var(--kb-t3)">Pantau semua kewajiban & tagihan</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="icon-btn" aria-label="Riwayat pembayaran">
+        <i class="ti ti-history" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" aria-label="Tambah hutang baru">
+        <i class="ti ti-plus" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-row">
+    <div class="tab tab-on-red">
+      <i class="ti ti-arrow-up-right" style="font-size:13px" aria-hidden="true"></i>
+      Hutang saya
+    </div>
+    <div class="tab tab-off">
+      <i class="ti ti-arrow-down-left" style="font-size:13px" aria-hidden="true"></i>
+      Piutang saya
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sc-top">
+      <div>
+        <div class="sc-lbl">Total hutang aktif</div>
+        <div class="sc-val" style="color:#FF6B6B">Rp 23.200.000</div>
+        <div class="sc-sub" style="color:var(--kb-t3)">3 hutang aktif</div>
+      </div>
+      <div style="text-align:right">
+        <div class="sc-lbl">Cicilan bulan ini</div>
+        <div style="font-size:18px;font-weight:500;color:#FF6B6B">Rp 2.300.000</div>
+        <div class="sc-sub" style="color:#2DD4A4">1 sudah dibayar</div>
+      </div>
+    </div>
+    <div class="health-bar">
+      <div class="hb-labels">
+        <span>Kesehatan finansial</span>
+        <span style="color:#F5C842">Cicilan = 27% pendapatan</span>
+      </div>
+      <div class="hb-track"><div class="hb-fill" style="width:27%;background:#F5C842"></div></div>
+    </div>
+    <div class="mini-grid">
+      <div class="mg-item">
+        <div class="mg-lbl">Sudah lunas</div>
+        <div class="mg-val" style="color:#2DD4A4">63%</div>
+      </div>
+      <div class="mg-item">
+        <div class="mg-lbl">Sisa total</div>
+        <div class="mg-val" style="color:#FF6B6B">Rp 23,2jt</div>
+      </div>
+      <div class="mg-item">
+        <div class="mg-lbl">Est. lunas</div>
+        <div class="mg-val" style="color:#7C6FF7">Okt 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-card">
+    <div class="ac-icon">
+      <i class="ti ti-bell-ringing" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+    <div class="ac-info">
+      <div class="ac-title">Jatuh tempo dalam 3 hari</div>
+      <div class="ac-sub">Cicilan motor Rp 800rb · 25 Juni 2025</div>
+    </div>
+    <i class="ti ti-chevron-right" style="font-size:16px;color:#3E5878" aria-hidden="true"></i>
+  </div>
+
+  <div class="sec-header">
+    <span class="sec-lbl">Hutang aktif</span>
+    <span class="sec-link">+ Tambah hutang</span>
+  </div>
+
+  <div class="debt-card">
+    <div class="dc-top">
+      <div class="dc-icon" style="background:rgba(255,107,107,0.12)">
+        <i class="ti ti-motorbike" style="font-size:20px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="dc-info">
+        <div class="dc-name">Cicilan motor Honda Beat</div>
+        <div class="dc-meta">
+          <span class="dc-type">FIF · kredit kendaraan</span>
+          <span class="dc-dot"></span>
+          <span class="dc-due" style="color:#F5C842">jatuh tempo 25 Jun</span>
+          <span class="badge badge-warn">3 hari lagi</span>
+        </div>
+      </div>
+      <div class="dc-right">
+        <div class="dc-total">Rp 8.200.000</div>
+        <div class="dc-cicilan">Rp 800rb/bln</div>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-lbl">
+        <span>Terlunasi 63% — 14 bulan lagi</span>
+        <span style="color:#F5C842">Rp 14jt dari Rp 22,2jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:63%;background:#F5C842"></div></div>
+    </div>
+    <div class="dc-footer">
+      <div class="dcf-item">
+        <div class="dcf-lbl">Mulai</div>
+        <div class="dcf-val">Agt 2024</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Lunas</div>
+        <div class="dcf-val" style="color:#7C6FF7">Okt 2026</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Tenor</div>
+        <div class="dcf-val">24 bln</div>
+      </div>
+    </div>
+    <div class="due-strip">
+      <i class="ti ti-clock" style="font-size:14px" aria-hidden="true"></i>
+      Belum dibayar bulan ini — jatuh tempo 25 Jun
+    </div>
+  </div>
+
+  <div class="debt-card">
+    <div class="dc-top">
+      <div class="dc-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-home" style="font-size:20px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="dc-info">
+        <div class="dc-name">KPR rumah BTN</div>
+        <div class="dc-meta">
+          <span class="dc-type">BTN · kredit kepemilikan</span>
+          <span class="dc-dot"></span>
+          <span class="dc-due" style="color:var(--kb-t3)">jatuh tempo 1 Jul</span>
+          <span class="badge badge-aktif">20 hari lagi</span>
+        </div>
+      </div>
+      <div class="dc-right">
+        <div class="dc-total">Rp 14.200.000</div>
+        <div class="dc-cicilan">Rp 1.350rb/bln</div>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-lbl">
+        <span>Terlunasi 18% — 196 bulan lagi</span>
+        <span style="color:#7C6FF7">Rp 36,4jt dari Rp 200jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:18%;background:#7C6FF7"></div></div>
+    </div>
+    <div class="dc-footer">
+      <div class="dcf-item">
+        <div class="dcf-lbl">Mulai</div>
+        <div class="dcf-val">Jan 2023</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Lunas</div>
+        <div class="dcf-val" style="color:#7C6FF7">Jan 2040</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Tenor</div>
+        <div class="dcf-val">240 bln</div>
+      </div>
+    </div>
+    <div class="due-strip">
+      <i class="ti ti-check" style="font-size:14px;color:#2DD4A4" aria-hidden="true"></i>
+      <span style="color:#2DD4A4">Cicilan Juni sudah dibayar — Rp 1.350.000</span>
+    </div>
+  </div>
+
+  <div class="debt-card">
+    <div class="dc-top">
+      <div class="dc-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-user" style="font-size:20px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="dc-info">
+        <div class="dc-name">Pinjam ke Pak Budi</div>
+        <div class="dc-meta">
+          <span class="dc-type">Pinjaman personal · tanpa bunga</span>
+          <span class="dc-dot"></span>
+          <span class="dc-due" style="color:var(--kb-t3)">target lunas Jul</span>
+        </div>
+      </div>
+      <div class="dc-right">
+        <div class="dc-total">Rp 800.000</div>
+        <div class="dc-cicilan">fleksibel</div>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-lbl">
+        <span>Terlunasi 60%</span>
+        <span style="color:#2DD4A4">Rp 1,2jt dari Rp 2jt</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:60%;background:#2DD4A4"></div></div>
+    </div>
+    <div class="dc-footer">
+      <div class="dcf-item">
+        <div class="dcf-lbl">Total pinjam</div>
+        <div class="dcf-val">Rp 2.000.000</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Sudah bayar</div>
+        <div class="dcf-val" style="color:#2DD4A4">Rp 1.200.000</div>
+      </div>
+      <div class="dcf-item">
+        <div class="dcf-lbl">Sisa</div>
+        <div class="dcf-val" style="color:#FF6B6B">Rp 800.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pay-btn">
+    <i class="ti ti-credit-card" style="font-size:17px" aria-hidden="true"></i>
+    Catat pembayaran cicilan
+  </div>
+
+  <div class="sec-header">
+    <span class="sec-lbl">Piutang saya</span>
+    <span class="sec-link">+ Tambah piutang</span>
+  </div>
+
+  <div class="piutang-card">
+    <div class="pc-top">
+      <div class="pc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-user" style="font-size:20px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="pc-info">
+        <div class="pc-name">Pinjaman ke Doni</div>
+        <div class="pc-meta">Dipinjam 1 Mei · target balik Jul 2025</div>
+      </div>
+      <div class="pc-right">
+        <div class="pc-total">Rp 500.000</div>
+        <div class="pc-eta">belum dikembalikan</div>
+      </div>
+    </div>
+    <div class="pc-footer">
+      <i class="ti ti-bell" style="font-size:15px;color:#2DD4A4;flex-shrink:0" aria-hidden="true"></i>
+      <span class="pc-remind">Kirim reminder ke Doni</span>
+      <i class="ti ti-send" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="add-btn add-btn-green" style="margin-bottom:14px">
+    <i class="ti ti-plus" style="font-size:18px" aria-hidden="true"></i>
+    Catat piutang baru
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <span class="bnav-lbl">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Rencana Tabungan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Rencana tabungan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Notifikasi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Notifikasi ↗</button>
+  </div>
+</div>
+</div>
