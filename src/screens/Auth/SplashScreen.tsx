@@ -49,7 +49,7 @@ export const SplashScreen = ({ navigation }: any) => {
 
     // 4. Navigasi ke LoginScreen setelah loading selesai (sementara)
     const timer = setTimeout(() => {
-      navigation.replace('Login');
+      navigation.replace('Onboarding');
     }, 2000);
 
     return () => clearTimeout(timer);
