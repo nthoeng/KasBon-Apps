@@ -167,8 +167,8 @@ export const ForgotPasswordScreen = ({ navigation }: any) => {
                 {/* Strength Bar */}
                 <View style={styles.strengthRow}>
                   <View style={styles.sbarLbl}>
-                    <Text style={{ color: UI_COLORS.text3, fontSize: 10 }}>Kekuatan</Text>
-                    <Text style={{ color: UI_COLORS.mint, fontSize: 10, fontWeight: '600' }}>Kuat</Text>
+                    <Text style={{ color: UI_COLORS.text3, fontSize: 12 }}>Kekuatan</Text>
+                    <Text style={{ color: UI_COLORS.mint, fontSize: 12, fontWeight: '600' }}>Kuat</Text>
                   </View>
                   <View style={styles.sbarTrack}>
                     <View style={[styles.sbarSeg, styles.segG]} />
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   illus: { alignItems: 'center', paddingVertical: 20 },
   illusCircle: { width: 72, height: 72, borderRadius: 36, backgroundColor: UI_COLORS.card2, borderWidth: 0.5, alignItems: 'center', justifyContent: 'center' },
   screenTitle: { fontSize: 30, fontWeight: '600', color: UI_COLORS.text, marginBottom: 6 },
-  screenDesc: { fontSize: 18, color: UI_COLORS.text2, lineHeight: 18, marginBottom: 22 },
+  screenDesc: { fontSize: 16, color: UI_COLORS.text2, lineHeight: 18, marginBottom: 22 },
   
   /* FIELDS */
   fieldLabel: { fontSize: 14, color: UI_COLORS.text2, marginBottom: 6 },

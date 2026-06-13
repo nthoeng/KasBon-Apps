@@ -11,6 +11,7 @@ import { ForgotPasswordScreen } from '../screens/Auth/ForgotPasswordScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { TabNavigator } from './TabNavigator';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
+import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ export function RootNavigator() {
 		<Stack.Screen name="Register" component={RegisterScreen} />
 		<Stack.Screen name="MainTabs" component={TabNavigator} />
 		<Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+		<Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
