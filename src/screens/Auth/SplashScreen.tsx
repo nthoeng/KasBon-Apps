@@ -47,9 +47,9 @@ export const SplashScreen = ({ navigation }: any) => {
       useNativeDriver: false, // false karena menganimasi lebar (width)
     }).start();
 
-    // 4. Navigasi ke MainTabs setelah loading selesai (sementara)
+    // 4. Navigasi ke LoginScreen setelah loading selesai (sementara)
     const timer = setTimeout(() => {
-      navigation.replace('MainTabs');
+      navigation.replace('Login');
     }, 2000);
 
     return () => clearTimeout(timer);

@@ -1,0 +1,372 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.summary-card{margin:4px 16px 12px;background:var(--kb-card2);border:0.5px solid var(--kb-b2);border-radius:18px;padding:14px}
+.sm-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.sm-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:3px}
+.sm-val{font-size:22px;font-weight:500;color:var(--kb-text)}
+.sm-sub{font-size:11px;margin-top:2px;color:var(--kb-t3)}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mg{background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;border:0.5px solid var(--kb-b1)}
+.mg-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.mg-val{font-size:12px;font-weight:500}
+.tip-card{margin:0 16px 12px;background:rgba(45,212,164,0.07);border:0.5px solid rgba(45,212,164,0.2);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:9px}
+.tip-icon{width:30px;height:30px;border-radius:9px;background:rgba(45,212,164,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tip-txt{font-size:12px;color:#6EE7C0;line-height:1.6}
+.sec-header{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 8px}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase}
+.sec-link{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.sav-card{margin:0 16px 10px;background:var(--kb-card);border-radius:18px;overflow:hidden;cursor:pointer}
+.sc-accent{height:3px}
+.sc-body{padding:13px 13px 11px;border:0.5px solid var(--kb-b2);border-top:none;border-radius:0 0 18px 18px}
+.sc-header{border:0.5px solid var(--kb-b2);border-bottom:none;border-radius:18px 18px 0 0;padding:13px 13px 10px}
+.sc-top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.sc-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-info{flex:1;min-width:0}
+.sc-name{font-size:14px;font-weight:500;color:var(--kb-text);margin-bottom:3px}
+.sc-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500}
+.badge-on{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-warn{background:rgba(245,200,66,0.1);color:#F5C842}
+.badge-new{background:rgba(124,111,247,0.12);color:#A89FF9}
+.sc-right{text-align:right;flex-shrink:0}
+.sc-current{font-size:16px;font-weight:500;color:var(--kb-text)}
+.sc-target-txt{font-size:10px;color:var(--kb-t3);margin-top:2px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px}
+.prog-track{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.prog-fill{height:6px;border-radius:3px}
+.prog-sub{display:flex;justify-content:space-between;font-size:10px;color:var(--kb-t3)}
+.sc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:0.5px solid var(--kb-b1);margin-top:10px}
+.scs{padding:9px 0;text-align:center;border-right:0.5px solid var(--kb-b1)}
+.scs:last-child{border-right:none}
+.scs-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.scs-val{font-size:12px;font-weight:500}
+.action-strip{display:flex;border-top:0.5px solid var(--kb-b1)}
+.act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;cursor:pointer;font-size:12px;font-weight:500;border-right:0.5px solid var(--kb-b1)}
+.act-btn:last-child{border-right:none}
+.setor-alert{display:flex;align-items:center;gap:8px;background:rgba(245,200,66,0.07);border:0.5px solid rgba(245,200,66,0.2);border-radius:10px;padding:8px 11px;margin:8px 0 0}
+.sa-txt{font-size:11px;color:#F5C842;line-height:1.5}
+.add-btn{margin:0 16px 14px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--kb-card);border:1.5px dashed rgba(124,111,247,0.2);border-radius:16px;padding:14px;cursor:pointer;font-size:13px;font-weight:500;color:#7C6FF7}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman rencana tabungan KasBon — daftar target tabungan aktif dengan progress, estimasi tercapai, setoran rutin, dan simulasi auto-setor.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div style="font-size:17px;font-weight:500;color:var(--kb-text)">Rencana tabungan</div>
+      <div style="font-size:11px;color:var(--kb-t3)">3 target aktif</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="icon-btn" aria-label="Riwayat tabungan">
+        <i class="ti ti-history" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="icon-btn" onclick="sendPrompt('Buatkan mockup UI halaman Buat Rencana Tabungan Baru KasBon')" aria-label="Tambah tabungan baru">
+        <i class="ti ti-plus" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sm-top">
+      <div>
+        <div class="sm-lbl">Total ditabung</div>
+        <div class="sm-val">Rp 7.800.000</div>
+        <div class="sm-sub">dari 3 target aktif</div>
+      </div>
+      <div style="text-align:right">
+        <div class="sm-lbl">Total target</div>
+        <div style="font-size:18px;font-weight:500;color:var(--kb-text)">Rp 105.000.000</div>
+        <div class="sm-sub" style="color:#7C6FF7">7,4% tercapai</div>
+      </div>
+    </div>
+    <div class="mini-grid">
+      <div class="mg">
+        <div class="mg-lbl">Setor bulan ini</div>
+        <div class="mg-val" style="color:#2DD4A4">Rp 1,2jt</div>
+      </div>
+      <div class="mg">
+        <div class="mg-lbl">Target tercepat</div>
+        <div class="mg-val" style="color:#F5C842">Agt 2025</div>
+      </div>
+      <div class="mg">
+        <div class="mg-lbl">Konsistensi</div>
+        <div class="mg-val" style="color:#7C6FF7">6 bulan</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">
+      <i class="ti ti-bulb" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+    </div>
+    <div class="tip-txt">Kalau setor Rp 500rb/bulan ekstra ke Dana darurat, target Rp 10jt tercapai <strong style="color:#2DD4A4">4 bulan lebih cepat.</strong></div>
+  </div>
+
+  <div class="sec-header">
+    <span class="sec-lbl">Target aktif</span>
+    <span class="sec-link" onclick="sendPrompt('Buatkan mockup UI halaman Buat Rencana Tabungan Baru KasBon')">+ Tambah target ↗</span>
+  </div>
+
+  <div class="sav-card">
+    <div class="sc-accent" style="background:#2DD4A4"></div>
+    <div class="sc-header">
+      <div class="sc-top">
+        <div class="sc-icon" style="background:rgba(45,212,164,0.12)">
+          <i class="ti ti-shield" style="font-size:21px;color:#2DD4A4" aria-hidden="true"></i>
+        </div>
+        <div class="sc-info">
+          <div class="sc-name">Dana darurat keluarga</div>
+          <div class="sc-meta">
+            <span style="font-size:10px;color:var(--kb-t3)">Prioritas utama</span>
+            <span class="badge badge-on">Aktif</span>
+          </div>
+        </div>
+        <div class="sc-right">
+          <div class="sc-current" style="color:#2DD4A4">Rp 2.500.000</div>
+          <div class="sc-target-txt">dari Rp 10.000.000</div>
+        </div>
+      </div>
+      <div class="prog-lbl">
+        <span style="color:#2DD4A4;font-weight:500">25% tercapai</span>
+        <span style="color:var(--kb-t3)">sisa Rp 7.500.000</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:25%;background:#2DD4A4"></div></div>
+      <div class="prog-sub">
+        <span>Mulai Jan 2025</span>
+        <span style="color:#2DD4A4">Target Rp 500rb/bln</span>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-stats">
+        <div class="scs">
+          <div class="scs-lbl">Setor rutin</div>
+          <div class="scs-val" style="color:#2DD4A4">Rp 500rb</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Estimasi lunas</div>
+          <div class="scs-val" style="color:#7C6FF7">Mar 2027</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Sisa bulan</div>
+          <div class="scs-val">15 bln</div>
+        </div>
+      </div>
+      <div class="setor-alert">
+        <i class="ti ti-clock" style="font-size:15px;color:#F5C842;flex-shrink:0" aria-hidden="true"></i>
+        <div class="sa-txt">Setor rutin bulan ini belum dilakukan — jadwal tgl 1 setiap bulan</div>
+      </div>
+      <div class="action-strip" style="margin-top:10px;border-top:0.5px solid var(--kb-b1)">
+        <div class="act-btn" style="color:#2DD4A4" onclick="sendPrompt('Buatkan mockup UI Form Catat Pemasukan KasBon untuk setoran tabungan dana darurat')">
+          <i class="ti ti-plus" style="font-size:15px" aria-hidden="true"></i>
+          Setor sekarang
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)" onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet Tabungan KasBon dana darurat')">
+          <i class="ti ti-chart-line" style="font-size:15px" aria-hidden="true"></i>
+          Riwayat setor
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)">
+          <i class="ti ti-edit" style="font-size:15px" aria-hidden="true"></i>
+          Edit target
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sav-card">
+    <div class="sc-accent" style="background:#7C6FF7"></div>
+    <div class="sc-header">
+      <div class="sc-top">
+        <div class="sc-icon" style="background:rgba(124,111,247,0.12)">
+          <i class="ti ti-car" style="font-size:21px;color:#7C6FF7" aria-hidden="true"></i>
+        </div>
+        <div class="sc-info">
+          <div class="sc-name">Beli mobil keluarga</div>
+          <div class="sc-meta">
+            <span style="font-size:10px;color:var(--kb-t3)">Deadline Des 2026</span>
+            <span class="badge badge-warn">Perlu akselerasi</span>
+          </div>
+        </div>
+        <div class="sc-right">
+          <div class="sc-current" style="color:#7C6FF7">Rp 4.800.000</div>
+          <div class="sc-target-txt">dari Rp 80.000.000</div>
+        </div>
+      </div>
+      <div class="prog-lbl">
+        <span style="color:#7C6FF7;font-weight:500">6% tercapai</span>
+        <span style="color:var(--kb-t3)">sisa Rp 75.200.000</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:6%;background:#7C6FF7"></div></div>
+      <div class="prog-sub">
+        <span>Mulai Mar 2025</span>
+        <span style="color:#F5C842">Butuh Rp 4,4jt/bln!</span>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-stats">
+        <div class="scs">
+          <div class="scs-lbl">Setor saat ini</div>
+          <div class="scs-val" style="color:#F5C842">Rp 500rb/bln</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Perlu/bulan</div>
+          <div class="scs-val" style="color:#FF6B6B">Rp 4,4jt</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Gap</div>
+          <div class="scs-val" style="color:#FF6B6B">-Rp 3,9jt</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,107,107,0.07);border:0.5px solid rgba(255,107,107,0.2);border-radius:10px;padding:9px 11px;margin-top:8px">
+        <div style="font-size:12px;font-weight:500;color:#FF9090;margin-bottom:3px;display:flex;align-items:center;gap:6px">
+          <i class="ti ti-alert-triangle" style="font-size:14px" aria-hidden="true"></i>
+          Tidak on track dengan setor saat ini
+        </div>
+        <div style="font-size:11px;color:rgba(255,107,107,0.65);line-height:1.5">Dengan Rp 500rb/bln, target baru tercapai Agustus 2036 — 10 tahun telat dari deadline Des 2026.</div>
+      </div>
+      <div class="action-strip" style="margin-top:10px;border-top:0.5px solid var(--kb-b1)">
+        <div class="act-btn" style="color:#7C6FF7">
+          <i class="ti ti-plus" style="font-size:15px" aria-hidden="true"></i>
+          Setor sekarang
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)">
+          <i class="ti ti-calculator" style="font-size:15px" aria-hidden="true"></i>
+          Simulasi setor
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)">
+          <i class="ti ti-edit" style="font-size:15px" aria-hidden="true"></i>
+          Edit deadline
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sav-card">
+    <div class="sc-accent" style="background:#F5C842"></div>
+    <div class="sc-header">
+      <div class="sc-top">
+        <div class="sc-icon" style="background:rgba(245,200,66,0.12)">
+          <i class="ti ti-plane" style="font-size:21px;color:#F5C842" aria-hidden="true"></i>
+        </div>
+        <div class="sc-info">
+          <div class="sc-name">Liburan keluarga</div>
+          <div class="sc-meta">
+            <span style="font-size:10px;color:var(--kb-t3)">Target Agt 2025</span>
+            <span class="badge badge-on">Aktif</span>
+          </div>
+        </div>
+        <div class="sc-right">
+          <div class="sc-current" style="color:#F5C842">Rp 500.000</div>
+          <div class="sc-target-txt">dari Rp 15.000.000</div>
+        </div>
+      </div>
+      <div class="prog-lbl">
+        <span style="color:#F5C842;font-weight:500">3% tercapai</span>
+        <span style="color:var(--kb-t3)">sisa Rp 14.500.000</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:3%;background:#F5C842"></div></div>
+      <div class="prog-sub">
+        <span>Mulai Jun 2025</span>
+        <span style="color:#F5C842">Rp 7,25jt/bln</span>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-stats">
+        <div class="scs">
+          <div class="scs-lbl">Setor rutin</div>
+          <div class="scs-val" style="color:#F5C842">Baru mulai</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Sisa waktu</div>
+          <div class="scs-val" style="color:#F5C842">2 bulan</div>
+        </div>
+        <div class="scs">
+          <div class="scs-lbl">Perlu/bulan</div>
+          <div class="scs-val" style="color:#FF6B6B">Rp 7,25jt</div>
+        </div>
+      </div>
+      <div class="action-strip" style="margin-top:10px;border-top:0.5px solid var(--kb-b1)">
+        <div class="act-btn" style="color:#F5C842">
+          <i class="ti ti-plus" style="font-size:15px" aria-hidden="true"></i>
+          Setor sekarang
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)">
+          <i class="ti ti-calendar" style="font-size:15px" aria-hidden="true"></i>
+          Ubah deadline
+        </div>
+        <div class="act-btn" style="color:var(--kb-t2)">
+          <i class="ti ti-trash" style="font-size:15px" aria-hidden="true"></i>
+          Hapus target
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-btn" onclick="sendPrompt('Buatkan mockup UI halaman Buat Rencana Tabungan Baru KasBon')">
+    <i class="ti ti-plus" style="font-size:18px" aria-hidden="true"></i>
+    Tambah rencana tabungan baru
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <span class="bnav-lbl">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Statistik Bulanan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Statistik bulanan ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI Web Admin Dashboard KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Web admin dashboard ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Buat Rencana Tabungan Baru KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Buat tabungan baru ↗</button>
+  </div>
+</div>
+</div>
