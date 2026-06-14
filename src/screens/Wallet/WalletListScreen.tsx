@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 // ✅ MENGGUNAKAN THEME GLOBAL
 import { theme } from '../../theme';
@@ -155,7 +156,7 @@ const WalletCard = ({ item }: any) => {
 };
 
 // --- MAIN SCREEN ---
-export const WalletListScreen = () => {
+export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topbar}>
@@ -167,7 +168,10 @@ export const WalletListScreen = () => {
           <TouchableOpacity style={styles.iconBtn}>
             <Ionicons name="search" size={18} color={colors.textSecondary || '#8FA8CC'} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBtn}>
+          <TouchableOpacity 
+		    style={styles.iconBtn}
+			onPress={() => navigation.navigate('CreateWallet')} // Langsung pakai props
+		  >
             <Ionicons name="add" size={18} color="#F5C842" />
           </TouchableOpacity>
         </View>
