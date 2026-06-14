@@ -32,10 +32,10 @@ const walletData = [
 ];
 
 const quickActions = [
-  { id: 'q1', label: 'Catat keluar', icon: 'remove', color: '#FF6B6B', bg: 'rgba(255,107,107,0.15)', screen: 'Add', params: { type: 'expense' } },
-  { id: 'q2', label: 'Catat masuk', icon: 'add', color: '#2DD4A4', bg: 'rgba(45,212,164,0.15)', screen: 'Add', params: { type: 'income' } },
-  { id: 'q3', label: 'Transfer QR', icon: 'qr-code', color: '#F5C842', bg: 'rgba(245,200,66,0.15)', screen: 'Add', params: { type: 'transfer' } },
-  { id: 'q4', label: 'Statistik', icon: 'bar-chart', color: '#7C6FF7', bg: 'rgba(124,111,247,0.15)', screen: 'Statistics' },
+  { id: 'q1', label: 'Catat keluar', icon: 'arrow-up', color: '#FF6B6B', bg: 'rgba(255,107,107,0.15)', screen: 'Add', params: { type: 'expense' } },
+  { id: 'q2', label: 'Catat masuk', icon: 'arrow-down', color: '#2DD4A4', bg: 'rgba(45,212,164,0.15)', screen: 'Add', params: { type: 'income' } },
+  { id: 'q3', label: 'Transfer QR', icon: 'qr-code', color: '#F5C842', bg: 'rgba(245,200,66,0.15)', screen: 'QRWallet' }, // Langsung ke layar QR
+  { id: 'q4', label: 'Statistik', icon: 'bar-chart', color: '#7C6FF7', bg: 'rgba(124,111,247,0.15)', screen: 'Dummy' },
 ];
 
 const recentTransactions: any[] = [
@@ -146,8 +146,23 @@ export const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={styles.quickGrid}>
           {quickActions.map((action) => (
-            <TouchableOpacity key={action.id} style={styles.qBtn} activeOpacity={0.8} onPress={() => navigation.navigate('Add', { type: 'income' })}
-			>
+            <TouchableOpacity 
+              key={action.id} 
+              style={styles.qBtn} 
+              activeOpacity={0.8} 
+              onPress={() => {
+                if (action.screen === 'Add') {
+                  // Arahkan ke AddTransactionScreen dengan tipe yang sesuai (income/expense)
+                  navigation.navigate('Add', action.params);
+                } else if (action.screen === 'QRWallet') {
+                  // Arahkan langsung ke layar scan/show QR
+                  navigation.navigate('QRWallet');
+                } else {
+                  // Fallback untuk Statistik
+                  alert('Fitur Statistik akan segera hadir!');
+                }
+              }}
+            >
               <View style={[styles.qBtnIcon, { backgroundColor: action.bg }]}>
                 <Ionicons name={action.icon as any} size={18} color={action.color} />
               </View>

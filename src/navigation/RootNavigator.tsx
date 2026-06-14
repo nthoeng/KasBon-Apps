@@ -13,6 +13,7 @@ import { TabNavigator } from './TabNavigator';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { TransactionTypeSelectionScreen } from '../screens/Transaction/TransactionTypeSelectionScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
+import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
 import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ export function RootNavigator() {
 		<Stack.Screen name="Add" component={AddTransactionScreen} />
 		<Stack.Screen name="NotificationScreen" component={NotificationScreen} />
 		<Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
+		<Stack.Screen name="QRWallet" component={QRWalletScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
