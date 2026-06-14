@@ -1,0 +1,340 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.summary-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px 16px 12px}
+.ss{background:var(--kb-card2);border:0.5px solid var(--kb-b1);border-radius:12px;padding:9px 10px;text-align:center}
+.ss-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.ss-val{font-size:14px;font-weight:500}
+.sec-label{font-size:11px;color:var(--kb-t3);letter-spacing:.05em;text-transform:uppercase;padding:4px 18px 8px}
+.member-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden}
+.mc-top{display:flex;align-items:center;gap:11px;padding:13px 13px 10px}
+.avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;flex-shrink:0;border:2px solid var(--kb-bg)}
+.mc-info{flex:1;min-width:0}
+.mc-name{font-size:14px;font-weight:500;color:var(--kb-text);margin-bottom:3px}
+.mc-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500}
+.badge-admin{background:rgba(245,200,66,0.12);color:#F5C842}
+.badge-member{background:rgba(255,255,255,0.06);color:var(--kb-t2)}
+.badge-online{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.badge-pending{background:rgba(124,111,247,0.12);color:#A89FF9}
+.mc-last{font-size:10px;color:var(--kb-t3)}
+.mc-actions{display:flex;border-top:0.5px solid var(--kb-b1)}
+.mc-action{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 0;font-size:11px;font-weight:500;cursor:pointer;border-right:0.5px solid var(--kb-b1)}
+.mc-action:last-child{border-right:none}
+.mc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:0.5px solid var(--kb-b1)}
+.mcs{padding:8px 0;text-align:center;border-right:0.5px solid var(--kb-b1)}
+.mcs:last-child{border-right:none}
+.mcs-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:1px}
+.mcs-val{font-size:12px;font-weight:500}
+.access-row{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;background:rgba(255,255,255,0.02);border-top:0.5px solid var(--kb-b1)}
+.ar-lbl{font-size:11px;color:var(--kb-t2)}
+.ar-chips{display:flex;gap:5px;flex-wrap:wrap}
+.ar-chip{font-size:10px;padding:2px 7px;border-radius:20px;border:0.5px solid var(--kb-b2);color:var(--kb-t2)}
+.ar-chip.on{background:rgba(45,212,164,0.1);border-color:rgba(45,212,164,0.3);color:#2DD4A4}
+.pending-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid rgba(124,111,247,0.25);border-radius:16px;padding:12px 13px}
+.pc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pc-avatar{width:36px;height:36px;border-radius:50%;background:var(--kb-card2);border:1.5px dashed rgba(124,111,247,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pc-info{flex:1}
+.pc-name{font-size:13px;font-weight:500;color:var(--kb-text)}
+.pc-meta{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.pc-actions{display:flex;gap:8px}
+.btn-cancel{flex:1;height:36px;border-radius:11px;background:transparent;border:0.5px solid var(--kb-b2);cursor:pointer;font-size:12px;color:var(--kb-t2);display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-resend{flex:1;height:36px;border-radius:11px;background:rgba(124,111,247,0.12);border:0.5px solid rgba(124,111,247,0.3);cursor:pointer;font-size:12px;color:#A89FF9;display:flex;align-items:center;justify-content:center;gap:5px}
+.invite-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden}
+.inv-method{display:flex;align-items:center;gap:11px;padding:12px 13px;cursor:pointer;border-bottom:0.5px solid var(--kb-b1)}
+.inv-method:last-child{border-bottom:none}
+.inv-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inv-info{flex:1}
+.inv-title{font-size:13px;font-weight:500;color:var(--kb-text)}
+.inv-sub{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.code-box{margin:0 16px 10px;background:var(--kb-card2);border:0.5px solid rgba(245,200,66,0.25);border-radius:14px;padding:14px}
+.cb-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:8px}
+.cb-code{display:flex;align-items:center;gap:10px}
+.cb-chars{display:flex;gap:6px}
+.cb-char{width:36px;height:40px;background:var(--kb-card);border:0.5px solid rgba(245,200,66,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;color:#F5C842}
+.cb-dash{font-size:18px;color:var(--kb-t3)}
+.cb-copy{display:flex;align-items:center;gap:5px;background:rgba(245,200,66,0.1);border:0.5px solid rgba(245,200,66,0.25);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:12px;color:#F5C842;margin-left:auto}
+.cb-expire{font-size:10px;color:var(--kb-t3);margin-top:6px}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman kelola anggota keluarga KasBon — daftar anggota aktif dengan stats dan kontrol akses dompet, undangan pending, dan metode undang anggota baru via link, QR, atau kode.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">Kelola anggota</div>
+    <div class="icon-btn" aria-label="Pengaturan keluarga">
+      <i class="ti ti-settings" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="summary-strip">
+    <div class="ss">
+      <div class="ss-lbl">Anggota aktif</div>
+      <div class="ss-val" style="color:#2DD4A4">2</div>
+    </div>
+    <div class="ss">
+      <div class="ss-lbl">Pending</div>
+      <div class="ss-val" style="color:#7C6FF7">1</div>
+    </div>
+    <div class="ss">
+      <div class="ss-lbl">Maks. anggota</div>
+      <div class="ss-val" style="color:#F5C842">10</div>
+    </div>
+  </div>
+
+  <div class="sec-label">Anggota aktif</div>
+
+  <div class="member-card">
+    <div class="mc-top">
+      <div class="avatar" style="background:linear-gradient(135deg,#7C6FF7,#2DD4A4)">B</div>
+      <div class="mc-info">
+        <div class="mc-name">Bayu Pratama</div>
+        <div class="mc-meta">
+          <span class="badge badge-admin">Admin</span>
+          <span class="badge badge-online">Online</span>
+          <span class="mc-last">kamu</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;font-weight:500;color:var(--kb-text)">24 tx</div>
+        <div style="font-size:10px;color:var(--kb-t3)">bulan ini</div>
+      </div>
+    </div>
+    <div class="mc-stats">
+      <div class="mcs">
+        <div class="mcs-lbl">Pengeluaran</div>
+        <div class="mcs-val" style="color:#FF6B6B">Rp 3,06jt</div>
+      </div>
+      <div class="mcs">
+        <div class="mcs-lbl">Pemasukan</div>
+        <div class="mcs-val" style="color:#2DD4A4">Rp 8,5jt</div>
+      </div>
+      <div class="mcs">
+        <div class="mcs-lbl">Dompet diakses</div>
+        <div class="mcs-val" style="color:#7C6FF7">5 dompet</div>
+      </div>
+    </div>
+    <div class="access-row">
+      <span class="ar-lbl">Akses dompet</span>
+      <div class="ar-chips">
+        <span class="ar-chip on">Global</span>
+        <span class="ar-chip on">Pribadi</span>
+        <span class="ar-chip on">Project</span>
+      </div>
+    </div>
+    <div class="mc-actions">
+      <div class="mc-action" style="color:var(--kb-t3);cursor:default">
+        <i class="ti ti-lock" style="font-size:15px" aria-hidden="true"></i>
+        Tidak bisa diubah
+      </div>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="mc-top">
+      <div class="avatar" style="background:linear-gradient(135deg,#F5C842,#FF6B6B);color:#0A1628">I</div>
+      <div class="mc-info">
+        <div class="mc-name">Istri</div>
+        <div class="mc-meta">
+          <span class="badge badge-member">Member</span>
+          <span class="mc-last">aktif 11:24 · hari ini</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;font-weight:500;color:var(--kb-text)">8 tx</div>
+        <div style="font-size:10px;color:var(--kb-t3)">bulan ini</div>
+      </div>
+    </div>
+    <div class="mc-stats">
+      <div class="mcs">
+        <div class="mcs-lbl">Pengeluaran</div>
+        <div class="mcs-val" style="color:#FF6B6B">Rp 1,19jt</div>
+      </div>
+      <div class="mcs">
+        <div class="mcs-lbl">Pemasukan</div>
+        <div class="mcs-val" style="color:#2DD4A4">Rp 0</div>
+      </div>
+      <div class="mcs">
+        <div class="mcs-lbl">Dompet diakses</div>
+        <div class="mcs-val" style="color:#7C6FF7">3 dompet</div>
+      </div>
+    </div>
+    <div class="access-row">
+      <span class="ar-lbl">Akses dompet</span>
+      <div class="ar-chips">
+        <span class="ar-chip on">Global</span>
+        <span class="ar-chip on">Pribadi</span>
+        <span class="ar-chip" style="color:var(--kb-t3)">Project</span>
+      </div>
+    </div>
+    <div class="mc-actions">
+      <div class="mc-action" style="color:#7C6FF7">
+        <i class="ti ti-shield" style="font-size:15px" aria-hidden="true"></i>
+        Atur akses
+      </div>
+      <div class="mc-action" style="color:#F5C842">
+        <i class="ti ti-crown" style="font-size:15px" aria-hidden="true"></i>
+        Jadikan admin
+      </div>
+      <div class="mc-action" style="color:#FF6B6B">
+        <i class="ti ti-user-off" style="font-size:15px" aria-hidden="true"></i>
+        Keluarkan
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="padding-top:6px">Undangan tertunda</div>
+
+  <div class="pending-card">
+    <div class="pc-top">
+      <div class="pc-avatar">
+        <i class="ti ti-user-question" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="pc-info">
+        <div class="pc-name">anak@email.com</div>
+        <div class="pc-meta">Undangan dikirim 3 hari lalu · belum bergabung</div>
+      </div>
+      <span class="badge badge-pending">Pending</span>
+    </div>
+    <div class="pc-actions">
+      <div class="btn-cancel">
+        <i class="ti ti-x" style="font-size:14px" aria-hidden="true"></i>
+        Batalkan
+      </div>
+      <div class="btn-resend">
+        <i class="ti ti-send" style="font-size:14px" aria-hidden="true"></i>
+        Kirim ulang
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="padding-top:6px">Undang anggota baru</div>
+
+  <div class="invite-card">
+    <div class="inv-method">
+      <div class="inv-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-link" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="inv-info">
+        <div class="inv-title">Bagikan tautan undangan</div>
+        <div class="inv-sub">Kirim link via WhatsApp, SMS, dll.</div>
+      </div>
+      <i class="ti ti-share" style="font-size:16px;color:#3E5878" aria-hidden="true"></i>
+    </div>
+    <div class="inv-method">
+      <div class="inv-icon" style="background:rgba(245,200,66,0.1)">
+        <i class="ti ti-qrcode" style="font-size:18px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="inv-info">
+        <div class="inv-title">Tampilkan QR undangan</div>
+        <div class="inv-sub">Minta calon anggota scan QR ini</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:16px;color:#3E5878" aria-hidden="true"></i>
+    </div>
+    <div class="inv-method">
+      <div class="inv-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-mail" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="inv-info">
+        <div class="inv-title">Undang via email</div>
+        <div class="inv-sub">Kirim undangan ke alamat email</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:16px;color:#3E5878" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="code-box">
+    <div class="cb-lbl">Atau bagikan kode undangan ini</div>
+    <div class="cb-code">
+      <div class="cb-chars">
+        <div class="cb-char">K</div>
+        <div class="cb-char">A</div>
+        <div class="cb-char">S</div>
+        <span class="cb-dash">—</span>
+        <div class="cb-char">7</div>
+        <div class="cb-char">X</div>
+        <div class="cb-char">9</div>
+      </div>
+      <div class="cb-copy">
+        <i class="ti ti-copy" style="font-size:14px" aria-hidden="true"></i>
+        Salin
+      </div>
+    </div>
+    <div class="cb-expire">Kode berlaku 7 hari · kedaluwarsa 18 Jun 2025</div>
+  </div>
+
+  <div style="margin:0 16px 14px;background:rgba(255,255,255,0.03);border:0.5px solid var(--kb-b1);border-radius:12px;padding:11px 13px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+      <i class="ti ti-info-circle" style="font-size:15px;color:#7C6FF7" aria-hidden="true"></i>
+      <span style="font-size:12px;font-weight:500;color:#A89FF9">Tentang akses anggota</span>
+    </div>
+    <div style="font-size:11px;color:var(--kb-t3);line-height:1.6;padding-left:23px">Anggota baru bergabung sebagai Member. Hanya Admin yang bisa mengubah peran, mengatur akses dompet, dan mengeluarkan anggota.</div>
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" style="color:var(--kb-gold)" aria-hidden="true"></i>
+      <span class="bnav-lbl" style="color:var(--kb-gold)">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Pengaturan Kategori Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Pengaturan kategori ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI Web Admin Dashboard KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Web admin dashboard ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Detail Dompet KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Detail dompet ↗</button>
+  </div>
+</div>
+</div>

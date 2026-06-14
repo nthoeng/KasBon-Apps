@@ -1,0 +1,415 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.avatar-section{display:flex;flex-direction:column;align-items:center;padding:16px 18px 18px;gap:8px}
+.avatar-ring{position:relative;width:72px;height:72px}
+.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#7C6FF7,#2DD4A4);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:500;color:#fff}
+.avatar-edit{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;border:2px solid var(--kb-bg);cursor:pointer}
+.avatar-name{font-size:16px;font-weight:500;color:var(--kb-text)}
+.avatar-email{font-size:12px;color:var(--kb-t3)}
+.sec-label{font-size:11px;color:var(--kb-t3);letter-spacing:.05em;text-transform:uppercase;padding:10px 18px 6px}
+.card{margin:0 16px 10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden}
+.field-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid var(--kb-b1);cursor:pointer}
+.field-row:last-child{border-bottom:none}
+.fr-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fr-info{flex:1;min-width:0}
+.fr-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:1px}
+.fr-val{font-size:13px;font-weight:500;color:var(--kb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr-val.muted{color:var(--kb-t2);font-weight:400}
+.fr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.toggle{width:38px;height:22px;border-radius:11px;position:relative;cursor:pointer;flex-shrink:0}
+.toggle-on{background:#2DD4A4}
+.toggle-on::after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#0A1628}
+.toggle-off{background:var(--kb-card2);border:0.5px solid var(--kb-b2)}
+.toggle-off::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--kb-t3)}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.badge-gold{background:rgba(245,200,66,0.12);color:#F5C842}
+.badge-red{background:rgba(255,107,107,0.12);color:#FF9090}
+.badge-green{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.field-input{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.04);border:0.5px solid var(--kb-b2);border-radius:12px;padding:0 13px;height:44px;margin:0 16px 8px}
+.fi-icon{color:var(--kb-t3);font-size:16px;flex-shrink:0}
+.fi-text{font-size:13px;color:var(--kb-text);flex:1}
+.fi-text.ph{color:var(--kb-t3)}
+.fi-action{font-size:11px;color:var(--kb-violet);flex-shrink:0;cursor:pointer}
+.danger-card{margin:0 16px 8px;background:rgba(255,107,107,0.06);border:0.5px solid rgba(255,107,107,0.2);border-radius:16px;overflow:hidden}
+.btn-save{margin:0 16px 10px;width:calc(100% - 32px);height:48px;border-radius:14px;background:var(--kb-gold);border:none;cursor:pointer;font-size:14px;font-weight:500;color:#0A1628;display:flex;align-items:center;justify-content:center;gap:8px}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman pengaturan akun KasBon — edit profil, keamanan password dan PIN, notifikasi, preferensi tampilan, privasi, dan zona bahaya hapus akun.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">Pengaturan akun</div>
+    <div style="width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <i class="ti ti-device-floppy" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="avatar-section">
+    <div class="avatar-ring">
+      <div class="avatar">B</div>
+      <div class="avatar-edit" aria-label="Ubah foto profil">
+        <i class="ti ti-camera" style="font-size:12px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="avatar-name">Bayu Pratama</div>
+    <div class="avatar-email">bayu@email.com</div>
+  </div>
+
+  <div class="sec-label">Informasi profil</div>
+  <div class="card">
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-user" style="font-size:17px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Nama lengkap</div>
+        <div class="fr-val">Bayu Pratama</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-pencil" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-mail" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Alamat email</div>
+        <div class="fr-val">bayu@email.com</div>
+      </div>
+      <div class="fr-right">
+        <span class="badge badge-green">Terverifikasi</span>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(245,200,66,0.12)">
+        <i class="ti ti-phone" style="font-size:17px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Nomor HP</div>
+        <div class="fr-val">+62 812-xxxx-xxxx</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-pencil" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(245,200,66,0.12)">
+        <i class="ti ti-crown" style="font-size:17px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Peran dalam keluarga</div>
+        <div class="fr-val">Admin keluarga</div>
+      </div>
+      <div class="fr-right">
+        <span class="badge badge-gold">Admin</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Keamanan</div>
+  <div class="card">
+    <div class="field-row" onclick="sendPrompt('Buatkan mockup UI screen Ganti Password KasBon')">
+      <div class="fr-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-lock" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Password</div>
+        <div class="fr-val">••••••••••</div>
+      </div>
+      <div class="fr-right">
+        <span style="font-size:11px;color:var(--kb-t3)">Ganti</span>
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-password" style="font-size:17px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">PIN konfirmasi transaksi</div>
+        <div class="fr-val muted">Belum diatur</div>
+      </div>
+      <div class="fr-right">
+        <span style="font-size:11px;color:var(--kb-violet)">Atur PIN</span>
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(245,200,66,0.1)">
+        <i class="ti ti-fingerprint" style="font-size:17px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Login biometrik</div>
+        <div class="fr-val">Sidik jari / Face ID</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Biometrik aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-shield-lock" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Verifikasi 2 langkah</div>
+        <div class="fr-val muted">Nonaktif</div>
+      </div>
+      <div class="fr-right">
+        <span class="badge badge-red">Nonaktif</span>
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-device-mobile" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Sesi aktif</div>
+        <div class="fr-val">2 perangkat masuk</div>
+      </div>
+      <div class="fr-right">
+        <span style="font-size:11px;color:var(--kb-violet)">Kelola</span>
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Notifikasi</div>
+  <div class="card">
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-arrows-exchange" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Transfer masuk</div>
+        <div class="fr-val">Push + notif dalam app</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Notif transfer aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-chart-bar" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Alert budget hampir habis</div>
+        <div class="fr-val">Notif saat 80% terpakai</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Alert budget aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(245,200,66,0.12)">
+        <i class="ti ti-clock" style="font-size:17px;color:#F5C842" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Jatuh tempo hutang</div>
+        <div class="fr-val">H-3 & H-1 sebelum jatuh tempo</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Notif jatuh tempo aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-trophy" style="font-size:17px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Pencapaian tabungan</div>
+        <div class="fr-val">Milestone target tercapai</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Notif pencapaian aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-chart-line" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Laporan mingguan</div>
+        <div class="fr-val muted">Nonaktif</div>
+      </div>
+      <div class="toggle toggle-off" aria-label="Laporan mingguan nonaktif"></div>
+    </div>
+  </div>
+
+  <div class="sec-label">Preferensi tampilan</div>
+  <div class="card">
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-moon" style="font-size:17px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Tema gelap</div>
+        <div class="fr-val">Dark mode</div>
+      </div>
+      <div class="toggle toggle-on" aria-label="Dark mode aktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-currency-rupiah" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Format mata uang</div>
+        <div class="fr-val">Rupiah (IDR) — Rp 1.000</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-language" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Bahasa aplikasi</div>
+        <div class="fr-val">Bahasa Indonesia</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-calendar" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Awal periode budget</div>
+        <div class="fr-val">Tanggal 1 setiap bulan</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Privasi & data</div>
+  <div class="card">
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-download" style="font-size:17px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Export data saya</div>
+        <div class="fr-val muted">Unduh semua transaksi CSV/PDF</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-chevron-right" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-eye-off" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Sembunyikan saldo dari feed</div>
+        <div class="fr-val muted">Saldo tidak tampil di aktivitas</div>
+      </div>
+      <div class="toggle toggle-off" aria-label="Sembunyikan saldo nonaktif"></div>
+    </div>
+    <div class="field-row">
+      <div class="fr-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-shield" style="font-size:17px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl">Kebijakan privasi</div>
+        <div class="fr-val muted">Baca kebijakan KasBon</div>
+      </div>
+      <div class="fr-right">
+        <i class="ti ti-external-link" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="color:#FF9090">Zona bahaya</div>
+  <div class="danger-card">
+    <div class="field-row" style="border-bottom:0.5px solid rgba(255,107,107,0.15)">
+      <div class="fr-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-logout" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl" style="color:rgba(255,107,107,0.7)">Keluar dari akun</div>
+        <div class="fr-val" style="color:#FF9090">Logout semua perangkat</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:15px;color:rgba(255,107,107,0.4)" aria-hidden="true"></i>
+    </div>
+    <div class="field-row" style="border:none">
+      <div class="fr-icon" style="background:rgba(255,107,107,0.1)">
+        <i class="ti ti-trash" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="fr-info">
+        <div class="fr-lbl" style="color:rgba(255,107,107,0.7)">Hapus akun</div>
+        <div class="fr-val" style="color:#FF9090">Hapus akun & semua data</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:15px;color:rgba(255,107,107,0.4)" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <button class="btn-save">
+    <i class="ti ti-check" style="font-size:18px" aria-hidden="true"></i>
+    Simpan perubahan
+  </button>
+
+  <div style="text-align:center;padding:0 18px 20px;font-size:11px;color:var(--kb-t3)">
+    KasBon v1.0.0 · catat bareng, hemat bareng
+  </div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item active" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" style="color:var(--kb-gold)" aria-hidden="true"></i>
+      <span class="bnav-lbl" style="color:var(--kb-gold)">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Pengaturan Kategori Transaksi KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Pengaturan kategori ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Kelola Anggota Keluarga KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Kelola anggota ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI Web Admin Dashboard KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Web admin dashboard ↗</button>
+  </div>
+</div>
+</div>

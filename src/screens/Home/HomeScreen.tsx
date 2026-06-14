@@ -146,7 +146,8 @@ export const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={styles.quickGrid}>
           {quickActions.map((action) => (
-            <TouchableOpacity key={action.id} style={styles.qBtn} activeOpacity={0.8} onPress={() => navigation.navigate(action.screen, action.params)}>
+            <TouchableOpacity key={action.id} style={styles.qBtn} activeOpacity={0.8} onPress={() => navigation.navigate('Add', { type: 'income' })}
+			>
               <View style={[styles.qBtnIcon, { backgroundColor: action.bg }]}>
                 <Ionicons name={action.icon as any} size={18} color={action.color} />
               </View>
