@@ -68,7 +68,10 @@ export const ProfileScreen = ({ navigation }: any) => {
       <View style={styles.topbar}>
         <Text style={styles.pageTitle}>Profil</Text>
         <View style={styles.topbarRight}>
-          <TouchableOpacity style={styles.iconBtn}>
+          <TouchableOpacity 
+		    style={styles.iconBtn}
+			onPress={() => navigation.navigate('NotificationScreen')}
+		  >
             <Ionicons name="notifications" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconBtn}>
@@ -130,7 +133,11 @@ export const ProfileScreen = ({ navigation }: any) => {
         </View>
 
         {/* QR STRIP */}
-        <TouchableOpacity style={styles.qrStrip} activeOpacity={0.8}>
+        <TouchableOpacity 
+		  style={styles.qrStrip} 
+		  activeOpacity={0.8}
+		  onPress={() => navigation.navigate('QRWallet')}
+		>
           <View style={styles.qrPreviewBox}>
             <Ionicons name="qr-code" size={32} color={UI_COLORS.bg} />
           </View>

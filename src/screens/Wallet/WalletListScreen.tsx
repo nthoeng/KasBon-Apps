@@ -80,6 +80,8 @@ const walletGroups = [
 
 // --- HELPER COMPONENT UNTUK KARTU DOMPET ---
 const WalletCard = ({ item }: any) => {
+  const navigation = useNavigation<any>(); // Panggil di sini
+  
   // Styling untuk badge berdasarkan mockup
   const getBadgeStyle = () => {
     switch (item.badgeType) {
@@ -101,7 +103,10 @@ const WalletCard = ({ item }: any) => {
   const badgeStyle = getBadgeStyle();
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity 
+	  activeOpacity={0.8}
+	  onPress={() => navigation.navigate('WalletDetail', { walletId: item.id })}
+	>
       <GlassCard style={styles.walletCard}>
         <View style={styles.wcRow}>
           {/* Kiri: Icon */}
@@ -224,7 +229,11 @@ export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
               </TouchableOpacity>
             </View>
             {group.items.map((wallet) => (
-              <WalletCard key={wallet.id} item={wallet} />
+              <WalletCard 
+			    key={wallet.id} 
+				item={wallet} 
+				navigation={navigation} // Kirim prop navigation ke dalam
+			  />
             ))}
             <View style={styles.spacerSec} />
           </View>

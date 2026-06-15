@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { NotificationScreen } from  '../screens/Notification/NotificationScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../../theme';
 import { TransactionItem } from '../../components/ui/TransactionItem';
+import { useNavigation } from '@react-navigation/native';
 
 const { colors } = theme;
 
@@ -119,7 +119,13 @@ export const HomeScreen = ({ navigation }: any) => {
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.walletsScroll}>
           {walletData.map((w) => (
-            <TouchableOpacity key={w.id} style={styles.walletChip} activeOpacity={0.8}>
+            <TouchableOpacity 
+			  key={w.id} 
+			  style={styles.walletChip} 
+			  activeOpacity={0.8}
+			  // Navigasi ke Detail Dompet dengan membawa ID dompet
+			  onPress={() => navigation.navigate('WalletDetail', {walletId: w.id})}
+			>
               <View style={styles.wcTop}>
                 <View style={[styles.wcIcon, { backgroundColor: w.bg }]}>
                   <Ionicons name={w.icon as any} size={14} color={w.color} />

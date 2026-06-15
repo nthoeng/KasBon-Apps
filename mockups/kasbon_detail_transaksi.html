@@ -1,0 +1,333 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.lbl{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-t3);text-align:center;padding-bottom:6px;text-transform:uppercase}
+.phone{background:var(--kb-bg);border-radius:44px;width:300px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.hero{text-align:center;padding:14px 18px 16px}
+.hero-icon{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.hero-amt{font-size:32px;font-weight:500;letter-spacing:-1px;margin-bottom:4px}
+.hero-desc{font-size:13px;color:var(--kb-t2)}
+.tipe-chip{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;margin:6px 0 0}
+.receipt{margin:0 16px 10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;border-bottom:0.5px solid var(--kb-b1)}
+.rrow:last-child{border-bottom:none}
+.rl{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--kb-t2)}
+.rl i{font-size:15px;flex-shrink:0}
+.rr{font-size:12px;font-weight:500;color:var(--kb-text);text-align:right}
+.rr.green{color:#2DD4A4}
+.rr.red{color:#FF6B6B}
+.rr.violet{color:#7C6FF7}
+.rr.gold{color:#F5C842}
+.w-pill{display:flex;align-items:center;gap:6px}
+.w-ico{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.divider{border:none;border-top:0.5px dashed rgba(255,255,255,0.1);margin:0}
+.saldo-section{background:rgba(255,255,255,0.03);border-top:0.5px solid var(--kb-b1)}
+.struk-card{margin:0 16px 10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;overflow:hidden;cursor:pointer}
+.struk-img{width:100%;height:80px;background:linear-gradient(180deg,rgba(45,212,164,0.08),rgba(45,212,164,0.03));display:flex;align-items:center;justify-content:center;border-bottom:0.5px solid var(--kb-b1)}
+.struk-info{display:flex;align-items:center;gap:10px;padding:10px 13px}
+.tx-id-card{margin:0 16px 10px;background:rgba(255,255,255,0.02);border:0.5px solid var(--kb-b1);border-radius:12px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px;margin-bottom:8px}
+.act-btn{height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:12px;font-weight:500;border:0.5px solid var(--kb-b2)}
+.btn-edit{background:rgba(124,111,247,0.1);border-color:rgba(124,111,247,0.3);color:#A89FF9}
+.btn-del{background:rgba(255,107,107,0.08);border-color:rgba(255,107,107,0.2);color:#FF9090}
+.related-card{margin:0 16px 10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:14px;overflow:hidden}
+.rel-row{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:0.5px solid var(--kb-b1);cursor:pointer}
+.rel-row:last-child{border-bottom:none}
+.rel-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rel-info{flex:1}
+.rel-name{font-size:12px;font-weight:500;color:var(--kb-text)}
+.rel-sub{font-size:11px;color:var(--kb-t3);margin-top:1px}
+.rel-amt{font-size:12px;font-weight:500}
+.edit-screen{background:var(--kb-bg)}
+.field-edit{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.04);border:0.5px solid var(--kb-b2);border-radius:12px;padding:0 13px;height:44px;margin:0 16px 8px}
+.field-edit.focused{border-color:var(--kb-gold)}
+.fe-icon{color:var(--kb-t3);font-size:16px;flex-shrink:0}
+.fe-text{font-size:13px;color:var(--kb-text);flex:1}
+.fe-text.ph{color:var(--kb-t3)}
+.fe-action{font-size:11px;color:var(--kb-violet);cursor:pointer;flex-shrink:0}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.05em;text-transform:uppercase;padding:6px 18px 6px}
+.cat-scroll{display:flex;gap:8px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.cat-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1.5px solid transparent}
+.cat-ico.sel{border-color:rgba(255,107,107,0.5)}
+.cat-name{font-size:10px;color:var(--kb-t2)}
+.cat-name.sel{color:#FF6B6B}
+.btn-save{margin:0 16px 8px;width:calc(100% - 32px);height:48px;border-radius:14px;background:var(--kb-gold);border:none;cursor:pointer;font-size:14px;font-weight:500;color:#0A1628;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-cancel{margin:0 16px 14px;width:calc(100% - 32px);height:38px;border-radius:12px;background:transparent;border:0.5px solid var(--kb-b2);cursor:pointer;font-size:13px;color:var(--kb-t2);display:flex;align-items:center;justify-content:center}
+</style>
+
+<h2 class="sr-only">Mockup dua state halaman detail transaksi KasBon: tampilan receipt lengkap dan mode edit transaksi pengeluaran belanja Indomaret.</h2>
+
+<div style="padding:20px 0">
+<p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:8px">Dua state — tampil detail & mode edit</p>
+
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="lbl">State 1 — lihat detail</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></div>
+      </div>
+      <div class="topbar">
+        <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman Aktivitas Feed Transaksi KasBon')">
+          <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+        <div style="flex:1;text-align:center;font-size:14px;font-weight:500;color:var(--kb-text)">Detail transaksi</div>
+        <div style="display:flex;gap:7px">
+          <div class="icon-btn" aria-label="Bagikan transaksi"><i class="ti ti-share" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i></div>
+          <div class="icon-btn" aria-label="Opsi lain"><i class="ti ti-dots" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i></div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="hero-icon" style="background:rgba(255,107,107,0.12)">
+          <i class="ti ti-shopping-cart" style="font-size:26px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="hero-amt" style="color:#FF6B6B">- Rp 87.500</div>
+        <div class="hero-desc">Belanja Indomaret</div>
+        <div class="tipe-chip" style="background:rgba(255,107,107,0.1);color:#FF9090">
+          <i class="ti ti-arrow-up-right" style="font-size:13px" aria-hidden="true"></i>
+          Pengeluaran
+        </div>
+      </div>
+
+      <div class="receipt">
+        <div class="rrow">
+          <span class="rl"><i class="ti ti-tag" aria-hidden="true"></i>Kategori</span>
+          <div class="w-pill">
+            <div class="w-ico" style="background:rgba(255,107,107,0.12)"><i class="ti ti-shopping-cart" style="font-size:12px;color:#FF6B6B" aria-hidden="true"></i></div>
+            <span class="rr">Belanja</span>
+          </div>
+        </div>
+        <div class="rrow">
+          <span class="rl"><i class="ti ti-wallet" aria-hidden="true"></i>Dari dompet</span>
+          <div class="w-pill">
+            <div class="w-ico" style="background:rgba(245,200,66,0.12)"><i class="ti ti-home" style="font-size:12px;color:#F5C842" aria-hidden="true"></i></div>
+            <span class="rr gold">Kas keluarga</span>
+          </div>
+        </div>
+        <div class="rrow">
+          <span class="rl"><i class="ti ti-user" aria-hidden="true"></i>Dicatat oleh</span>
+          <div class="w-pill">
+            <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#F5C842,#FF6B6B);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#0A1628">I</div>
+            <span class="rr">Istri</span>
+          </div>
+        </div>
+        <div class="rrow">
+          <span class="rl"><i class="ti ti-calendar" aria-hidden="true"></i>Tanggal</span>
+          <span class="rr">11 Jun 2025 · 11:24</span>
+        </div>
+        <div class="rrow">
+          <span class="rl"><i class="ti ti-pencil" aria-hidden="true"></i>Catatan</span>
+          <span class="rr" style="max-width:140px">Belanja Indomaret — snack + minum</span>
+        </div>
+        <hr class="divider">
+        <div class="saldo-section">
+          <div class="rrow" style="border-bottom:0.5px solid var(--kb-b1)">
+            <span class="rl">Saldo sebelum</span>
+            <span class="rr">Rp 6.887.500</span>
+          </div>
+          <div class="rrow" style="border-bottom:0.5px solid var(--kb-b1)">
+            <span class="rl">Nominal</span>
+            <span class="rr red">- Rp 87.500</span>
+          </div>
+          <div class="rrow">
+            <span class="rl" style="font-weight:500;color:var(--kb-text)">Saldo sesudah</span>
+            <span class="rr" style="font-size:14px;color:#2DD4A4">Rp 6.800.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="struk-card">
+        <div class="struk-img">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <i class="ti ti-photo" style="font-size:22px;color:#2DD4A4" aria-hidden="true"></i>
+            <span style="font-size:11px;color:var(--kb-mint)">Foto struk tersedia — ketuk untuk lihat</span>
+          </div>
+        </div>
+        <div class="struk-info">
+          <i class="ti ti-file-text" style="font-size:16px;color:#8FA8CC" aria-hidden="true"></i>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:var(--kb-text)">struk_indomaret_11jun.jpg</div>
+            <div style="font-size:10px;color:var(--kb-t3)">128 KB · diupload 11:25</div>
+          </div>
+          <i class="ti ti-zoom-in" style="font-size:16px;color:#3E5878;margin-left:auto" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="tx-id-card">
+        <div>
+          <div style="font-size:10px;color:var(--kb-t3);margin-bottom:2px">ID transaksi</div>
+          <div style="font-size:12px;font-weight:500;color:var(--kb-text)">TXN-2025061100042</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;cursor:pointer">
+          <i class="ti ti-copy" style="font-size:15px;color:var(--kb-t3)" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="act-btn btn-edit">
+          <i class="ti ti-edit" style="font-size:16px" aria-hidden="true"></i>
+          Edit transaksi
+        </div>
+        <div class="act-btn btn-del">
+          <i class="ti ti-trash" style="font-size:16px" aria-hidden="true"></i>
+          Hapus
+        </div>
+      </div>
+
+      <div style="padding:0 18px;margin-bottom:6px;font-size:11px;color:var(--kb-t3);letter-spacing:.04em;text-transform:uppercase">Transaksi lain hari ini</div>
+      <div class="related-card">
+        <div class="rel-row">
+          <div class="rel-icon" style="background:rgba(255,107,107,0.1)">
+            <i class="ti ti-tools-kitchen-2" style="font-size:17px;color:#FF6B6B" aria-hidden="true"></i>
+          </div>
+          <div class="rel-info">
+            <div class="rel-name">Makan siang warung</div>
+            <div class="rel-sub">Bayu · Kas keluarga · 12:05</div>
+          </div>
+          <span class="rel-amt" style="color:#FF6B6B">-Rp 35.000</span>
+        </div>
+        <div class="rel-row">
+          <div class="rel-icon" style="background:rgba(124,111,247,0.1)">
+            <i class="ti ti-bolt" style="font-size:17px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <div class="rel-info">
+            <div class="rel-name">Listrik PLN</div>
+            <div class="rel-sub">Bayu · GoPay Istri · 09:15</div>
+          </div>
+          <span class="rel-amt" style="color:#FF6B6B">-Rp 150.000</span>
+        </div>
+      </div>
+
+      <div style="height:16px"></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div class="lbl">State 2 — mode edit</div>
+    <div class="phone">
+      <div class="sbar">
+        <span>09:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></div>
+      </div>
+      <div class="topbar">
+        <div class="back-btn">
+          <i class="ti ti-x" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+        </div>
+        <div style="flex:1;text-align:center;font-size:14px;font-weight:500;color:var(--kb-text)">Edit transaksi</div>
+        <div style="width:32px;height:32px;border-radius:10px;background:rgba(245,200,66,0.1);border:0.5px solid rgba(245,200,66,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <i class="ti ti-check" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,107,107,0.07);border-top:0.5px solid rgba(255,107,107,0.15);border-bottom:0.5px solid rgba(255,107,107,0.15);padding:9px 18px;display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <i class="ti ti-info-circle" style="font-size:15px;color:#FF9090;flex-shrink:0" aria-hidden="true"></i>
+        <span style="font-size:11px;color:#FF9090;line-height:1.5">Kamu mengedit transaksi Istri. Perubahan akan tercatat oleh sistem.</span>
+      </div>
+
+      <div class="sec-lbl">Nominal</div>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:6px;padding:8px 18px 12px">
+        <span style="font-size:18px;color:var(--kb-t2)">Rp</span>
+        <span style="font-size:32px;font-weight:500;color:#FF6B6B;letter-spacing:-1px">87.500</span>
+        <span style="display:inline-block;width:2px;height:28px;background:var(--kb-gold);vertical-align:middle;animation:blink 1s step-end infinite"></span>
+      </div>
+
+      <div class="sec-lbl">Nama / keterangan</div>
+      <div class="field-edit focused">
+        <i class="ti ti-pencil fe-icon" aria-hidden="true"></i>
+        <span class="fe-text">Belanja Indomaret — snack + minum</span>
+        <i class="ti ti-x" style="font-size:14px;color:#3E5878;cursor:pointer" aria-hidden="true"></i>
+      </div>
+
+      <div class="sec-lbl">Kategori</div>
+      <div class="cat-scroll">
+        <div class="cat-chip">
+          <div class="cat-ico sel" style="background:rgba(255,107,107,0.15)"><i class="ti ti-shopping-cart" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i></div>
+          <span class="cat-name sel">Belanja</span>
+        </div>
+        <div class="cat-chip">
+          <div class="cat-ico" style="background:rgba(245,200,66,0.1)"><i class="ti ti-tools-kitchen-2" style="font-size:18px;color:#F5C842" aria-hidden="true"></i></div>
+          <span class="cat-name">Makan</span>
+        </div>
+        <div class="cat-chip">
+          <div class="cat-ico" style="background:rgba(45,212,164,0.1)"><i class="ti ti-car" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i></div>
+          <span class="cat-name">Transport</span>
+        </div>
+        <div class="cat-chip">
+          <div class="cat-ico" style="background:rgba(124,111,247,0.1)"><i class="ti ti-bolt" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i></div>
+          <span class="cat-name">Tagihan</span>
+        </div>
+        <div class="cat-chip">
+          <div class="cat-ico" style="background:rgba(255,255,255,0.06)"><i class="ti ti-dots" style="font-size:18px;color:#8FA8CC" aria-hidden="true"></i></div>
+          <span class="cat-name">Lainnya</span>
+        </div>
+      </div>
+
+      <div class="sec-lbl">Dari dompet</div>
+      <div class="field-edit">
+        <div style="width:24px;height:24px;border-radius:8px;background:rgba(245,200,66,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <i class="ti ti-home" style="font-size:14px;color:#F5C842" aria-hidden="true"></i>
+        </div>
+        <span class="fe-text">Kas keluarga — Rp 6.800.000</span>
+        <i class="ti ti-chevron-down" style="font-size:15px;color:#3E5878" aria-hidden="true"></i>
+      </div>
+
+      <div class="sec-lbl">Tanggal & waktu</div>
+      <div class="field-edit">
+        <i class="ti ti-calendar fe-icon" aria-hidden="true"></i>
+        <span class="fe-text">11 Jun 2025 · 11:24</span>
+        <i class="ti ti-pencil" style="font-size:14px;color:var(--kb-violet);cursor:pointer" aria-hidden="true"></i>
+      </div>
+
+      <div class="sec-lbl">Catatan</div>
+      <div class="field-edit" style="height:auto;padding:10px 13px;align-items:flex-start;margin-bottom:14px">
+        <i class="ti ti-pencil fe-icon" style="margin-top:2px" aria-hidden="true"></i>
+        <span class="fe-text" style="line-height:1.6">Belanja Indomaret — snack + minum</span>
+      </div>
+
+      <div style="padding:0 16px;margin-bottom:8px;background:rgba(255,107,107,0.06);border:0.5px solid rgba(255,107,107,0.18);border-radius:12px;margin:0 16px 10px;padding:10px 13px">
+        <div style="font-size:11px;color:#FF9090;margin-bottom:3px;display:flex;align-items:center;gap:5px">
+          <i class="ti ti-alert-triangle" style="font-size:14px" aria-hidden="true"></i>
+          Zona berbahaya
+        </div>
+        <div style="font-size:11px;color:rgba(255,107,107,0.65)">Menghapus transaksi ini akan mengubah saldo dompet secara permanen dan tidak dapat diurungkan.</div>
+      </div>
+
+      <div style="height:10px"></div>
+      <button class="btn-save">
+        <i class="ti ti-check" style="font-size:17px" aria-hidden="true"></i>
+        Simpan perubahan
+      </button>
+      <button class="btn-cancel">Batal — kembali ke detail</button>
+      <div style="height:8px"></div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Transaksi Berulang KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Transaksi berulang ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI Web Admin Dashboard KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Web admin dashboard ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Tentang dan Bantuan KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Tentang & bantuan ↗</button>
+  </div>
+</div>
+
+<style>
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
