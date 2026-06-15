@@ -18,6 +18,7 @@ import { CreateWalletScreen } from '../screens/Wallet/CreateWalletScreen';
 import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
 import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
 import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
+import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export function RootNavigator() {
 		<Stack.Screen name="Wallets" component={WalletListScreen} />
 		<Stack.Screen name="WalletDetail" component={WalletDetailScreen} />
 		<Stack.Screen name="CreateWallet" component={CreateWalletScreen} />
+		<Stack.Screen name="Confirmation" component={ConfirmationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

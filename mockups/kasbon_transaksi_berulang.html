@@ -1,0 +1,485 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:320px;margin:0 auto;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.icon-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.summary-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 16px 12px}
+.sm{background:var(--kb-card2);border:0.5px solid var(--kb-b1);border-radius:12px;padding:9px 10px;text-align:center}
+.sm-lbl{font-size:10px;color:var(--kb-t3);margin-bottom:2px}
+.sm-val{font-size:13px;font-weight:500}
+.upcoming-card{margin:0 16px 12px;background:rgba(124,111,247,0.08);border:0.5px solid rgba(124,111,247,0.25);border-radius:16px;padding:12px 14px}
+.uc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.uc-title{font-size:13px;font-weight:500;color:#A89FF9;flex:1}
+.uc-count{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(124,111,247,0.2);color:#A89FF9}
+.uc-item{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.uc-item:last-child{margin-bottom:0}
+.uc-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-info{flex:1}
+.uc-name{font-size:12px;font-weight:500;color:var(--kb-text)}
+.uc-when{font-size:10px;color:var(--kb-t3);margin-top:1px}
+.uc-amt{font-size:12px;font-weight:500;flex-shrink:0}
+.sec-lbl{font-size:11px;color:var(--kb-t3);letter-spacing:.05em;text-transform:uppercase;padding:4px 18px 7px;display:flex;justify-content:space-between;align-items:center}
+.sec-add{font-size:11px;color:var(--kb-violet);cursor:pointer}
+.rec-card{margin:0 16px 8px;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:16px;overflow:hidden}
+.rc-top{display:flex;align-items:center;gap:11px;padding:12px 13px 10px}
+.rc-icon{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rc-info{flex:1;min-width:0}
+.rc-name{font-size:13px;font-weight:500;color:var(--kb-text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.freq-badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500}
+.fb-monthly{background:rgba(124,111,247,0.12);color:#A89FF9}
+.fb-weekly{background:rgba(45,212,164,0.12);color:#2DD4A4}
+.fb-daily{background:rgba(245,200,66,0.1);color:#F5C842}
+.rc-type{font-size:10px;color:var(--kb-t3)}
+.rc-right{text-align:right;flex-shrink:0}
+.rc-amt{font-size:14px;font-weight:500}
+.rc-next{font-size:10px;color:var(--kb-t3);margin-top:2px}
+.rc-schedule{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;background:rgba(255,255,255,0.03);border-top:0.5px solid var(--kb-b1)}
+.rs-left{display:flex;align-items:center;gap:6px}
+.rs-lbl{font-size:11px;color:var(--kb-t2)}
+.rs-val{font-size:11px;font-weight:500;color:var(--kb-text)}
+.rc-actions{display:flex;border-top:0.5px solid var(--kb-b1)}
+.rca{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px;font-size:11px;font-weight:500;cursor:pointer;border-right:0.5px solid var(--kb-b1)}
+.rca:last-child{border-right:none}
+.toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;flex-shrink:0}
+.tog-on{background:#2DD4A4}
+.tog-on::after{content:'';position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:#0A1628}
+.tog-off{background:var(--kb-card2);border:0.5px solid var(--kb-b2)}
+.tog-off::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--kb-t3)}
+.new-card{margin:0 16px 8px;background:rgba(124,111,247,0.06);border:1.5px dashed rgba(124,111,247,0.22);border-radius:16px;overflow:hidden}
+.nc-header{display:flex;align-items:center;gap:10px;padding:12px 13px;border-bottom:0.5px solid rgba(124,111,247,0.15)}
+.nc-title{font-size:13px;font-weight:500;color:#A89FF9;flex:1}
+.nc-body{padding:12px 13px}
+.nf{margin-bottom:10px}
+.nf-lbl{font-size:11px;color:var(--kb-t3);margin-bottom:5px}
+.nf-input{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:0.5px solid var(--kb-b2);border-radius:11px;padding:0 12px;height:40px}
+.nf-input.focused{border-color:var(--kb-violet)}
+.nf-input i{color:var(--kb-t3);font-size:15px;flex-shrink:0}
+.nf-txt{font-size:13px;color:var(--kb-text);flex:1}
+.nf-txt.ph{color:var(--kb-t3)}
+.freq-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:5px}
+.fg-item{background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:10px;padding:8px;text-align:center;cursor:pointer}
+.fg-item.sel{background:rgba(124,111,247,0.12);border-color:rgba(124,111,247,0.4)}
+.fg-lbl{font-size:11px;font-weight:500}
+.fg-sub{font-size:10px;color:var(--kb-t3);margin-top:1px}
+.method-row{display:flex;gap:8px;margin-top:5px}
+.method-opt{flex:1;background:var(--kb-card);border:0.5px solid var(--kb-b2);border-radius:10px;padding:9px;text-align:center;cursor:pointer}
+.method-opt.sel{background:rgba(45,212,164,0.1);border-color:rgba(45,212,164,0.35)}
+.mo-lbl{font-size:11px;font-weight:500;margin-bottom:2px}
+.mo-sub{font-size:10px;color:var(--kb-t3)}
+.nc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btn-c{height:38px;border-radius:11px;background:transparent;border:0.5px solid var(--kb-b2);cursor:pointer;font-size:12px;color:var(--kb-t2);display:flex;align-items:center;justify-content:center}
+.btn-s{height:38px;border-radius:11px;background:#7C6FF7;border:none;cursor:pointer;font-size:12px;font-weight:500;color:#fff;display:flex;align-items:center;justify-content:center;gap:5px}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 18px;background:var(--kb-bg2);border-top:0.5px solid var(--kb-b1)}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1}
+.bnav-lbl{font-size:9px;color:var(--kb-t3)}
+.bnav-item i{color:var(--kb-t3);font-size:20px}
+.fab-wrap{flex:0 0 52px;display:flex;justify-content:center}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--kb-gold);display:flex;align-items:center;justify-content:center;margin-top:-16px;border:3px solid var(--kb-bg);cursor:pointer}
+</style>
+
+<h2 class="sr-only">Mockup halaman transaksi berulang KasBon — daftar transaksi rutin harian, mingguan, dan bulanan yang sudah diset, dengan jadwal berikutnya, toggle aktif/nonaktif, dan form tambah transaksi berulang baru.</h2>
+
+<div style="padding:20px 0">
+<div class="phone">
+
+  <div class="sbar">
+    <span>09:41</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="back-btn" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-arrow-left" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i>
+    </div>
+    <div style="flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--kb-text)">Transaksi berulang</div>
+    <div class="icon-btn" aria-label="Tambah transaksi berulang">
+      <i class="ti ti-plus" style="font-size:15px;color:#F5C842" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="summary-row">
+    <div class="sm">
+      <div class="sm-lbl">Aktif</div>
+      <div class="sm-val" style="color:#2DD4A4">5</div>
+    </div>
+    <div class="sm">
+      <div class="sm-lbl">Total/bulan</div>
+      <div class="sm-val" style="color:#FF6B6B">Rp 3,58jt</div>
+    </div>
+    <div class="sm">
+      <div class="sm-lbl">Nonaktif</div>
+      <div class="sm-val" style="color:var(--kb-t3)">2</div>
+    </div>
+  </div>
+
+  <div class="upcoming-card">
+    <div class="uc-header">
+      <i class="ti ti-clock" style="font-size:16px;color:#A89FF9" aria-hidden="true"></i>
+      <span class="uc-title">Akan tercatat minggu ini</span>
+      <span class="uc-count">3 transaksi</span>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-device-gamepad-2" style="font-size:16px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="uc-info">
+        <div class="uc-name">Netflix langganan</div>
+        <div class="uc-when">Besok · 14 Jun · OVO Bayu</div>
+      </div>
+      <span class="uc-amt" style="color:#FF6B6B">-Rp 54rb</span>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon" style="background:rgba(255,107,107,0.12)">
+        <i class="ti ti-motorbike" style="font-size:16px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="uc-info">
+        <div class="uc-name">Cicilan motor FIF</div>
+        <div class="uc-when">25 Jun · Kas keluarga</div>
+      </div>
+      <span class="uc-amt" style="color:#FF6B6B">-Rp 800rb</span>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-piggy-bank" style="font-size:16px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="uc-info">
+        <div class="uc-name">Setor dana darurat</div>
+        <div class="uc-when">1 Jul · otomatis tercatat</div>
+      </div>
+      <span class="uc-amt" style="color:#2DD4A4">+Rp 500rb</span>
+    </div>
+  </div>
+
+  <div class="sec-lbl">
+    <span>Bulanan (3)</span>
+    <span class="sec-add">+ Tambah</span>
+  </div>
+
+  <div class="rec-card">
+    <div class="rc-top">
+      <div class="rc-icon" style="background:rgba(124,111,247,0.12)">
+        <i class="ti ti-bolt" style="font-size:20px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="rc-info">
+        <div class="rc-name">Listrik PLN</div>
+        <div class="rc-meta">
+          <span class="freq-badge fb-monthly">Bulanan</span>
+          <span class="rc-type">Tagihan · tgl 5</span>
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-amt" style="color:#FF6B6B">Rp 185.000</div>
+        <div class="rc-next">berikutnya 5 Jul</div>
+      </div>
+    </div>
+    <div class="rc-schedule">
+      <div class="rs-left">
+        <i class="ti ti-wallet" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <span class="rs-lbl">Dari:</span>
+        <span class="rs-val"> GoPay Istri</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:#2DD4A4">Aktif</span>
+        <div class="toggle tog-on" aria-label="Toggle aktif listrik"></div>
+      </div>
+    </div>
+    <div class="rc-actions">
+      <div class="rca" style="color:#7C6FF7">
+        <i class="ti ti-edit" style="font-size:14px" aria-hidden="true"></i> Edit
+      </div>
+      <div class="rca" style="color:#2DD4A4">
+        <i class="ti ti-check" style="font-size:14px" aria-hidden="true"></i> Catat sekarang
+      </div>
+      <div class="rca" style="color:#FF6B6B">
+        <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Hapus
+      </div>
+    </div>
+  </div>
+
+  <div class="rec-card">
+    <div class="rc-top">
+      <div class="rc-icon" style="background:rgba(255,107,107,0.12)">
+        <i class="ti ti-motorbike" style="font-size:20px;color:#FF6B6B" aria-hidden="true"></i>
+      </div>
+      <div class="rc-info">
+        <div class="rc-name">Cicilan motor FIF</div>
+        <div class="rc-meta">
+          <span class="freq-badge fb-monthly">Bulanan</span>
+          <span class="rc-type">Cicilan · tgl 25</span>
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-amt" style="color:#FF6B6B">Rp 800.000</div>
+        <div class="rc-next">berikutnya 25 Jun</div>
+      </div>
+    </div>
+    <div class="rc-schedule">
+      <div class="rs-left">
+        <i class="ti ti-wallet" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <span class="rs-lbl">Dari:</span>
+        <span class="rs-val"> Kas keluarga</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:#2DD4A4">Aktif</span>
+        <div class="toggle tog-on" aria-label="Toggle aktif cicilan"></div>
+      </div>
+    </div>
+    <div class="rc-actions">
+      <div class="rca" style="color:#7C6FF7">
+        <i class="ti ti-edit" style="font-size:14px" aria-hidden="true"></i> Edit
+      </div>
+      <div class="rca" style="color:#2DD4A4">
+        <i class="ti ti-check" style="font-size:14px" aria-hidden="true"></i> Catat sekarang
+      </div>
+      <div class="rca" style="color:#FF6B6B">
+        <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Hapus
+      </div>
+    </div>
+  </div>
+
+  <div class="rec-card">
+    <div class="rc-top">
+      <div class="rc-icon" style="background:rgba(45,212,164,0.1)">
+        <i class="ti ti-piggy-bank" style="font-size:20px;color:#2DD4A4" aria-hidden="true"></i>
+      </div>
+      <div class="rc-info">
+        <div class="rc-name">Setor dana darurat</div>
+        <div class="rc-meta">
+          <span class="freq-badge fb-monthly">Bulanan</span>
+          <span class="rc-type">Tabungan · tgl 1</span>
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-amt" style="color:#2DD4A4">Rp 500.000</div>
+        <div class="rc-next">berikutnya 1 Jul</div>
+      </div>
+    </div>
+    <div class="rc-schedule">
+      <div class="rs-left">
+        <i class="ti ti-wallet" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <span class="rs-lbl">Ke:</span>
+        <span class="rs-val"> Dompet dana darurat</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:#2DD4A4">Aktif</span>
+        <div class="toggle tog-on" aria-label="Toggle aktif setor tabungan"></div>
+      </div>
+    </div>
+    <div class="rc-actions">
+      <div class="rca" style="color:#7C6FF7">
+        <i class="ti ti-edit" style="font-size:14px" aria-hidden="true"></i> Edit
+      </div>
+      <div class="rca" style="color:#2DD4A4">
+        <i class="ti ti-check" style="font-size:14px" aria-hidden="true"></i> Catat sekarang
+      </div>
+      <div class="rca" style="color:#FF6B6B">
+        <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Hapus
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl" style="padding-top:4px">
+    <span>Mingguan (1)</span>
+    <span class="sec-add">+ Tambah</span>
+  </div>
+
+  <div class="rec-card">
+    <div class="rc-top">
+      <div class="rc-icon" style="background:rgba(124,111,247,0.1)">
+        <i class="ti ti-device-gamepad-2" style="font-size:20px;color:#7C6FF7" aria-hidden="true"></i>
+      </div>
+      <div class="rc-info">
+        <div class="rc-name">Netflix langganan</div>
+        <div class="rc-meta">
+          <span class="freq-badge fb-monthly">Bulanan</span>
+          <span class="rc-type">Hiburan · tgl 14</span>
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-amt" style="color:#FF6B6B">Rp 54.000</div>
+        <div class="rc-next">besok 14 Jun</div>
+      </div>
+    </div>
+    <div class="rc-schedule">
+      <div class="rs-left">
+        <i class="ti ti-wallet" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <span class="rs-lbl">Dari:</span>
+        <span class="rs-val"> OVO Bayu</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:#2DD4A4">Aktif</span>
+        <div class="toggle tog-on" aria-label="Toggle aktif netflix"></div>
+      </div>
+    </div>
+    <div class="rc-actions">
+      <div class="rca" style="color:#7C6FF7">
+        <i class="ti ti-edit" style="font-size:14px" aria-hidden="true"></i> Edit
+      </div>
+      <div class="rca" style="color:#2DD4A4">
+        <i class="ti ti-check" style="font-size:14px" aria-hidden="true"></i> Catat sekarang
+      </div>
+      <div class="rca" style="color:#FF6B6B">
+        <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Hapus
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl" style="padding-top:4px">
+    <span>Nonaktif (2)</span>
+    <span style="font-size:11px;color:var(--kb-t3)">tersembunyi</span>
+  </div>
+
+  <div class="rec-card" style="opacity:.5">
+    <div class="rc-top">
+      <div class="rc-icon" style="background:rgba(255,255,255,0.06)">
+        <i class="ti ti-wifi" style="font-size:20px;color:#8FA8CC" aria-hidden="true"></i>
+      </div>
+      <div class="rc-info">
+        <div class="rc-name">Internet Indihome</div>
+        <div class="rc-meta">
+          <span class="freq-badge" style="background:rgba(255,255,255,0.06);color:var(--kb-t3)">Bulanan</span>
+          <span class="rc-type">Tagihan · tgl 10</span>
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-amt" style="color:var(--kb-t2)">Rp 350.000</div>
+        <div class="rc-next" style="color:var(--kb-t3)">dinonaktifkan</div>
+      </div>
+    </div>
+    <div class="rc-schedule">
+      <div class="rs-left">
+        <i class="ti ti-wallet" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <span class="rs-lbl">Dari:</span>
+        <span class="rs-val"> Kas keluarga</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:var(--kb-t3)">Nonaktif</span>
+        <div class="toggle tog-off" aria-label="Toggle nonaktif internet"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl" style="padding-top:4px">
+    <span>Tambah transaksi berulang</span>
+  </div>
+
+  <div class="new-card">
+    <div class="nc-header">
+      <i class="ti ti-repeat" style="font-size:16px;color:#A89FF9" aria-hidden="true"></i>
+      <span class="nc-title">Set transaksi rutin baru</span>
+    </div>
+    <div class="nc-body">
+      <div class="nf">
+        <div class="nf-lbl">Nama transaksi</div>
+        <div class="nf-input focused">
+          <i class="ti ti-pencil" aria-hidden="true"></i>
+          <span class="nf-txt">Spotify Premium</span>
+        </div>
+      </div>
+      <div class="nf">
+        <div class="nf-lbl">Nominal</div>
+        <div class="nf-input">
+          <span style="font-size:13px;color:var(--kb-t3)">Rp</span>
+          <span class="nf-txt">29.000</span>
+        </div>
+      </div>
+      <div class="nf">
+        <div class="nf-lbl">Frekuensi</div>
+        <div class="freq-grid">
+          <div class="fg-item">
+            <div class="fg-lbl" style="color:var(--kb-text)">Harian</div>
+            <div class="fg-sub">Setiap hari</div>
+          </div>
+          <div class="fg-item">
+            <div class="fg-lbl" style="color:var(--kb-text)">Mingguan</div>
+            <div class="fg-sub">Per minggu</div>
+          </div>
+          <div class="fg-item sel">
+            <div class="fg-lbl" style="color:#A89FF9">Bulanan</div>
+            <div class="fg-sub">tgl 12</div>
+          </div>
+        </div>
+      </div>
+      <div class="nf">
+        <div class="nf-lbl">Metode pencatatan</div>
+        <div class="method-row">
+          <div class="method-opt sel">
+            <div class="mo-lbl" style="color:#2DD4A4">Otomatis</div>
+            <div class="mo-sub">Langsung tercatat</div>
+          </div>
+          <div class="method-opt">
+            <div class="mo-lbl" style="color:var(--kb-text)">Reminder</div>
+            <div class="mo-sub">Notif dulu, catat manual</div>
+          </div>
+        </div>
+      </div>
+      <div class="nf" style="margin-bottom:0">
+        <div class="nf-lbl">Dari dompet</div>
+        <div class="nf-input">
+          <div style="width:22px;height:22px;border-radius:7px;background:rgba(124,111,247,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="ti ti-device-mobile" style="font-size:13px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <span class="nf-txt">OVO Bayu</span>
+          <i class="ti ti-chevron-down" style="font-size:14px;color:#3E5878" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="nc-btns">
+        <div class="btn-c">Batal</div>
+        <div class="btn-s">
+          <i class="ti ti-check" style="font-size:14px" aria-hidden="true"></i>
+          Simpan
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="bottomnav">
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI Home Dashboard KasBon dengan dark mode glassmorphism')">
+      <i class="ti ti-home-2" aria-hidden="true"></i>
+      <span class="bnav-lbl">Home</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Dompet KasBon')">
+      <i class="ti ti-wallet" aria-hidden="true"></i>
+      <span class="bnav-lbl">Dompet</span>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab" onclick="sendPrompt('Buatkan mockup UI bottom sheet Pilih Tipe Transaksi KasBon')">
+        <i class="ti ti-plus" style="font-size:22px;color:#0A1628" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman List Project KasBon')">
+      <i class="ti ti-briefcase" aria-hidden="true"></i>
+      <span class="bnav-lbl">Project</span>
+    </div>
+    <div class="bnav-item" onclick="sendPrompt('Buatkan mockup UI halaman Profil KasBon')">
+      <i class="ti ti-user" style="color:var(--kb-gold)" aria-hidden="true"></i>
+      <span class="bnav-lbl" style="color:var(--kb-gold)">Profil</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;text-align:center">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Lanjut ke screen berikutnya</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+    <button onclick="sendPrompt('Buatkan mockup UI Web Admin Dashboard KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Web admin dashboard ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Buat Project Baru KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Buat project baru ↗</button>
+    <button onclick="sendPrompt('Buatkan mockup UI halaman Cashflow Project KasBon')" style="font-size:12px;padding:6px 12px;border-radius:8px">Cashflow project ↗</button>
+  </div>
+</div>
+</div>

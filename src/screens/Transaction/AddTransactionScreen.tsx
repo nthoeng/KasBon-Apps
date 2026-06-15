@@ -321,7 +321,10 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
             </TouchableOpacity>
           ))}
         </View>
-        <TouchableOpacity style={[styles.btnSave, { backgroundColor: themeColor }]}>
+        <TouchableOpacity 
+		  style={[styles.btnSave, { backgroundColor: themeColor }]}
+		  onPress={() => navigation.navigate('Confirmation', { type: txType, amount: formattedAmount })}
+		>
           <Ionicons name={txType === 'expense' ? "checkmark" : txType === 'income' ? "checkmark" : "send"} size={18} color={txType === 'transfer' ? '#FFF' : UI_COLORS.bg} />
           <Text style={[styles.btnSaveTxt, txType === 'transfer' && { color: '#FFF' }]}>
             {txType === 'expense' ? 'Simpan pengeluaran' : txType === 'income' ? 'Simpan pemasukan' : 'Transfer sekarang'}
