@@ -10,6 +10,8 @@ import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
+import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
+import { SettingsScreen } from '../screens/Profile/SettingsScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
 import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
@@ -49,6 +51,8 @@ export function RootNavigator() {
 		<Stack.Screen name="CreateWallet" component={CreateWalletScreen} />
 		<Stack.Screen name="Confirmation" component={ConfirmationScreen} />
 		<Stack.Screen name="Recurring" component={RecurringScreen} />
+		<Stack.Screen name="Settings" component={SettingsScreen} />
+		<Stack.Screen name="CategorySettings" component={CategorySettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

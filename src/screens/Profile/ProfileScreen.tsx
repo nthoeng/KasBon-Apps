@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { theme } from '../../theme';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { GlassCard } from '../../components/ui/GlassCard';
+import { theme } from '../../theme';
 
 const { colors } = theme;
 
@@ -22,9 +22,13 @@ const UI_COLORS = {
 };
 
 // --- KOMPONEN HELPER: MENU ITEM ---
-const MenuItem = ({ icon, iconColor, iconBg, name, sub, rightType, rightValue, isLast }: any) => {
+const MenuItem = ({ icon, iconColor, iconBg, name, sub, rightType, rightValue, isLast, onPress }: any) => {
   return (
-    <TouchableOpacity style={[styles.menuItem, isLast && { borderBottomWidth: 0 }]} activeOpacity={0.7}>
+    <TouchableOpacity 
+      style={[styles.menuItem, isLast && { borderBottomWidth: 0 }]} 
+      activeOpacity={0.7} 
+      onPress={onPress}
+    >
       <View style={[styles.menuIcon, { backgroundColor: iconBg }]}>
         <Ionicons name={icon} size={18} color={iconColor} />
       </View>
@@ -70,11 +74,14 @@ export const ProfileScreen = ({ navigation }: any) => {
         <View style={styles.topbarRight}>
           <TouchableOpacity 
 		    style={styles.iconBtn}
-			onPress={() => navigation.navigate('NotificationScreen')}
+			  onPress={() => navigation.navigate('NotificationScreen')}
 		  >
             <Ionicons name="notifications" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBtn}>
+          <TouchableOpacity 
+		    style={styles.iconBtn}
+			  onPress={() => navigation.navigate('Settings')}
+		  >
             <Ionicons name="settings" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
         </View>
@@ -209,7 +216,17 @@ export const ProfileScreen = ({ navigation }: any) => {
         <View style={styles.sectionBlock}>
           <Text style={styles.secLbl}>PREFERENSI</Text>
           <GlassCard style={styles.cardContainer}>
-            <MenuItem icon="pricetag" iconColor={UI_COLORS.red} iconBg="rgba(255,107,107,0.1)" name="Kategori transaksi" sub="Tambah & kelola kategori" rightType="badge-new" rightValue="12 aktif" />
+            <MenuItem 
+              icon="pricetag" 
+              iconColor={UI_COLORS.red} 
+              iconBg="rgba(255,107,107,0.1)" 
+              name="Kategori transaksi" 
+              sub="Tambah & kelola kategori" 
+              rightType="badge-new" 
+              rightValue="12 aktif" 
+              onPress={() => navigation.navigate('CategorySettings')}
+            />
+
             <MenuItem icon="notifications" iconColor={UI_COLORS.mint} iconBg="rgba(45,212,164,0.1)" name="Notifikasi" sub="Aktif: transfer, budget, hutang" rightType="toggle" />
             <MenuItem icon="moon" iconColor={UI_COLORS.violet} iconBg="rgba(124,111,247,0.1)" name="Tema gelap" sub="Dark mode aktif" rightType="toggle" />
             <MenuItem icon="cash" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Mata uang" sub="Rupiah (IDR) — Rp 1.000" rightType="chevron" isLast />

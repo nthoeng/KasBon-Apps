@@ -1,0 +1,239 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--kb-bg:#0A1628;--kb-bg2:#0F1E35;--kb-card:#152238;--kb-card2:#1A2A42;
+--kb-b1:rgba(255,255,255,0.07);--kb-b2:rgba(255,255,255,0.14);
+--kb-gold:#F5C842;--kb-mint:#2DD4A4;--kb-red:#FF6B6B;--kb-violet:#7C6FF7;
+--kb-text:#F0F4FF;--kb-t2:#8FA8CC;--kb-t3:#3E5878;
+}
+.phone{background:var(--kb-bg);border-radius:44px;width:270px;border:2px solid rgba(255,255,255,0.1);overflow:hidden;font-family:var(--font-sans,-apple-system,sans-serif)}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 5px;font-size:11px;color:var(--kb-t2)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.back-btn{width:32px;height:32px;border-radius:10px;background:var(--kb-card);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lbl{font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--kb-t3);text-align:center;padding-bottom:6px;text-transform:uppercase}
+@keyframes shimmer{0%{opacity:.4}50%{opacity:.8}100%{opacity:.4}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.shimmer{animation:shimmer 1.5s ease-in-out infinite}
+.skeleton{background:rgba(255,255,255,0.07);border-radius:6px;animation:shimmer 1.5s ease-in-out infinite}
+.sk-circle{border-radius:50%}
+.empty-icon-ring{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.04);border:0.5px solid var(--kb-b2);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.empty-title{font-size:15px;font-weight:500;color:var(--kb-text);text-align:center;margin-bottom:6px}
+.empty-sub{font-size:12px;color:var(--kb-t3);text-align:center;line-height:1.6;margin-bottom:18px}
+.empty-btn{display:inline-flex;align-items:center;gap:7px;background:var(--kb-gold);border:none;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:500;color:#0A1628;cursor:pointer}
+.empty-btn-ghost{display:inline-flex;align-items:center;gap:7px;background:transparent;border:0.5px solid var(--kb-b2);border-radius:12px;padding:10px 20px;font-size:13px;color:var(--kb-t2);cursor:pointer}
+.offline-banner{display:flex;align-items:center;gap:8px;background:rgba(245,200,66,0.1);border-bottom:0.5px solid rgba(245,200,66,0.25);padding:8px 16px}
+.ob-txt{font-size:12px;color:#F5C842;flex:1;line-height:1.4}
+.ob-retry{font-size:11px;color:#F5C842;font-weight:500;cursor:pointer;white-space:nowrap}
+.error-wrap{display:flex;flex-direction:column;align-items:center;padding:36px 24px 24px}
+.error-ring{width:64px;height:64px;border-radius:50%;background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.25);display:flex;align-items:center;justify-content:center;margin-bottom:14px;animation:shake .5s ease-in-out}
+.error-title{font-size:15px;font-weight:500;color:var(--kb-text);text-align:center;margin-bottom:6px}
+.error-sub{font-size:12px;color:var(--kb-t3);text-align:center;line-height:1.6;margin-bottom:18px}
+.error-code{font-size:10px;color:var(--kb-t3);background:var(--kb-card2);padding:4px 10px;border-radius:8px;margin-bottom:18px}
+.loading-spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,0.1);border-top-color:#F5C842;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+</style>
+
+<h2 class="sr-only">Mockup kumpulan state kosong, loading skeleton, dan error KasBon — mencakup empty state transaksi, dompet, project, notifikasi, loading skeleton feed, dan error jaringan dengan offline banner.</h2>
+
+<div style="padding:20px 0">
+<p style="font-size:12px;color:var(--color-text-secondary);text-align:center;margin-bottom:16px;font-weight:500">State tambahan — Empty, Skeleton Loading & Error</p>
+
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
+
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+
+    <div class="lbl">Empty state — belum ada transaksi</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <span style="font-size:15px;font-weight:500;color:var(--kb-text)">Aktivitas</span>
+        <div class="back-btn"><i class="ti ti-download" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:40px 24px 32px">
+        <div class="empty-icon-ring">
+          <i class="ti ti-receipt-off" style="font-size:32px;color:#3E5878" aria-hidden="true"></i>
+        </div>
+        <div class="empty-title">Belum ada transaksi</div>
+        <div class="empty-sub">Transaksi kamu dan keluarga akan muncul di sini setelah dicatat.</div>
+        <div class="empty-btn">
+          <i class="ti ti-plus" style="font-size:16px" aria-hidden="true"></i>
+          Catat transaksi pertama
+        </div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <div class="lbl">Empty state — dompet kosong</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <span style="font-size:15px;font-weight:500;color:var(--kb-text)">Dompet</span>
+        <div class="back-btn" style="background:rgba(245,200,66,0.1);border-color:rgba(245,200,66,0.3)"><i class="ti ti-plus" style="font-size:15px;color:#F5C842" aria-hidden="true"></i></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:32px 24px 28px">
+        <div class="empty-icon-ring">
+          <i class="ti ti-wallet-off" style="font-size:30px;color:#3E5878" aria-hidden="true"></i>
+        </div>
+        <div class="empty-title">Belum ada dompet</div>
+        <div class="empty-sub">Tambahkan dompet pertama kamu — kas, rekening bank, atau e-wallet.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <div class="empty-btn" style="justify-content:center">
+            <i class="ti ti-plus" style="font-size:16px" aria-hidden="true"></i>
+            Buat dompet baru
+          </div>
+          <div class="empty-btn-ghost" style="justify-content:center">
+            <i class="ti ti-book" style="font-size:16px" aria-hidden="true"></i>
+            Lihat panduan
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Empty state — notifikasi kosong</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <span style="font-size:15px;font-weight:500;color:var(--kb-text)">Notifikasi</span>
+        <div class="back-btn"><i class="ti ti-settings" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:40px 24px 32px">
+        <div class="empty-icon-ring">
+          <i class="ti ti-bell-off" style="font-size:30px;color:#3E5878" aria-hidden="true"></i>
+        </div>
+        <div class="empty-title">Semua sudah dibaca</div>
+        <div class="empty-sub">Tidak ada notifikasi baru saat ini. Kami akan memberitahu kamu untuk hal penting.</div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(45,212,164,0.08);border:0.5px solid rgba(45,212,164,0.2);border-radius:10px;padding:8px 14px">
+          <i class="ti ti-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+          <span style="font-size:12px;color:#2DD4A4">Notifikasi aktif untuk transfer & budget</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+
+    <div class="lbl">Skeleton loading — home feed</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i></div></div>
+      <div style="padding:10px 18px 0;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div class="skeleton" style="width:70px;height:11px;margin-bottom:6px"></div>
+          <div class="skeleton" style="width:100px;height:16px"></div>
+        </div>
+        <div class="skeleton sk-circle" style="width:36px;height:36px"></div>
+      </div>
+      <div style="margin:0 16px 12px;background:var(--kb-card2);border-radius:16px;border:0.5px solid var(--kb-b1);padding:16px">
+        <div class="skeleton" style="width:80px;height:11px;margin-bottom:8px"></div>
+        <div class="skeleton" style="width:140px;height:28px;margin-bottom:10px"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="skeleton" style="height:52px;border-radius:12px"></div>
+          <div class="skeleton" style="height:52px;border-radius:12px"></div>
+        </div>
+        <div class="skeleton" style="width:100%;height:5px;margin-top:12px;border-radius:3px"></div>
+      </div>
+      <div style="padding:0 18px;margin-bottom:8px;display:flex;justify-content:space-between">
+        <div class="skeleton" style="width:70px;height:11px"></div>
+        <div class="skeleton" style="width:50px;height:11px"></div>
+      </div>
+      <div style="display:flex;gap:8px;padding:0 18px 12px;overflow:hidden">
+        <div class="skeleton" style="width:130px;height:72px;border-radius:14px;flex-shrink:0"></div>
+        <div class="skeleton" style="width:130px;height:72px;border-radius:14px;flex-shrink:0"></div>
+      </div>
+      <div style="padding:0 18px;margin-bottom:8px">
+        <div class="skeleton" style="width:80px;height:11px"></div>
+      </div>
+      <div style="padding:0 18px;display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="skeleton sk-circle" style="width:40px;height:40px;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div class="skeleton" style="width:100%;height:12px;margin-bottom:6px"></div>
+            <div class="skeleton" style="width:70%;height:10px"></div>
+          </div>
+          <div class="skeleton" style="width:60px;height:12px;flex-shrink:0"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="skeleton sk-circle" style="width:40px;height:40px;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div class="skeleton" style="width:90%;height:12px;margin-bottom:6px"></div>
+            <div class="skeleton" style="width:55%;height:10px"></div>
+          </div>
+          <div class="skeleton" style="width:60px;height:12px;flex-shrink:0"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="skeleton sk-circle" style="width:40px;height:40px;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div class="skeleton" style="width:80%;height:12px;margin-bottom:6px"></div>
+            <div class="skeleton" style="width:60%;height:10px"></div>
+          </div>
+          <div class="skeleton" style="width:60px;height:12px;flex-shrink:0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Error — koneksi gagal</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi-off" style="font-size:11px;color:#FF6B6B" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <span style="font-size:15px;font-weight:500;color:var(--kb-text)">Home</span>
+        <div class="back-btn"><i class="ti ti-bell" style="font-size:15px;color:#8FA8CC" aria-hidden="true"></i></div>
+      </div>
+      <div class="offline-banner">
+        <i class="ti ti-wifi-off" style="font-size:16px;color:#F5C842;flex-shrink:0" aria-hidden="true"></i>
+        <div class="ob-txt">Tidak ada koneksi. Menampilkan data terakhir.</div>
+        <span class="ob-retry">Coba lagi</span>
+      </div>
+      <div class="error-wrap">
+        <div class="error-ring">
+          <i class="ti ti-cloud-off" style="font-size:28px;color:#FF6B6B" aria-hidden="true"></i>
+        </div>
+        <div class="error-title">Gagal memuat data</div>
+        <div class="error-sub">Tidak bisa terhubung ke server. Periksa koneksi internetmu dan coba lagi.</div>
+        <div class="error-code">Error: Network request failed (ERR_NO_INTERNET)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <div style="display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(255,107,107,0.1);border:0.5px solid rgba(255,107,107,0.25);border-radius:12px;padding:10px 20px;cursor:pointer">
+            <i class="ti ti-refresh" style="font-size:16px;color:#FF9090" aria-hidden="true"></i>
+            <span style="font-size:13px;font-weight:500;color:#FF9090">Muat ulang</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;border:0.5px solid var(--kb-b2);border-radius:12px;padding:10px 20px;cursor:pointer">
+            <i class="ti ti-database" style="font-size:16px;color:var(--kb-t2)" aria-hidden="true"></i>
+            <span style="font-size:13px;color:var(--kb-t2)">Gunakan data offline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Loading — sinkronisasi data</div>
+    <div class="phone">
+      <div class="sbar"><span>09:41</span><div style="display:flex;gap:5px"><i class="ti ti-wifi" style="font-size:11px" aria-hidden="true"></i></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:60px 24px 48px">
+        <div class="loading-spinner"></div>
+        <div style="font-size:15px;font-weight:500;color:var(--kb-text);text-align:center;margin-bottom:6px">Menyinkronkan data...</div>
+        <div style="font-size:12px;color:var(--kb-t3);text-align:center;line-height:1.6">Mengambil transaksi terbaru dari semua anggota keluarga.</div>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;width:100%">
+          <div style="display:flex;align-items:center;gap:8px">
+            <i class="ti ti-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+            <span style="font-size:12px;color:var(--kb-t2)">Autentikasi berhasil</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <i class="ti ti-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+            <span style="font-size:12px;color:var(--kb-t2)">Data dompet diperbarui</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;animation:pulse 1s ease-in-out infinite">
+            <div style="width:15px;height:15px;border:2px solid rgba(255,255,255,0.1);border-top-color:#F5C842;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0"></div>
+            <span style="font-size:12px;color:#F5C842">Mengambil transaksi terbaru...</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;opacity:.35">
+            <div style="width:15px;height:15px;border-radius:50%;border:0.5px solid var(--kb-b2);flex-shrink:0"></div>
+            <span style="font-size:12px;color:var(--kb-t3)">Memperbarui statistik</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
