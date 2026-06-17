@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const UI_COLORS = {
   bg: '#0A1628', bg2: '#0F1E35', card: '#152238', card2: '#1A2A42',
@@ -85,7 +85,18 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
       <View style={styles.extrasRow}>
         <TouchableOpacity style={styles.extraBtn}><Ionicons name="camera" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Foto struk</Text></TouchableOpacity>
         <TouchableOpacity style={styles.extraBtn}><Ionicons name="pricetag" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Tambah tag</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.extraBtn}><Ionicons name="repeat" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Berulang</Text></TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.extraBtn} 
+          onPress={() => navigation.navigate('Recurring', {
+            // Kita buat nama otomatis dari kategori dan catatan
+            prefillName: `${selectedExpenseCat.toUpperCase()} - Pengeluaran Rutin`,
+            prefillAmount: amount, // Pakai state amount langsung (tanpa titik format)
+            prefillWallet: 'Kas keluarga' // Sesuai dengan mockup yang sedang aktif
+          })}
+        >
+          <Ionicons name="repeat" size={16} color={UI_COLORS.t2} />
+          <Text style={styles.extraBtnTxt}>Berulang</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.recurringBadge}>
@@ -164,7 +175,18 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
       </TouchableOpacity>
 
       <View style={styles.extrasRow}>
-        <TouchableOpacity style={styles.extraBtn}><Ionicons name="repeat" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Rutin bulanan</Text></TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.extraBtn} 
+          onPress={() => navigation.navigate('Recurring', {
+            // Kita buat nama otomatis dari sumber pemasukan
+            prefillName: `${selectedIncomeSource.toUpperCase()} - Pemasukan Rutin`,
+            prefillAmount: amount, // Pakai state amount
+            prefillWallet: 'BCA Bayu' // Sesuai dompet pemasukan di mockup
+          })}
+        >
+          <Ionicons name="repeat" size={16} color={UI_COLORS.t2} />
+          <Text style={styles.extraBtnTxt}>Berulang</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.extraBtn}><Ionicons name="pricetag" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Tambah tag</Text></TouchableOpacity>
         <TouchableOpacity style={styles.extraBtn}><Ionicons name="briefcase" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Link project</Text></TouchableOpacity>
       </View>

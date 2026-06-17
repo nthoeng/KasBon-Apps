@@ -1,24 +1,24 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 import { colors } from '../theme/colors';
 
-import { SplashScreen } from '../screens/Auth/SplashScreen';
-import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
-import { LoginScreen } from '../screens/Auth/LoginScreen';
-import { LoginErrorScreen } from '../screens/Auth/LoginErrorScreen';
 import { ForgotPasswordScreen } from '../screens/Auth/ForgotPasswordScreen';
+import { LoginErrorScreen } from '../screens/Auth/LoginErrorScreen';
+import { LoginScreen } from '../screens/Auth/LoginScreen';
+import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
-import { TabNavigator } from './TabNavigator';
+import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
-import { TransactionTypeSelectionScreen } from '../screens/Transaction/TransactionTypeSelectionScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
-import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
-import { CreateWalletScreen } from '../screens/Wallet/CreateWalletScreen';
-import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
-import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
-import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
+import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
+import { RecurringScreen } from '../screens/Transaction/RecurringScreen';
+import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
+import { CreateWalletScreen } from '../screens/Wallet/CreateWalletScreen';
+import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
+import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
+import { TabNavigator } from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +48,7 @@ export function RootNavigator() {
 		<Stack.Screen name="WalletDetail" component={WalletDetailScreen} />
 		<Stack.Screen name="CreateWallet" component={CreateWalletScreen} />
 		<Stack.Screen name="Confirmation" component={ConfirmationScreen} />
+		<Stack.Screen name="Recurring" component={RecurringScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
