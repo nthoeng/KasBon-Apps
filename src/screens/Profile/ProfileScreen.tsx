@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { theme } from '../../theme';
@@ -299,7 +299,11 @@ export const ProfileScreen = ({ navigation }: any) => {
 
         {/* DANGER ZONE */}
         <View style={{ paddingHorizontal: 18, marginBottom: 16 }}>
-          <TouchableOpacity style={styles.btnDanger} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.btnDanger} 
+            activeOpacity={0.7}
+            onPress={() => Alert.alert('Logout', 'Anda akan keluar dari sesi ini setelah backend terhubung.')}
+          >
             <Ionicons name="log-out-outline" size={18} color="#FF9090" />
             <Text style={styles.btnDangerTxt}>Keluar dari akun</Text>
           </TouchableOpacity>

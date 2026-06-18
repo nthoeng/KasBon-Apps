@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { theme } from '../../theme';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { GlassCard } from '../../components/ui/GlassCard';
+import { theme } from '../../theme';
 
 const { colors } = theme;
 
@@ -39,6 +40,8 @@ const StatColumn = ({ label, value, valColor, noBorderRight }: any) => (
 );
 
 export const ProjectListScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
       
@@ -154,7 +157,11 @@ export const ProjectListScreen = () => {
         </View>
 
         {/* Freelance Card: Web Profile */}
-        <TouchableOpacity style={styles.projCard} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={styles.projCard} 
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('ProjectDetail')}
+        >
           <View style={styles.pcTop}>
             <View style={[styles.pcIcon, { backgroundColor: 'rgba(45,212,164,0.1)' }]}>
               <Ionicons name="code-slash" size={22} color={UI_COLORS.mint} />
@@ -189,7 +196,11 @@ export const ProjectListScreen = () => {
         </TouchableOpacity>
 
         {/* Freelance Card: Desain Logo */}
-        <TouchableOpacity style={styles.projCard} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={styles.projCard} 
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('ProjectDetail')}
+        >
           <View style={styles.pcTop}>
             <View style={[styles.pcIcon, { backgroundColor: 'rgba(124,111,247,0.12)' }]}>
               <Ionicons name="color-palette" size={22} color={UI_COLORS.violet} />
@@ -232,7 +243,11 @@ export const ProjectListScreen = () => {
         </View>
 
         {/* Done Card */}
-        <TouchableOpacity style={[styles.projCard, { opacity: 0.6 }]} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={[styles.projCard, { opacity: 0.6 }]} 
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('ProjectDetail')}
+        >
           <View style={styles.pcTop}>
             <View style={[styles.pcIcon, { backgroundColor: 'rgba(255,255,255,0.06)' }]}>
               <Ionicons name="checkmark" size={22} color={UI_COLORS.textSub} />

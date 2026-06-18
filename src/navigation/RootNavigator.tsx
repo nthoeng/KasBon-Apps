@@ -25,6 +25,7 @@ import { CreateWalletScreen } from '../screens/Wallet/CreateWalletScreen';
 import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
 import { WalletListScreen } from '../screens/Wallet/WalletListScreen';
 import { TabNavigator } from './TabNavigator';
+import { ProjectDetailScreen } from '../screens/Project/ProjectDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +62,7 @@ export function RootNavigator() {
 		<Stack.Screen name="CurrencySettings" component={CurrencySettingsScreen} />
 		<Stack.Screen name="ExportData" component={ExportDataScreen} />
 		<Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
+		<Stack.Screen name="ProjectDetail" component={ProjectDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
