@@ -23,6 +23,7 @@ import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScree
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
 import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
 import { RecurringScreen } from '../screens/Transaction/RecurringScreen';
+import { TransactionDetailScreen } from '../screens/Transaction/TransactionDetailScreen';
 import { TransactionHistoryScreen } from '../screens/Transaction/TransactionHistoryScreen';
 import { CreateWalletScreen } from '../screens/Wallet/CreateWalletScreen';
 import { WalletDetailScreen } from '../screens/Wallet/WalletDetailScreen';
@@ -67,6 +68,7 @@ export function RootNavigator() {
 		<Stack.Screen name="ProjectDetail" component={ProjectDetailScreen} />
 		<Stack.Screen name="CreateProject" component={CreateProjectScreen} />
 		<Stack.Screen name="MonthlyStats" component={MonthlyStatsScreen} />
+		<Stack.Screen name="TransactionDetail" component={TransactionDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -87,7 +87,11 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
           </View>
 
           {/* Item 1 */}
-          <TouchableOpacity style={styles.txItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.txItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TransactionDetail')}
+          >
             <View style={styles.txLeft}>
               <View style={[styles.txIcon, { backgroundColor: 'rgba(255,107,107,0.12)' }]}><Ionicons name="cart" size={18} color={UI_COLORS.red} /></View>
               <View style={[styles.txAvatar, { backgroundColor: UI_COLORS.gold }]}><Text style={styles.txAvatarTxt}>I</Text></View>
@@ -106,7 +110,11 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
           <View style={styles.txSep} />
 
           {/* Item 2 */}
-          <TouchableOpacity style={styles.txItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.txItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TransactionDetail')}
+          >
             <View style={styles.txLeft}>
               <View style={[styles.txIcon, { backgroundColor: 'rgba(255,107,107,0.12)' }]}><Ionicons name="restaurant" size={18} color={UI_COLORS.red} /></View>
               <View style={[styles.txAvatar, { backgroundColor: UI_COLORS.violet }]}><Text style={styles.txAvatarTxt}>B</Text></View>
@@ -125,7 +133,11 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
           <View style={styles.txSep} />
 
           {/* Item 3 */}
-          <TouchableOpacity style={styles.txItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.txItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TransactionDetail')}
+          >
             <View style={styles.txLeft}>
               <View style={[styles.txIcon, { backgroundColor: 'rgba(255,107,107,0.12)' }]}><Ionicons name="flash" size={18} color={UI_COLORS.red} /></View>
               <View style={[styles.txAvatar, { backgroundColor: UI_COLORS.violet }]}><Text style={styles.txAvatarTxt}>B</Text></View>
@@ -152,7 +164,11 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
           </View>
 
           {/* Item 4: Income */}
-          <TouchableOpacity style={styles.txItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.txItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TransactionDetail')}
+          >
             <View style={styles.txLeft}>
               <View style={[styles.txIcon, { backgroundColor: 'rgba(45,212,164,0.1)' }]}><Ionicons name="briefcase" size={18} color={UI_COLORS.mint} /></View>
               <View style={[styles.txAvatar, { backgroundColor: UI_COLORS.violet }]}><Text style={styles.txAvatarTxt}>B</Text></View>
@@ -171,7 +187,11 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
           <View style={styles.txSep} />
 
           {/* Item 5: TRANSFER UI KHUSUS */}
-          <TouchableOpacity style={styles.transferItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.transferItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TransactionDetail')}
+          >
             <View style={styles.txLeft}>
               <View style={[styles.txIcon, { backgroundColor: 'rgba(124,111,247,0.1)' }]}><Ionicons name="swap-horizontal" size={18} color={UI_COLORS.violet} /></View>
               <View style={[styles.txAvatar, { backgroundColor: UI_COLORS.violet }]}><Text style={styles.txAvatarTxt}>B</Text></View>
