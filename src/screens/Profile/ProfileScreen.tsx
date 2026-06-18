@@ -283,7 +283,17 @@ export const ProfileScreen = ({ navigation }: any) => {
               onPress={() => navigation.navigate('ExportData')}
             />
             <MenuItem icon="shield-checkmark" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Kebijakan privasi" sub="Cara kami menjaga datamu" rightType="external" />
-            <MenuItem icon="help-circle" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Bantuan & FAQ" sub="Panduan fitur & kontak support" rightType="badge-notif" rightValue="2 baru" isLast />
+            <MenuItem 
+              icon="help-circle" 
+              iconColor={UI_COLORS.textSub} 
+              iconBg="rgba(255,255,255,0.06)" 
+              name="Bantuan & FAQ" 
+              sub="Panduan fitur & kontak support" 
+              rightType="badge-notif" 
+              rightValue="2 baru" 
+              isLast 
+              onPress={() => navigation.navigate('HelpSupport')}
+            />
           </GlassCard>
         </View>
 

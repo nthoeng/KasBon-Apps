@@ -13,6 +13,7 @@ import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
 import { CurrencySettingsScreen } from '../screens/Profile/CurrencySettingsScreen';
 import { ExportDataScreen } from '../screens/Profile/ExportDataScreen';
+import { HelpSupportScreen } from '../screens/Profile/HelpSupportScreen';
 import { ManageMembersScreen } from '../screens/Profile/ManageMembersScreen';
 import { SettingsScreen } from '../screens/Profile/SettingsScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
@@ -59,6 +60,7 @@ export function RootNavigator() {
 		<Stack.Screen name="ManageMembers" component={ManageMembersScreen} />
 		<Stack.Screen name="CurrencySettings" component={CurrencySettingsScreen} />
 		<Stack.Screen name="ExportData" component={ExportDataScreen} />
+		<Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
