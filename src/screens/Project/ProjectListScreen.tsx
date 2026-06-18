@@ -25,8 +25,13 @@ const UI_COLORS = {
 
 // --- HELPER COMPONENTS ---
 
-const FilterChip = ({ label, icon, isActive }: any) => (
-  <TouchableOpacity style={[styles.filterChip, isActive ? styles.fcOn : styles.fcOff]} activeOpacity={0.7}>
+const FilterChip = ({ label, icon, isActive, onPress }: any) => (
+  <TouchableOpacity 
+    onPress={onPress}
+    style={[styles.filterChip, isActive ?  
+    styles.fcOn : styles.fcOff]} 
+    activeOpacity={0.7}
+  >
     <Ionicons name={icon} size={14} color={isActive ? '#FFF' : UI_COLORS.textSub} />
     <Text style={[styles.fcText, { color: isActive ? '#FFF' : UI_COLORS.textSub }]}>{label}</Text>
   </TouchableOpacity>
@@ -40,7 +45,8 @@ const StatColumn = ({ label, value, valColor, noBorderRight }: any) => (
 );
 
 export const ProjectListScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const [selectedFilter, setSelectedFilter] = React.useState('Semua');
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -96,11 +102,36 @@ export const ProjectListScreen = () => {
         {/* FILTER SCROLL */}
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterScroll}>
-            <FilterChip label="Semua" icon="grid-outline" isActive />
-            <FilterChip label="Aktif" icon="checkmark-circle-outline" />
-            <FilterChip label="Usaha" icon="storefront-outline" />
-            <FilterChip label="Freelance" icon="code-slash-outline" />
-            <FilterChip label="Investasi" icon="trending-up-outline" />
+            <FilterChip 
+              label="Semua" 
+              icon="grid-outline" 
+              isActive={selectedFilter === 'Semua'}
+              onPress={() => setSelectedFilter('Semua')} 
+            />
+            <FilterChip 
+              label="Aktif" 
+              icon="checkmark-circle-outline" 
+              isActive={selectedFilter === 'Aktif'} 
+              onPress={() => setSelectedFilter('Aktif')}
+            />
+            <FilterChip 
+              label="Usaha" 
+              icon="storefront-outline"
+              isActive={selectedFilter === 'Usaha'} 
+              onPress={() => setSelectedFilter('Usaha')} 
+            />
+            <FilterChip 
+              label="Freelance" 
+              icon="code-slash-outline" 
+              isActive={selectedFilter === 'Freelance'} 
+              onPress={() => setSelectedFilter('Freelance')}
+            />
+            <FilterChip 
+              label="Investasi" 
+              icon="trending-up-outline" 
+              isActive={selectedFilter === 'Investasi'} 
+              onPress={() => setSelectedFilter('Investasi')}
+            />
           </ScrollView>
         </View>
 
