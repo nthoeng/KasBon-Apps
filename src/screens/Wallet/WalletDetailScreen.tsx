@@ -141,12 +141,19 @@ export const WalletDetailScreen = ({ route }: any) => {
         {/* TRANSACTIONS LIST */}
         <View style={styles.secHeader}>
           <Text style={styles.secLbl}>Riwayat transaksi</Text>
-          <TouchableOpacity><Text style={styles.secLink}>Semua ↗</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('TransactionHistory')}>
+            <Text style={styles.secLink}>Semua ↗</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.txList}>
           {RECENT_TRANSACTIONS.map((tx, idx) => (
-            <TouchableOpacity key={tx.id} style={[styles.txItem, idx === RECENT_TRANSACTIONS.length - 1 && { borderBottomWidth: 0 }]} activeOpacity={0.7}>
+            <TouchableOpacity 
+              key={tx.id} 
+              style={[styles.txItem, idx === RECENT_TRANSACTIONS.length - 1 && { borderBottomWidth: 0 }]} 
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('TransactionDetail')}
+            >
               <View style={{ position: 'relative' }}>
                 <View style={[styles.txIcon, { backgroundColor: tx.bg }]}><Ionicons name={tx.icon as any} size={18} color={tx.color} /></View>
                 <View style={[styles.txAvatar, { backgroundColor: tx.avatarColor }]}><Text style={styles.txAvatarTxt}>{tx.avatar}</Text></View>
