@@ -66,7 +66,7 @@ const MenuItem = ({ icon, iconColor, iconBg, name, sub, rightType, rightValue, i
 
 export const ProfileScreen = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       
       {/* HEADER */}
       <View style={styles.topbar}>

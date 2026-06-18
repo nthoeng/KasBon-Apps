@@ -49,7 +49,7 @@ export const ProjectListScreen = () => {
   const [selectedFilter, setSelectedFilter] = React.useState('Semua');
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top']}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       
       {/* TOPBAR */}
       <View style={styles.topbar}>

@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UI_COLORS = {
   bg: '#0A1628', bg2: '#0F1E35', card: '#152238', card2: '#1A2A42',
@@ -268,7 +269,7 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
 
   // ==================== RENDER UTAMA ====================
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       {/* TOPBAR */}
       <View style={styles.topbar}>
         <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()}><Ionicons name="arrow-back" size={16} color={UI_COLORS.t2} /></TouchableOpacity>

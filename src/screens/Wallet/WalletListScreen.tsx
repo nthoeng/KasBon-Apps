@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // ✅ MENGGUNAKAN THEME GLOBAL
-import { theme } from '../../theme';
 import { GlassCard } from '../../components/ui/GlassCard';
+import { theme } from '../../theme';
 
 const { colors, spacing, typography } = theme;
 
@@ -163,7 +163,7 @@ const WalletCard = ({ item }: any) => {
 // --- MAIN SCREEN ---
 export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.topbar}>
         <View>
           <Text style={styles.pageTitle}>Dompet</Text>

@@ -18,6 +18,7 @@ import { ManageMembersScreen } from '../screens/Profile/ManageMembersScreen';
 import { SettingsScreen } from '../screens/Profile/SettingsScreen';
 import { CreateProjectScreen } from '../screens/Project/CreateProjectScreen';
 import { ProjectDetailScreen } from '../screens/Project/ProjectDetailScreen';
+import { MonthlyStatsScreen } from '../screens/Statistics/MonthlyStatsScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
 import { QRWalletScreen } from '../screens/Transaction/QRWalletScreen';
@@ -65,6 +66,7 @@ export function RootNavigator() {
 		<Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
 		<Stack.Screen name="ProjectDetail" component={ProjectDetailScreen} />
 		<Stack.Screen name="CreateProject" component={CreateProjectScreen} />
+		<Stack.Screen name="MonthlyStats" component={MonthlyStatsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

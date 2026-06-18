@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { theme } from '../../theme';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TransactionItem } from '../../components/ui/TransactionItem';
-import { useNavigation } from '@react-navigation/native';
+import { theme } from '../../theme';
 
 const { colors } = theme;
 
@@ -35,19 +34,19 @@ const quickActions = [
   { id: 'q1', label: 'Catat keluar', icon: 'arrow-up', color: '#FF6B6B', bg: 'rgba(255,107,107,0.15)', screen: 'Add', params: { type: 'expense' } },
   { id: 'q2', label: 'Catat masuk', icon: 'arrow-down', color: '#2DD4A4', bg: 'rgba(45,212,164,0.15)', screen: 'Add', params: { type: 'income' } },
   { id: 'q3', label: 'Transfer QR', icon: 'qr-code', color: '#F5C842', bg: 'rgba(245,200,66,0.15)', screen: 'QRWallet' }, // Langsung ke layar QR
-  { id: 'q4', label: 'Statistik', icon: 'bar-chart', color: '#7C6FF7', bg: 'rgba(124,111,247,0.15)', screen: 'Dummy' },
+  { id: 'q4', label: 'Statistik', icon: 'bar-chart', color: '#7C6FF7', bg: 'rgba(124,111,247,0.15)', screen: 'MonthlyStats' },
 ];
 
 const recentTransactions: any[] = [
-  { id: 't1', title: 'Belanja Indomaret', category: 'Istri ¡¤ Kas keluarga', amount: -87500, type: 'expense', date: '11:24', icon: 'cart' },
-  { id: 't2', title: 'Gaji Juni', category: 'Bayu ¡¤ BCA Bayu', amount: 6500000, type: 'income', date: 'Kemarin', icon: 'briefcase' },
-  { id: 't3', title: 'Transfer ke kas keluarga', category: 'Bayu ¡¤ via QR', amount: -2000000, type: 'transfer', date: 'Kemarin', icon: 'swap-horizontal' },
-  { id: 't4', title: 'Listrik PLN', category: 'Bayu ¡¤ GoPay Istri', amount: -18500, type: 'expense', date: '2 hari lalu', icon: 'flash' },
+  { id: 't1', title: 'Belanja Indomaret', category: 'Istri ï¿½ï¿½ Kas keluarga', amount: -87500, type: 'expense', date: '11:24', icon: 'cart' },
+  { id: 't2', title: 'Gaji Juni', category: 'Bayu ï¿½ï¿½ BCA Bayu', amount: 6500000, type: 'income', date: 'Kemarin', icon: 'briefcase' },
+  { id: 't3', title: 'Transfer ke kas keluarga', category: 'Bayu ï¿½ï¿½ via QR', amount: -2000000, type: 'transfer', date: 'Kemarin', icon: 'swap-horizontal' },
+  { id: 't4', title: 'Listrik PLN', category: 'Bayu ï¿½ï¿½ GoPay Istri', amount: -18500, type: 'expense', date: '2 hari lalu', icon: 'flash' },
 ];
 
 export const HomeScreen = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top']}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         
         {/* TOP BAR */}
@@ -77,7 +76,7 @@ export const HomeScreen = ({ navigation }: any) => {
             14.250.000
           </Text>
           
-          <Text style={styles.heroSub}>Diperbarui barusan  ¡¤  Juni 2026</Text>
+          <Text style={styles.heroSub}>Diperbarui barusan  ï¿½ï¿½  Juni 2026</Text>
           
           <View style={styles.heroStats}>
             <View style={styles.hStat}>
@@ -113,7 +112,7 @@ export const HomeScreen = ({ navigation }: any) => {
         <View style={styles.sectionHeader}>
           <Text style={styles.secTitle}>Dompet saya</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Wallets')}>
-            <Text style={styles.secLink}>Lihat semua ¨J</Text>
+            <Text style={styles.secLink}>Lihat semua ï¿½J</Text>
           </TouchableOpacity>
         </View>
 
@@ -163,9 +162,9 @@ export const HomeScreen = ({ navigation }: any) => {
                 } else if (action.screen === 'QRWallet') {
                   // Arahkan langsung ke layar scan/show QR
                   navigation.navigate('QRWallet');
-                } else {
-                  // Fallback untuk Statistik
-                  alert('Fitur Statistik akan segera hadir!');
+                } else if (action.screen === 'MonthlyStats') {
+                  // Arahkan langsung ke layar monthlystats
+                  navigation.navigate('MonthlyStats');
                 }
               }}
             >
@@ -199,7 +198,7 @@ export const HomeScreen = ({ navigation }: any) => {
         <View style={styles.sectionHeader}>
           <Text style={styles.secTitle}>Aktivitas terbaru</Text>
           <TouchableOpacity onPress={() => navigation.navigate('TransactionHistory')}>
-            <Text style={styles.secLink}>Semua ¨J</Text>
+            <Text style={styles.secLink}>Semua ï¿½J</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.txList}>
@@ -226,7 +225,7 @@ export const HomeScreen = ({ navigation }: any) => {
             </View>
             <View style={styles.memberInfo}>
               <Text style={styles.memberName}>Bayu</Text>
-              <Text style={styles.memberLast}>Terakhir: Transfer kas ¡¤ tadi</Text>
+              <Text style={styles.memberLast}>Terakhir: Transfer kas ï¿½ï¿½ tadi</Text>
             </View>
             <Text style={styles.memberTx}>12 tx</Text>
           </View>
@@ -236,7 +235,7 @@ export const HomeScreen = ({ navigation }: any) => {
             </View>
             <View style={styles.memberInfo}>
               <Text style={styles.memberName}>Istri</Text>
-              <Text style={styles.memberLast}>Terakhir: Belanja ¡¤ 11:24</Text>
+              <Text style={styles.memberLast}>Terakhir: Belanja ï¿½ï¿½ 11:24</Text>
             </View>
             <Text style={styles.memberTx}>8 tx</Text>
           </View>

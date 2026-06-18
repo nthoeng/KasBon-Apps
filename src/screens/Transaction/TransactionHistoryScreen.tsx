@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UI_COLORS = {
   bg: '#0A1628', card: '#152238', card2: '#1A2A42',
@@ -17,7 +17,7 @@ export const TransactionHistoryScreen = ({ navigation }: any) => {
   const [activeFilter, setActiveFilter] = useState('Semua');
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top']}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       
       {/* TOPBAR */}
       <View style={styles.topbar}>

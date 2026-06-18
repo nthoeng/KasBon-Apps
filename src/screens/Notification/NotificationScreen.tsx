@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../../theme';
 
 const { colors } = theme;
@@ -57,7 +57,7 @@ export const NotificationScreen = ({ navigation }: any) => {
   const filters = ['Semua', 'Alert', 'Transfer', 'Budget', 'Tabungan', 'Sistem'];
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top']}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       
       {/* TOPBAR */}
       <View style={styles.topbar}>
