@@ -50,6 +50,7 @@ export const ProjectDetailScreen = () => {
           </View>
           <View style={styles.heroInfo}>
             <Text style={styles.heroName}>Web Company Profile</Text>
+            <Text style={styles.phMeta}>ID: PRJ-001</Text>
             <View style={styles.heroMeta}>
               <View style={[styles.badge, styles.badgeAktif]}><Text style={styles.badgeTxtAktif}>Aktif</Text></View>
               <View style={[styles.badge, styles.badgeProj]}><Text style={styles.badgeTxtProj}>Freelance</Text></View>
@@ -193,7 +194,13 @@ export const ProjectDetailScreen = () => {
         {/* CASHFLOW PROJECT */}
         <View style={styles.secHeader}>
           <Text style={styles.secLbl}>Cashflow project</Text>
-          <TouchableOpacity><Text style={styles.secLink}>Lihat semua ↗</Text></TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ProjectCashflow')}
+          >
+            <Text style={styles.secLink}>
+              Lihat semua ↗
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.txItem}>

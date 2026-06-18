@@ -202,6 +202,7 @@ export const ProjectListScreen = () => {
             </View>
             <View style={styles.pcInfo}>
               <Text style={styles.pcName} numberOfLines={1}>Web Company Profile</Text>
+              <Text style={styles.pcClient}>ID: PRJ-001</Text>
               <View style={styles.pcMeta}>
                 <Text style={styles.pcType}>Client: PT Maju Jaya</Text>
                 <View style={[styles.badge, { backgroundColor: 'rgba(45,212,164,0.12)' }]}><Text style={{ color: UI_COLORS.mint, fontSize: 9, fontWeight: '600' }}>Aktif</Text></View>
@@ -241,6 +242,7 @@ export const ProjectListScreen = () => {
             </View>
             <View style={styles.pcInfo}>
               <Text style={styles.pcName} numberOfLines={1}>Desain logo — UMKM</Text>
+              <Text style={styles.pcClient}>ID: PRJ-002</Text>
               <View style={styles.pcMeta}>
                 <Text style={styles.pcType}>Client: Bu Sari</Text>
                 <View style={[styles.badge, { backgroundColor: 'rgba(45,212,164,0.12)' }]}><Text style={{ color: UI_COLORS.mint, fontSize: 9, fontWeight: '600' }}>Aktif</Text></View>

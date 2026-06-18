@@ -189,7 +189,8 @@ export const TransactionDetailScreen = () => {
         {/* RECEIPT CARD */}
         <View style={styles.receipt}>
           <View style={styles.rrow}>
-            <View style={styles.rl}><Ionicons name="pricetag" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Kategori</Text></View>
+            <View style={styles.rl}>
+              <Ionicons name="pricetag" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Kategori</Text></View>
             <View style={styles.wPill}>
               <View style={[styles.wIco, { backgroundColor: hexToRgba(UI_COLORS.red, 0.12) }]}><Ionicons name="cart" size={12} color={UI_COLORS.red} /></View>
               <Text style={styles.rr}>Belanja</Text>
