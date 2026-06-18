@@ -73,15 +73,15 @@ export const ProfileScreen = ({ navigation }: any) => {
         <Text style={styles.pageTitle}>Profil</Text>
         <View style={styles.topbarRight}>
           <TouchableOpacity 
-		    style={styles.iconBtn}
-			  onPress={() => navigation.navigate('NotificationScreen')}
-		  >
+		        style={styles.iconBtn}
+			      onPress={() => navigation.navigate('NotificationScreen')}
+		      >
             <Ionicons name="notifications" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
           <TouchableOpacity 
-		    style={styles.iconBtn}
-			  onPress={() => navigation.navigate('Settings')}
-		  >
+		        style={styles.iconBtn}
+			      onPress={() => navigation.navigate('Settings')}
+		      >
             <Ionicons name="settings" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
         </View>
@@ -189,7 +189,10 @@ export const ProfileScreen = ({ navigation }: any) => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.inviteRow} activeOpacity={0.7}>
+            <TouchableOpacity 
+              style={styles.inviteRow} 
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('ManageMembers')}> 
               <View style={styles.inviteCircle}>
                 <Ionicons name="add" size={18} color={UI_COLORS.violet} />
               </View>
@@ -206,9 +209,33 @@ export const ProfileScreen = ({ navigation }: any) => {
         <View style={styles.sectionBlock}>
           <Text style={styles.secLbl}>AKUN & KEAMANAN</Text>
           <GlassCard style={styles.cardContainer}>
-            <MenuItem icon="person" iconColor={UI_COLORS.violet} iconBg="rgba(124,111,247,0.12)" name="Edit profil" sub="Nama, foto, nomor HP" rightType="chevron" />
-            <MenuItem icon="lock-closed" iconColor={UI_COLORS.mint} iconBg="rgba(45,212,164,0.1)" name="Keamanan & password" sub="Ganti password, PIN konfirmasi" rightType="chevron" />
-            <MenuItem icon="finger-print" iconColor={UI_COLORS.gold} iconBg="rgba(245,200,66,0.1)" name="Biometrik" sub="Login dengan sidik jari / wajah" rightType="toggle" isLast />
+            <MenuItem 
+              icon="person" 
+              iconColor={UI_COLORS.violet} 
+              iconBg="rgba(124,111,247,0.12)" 
+              name="Edit profil" 
+              sub="Nama, foto, nomor HP" 
+              rightType="chevron" 
+              onPress={() => navigation.navigate('Settings', { scrollToSection: 'profile' })}
+            />
+            <MenuItem 
+              icon="lock-closed" 
+              iconColor={UI_COLORS.mint} 
+              iconBg="rgba(45,212,164,0.1)" 
+              name="Keamanan & password" 
+              sub="Ganti password, PIN konfirmasi" 
+              rightType="chevron" 
+              onPress={() => navigation.navigate('Settings', { scrollToSection: 'security' })}
+            />
+            <MenuItem 
+              icon="finger-print" 
+              iconColor={UI_COLORS.gold} 
+              iconBg="rgba(245,200,66,0.1)" 
+              name="Biometrik" 
+              sub="Login dengan sidik jari / wajah" 
+              rightType="toggle" 
+              isLast 
+            />
           </GlassCard>
         </View>
 
@@ -229,7 +256,16 @@ export const ProfileScreen = ({ navigation }: any) => {
 
             <MenuItem icon="notifications" iconColor={UI_COLORS.mint} iconBg="rgba(45,212,164,0.1)" name="Notifikasi" sub="Aktif: transfer, budget, hutang" rightType="toggle" />
             <MenuItem icon="moon" iconColor={UI_COLORS.violet} iconBg="rgba(124,111,247,0.1)" name="Tema gelap" sub="Dark mode aktif" rightType="toggle" />
-            <MenuItem icon="cash" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Mata uang" sub="Rupiah (IDR) — Rp 1.000" rightType="chevron" isLast />
+            <MenuItem 
+              icon="cash" 
+              iconColor={UI_COLORS.textSub} 
+              iconBg="rgba(255,255,255,0.06)" 
+              name="Mata uang" 
+              sub="Rupiah (IDR) — Rp 1.000" 
+              rightType="chevron" 
+              isLast 
+              onPress={() => navigation.navigate('CurrencySettings')}
+            />
           </GlassCard>
         </View>
 
@@ -237,7 +273,15 @@ export const ProfileScreen = ({ navigation }: any) => {
         <View style={styles.sectionBlock}>
           <Text style={styles.secLbl}>DATA & PRIVASI</Text>
           <GlassCard style={styles.cardContainer}>
-            <MenuItem icon="download" iconColor={UI_COLORS.mint} iconBg="rgba(45,212,164,0.1)" name="Export data saya" sub="Download semua transaksi CSV/PDF" rightType="chevron" />
+            <MenuItem 
+              icon="download" 
+              iconColor={UI_COLORS.mint} 
+              iconBg="rgba(45,212,164,0.1)" 
+              name="Export data saya" 
+              sub="Download semua transaksi CSV/PDF" 
+              rightType="chevron" 
+              onPress={() => navigation.navigate('ExportData')}
+            />
             <MenuItem icon="shield-checkmark" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Kebijakan privasi" sub="Cara kami menjaga datamu" rightType="external" />
             <MenuItem icon="help-circle" iconColor={UI_COLORS.textSub} iconBg="rgba(255,255,255,0.06)" name="Bantuan & FAQ" sub="Panduan fitur & kontak support" rightType="badge-notif" rightValue="2 baru" isLast />
           </GlassCard>

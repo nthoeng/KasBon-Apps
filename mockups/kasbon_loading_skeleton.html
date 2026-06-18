@@ -1,0 +1,490 @@
+
+<style>
+  :root {
+    --bg: #0A1628;
+    --surface: #111F35;
+    --surface2: #152338;
+    --sk-base: #1A2D47;
+    --sk-shine: #213556;
+    --gold: #F5C842;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .wrapper {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .screen-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .phone {
+    background: var(--bg);
+    border-radius: 28px;
+    border: 2px solid #1E3050;
+    overflow: hidden;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .phone-inner {
+    padding: 14px 14px 0;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .notch {
+    width: 80px;
+    height: 6px;
+    background: #1E3050;
+    border-radius: 3px;
+    margin: 0 auto 10px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -300px 0; }
+    100% { background-position: 300px 0; }
+  }
+
+  .sk {
+    background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-shine) 50%, var(--sk-base) 75%);
+    background-size: 600px 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: var(--radius-sm);
+  }
+
+  .sk-pill { border-radius: var(--radius-pill); }
+  .sk-circle { border-radius: 50%; }
+
+  .sk-h8 { height: 8px; }
+  .sk-h10 { height: 10px; }
+  .sk-h12 { height: 12px; }
+  .sk-h14 { height: 14px; }
+  .sk-h16 { height: 16px; }
+  .sk-h20 { height: 20px; }
+  .sk-h24 { height: 24px; }
+  .sk-h32 { height: 32px; }
+  .sk-h40 { height: 40px; }
+  .sk-h48 { height: 48px; }
+  .sk-h60 { height: 60px; }
+  .sk-h80 { height: 80px; }
+  .sk-h100 { height: 100px; }
+  .sk-h120 { height: 120px; }
+
+  .sk-w20 { width: 20px; }
+  .sk-w30 { width: 30%; }
+  .sk-w40 { width: 40%; }
+  .sk-w50 { width: 50%; }
+  .sk-w60 { width: 60%; }
+  .sk-w70 { width: 70%; }
+  .sk-w80 { width: 80%; }
+  .sk-w100 { width: 100%; }
+  .sk-w32 { width: 32px; }
+  .sk-w44 { width: 44px; }
+  .sk-w64 { width: 64px; }
+
+  .row { display: flex; align-items: center; gap: 8px; }
+  .row-spread { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .col { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+  .card-sk {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-hero {
+    background: var(--surface2);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #1E3050;
+  }
+
+  .chip-row {
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .chip-sk {
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+  }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+  .action-btn-sk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .bottom-nav {
+    background: var(--surface);
+    border-top: 1px solid #1E3050;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0 14px;
+    margin: auto -14px 0;
+  }
+
+  .nav-item-sk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .fab-sk {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1E3355;
+    border: 2px solid #2A4070;
+    margin-top: -16px;
+  }
+
+  .divider {
+    height: 1px;
+    background: #1A2D47;
+    width: 100%;
+  }
+
+  .tab-row {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #1A2D47;
+    padding-bottom: 10px;
+  }
+
+  .tab-sk { border-radius: var(--radius-sm); }
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1A2D47;
+  }
+  .list-item:last-child { border-bottom: none; }
+
+  .tag-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+</style>
+
+<div class="wrapper">
+
+  <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:4px;">Tap kartu untuk melihat skeleton tiap halaman</p>
+
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+    <button onclick="showScreen('home')" id="btn-home" style="padding:6px 12px; font-size:12px; border-radius:20px; border:1.5px solid #F5C842; background:#1A2D10; color:#F5C842; cursor:pointer;">Home</button>
+    <button onclick="showScreen('dompet')" id="btn-dompet" style="padding:6px 12px; font-size:12px; border-radius:20px; border:1.5px solid #334866; background:transparent; color:var(--color-text-secondary); cursor:pointer;">Dompet</button>
+    <button onclick="showScreen('catat')" id="btn-catat" style="padding:6px 12px; font-size:12px; border-radius:20px; border:1.5px solid #334866; background:transparent; color:var(--color-text-secondary); cursor:pointer;">Catat</button>
+    <button onclick="showScreen('project')" id="btn-project" style="padding:6px 12px; font-size:12px; border-radius:20px; border:1.5px solid #334866; background:transparent; color:var(--color-text-secondary); cursor:pointer;">Project</button>
+    <button onclick="showScreen('profil')" id="btn-profil" style="padding:6px 12px; font-size:12px; border-radius:20px; border:1.5px solid #334866; background:transparent; color:var(--color-text-secondary); cursor:pointer;">Profil</button>
+  </div>
+
+  <div class="phone">
+    <div class="phone-inner" id="screen-content">
+    </div>
+  </div>
+
+  <p style="font-size:12px; color:var(--color-text-tertiary); text-align:center; margin-top:4px;">Shimmer animation menunjukkan area yang sedang loading</p>
+</div>
+
+<script>
+const screens = {
+  home: `
+    <div class="notch"></div>
+    <div class="row-spread">
+      <div class="col" style="gap:4px">
+        <div class="sk sk-h10 sk-pill" style="width:80px"></div>
+        <div class="sk sk-h14" style="width:140px"></div>
+      </div>
+      <div class="sk sk-circle" style="width:38px;height:38px;flex-shrink:0"></div>
+    </div>
+    <div class="card-hero">
+      <div class="row-spread">
+        <div class="col" style="gap:6px">
+          <div class="sk sk-h10" style="width:70px"></div>
+          <div class="sk sk-h32" style="width:150px"></div>
+        </div>
+        <div class="sk sk-h20 sk-pill" style="width:60px"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="grid2">
+        <div class="col" style="gap:5px">
+          <div class="sk sk-h8" style="width:60px"></div>
+          <div class="sk sk-h14" style="width:80px"></div>
+        </div>
+        <div class="col" style="gap:5px">
+          <div class="sk sk-h8" style="width:60px"></div>
+          <div class="sk sk-h14" style="width:80px"></div>
+        </div>
+      </div>
+      <div class="sk sk-h10 sk-w100"></div>
+      <div class="sk sk-h8 sk-w70"></div>
+    </div>
+    <div class="chip-row">
+      <div class="sk chip-sk" style="width:90px"></div>
+      <div class="sk chip-sk" style="width:80px"></div>
+      <div class="sk chip-sk" style="width:100px"></div>
+      <div class="sk chip-sk" style="width:70px"></div>
+    </div>
+    <div class="grid4">
+      <div class="action-btn-sk"><div class="sk sk-circle" style="width:44px;height:44px"></div><div class="sk sk-h8 sk-pill" style="width:38px;margin-top:2px"></div></div>
+      <div class="action-btn-sk"><div class="sk sk-circle" style="width:44px;height:44px"></div><div class="sk sk-h8 sk-pill" style="width:38px;margin-top:2px"></div></div>
+      <div class="action-btn-sk"><div class="sk sk-circle" style="width:44px;height:44px"></div><div class="sk sk-h8 sk-pill" style="width:38px;margin-top:2px"></div></div>
+      <div class="action-btn-sk"><div class="sk sk-circle" style="width:44px;height:44px"></div><div class="sk sk-h8 sk-pill" style="width:38px;margin-top:2px"></div></div>
+    </div>
+    <div class="card-sk">
+      <div class="sk sk-h10" style="width:100px"></div>
+      <div class="sk sk-h12 sk-w80"></div>
+      <div class="sk sk-h12 sk-w60"></div>
+    </div>
+    <div class="card-sk" style="gap:0">
+      <div class="sk sk-h10 sk-w70" style="margin-bottom:10px"></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w80"></div><div class="sk sk-h10 sk-w50"></div></div><div class="sk sk-h14 sk-pill" style="width:60px;flex-shrink:0"></div></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w100"></div><div class="sk sk-h10 sk-w60"></div></div><div class="sk sk-h14 sk-pill" style="width:55px;flex-shrink:0"></div></div>
+      <div class="list-item" style="border:none"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w70"></div><div class="sk sk-h10 sk-w40"></div></div><div class="sk sk-h14 sk-pill" style="width:65px;flex-shrink:0"></div></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk" style="margin-top:-8px"><div class="fab-sk"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+    </div>
+  `,
+
+  dompet: `
+    <div class="notch"></div>
+    <div class="row-spread">
+      <div class="sk sk-h16" style="width:100px"></div>
+      <div class="sk sk-h32 sk-pill" style="width:80px"></div>
+    </div>
+    <div class="tab-row">
+      <div class="sk tab-sk sk-h28" style="width:70px;height:28px"></div>
+      <div class="sk tab-sk sk-h28" style="width:80px;height:28px"></div>
+      <div class="sk tab-sk sk-h28" style="width:70px;height:28px"></div>
+    </div>
+    <div class="card-hero">
+      <div class="row"><div class="sk sk-circle" style="width:28px;height:28px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h10" style="width:80px"></div><div class="sk sk-h8" style="width:50px"></div></div><div class="sk sk-h10 sk-pill" style="width:50px;margin-left:auto"></div></div>
+      <div class="divider"></div>
+      <div class="sk sk-h10" style="width:80px"></div>
+      <div class="sk sk-h28" style="width:140px"></div>
+      <div class="row-spread"><div class="col" style="gap:4px"><div class="sk sk-h8" style="width:60px"></div><div class="sk sk-h12" style="width:80px"></div></div><div class="col" style="gap:4px;align-items:flex-end"><div class="sk sk-h8" style="width:60px"></div><div class="sk sk-h12" style="width:80px"></div></div></div>
+    </div>
+    <div class="card-sk">
+      <div class="row-spread"><div class="sk sk-h12" style="width:100px"></div><div class="sk sk-h10 sk-pill" style="width:50px"></div></div>
+      <div class="divider"></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w80"></div><div class="sk sk-h10 sk-w50"></div></div><div class="col" style="align-items:flex-end;gap:5px"><div class="sk sk-h12" style="width:70px"></div><div class="sk sk-h8 sk-pill" style="width:50px"></div></div></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w70"></div><div class="sk sk-h10 sk-w40"></div></div><div class="col" style="align-items:flex-end;gap:5px"><div class="sk sk-h12" style="width:65px"></div><div class="sk sk-h8 sk-pill" style="width:50px"></div></div></div>
+      <div class="list-item" style="border:none"><div class="sk sk-circle" style="width:36px;height:36px;flex-shrink:0"></div><div class="col" style="gap:5px"><div class="sk sk-h12 sk-w60"></div><div class="sk sk-h10 sk-w40"></div></div><div class="col" style="align-items:flex-end;gap:5px"><div class="sk sk-h12" style="width:75px"></div><div class="sk sk-h8 sk-pill" style="width:50px"></div></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card-sk"><div class="sk sk-circle" style="width:32px;height:32px"></div><div class="sk sk-h10 sk-w60" style="margin-top:4px"></div><div class="sk sk-h14 sk-w80"></div></div>
+      <div class="card-sk"><div class="sk sk-circle" style="width:32px;height:32px"></div><div class="sk sk-h10 sk-w60" style="margin-top:4px"></div><div class="sk sk-h14 sk-w80"></div></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk" style="margin-top:-8px"><div class="fab-sk"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+    </div>
+  `,
+
+  catat: `
+    <div class="notch"></div>
+    <div class="row-spread">
+      <div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div>
+      <div class="sk sk-h16" style="width:120px"></div>
+      <div class="sk sk-h32 sk-pill" style="width:60px"></div>
+    </div>
+    <div class="tab-row" style="justify-content:center;gap:12px">
+      <div class="sk tab-sk sk-h28" style="width:80px;height:28px"></div>
+      <div class="sk tab-sk sk-h28" style="width:80px;height:28px"></div>
+      <div class="sk tab-sk sk-h28" style="width:80px;height:28px"></div>
+    </div>
+    <div class="card-hero" style="align-items:center;padding:20px 14px">
+      <div class="sk sk-h10 sk-pill" style="width:100px"></div>
+      <div class="sk sk-h48 sk-pill" style="width:180px"></div>
+    </div>
+    <div class="card-sk">
+      <div class="sk sk-h10" style="width:80px"></div>
+      <div class="chip-row" style="flex-wrap:wrap">
+        <div class="sk chip-sk" style="width:70px;height:30px"></div>
+        <div class="sk chip-sk" style="width:80px;height:30px"></div>
+        <div class="sk chip-sk" style="width:65px;height:30px"></div>
+        <div class="sk chip-sk" style="width:90px;height:30px"></div>
+        <div class="sk chip-sk" style="width:75px;height:30px"></div>
+      </div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="row-spread"><div class="sk sk-h10" style="width:80px"></div><div class="sk sk-h10" style="width:60px"></div></div>
+      <div class="sk sk-h40 sk-w100" style="border-radius:8px"></div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="sk sk-h10" style="width:90px"></div>
+      <div class="sk sk-h40 sk-w100" style="border-radius:8px"></div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="sk sk-h10" style="width:100px"></div>
+      <div class="row" style="gap:8px">
+        <div class="sk sk-h40" style="border-radius:8px;flex:1"></div>
+        <div class="sk sk-h40 sk-circle" style="width:40px;height:40px;flex-shrink:0"></div>
+      </div>
+    </div>
+    <div style="padding:0 0 14px">
+      <div class="sk sk-h48 sk-w100" style="border-radius:12px"></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk" style="margin-top:-8px"><div class="fab-sk"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+    </div>
+  `,
+
+  project: `
+    <div class="notch"></div>
+    <div class="row-spread">
+      <div class="sk sk-h16" style="width:120px"></div>
+      <div class="sk sk-h32 sk-pill" style="width:80px"></div>
+    </div>
+    <div class="row" style="gap:8px">
+      <div class="sk sk-h32 sk-pill" style="width:60px"></div>
+      <div class="sk sk-h32 sk-pill" style="width:70px"></div>
+      <div class="sk sk-h32 sk-pill" style="width:60px"></div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="row-spread">
+        <div class="row" style="gap:8px"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12" style="width:100px"></div><div class="sk sk-h8 sk-pill" style="width:60px"></div></div></div>
+        <div class="sk sk-h20 sk-pill" style="width:50px;flex-shrink:0"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="grid2">
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:70px"></div></div>
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:70px"></div></div>
+      </div>
+      <div class="sk sk-h10 sk-w100"></div>
+      <div class="sk sk-h8 sk-w40"></div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="row-spread">
+        <div class="row" style="gap:8px"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12" style="width:110px"></div><div class="sk sk-h8 sk-pill" style="width:55px"></div></div></div>
+        <div class="sk sk-h20 sk-pill" style="width:60px;flex-shrink:0"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="grid2">
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:80px"></div></div>
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:65px"></div></div>
+      </div>
+      <div class="sk sk-h10 sk-w100"></div>
+      <div class="sk sk-h8 sk-w60"></div>
+    </div>
+    <div class="card-sk" style="gap:10px">
+      <div class="row-spread">
+        <div class="row" style="gap:8px"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12" style="width:90px"></div><div class="sk sk-h8 sk-pill" style="width:70px"></div></div></div>
+        <div class="sk sk-h20 sk-pill" style="width:55px;flex-shrink:0"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="grid2">
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:75px"></div></div>
+        <div class="col" style="gap:4px"><div class="sk sk-h8" style="width:50px"></div><div class="sk sk-h14" style="width:70px"></div></div>
+      </div>
+      <div class="sk sk-h10 sk-w100"></div>
+      <div class="sk sk-h8 sk-w50"></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk" style="margin-top:-8px"><div class="fab-sk"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+    </div>
+  `,
+
+  profil: `
+    <div class="notch"></div>
+    <div class="sk sk-h16" style="width:80px"></div>
+    <div class="card-hero" style="align-items:center;gap:10px;padding:20px">
+      <div class="sk sk-circle" style="width:70px;height:70px"></div>
+      <div class="sk sk-h16" style="width:130px"></div>
+      <div class="sk sk-h10 sk-pill" style="width:90px"></div>
+      <div class="row" style="gap:10px;margin-top:4px">
+        <div class="sk sk-h32 sk-pill" style="width:90px"></div>
+        <div class="sk sk-h32 sk-pill" style="width:90px"></div>
+      </div>
+    </div>
+    <div class="card-sk" style="gap:0">
+      <div class="sk sk-h10 sk-w60" style="margin-bottom:10px"></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w70"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w60"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+      <div class="list-item" style="border:none"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w80"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+    </div>
+    <div class="card-sk" style="gap:0">
+      <div class="sk sk-h10 sk-w50" style="margin-bottom:10px"></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w70"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+      <div class="list-item"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w50"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+      <div class="list-item" style="border:none"><div class="sk sk-circle" style="width:32px;height:32px;flex-shrink:0"></div><div class="col" style="gap:4px"><div class="sk sk-h12 sk-w60"></div></div><div class="sk sk-circle" style="width:20px;height:20px;flex-shrink:0"></div></div>
+    </div>
+    <div class="card-sk"><div class="sk sk-h40 sk-w100" style="border-radius:8px"></div></div>
+    <div class="bottom-nav">
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk" style="margin-top:-8px"><div class="fab-sk"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+      <div class="nav-item-sk"><div class="sk sk-circle" style="width:22px;height:22px"></div><div class="sk sk-h8 sk-pill" style="width:28px"></div></div>
+    </div>
+  `
+};
+
+const btnIds = ['home','dompet','catat','project','profil'];
+
+function showScreen(id) {
+  document.getElementById('screen-content').innerHTML = screens[id];
+  btnIds.forEach(b => {
+    const btn = document.getElementById('btn-'+b);
+    if (b === id) {
+      btn.style.border = '1.5px solid #F5C842';
+      btn.style.background = '#1A2D10';
+      btn.style.color = '#F5C842';
+    } else {
+      btn.style.border = '1.5px solid #334866';
+      btn.style.background = 'transparent';
+      btn.style.color = 'var(--color-text-secondary)';
+    }
+  });
+}
+
+showScreen('home');
+</script>

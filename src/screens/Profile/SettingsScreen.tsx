@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const UI_COLORS = {
@@ -19,6 +19,20 @@ const hexToRgba = (hex: string, alpha: number) => {
 
 export const SettingsScreen = () => {
   const navigation = useNavigation<any>();
+  const route = useRoute<any>(); //3. Inisialisasi useRoute
+
+  const scrollViewRef = useRef<ScrollView>(null); // 4. Buat referensi ScrollView
+  const [profileY, setProfileY] = useState(0); // 5. State untuk simpan posisi koordinat Y
+  const [securityY, setSecurityY] = useState(0); // State untuk simpan posisi koordinat Y section keamanan
+
+  // 6. Efek untuk auto-scroll ketika halaman terbuka
+  useEffect(() => {
+    if (route.params?.scrollToSection === 'profile' && profileY > 0) {
+      scrollViewRef.current?.scrollTo({ y: profileY - 20, animated: true });
+    } else if (route.params?.scrollToSection === 'security' && securityY > 0) {
+      scrollViewRef.current?.scrollTo({ y: securityY - 20, animated: true });
+    }
+  }, [route.params?.scrollToSection, profileY, securityY]);     
 
   // States untuk beberapa toggle penting (sebagai contoh simulasi)
   const [bioActive, setBioActive] = useState(true);
@@ -69,7 +83,8 @@ export const SettingsScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
+      {/* HANYA ADA SATU SCROLLVIEW DI SINI */}
+      <ScrollView ref={scrollViewRef} contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
         
         {/* AVATAR SECTION */}
         <View style={styles.avatarSection}>
@@ -83,23 +98,37 @@ export const SettingsScreen = () => {
           <Text style={styles.avatarEmail}>bayu@email.com</Text>
         </View>
 
-        {/* SECTION: INFORMASI PROFIL */}
-        <Text style={styles.secLabel}>Informasi profil</Text>
-        <View style={styles.card}>
-          {renderRow('person', UI_COLORS.violet, 'Nama lengkap', 'Bayu Pratama', false, <Ionicons name="pencil" size={15} color={UI_COLORS.t3} />)}
-          {renderRow('mail', UI_COLORS.mint, 'Alamat email', 'bayu@email.com', false, <View style={[styles.badge, styles.badgeGreen]}><Text style={styles.badgeTxtGreen}>Terverifikasi</Text></View>)}
-          {renderRow('call', UI_COLORS.gold, 'Nomor HP', '+62 812-xxxx-xxxx', false, <Ionicons name="pencil" size={15} color={UI_COLORS.t3} />)}
-          {renderRow('star', UI_COLORS.gold, 'Peran dalam keluarga', 'Admin keluarga', false, <View style={[styles.badge, styles.badgeGold]}><Text style={styles.badgeTxtGold}>Admin</Text></View>, false, true)}
+        {/* SECTION PROFIL DENGAN ONLAYOUT */}
+        <View 
+          onLayout={(event) => { 
+            const { y } = event.nativeEvent.layout;
+            setProfileY(y);
+          }}
+        >    
+          <Text style={styles.secLabel}>Informasi profil</Text>
+          <View style={styles.card}>
+            {renderRow('person', UI_COLORS.violet, 'Nama lengkap', 'Bayu Pratama', false, <Ionicons name="pencil" size={15} color={UI_COLORS.t3} />)}
+            {renderRow('mail', UI_COLORS.mint, 'Alamat email', 'bayu@email.com', false, <View style={[styles.badge, styles.badgeGreen]}><Text style={styles.badgeTxtGreen}>Terverifikasi</Text></View>)}
+            {renderRow('call', UI_COLORS.gold, 'Nomor HP', '+62 812-xxxx-xxxx', false, <Ionicons name="pencil" size={15} color={UI_COLORS.t3} />)}
+            {renderRow('star', UI_COLORS.gold, 'Peran dalam keluarga', 'Admin keluarga', false, <View style={[styles.badge, styles.badgeGold]}><Text style={styles.badgeTxtGold}>Admin</Text></View>, false, true)}
+          </View>
         </View>
 
         {/* SECTION: KEAMANAN */}
-        <Text style={styles.secLabel}>Keamanan</Text>
-        <View style={styles.card}>
-          {renderRow('lock-closed', UI_COLORS.mint, 'Password', '••••••••••', false, <View style={styles.frRightWrap}><Text style={styles.frRightTxt}>Ganti</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
-          {renderRow('keypad', UI_COLORS.violet, 'PIN konfirmasi transaksi', 'Belum diatur', true, <View style={styles.frRightWrap}><Text style={[styles.frRightTxt, {color: UI_COLORS.violet}]}>Atur PIN</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
-          {renderRow('finger-print', UI_COLORS.gold, 'Login biometrik', 'Sidik jari / Face ID', false, renderToggle(bioActive, () => setBioActive(!bioActive)))}
-          {renderRow('shield-checkmark', UI_COLORS.red, 'Verifikasi 2 langkah', 'Nonaktif', true, <View style={styles.frRightWrap}><View style={[styles.badge, styles.badgeRed]}><Text style={styles.badgeTxtRed}>Nonaktif</Text></View><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
-          {renderRow('phone-portrait', UI_COLORS.t2, 'Sesi aktif', '2 perangkat masuk', false, <View style={styles.frRightWrap}><Text style={[styles.frRightTxt, {color: UI_COLORS.violet}]}>Kelola</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>, false, true)}
+        <View 
+          onLayout={(event) => {
+            const { y } = event.nativeEvent.layout;
+            setSecurityY(y);
+          }}
+        >
+          <Text style={styles.secLabel}>Keamanan</Text>
+          <View style={styles.card}>
+            {renderRow('lock-closed', UI_COLORS.mint, 'Password', '••••••••••', false, <View style={styles.frRightWrap}><Text style={styles.frRightTxt}>Ganti</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
+            {renderRow('keypad', UI_COLORS.violet, 'PIN konfirmasi transaksi', 'Belum diatur', true, <View style={styles.frRightWrap}><Text style={[styles.frRightTxt, {color: UI_COLORS.violet}]}>Atur PIN</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
+            {renderRow('finger-print', UI_COLORS.gold, 'Login biometrik', 'Sidik jari / Face ID', false, renderToggle(bioActive, () => setBioActive(!bioActive)))}
+            {renderRow('shield-checkmark', UI_COLORS.red, 'Verifikasi 2 langkah', 'Nonaktif', true, <View style={styles.frRightWrap}><View style={[styles.badge, styles.badgeRed]}><Text style={styles.badgeTxtRed}>Nonaktif</Text></View><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>)}
+            {renderRow('phone-portrait', UI_COLORS.t2, 'Sesi aktif', '2 perangkat masuk', false, <View style={styles.frRightWrap}><Text style={[styles.frRightTxt, {color: UI_COLORS.violet}]}>Kelola</Text><Ionicons name="chevron-forward" size={15} color={UI_COLORS.t3} /></View>, false, true)}
+          </View>
         </View>
 
         {/* SECTION: NOTIFIKASI */}

@@ -11,6 +11,9 @@ import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
+import { CurrencySettingsScreen } from '../screens/Profile/CurrencySettingsScreen';
+import { ExportDataScreen } from '../screens/Profile/ExportDataScreen';
+import { ManageMembersScreen } from '../screens/Profile/ManageMembersScreen';
 import { SettingsScreen } from '../screens/Profile/SettingsScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
@@ -53,6 +56,9 @@ export function RootNavigator() {
 		<Stack.Screen name="Recurring" component={RecurringScreen} />
 		<Stack.Screen name="Settings" component={SettingsScreen} />
 		<Stack.Screen name="CategorySettings" component={CategorySettingsScreen} />
+		<Stack.Screen name="ManageMembers" component={ManageMembersScreen} />
+		<Stack.Screen name="CurrencySettings" component={CurrencySettingsScreen} />
+		<Stack.Screen name="ExportData" component={ExportDataScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
