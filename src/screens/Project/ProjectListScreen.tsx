@@ -61,7 +61,10 @@ export const ProjectListScreen = () => {
           <TouchableOpacity style={styles.iconBtn}>
             <Ionicons name="search" size={16} color={UI_COLORS.textSub} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBtn}>
+          <TouchableOpacity 
+            style={styles.iconBtn}
+            onPress={() => navigation.navigate('CreateProject')}
+          >
             <Ionicons name="add" size={18} color={UI_COLORS.gold} />
           </TouchableOpacity>
         </View>
@@ -302,7 +305,11 @@ export const ProjectListScreen = () => {
           <Text style={styles.secLbl}>Tambah baru</Text>
         </View>
 
-        <TouchableOpacity style={styles.emptyState} activeOpacity={0.7}>
+        <TouchableOpacity 
+          style={styles.emptyState} 
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('CreateProject')}
+        >
           <View style={styles.emptyIconWrap}>
             <Ionicons name="add" size={24} color={UI_COLORS.violet} />
           </View>

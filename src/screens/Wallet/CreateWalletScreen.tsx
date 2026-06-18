@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const UI_COLORS = {
   bg: '#0A1628', bg2: '#0F1E35', card: '#152238', card2: '#1A2A42',
