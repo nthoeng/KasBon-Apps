@@ -20,7 +20,17 @@ const hexToRgba = (hex: string, alpha: number) => {
 
 export const MonthlyStatsScreen = () => {
   const navigation = useNavigation<any>();
-  const [currentMonth, setCurrentMonth] = useState('Juni 2026');
+
+  const months = ['Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026', 'Juli 2026'];
+  const [monthIdx, setMonthIdx] = useState(3); // Default ke Juni 2026 (index 3)
+
+  const handlePrevMonth = () => {
+    if (monthIdx > 0) setMonthIdx(monthIdx - 1);
+  };
+
+  const handleNextMonth = () => {
+    if (monthIdx < months.length -1) setMonthIdx(monthIdx + 1);
+  };
 
   // Simulasi data trend bar
   const trendData = [
@@ -36,12 +46,20 @@ export const MonthlyStatsScreen = () => {
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       {/* TOPBAR */}
       <View style={styles.topbar}>
-        <View>
-          <Text style={styles.pageTitle}>Statistik</Text>
-          <Text style={styles.pageSub}>Ringkasan keuangan keluarga</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          {/* TOMBOL BACK AKTIF */}
+          <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={16} color={UI_COLORS.t2} />
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.pageTitle}>Statistik</Text>
+            <Text style={styles.pageSub}>Ringkasan keuangan keluarga</Text>
+          </View>
         </View>
+        
         <View style={styles.topbarRight}>
-          <TouchableOpacity style={styles.iconBtn}>
+          {/* TOMBOL DOWNLOAD TOPBAR */}
+          <TouchableOpacity style={styles.iconBtn} onPress={() => alert('PDF Laporan Ringkasan sedang diunduh...')}>
             <Ionicons name="download-outline" size={18} color={UI_COLORS.t2} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconBtn}>
@@ -52,13 +70,23 @@ export const MonthlyStatsScreen = () => {
 
       <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
         
-        {/* NAVIGASI BULAN */}
+        {/* NAVIGASI BULAN AKTIF */}
         <View style={styles.monthNav}>
-          <TouchableOpacity style={styles.monthBtn}>
+          <TouchableOpacity 
+            style={[styles.monthBtn, monthIdx === 0 && { opacity: 0.3 }]} 
+            onPress={handlePrevMonth}
+            disabled={monthIdx === 0}
+          >
             <Ionicons name="chevron-back" size={16} color={UI_COLORS.t2} />
           </TouchableOpacity>
-          <Text style={styles.monthTxt}>{currentMonth}</Text>
-          <TouchableOpacity style={styles.monthBtn}>
+          
+          <Text style={styles.monthTxt}>{months[monthIdx]}</Text>
+          
+          <TouchableOpacity 
+            style={[styles.monthBtn, monthIdx === months.length - 1 && { opacity: 0.3 }]} 
+            onPress={handleNextMonth}
+            disabled={monthIdx === months.length - 1}
+          >
             <Ionicons name="chevron-forward" size={16} color={UI_COLORS.t2} />
           </TouchableOpacity>
         </View>
@@ -122,7 +150,9 @@ export const MonthlyStatsScreen = () => {
         <View style={styles.section}>
           <View style={styles.secHeader}>
             <Text style={styles.secTitle}>Tren 6 bulan terakhir</Text>
-            <TouchableOpacity><Text style={styles.secLink}>Lihat semua ↗</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Membuka halaman Laporan Tahunan Lengkap...')}>
+              <Text style={styles.secLink}>Lihat semua ↗</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.chartArea}>
             <View style={styles.chartHeader}>
@@ -232,7 +262,10 @@ export const MonthlyStatsScreen = () => {
         </View>
 
         {/* EXPORT BUTTON */}
-        <TouchableOpacity style={styles.exportBtn}>
+        <TouchableOpacity 
+          style={styles.exportBtn}
+          onPress={() => alert('Menampilkan menu pilihan format: PDF atau Excel (CSV)...')}
+        >
           <Ionicons name="document-text" size={16} color={UI_COLORS.t2} />
           <Text style={styles.exportBtnTxt}>Export laporan PDF / CSV</Text>
         </TouchableOpacity>
