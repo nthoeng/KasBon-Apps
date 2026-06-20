@@ -1,0 +1,354 @@
+
+<style>
+:root {
+  --bg: #0A1628; --sf: #111F35; --sf2: #152338; --bd: #1E3050;
+  --gold: #F5C842; --mint: #2DD4A4; --coral: #FF6B6B; --violet: #7C6FF7;
+  --t1: #E8EDF5; --t2: #8AA0BE; --t3: #5A7890;
+  --r: 12px; --rp: 20px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 12px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.tb { padding: 5px 11px; border-radius: 20px; border: 1.5px solid var(--color-border-tertiary); background: transparent; color: var(--color-text-secondary); font-size: 11px; cursor: pointer; }
+.tb.on { border-color: #F5C842; background: rgba(245,200,66,0.1); color: #F5C842; font-weight: 500; }
+.phone { background: var(--bg); border-radius: 26px; border: 2px solid #1E3050; overflow: hidden; max-width: 340px; margin: 0 auto; }
+.notch { width: 70px; height: 5px; background: #1E3050; border-radius: 3px; margin: 10px auto 0; }
+.pin { padding: 12px 14px; }
+.topbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.ibtn { width: 34px; height: 34px; border-radius: 50%; background: #1A2D47; border: 1px solid #253E60; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ptitle { font-size: 14px; font-weight: 500; color: var(--t1); flex: 1; text-align: center; }
+.code-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.code-badge { padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; font-family: monospace; letter-spacing: 0.04em; }
+.cb-prj { background: rgba(124,111,247,0.15); color: #7C6FF7; border: 1px solid rgba(124,111,247,0.3); }
+.cb-trx { background: rgba(90,120,144,0.2); color: var(--t2); border: 1px solid rgba(90,120,144,0.25); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); margin-left: auto; }
+.status-lbl { font-size: 11px; color: var(--mint); }
+.hero { text-align: center; padding: 14px 0 16px; }
+.hero-lbl { font-size: 11px; color: var(--t2); margin-bottom: 4px; }
+.hero-amt { font-size: 28px; font-weight: 500; }
+.amt-in { color: var(--mint); }
+.amt-out { color: var(--coral); }
+.hero-date { font-size: 11px; color: var(--t3); margin-top: 4px; }
+.divider { height: 1px; background: #1A2D47; margin: 4px 0; }
+.ctx-card { background: rgba(124,111,247,0.07); border: 1.5px solid rgba(124,111,247,0.25); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+.ctx-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ctx-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(124,111,247,0.2); border: 1px solid rgba(124,111,247,0.3); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.ctx-info { flex: 1; }
+.ctx-label { font-size: 10px; color: var(--t2); }
+.ctx-name { font-size: 13px; font-weight: 500; color: var(--t1); }
+.ctx-arrow { font-size: 14px; color: var(--violet); }
+.ctx-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ctx-key { font-size: 11px; color: var(--t2); }
+.ctx-val { font-size: 11px; font-weight: 500; }
+.pbar-wrap { margin-top: 8px; }
+.pbar-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--t2); margin-bottom: 4px; }
+.pbar { height: 5px; background: #1E3050; border-radius: 3px; overflow: hidden; }
+.pbar-fill { height: 100%; border-radius: 3px; }
+.pbar-fill.mint { background: var(--mint); }
+.pbar-fill.gold { background: var(--gold); }
+.info-card { background: #152338; border: 1px solid #1E3050; border-radius: 12px; padding: 2px 12px; margin-bottom: 10px; }
+.irow { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1A2D47; }
+.irow:last-child { border-bottom: none; }
+.ikey { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); }
+.ival { font-size: 12px; font-weight: 500; color: var(--t1); text-align: right; }
+.ival.mint { color: var(--mint); }
+.ival.gold { color: var(--gold); }
+.ival.violet { color: var(--violet); }
+.tag-sm { padding: 2px 7px; border-radius: 8px; font-size: 10px; font-weight: 500; }
+.ts-mint { background: rgba(45,212,164,0.15); color: var(--mint); border: 1px solid rgba(45,212,164,0.25); }
+.ts-gold { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.25); }
+.ts-blue { background: rgba(74,144,217,0.15); color: #4A90D9; border: 1px solid rgba(74,144,217,0.25); }
+.ts-gray { background: rgba(90,120,144,0.2); color: var(--t2); border: 1px solid rgba(90,120,144,0.2); }
+.avatar { width: 20px; height: 20px; border-radius: 50%; background: rgba(245,200,66,0.2); border: 1px solid rgba(245,200,66,0.3); color: var(--gold); font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notes-card { background: #152338; border: 1px solid #1E3050; border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+.notes-lbl { font-size: 10px; color: var(--t2); margin-bottom: 5px; }
+.notes-txt { font-size: 12px; color: var(--t1); line-height: 1.5; }
+.struk-card { background: #152338; border: 1px solid #1E3050; border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.struk-thumb { width: 48px; height: 48px; border-radius: 8px; background: #1A2D47; border: 1px solid #253E60; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+.struk-info { flex: 1; }
+.struk-name { font-size: 12px; color: var(--t1); margin-bottom: 2px; }
+.struk-sub { font-size: 10px; color: var(--t2); }
+.struk-view { font-size: 11px; color: var(--violet); }
+.action-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.act-btn { padding: 9px 6px; border-radius: 10px; border: 1px solid #253E60; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+.act-lbl { font-size: 10px; color: var(--t2); }
+.act-btn.danger { border-color: rgba(255,107,107,0.3); }
+.act-btn.danger .act-lbl { color: var(--coral); }
+.no-ctx-note { background: rgba(90,120,144,0.1); border: 1px dashed rgba(90,120,144,0.25); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.sc { display: none; }
+.sc.on { display: block; }
+.sct { font-size: 10px; color: var(--t2); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+</style>
+
+<h2 class="sr-only">Mockup Transaction Detail KasBon — perbandingan antara transaksi PRJ- (project pemasukan), PRJ- pengeluaran, dan TRX- biasa</h2>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tb on" onclick="sw('in',this)">PRJ- Pemasukan</button>
+    <button class="tb" onclick="sw('out',this)">PRJ- Pengeluaran</button>
+    <button class="tb" onclick="sw('trx',this)">TRX- Biasa (pembanding)</button>
+  </div>
+
+  <div class="phone">
+    <div class="notch"></div>
+
+    <div id="sc-in" class="sc on">
+      <div class="pin">
+        <div class="topbar">
+          <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+          <span class="ptitle">Detail Transaksi</span>
+          <div class="ibtn"><i class="ti ti-dots" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+        </div>
+
+        <div class="code-row">
+          <span class="code-badge cb-prj">PRJ-20250612-001</span>
+          <div class="status-dot"></div>
+          <span class="status-lbl">Terkonfirmasi</span>
+        </div>
+
+        <div class="hero">
+          <div class="hero-lbl">Pemasukan project</div>
+          <div class="hero-amt amt-in">+ Rp 420.000</div>
+          <div class="hero-date">Kamis, 12 Juni 2025 · 14:32 WIB</div>
+        </div>
+
+        <div class="divider" style="margin-bottom:12px"></div>
+
+        <div class="sct">Konteks project <span style="color:var(--violet)">— hanya ada di transaksi PRJ-</span></div>
+        <div class="ctx-card">
+          <div class="ctx-header">
+            <div class="ctx-icon">🛒</div>
+            <div class="ctx-info">
+              <div class="ctx-label">Bagian dari project</div>
+              <div class="ctx-name">Usaha Cimol Pak Bos</div>
+            </div>
+            <i class="ti ti-external-link" style="font-size:15px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <div class="divider"></div>
+          <div class="ctx-row" style="margin-top:8px">
+            <span class="ctx-key">Sumber pemasukan</span>
+            <span class="ctx-val ts-gold tag-sm">Penjualan Langsung</span>
+          </div>
+          <div class="ctx-row">
+            <span class="ctx-key">Kontribusi ke target</span>
+            <span class="ctx-val" style="color:var(--mint)">+14% dari target bulan ini</span>
+          </div>
+          <div class="pbar-wrap">
+            <div class="pbar-labels"><span>Progress target Rp 3 jt</span><span style="color:var(--mint)">83%</span></div>
+            <div class="pbar"><div class="pbar-fill mint" style="width:83%"></div></div>
+          </div>
+        </div>
+
+        <div class="sct">Informasi transaksi</div>
+        <div class="info-card">
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-wallet" style="font-size:14px" aria-hidden="true"></i> Dompet</span>
+            <span class="ival">Kas Usaha Cimol</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-tag" style="font-size:14px" aria-hidden="true"></i> Kategori</span>
+            <span class="ival"><span class="tag-sm ts-mint">Pemasukan Usaha</span></span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-calendar" style="font-size:14px" aria-hidden="true"></i> Tanggal</span>
+            <span class="ival">12 Jun 2025, 14:32</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-user" style="font-size:14px" aria-hidden="true"></i> Dicatat oleh</span>
+            <span class="ival" style="display:flex;align-items:center;gap:5px"><div class="avatar">B</div> Bos</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-device-mobile" style="font-size:14px" aria-hidden="true"></i> Perangkat</span>
+            <span class="ival"><span class="tag-sm ts-gray">Android · App v1.2</span></span>
+          </div>
+        </div>
+
+        <div class="notes-card">
+          <div class="notes-lbl">Catatan</div>
+          <div class="notes-txt">Penjualan sore hari, cuaca cerah. Cimol original laku 80 bungkus, cimol keju 35 bungkus.</div>
+        </div>
+
+        <div class="struk-card">
+          <div class="struk-thumb">🧾</div>
+          <div class="struk-info">
+            <div class="struk-name">Foto struk / bukti</div>
+            <div class="struk-sub">struk-20250612-001.jpg · 1.2 MB</div>
+          </div>
+          <span class="struk-view">Lihat</span>
+        </div>
+
+        <div class="action-row">
+          <div class="act-btn"><i class="ti ti-edit" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Edit</span></div>
+          <div class="act-btn"><i class="ti ti-share" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Bagikan</span></div>
+          <div class="act-btn danger"><i class="ti ti-trash" style="font-size:16px;color:#FF6B6B" aria-hidden="true"></i><span class="act-lbl" style="color:var(--coral)">Hapus</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sc-out" class="sc">
+      <div class="pin">
+        <div class="topbar">
+          <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+          <span class="ptitle">Detail Transaksi</span>
+          <div class="ibtn"><i class="ti ti-dots" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+        </div>
+
+        <div class="code-row">
+          <span class="code-badge cb-prj">PRJ-20250612-007</span>
+          <div class="status-dot" style="background:var(--coral)"></div>
+          <span class="status-lbl" style="color:var(--coral)">Pengeluaran</span>
+        </div>
+
+        <div class="hero">
+          <div class="hero-lbl">Pengeluaran project</div>
+          <div class="hero-amt amt-out">- Rp 185.000</div>
+          <div class="hero-date">Kamis, 12 Juni 2025 · 09:15 WIB</div>
+        </div>
+
+        <div class="divider" style="margin-bottom:12px"></div>
+
+        <div class="sct">Konteks project <span style="color:var(--violet)">— hanya ada di transaksi PRJ-</span></div>
+        <div class="ctx-card" style="border-color:rgba(255,107,107,0.25);background:rgba(255,107,107,0.05)">
+          <div class="ctx-header">
+            <div class="ctx-icon" style="background:rgba(255,107,107,0.15);border-color:rgba(255,107,107,0.3)">🛒</div>
+            <div class="ctx-info">
+              <div class="ctx-label">Bagian dari project</div>
+              <div class="ctx-name">Usaha Cimol Pak Bos</div>
+            </div>
+            <i class="ti ti-external-link" style="font-size:15px;color:#7C6FF7" aria-hidden="true"></i>
+          </div>
+          <div class="divider"></div>
+          <div class="ctx-row" style="margin-top:8px">
+            <span class="ctx-key">Kategori pengeluaran</span>
+            <span class="ctx-val tag-sm" style="background:rgba(255,107,107,0.15);color:var(--coral);border:1px solid rgba(255,107,107,0.25)">Modal Bahan Baku</span>
+          </div>
+          <div class="ctx-row">
+            <span class="ctx-key">Dampak ke laba kotor</span>
+            <span class="ctx-val" style="color:var(--coral)">-Rp 185.000 dari saldo project</span>
+          </div>
+          <div class="pbar-wrap">
+            <div class="pbar-labels"><span>Budget operasional bulan ini</span><span style="color:var(--gold)">62% terpakai</span></div>
+            <div class="pbar"><div class="pbar-fill gold" style="width:62%"></div></div>
+          </div>
+        </div>
+
+        <div class="sct">Informasi transaksi</div>
+        <div class="info-card">
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-wallet" style="font-size:14px" aria-hidden="true"></i> Dompet</span>
+            <span class="ival">Kas Usaha Cimol</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-tag" style="font-size:14px" aria-hidden="true"></i> Kategori</span>
+            <span class="ival"><span class="tag-sm" style="background:rgba(255,107,107,0.12);color:var(--coral);border:1px solid rgba(255,107,107,0.2)">Pengeluaran Operasional</span></span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-calendar" style="font-size:14px" aria-hidden="true"></i> Tanggal</span>
+            <span class="ival">12 Jun 2025, 09:15</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-user" style="font-size:14px" aria-hidden="true"></i> Dicatat oleh</span>
+            <span class="ival" style="display:flex;align-items:center;gap:5px"><div class="avatar" style="background:rgba(45,212,164,0.2);border-color:rgba(45,212,164,0.3);color:var(--mint)">I</div> Istri</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-device-mobile" style="font-size:14px" aria-hidden="true"></i> Perangkat</span>
+            <span class="ival"><span class="tag-sm ts-gray">iOS · App v1.2</span></span>
+          </div>
+        </div>
+
+        <div class="notes-card">
+          <div class="notes-lbl">Catatan</div>
+          <div class="notes-txt">Beli tepung tapioka 5 kg, minyak goreng 2 liter, bumbu racik. Pasar Johar pagi.</div>
+        </div>
+
+        <div class="action-row">
+          <div class="act-btn"><i class="ti ti-edit" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Edit</span></div>
+          <div class="act-btn"><i class="ti ti-share" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Bagikan</span></div>
+          <div class="act-btn danger"><i class="ti ti-trash" style="font-size:16px;color:#FF6B6B" aria-hidden="true"></i><span class="act-lbl" style="color:var(--coral)">Hapus</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sc-trx" class="sc">
+      <div class="pin">
+        <div class="topbar">
+          <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+          <span class="ptitle">Detail Transaksi</span>
+          <div class="ibtn"><i class="ti ti-dots" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+        </div>
+
+        <div class="code-row">
+          <span class="code-badge cb-trx">TRX-20250612-088</span>
+          <div class="status-dot"></div>
+          <span class="status-lbl">Terkonfirmasi</span>
+        </div>
+
+        <div class="hero">
+          <div class="hero-lbl">Pengeluaran pribadi</div>
+          <div class="hero-amt amt-out">- Rp 75.000</div>
+          <div class="hero-date">Kamis, 12 Juni 2025 · 12:10 WIB</div>
+        </div>
+
+        <div class="divider" style="margin-bottom:12px"></div>
+
+        <div class="no-ctx-note">
+          <i class="ti ti-info-circle" style="font-size:16px;color:var(--t2);flex-shrink:0" aria-hidden="true"></i>
+          <span style="font-size:11px;color:var(--t2)">Transaksi biasa — tidak terhubung ke project apapun. Hanya ada pada transaksi PRJ-.</span>
+        </div>
+
+        <div class="sct">Informasi transaksi</div>
+        <div class="info-card">
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-wallet" style="font-size:14px" aria-hidden="true"></i> Dompet</span>
+            <span class="ival">Dompet Pribadi Bos</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-tag" style="font-size:14px" aria-hidden="true"></i> Kategori</span>
+            <span class="ival"><span class="tag-sm ts-gray">Makan & Minum</span></span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-calendar" style="font-size:14px" aria-hidden="true"></i> Tanggal</span>
+            <span class="ival">12 Jun 2025, 12:10</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-user" style="font-size:14px" aria-hidden="true"></i> Dicatat oleh</span>
+            <span class="ival" style="display:flex;align-items:center;gap:5px"><div class="avatar">B</div> Bos</span>
+          </div>
+          <div class="irow">
+            <span class="ikey"><i class="ti ti-device-mobile" style="font-size:14px" aria-hidden="true"></i> Perangkat</span>
+            <span class="ival"><span class="tag-sm ts-gray">Android · App v1.2</span></span>
+          </div>
+        </div>
+
+        <div class="notes-card">
+          <div class="notes-lbl">Catatan</div>
+          <div class="notes-txt">Makan siang warung Bu Sari, nasi + ayam + es teh.</div>
+        </div>
+
+        <div class="struk-card" style="opacity:0.45">
+          <div class="struk-thumb" style="font-size:15px;color:var(--t3)"><i class="ti ti-photo-off" aria-hidden="true"></i></div>
+          <div class="struk-info">
+            <div class="struk-name" style="color:var(--t2)">Tidak ada foto struk</div>
+            <div class="struk-sub">Tap untuk tambahkan bukti</div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <div class="act-btn"><i class="ti ti-edit" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Edit</span></div>
+          <div class="act-btn"><i class="ti ti-share" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i><span class="act-lbl">Bagikan</span></div>
+          <div class="act-btn danger"><i class="ti ti-trash" style="font-size:16px;color:#FF6B6B" aria-hidden="true"></i><span class="act-lbl" style="color:var(--coral)">Hapus</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.sc').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
+  document.getElementById('sc-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>

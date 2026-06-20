@@ -1,14 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React from 'react';
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const UI_COLORS = {
-  bg: '#0A1628', card: '#152238', card2: '#1A2A42',
-  b1: 'rgba(255,255,255,0.07)', b2: 'rgba(255,255,255,0.14)',
-  gold: '#F5C842', mint: '#2DD4A4', red: '#FF6B6B', violet: '#7C6FF7',
-  text: '#F0F4FF', t2: '#8FA8CC', t3: '#3E5878'
+const COLORS = {
+  bg: '#0A1628', sf: '#111F35', sf2: '#152338', bd: '#1E3050',
+  gold: '#F5C842', mint: '#2DD4A4', coral: '#FF6B6B', violet: '#7C6FF7',
+  t1: '#E8EDF5', t2: '#8AA0BE', t3: '#5A7890'
 };
 
 const hexToRgba = (hex: string, alpha: number) => {
@@ -20,284 +19,191 @@ const hexToRgba = (hex: string, alpha: number) => {
 
 export const TransactionDetailScreen = () => {
   const navigation = useNavigation<any>();
-  
-  // State untuk mengontrol mode tampilan (Detail vs Edit)
-  const [isEditing, setIsEditing] = useState(false);
-  
-  // State form untuk mode Edit
-  const [amount, setAmount] = useState('87.500');
-  const [note, setNote] = useState('Belanja Indomaret — snack + minum');
-  const [category, setCategory] = useState('Belanja');
+  const route = useRoute<any>();
 
-  const categories = [
-    { id: 'Belanja', icon: 'cart', color: UI_COLORS.red },
-    { id: 'Makan', icon: 'fast-food', color: UI_COLORS.gold },
-    { id: 'Transport', icon: 'car', color: UI_COLORS.mint },
-    { id: 'Tagihan', icon: 'flash', color: UI_COLORS.violet },
-    { id: 'Lainnya', icon: 'ellipsis-horizontal', color: UI_COLORS.t2 },
-  ];
+  // Ambil data isEdit dari parameter navigasi (default false jika tidak ada)
+  const isEdit = route.params?.isEdit || false;
+  const transactionData = route.params?.transaction || null;
 
-  const handleDelete = () => {
-    Alert.alert(
-      'Hapus Transaksi?',
-      'Menghapus transaksi ini akan mengubah saldo dompet secara permanen.',
-      [
-        { text: 'Batal', style: 'cancel' },
-        { text: 'Hapus', style: 'destructive', onPress: () => navigation.goBack() }
-      ]
-    );
-  };
-
-  const handleSave = () => {
-    Alert.alert('Sukses', 'Perubahan transaksi berhasil disimpan.', [
-      { text: 'OK', onPress: () => setIsEditing(false) }
-    ]);
+  const handleCopy = () => {
+    Alert.alert('Berhasil', 'ID Transaksi disalin ke clipboard!');
   };
 
   // ==========================================
-  // RENDER: STATE 2 (MODE EDIT)
+  // SIMULASI DATA DARI BACKEND / PARAMETER NAVIGASI
+  // Di produksi, data ini didapat dari route.params.transaction
   // ==========================================
-  if (isEditing) {
-    return (
-      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-        {/* TOPBAR EDIT */}
-        <View style={styles.topbar}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => setIsEditing(false)}>
-            <Ionicons name="close" size={16} color={UI_COLORS.t2} />
-          </TouchableOpacity>
-          <Text style={styles.pageTitle}>Edit transaksi</Text>
-          <TouchableOpacity style={[styles.backBtn, { borderColor: hexToRgba(UI_COLORS.gold, 0.3), backgroundColor: hexToRgba(UI_COLORS.gold, 0.1) }]} onPress={handleSave}>
-            <Ionicons name="checkmark" size={16} color={UI_COLORS.gold} />
-          </TouchableOpacity>
-        </View>
+  const mockDataFromDatabase = {
+    id: 'PRJ-20260612-007', 
+    amount: '- Rp 185.000', rawAmt: '- Rp 185.000',
+    date: 'Kamis, 12 Juni 2026 · 09:15 WIB', shortDate: '12 Jun 2026 · 09:15',
+    prjName: 'Web Company Profile', ctxKey: 'Kategori pengeluaran', ctxVal: 'Biaya Server', ctxImpact: '-Rp 185.000 dari saldo',
+    wallet: 'Kas Keluarga', walletColor: COLORS.gold,
+    category: 'Biaya Operasional', catIcon: 'globe', catColor: COLORS.coral,
+    note: 'Perpanjang domain dan hosting bulanan di Niagahoster.',
+    balBefore: 'Rp 6.887.500', balAfter: 'Rp 6.702.500',
+    hasReceipt: true,
+    userInitial: 'B', userName: 'Bayu', device: 'Android · App v1.2'
+  };
 
-        <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
-          {/* INFO BANNER */}
-          <View style={styles.warningBanner}>
-            <Ionicons name="information-circle" size={16} color="#FF9090" style={{ flexShrink: 0 }} />
-            <Text style={styles.warningTxt}>Kamu mengedit transaksi Istri. Perubahan akan tercatat oleh sistem.</Text>
-          </View>
+  // Logika penentu dari ID transaksi (Sesuai idemu!)
+  const data = route.params?.transaction || mockDataFromDatabase;
+  const isProject = data.id.startsWith('PRJ');
+  const isIncome = data.amount.includes('+');
 
-          {/* FIELD: NOMINAL */}
-          <Text style={styles.secLbl}>Nominal</Text>
-          <View style={styles.editNominalRow}>
-            <Text style={styles.editNominalPrefix}>Rp</Text>
-            <TextInput 
-              style={styles.editNominalInput} 
-              value={amount} 
-              onChangeText={setAmount} 
-              keyboardType="numeric"
-            />
-          </View>
-
-          {/* FIELD: CATATAN */}
-          <Text style={styles.secLbl}>Nama / keterangan</Text>
-          <View style={[styles.fieldEdit, styles.fieldFocused]}>
-            <Ionicons name="pencil" size={16} color={UI_COLORS.t3} style={styles.feIcon} />
-            <TextInput 
-              style={styles.feInput} 
-              value={note} 
-              onChangeText={setNote}
-            />
-            {note.length > 0 && (
-              <TouchableOpacity onPress={() => setNote('')}>
-                <Ionicons name="close" size={16} color={UI_COLORS.t3} />
-              </TouchableOpacity>
-            )}
-          </View>
-
-          {/* FIELD: KATEGORI */}
-          <Text style={styles.secLbl}>Kategori</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.catScroll}>
-            {categories.map((cat) => {
-              const isSel = category === cat.id;
-              return (
-                <TouchableOpacity key={cat.id} style={styles.catChip} onPress={() => setCategory(cat.id)}>
-                  <View style={[styles.catIco, { backgroundColor: hexToRgba(cat.color, 0.1) }, isSel && { borderColor: hexToRgba(cat.color, 0.5) }]}>
-                    <Ionicons name={cat.icon as any} size={18} color={cat.color} />
-                  </View>
-                  <Text style={[styles.catName, isSel && { color: cat.color }]}>{cat.id}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-
-          {/* FIELD: DOMPET (Read-only/Simulasi) */}
-          <Text style={styles.secLbl}>Dari dompet</Text>
-          <View style={styles.fieldEdit}>
-            <View style={[styles.wIco, { backgroundColor: hexToRgba(UI_COLORS.gold, 0.12) }]}>
-              <Ionicons name="home" size={12} color={UI_COLORS.gold} />
-            </View>
-            <Text style={styles.feInputText}>Kas keluarga — Rp 6.800.000</Text>
-            <Ionicons name="chevron-down" size={16} color={UI_COLORS.t3} />
-          </View>
-
-          {/* DANGER ZONE */}
-          <View style={styles.dangerZone}>
-            <View style={styles.dzHeader}>
-              <Ionicons name="warning" size={14} color="#FF9090" />
-              <Text style={styles.dzTitle}>Zona berbahaya</Text>
-            </View>
-            <Text style={styles.dzSub}>Menghapus transaksi ini akan mengubah saldo dompet secara permanen dan tidak dapat diurungkan.</Text>
-          </View>
-
-          <TouchableOpacity style={styles.btnSave} onPress={handleSave}>
-            <Ionicons name="checkmark" size={18} color="#0A1628" />
-            <Text style={styles.btnSaveTxt}>Simpan perubahan</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnCancel} onPress={() => setIsEditing(false)}>
-            <Text style={styles.btnCancelTxt}>Batal — kembali ke detail</Text>
-          </TouchableOpacity>
-
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
-
-  // ==========================================
-  // RENDER: STATE 1 (LIHAT DETAIL)
-  // ==========================================
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-      {/* TOPBAR DETAIL */}
-      <View style={styles.topbar}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={16} color={UI_COLORS.t2} />
-        </TouchableOpacity>
-        <Text style={styles.pageTitle}>Detail transaksi</Text>
-        <View style={styles.topbarRight}>
-          <TouchableOpacity style={styles.iconBtn}><Ionicons name="share-outline" size={16} color={UI_COLORS.t2} /></TouchableOpacity>
-          <TouchableOpacity style={styles.iconBtn}><Ionicons name="ellipsis-horizontal" size={16} color={UI_COLORS.t2} /></TouchableOpacity>
-        </View>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
         
+        {/* TOPBAR */}
+        <View style={styles.topbar}>
+          <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={16} color={COLORS.t2} />
+          </TouchableOpacity>
+          <Text style={styles.pageTitle}>Detail Transaksi</Text>
+          <TouchableOpacity style={styles.iconBtn}>
+            <Ionicons name="ellipsis-horizontal" size={16} color={COLORS.t2} />
+          </TouchableOpacity>
+        </View>
+
+        {/* CODE, COPY & STATUS */}
+        <View style={styles.codeRow}>
+          <View style={[styles.codeBadge, isProject ? styles.cbPrj : styles.cbTrx]}>
+            <Text style={[styles.codeBadgeTxt, isProject ? {color: COLORS.violet} : {color: COLORS.t2}]}>{data.id}</Text>
+          </View>
+          <TouchableOpacity style={styles.copyBtn} onPress={handleCopy}>
+            <Ionicons name="copy-outline" size={14} color={COLORS.t2} />
+          </TouchableOpacity>
+          <View style={{ flex: 1 }} />
+          <View style={[styles.statusDot, { backgroundColor: isIncome ? COLORS.mint : (isProject ? COLORS.coral : COLORS.mint) }]} />
+          <Text style={[styles.statusLbl, { color: isIncome ? COLORS.mint : (isProject ? COLORS.coral : COLORS.mint) }]}>
+            {isIncome ? 'Terkonfirmasi' : (isProject ? 'Pengeluaran' : 'Terkonfirmasi')}
+          </Text>
+        </View>
+
         {/* HERO */}
         <View style={styles.hero}>
-          <View style={styles.heroIconWrap}>
-            <Ionicons name="cart" size={26} color={UI_COLORS.red} />
-          </View>
-          <Text style={styles.heroAmt}>- Rp 87.500</Text>
-          <Text style={styles.heroDesc}>Belanja Indomaret</Text>
-          <View style={styles.tipeChip}>
-            <Ionicons name="arrow-up" size={13} color="#FF9090" />
-            <Text style={styles.tipeChipTxt}>Pengeluaran</Text>
-          </View>
+          <Text style={styles.heroLbl}>{isProject ? (isIncome ? 'Pemasukan project' : 'Pengeluaran project') : 'Pengeluaran pribadi'}</Text>
+          <Text style={[styles.heroAmt, { color: isIncome ? COLORS.mint : COLORS.coral }]}>{data.amount}</Text>
+          <Text style={styles.heroDate}>{data.date}</Text>
         </View>
 
-        {/* RECEIPT CARD */}
-        <View style={styles.receipt}>
+        {/* PROJECT CONTEXT CARD (Otomatis muncul jika ID berawalan PRJ) */}
+        {isProject && (
+          <View style={[styles.ctxCard, !isIncome && { backgroundColor: 'rgba(255,107,107,0.05)', borderColor: 'rgba(255,107,107,0.25)' }]}>
+            <View style={styles.ctxHeader}>
+              <View style={[styles.ctxIcon, !isIncome && { backgroundColor: 'rgba(255,107,107,0.15)', borderColor: 'rgba(255,107,107,0.3)' }]}>
+                <Ionicons name="briefcase" size={16} color={isIncome ? COLORS.violet : COLORS.coral} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.ctxLabel}>Bagian dari project</Text>
+                <Text style={styles.ctxName}>{data.prjName}</Text>
+              </View>
+              <Ionicons name="open-outline" size={16} color={COLORS.violet} />
+            </View>
+            <View style={styles.dividerSolid} />
+            <View style={[styles.ctxRow, { marginTop: 8 }]}>
+              <Text style={styles.ctxKey}>{data.ctxKey}</Text>
+              <Text style={[styles.ctxVal, { color: isIncome ? COLORS.gold : COLORS.coral }]}>{data.ctxVal}</Text>
+            </View>
+            <View style={[styles.ctxRow, { marginBottom: 0 }]}>
+              <Text style={styles.ctxKey}>{isIncome ? 'Kontribusi ke target' : 'Dampak ke laba kotor'}</Text>
+              <Text style={[styles.ctxVal, { color: isIncome ? COLORS.mint : COLORS.coral }]}>{data.ctxImpact}</Text>
+            </View>
+          </View>
+        )}
+
+        {/* INFORMASI TRANSAKSI */}
+        <Text style={styles.sectionTitle}>Informasi & Saldo</Text>
+        <View style={styles.receiptCard}>
           <View style={styles.rrow}>
-            <View style={styles.rl}>
-              <Ionicons name="pricetag" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Kategori</Text></View>
+            <View style={styles.rl}><Ionicons name="wallet" size={15} color={COLORS.t2} /><Text style={styles.rlTxt}>Dari dompet</Text></View>
             <View style={styles.wPill}>
-              <View style={[styles.wIco, { backgroundColor: hexToRgba(UI_COLORS.red, 0.12) }]}><Ionicons name="cart" size={12} color={UI_COLORS.red} /></View>
-              <Text style={styles.rr}>Belanja</Text>
+              <View style={[styles.wIco, { backgroundColor: hexToRgba(data.walletColor, 0.15) }]}><Ionicons name="home" size={12} color={data.walletColor} /></View>
+              <Text style={[styles.rr, { color: data.walletColor }]}>{data.wallet}</Text>
             </View>
           </View>
           <View style={styles.rrow}>
-            <View style={styles.rl}><Ionicons name="wallet" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Dari dompet</Text></View>
+            <View style={styles.rl}><Ionicons name="pricetag" size={15} color={COLORS.t2} /><Text style={styles.rlTxt}>Kategori</Text></View>
             <View style={styles.wPill}>
-              <View style={[styles.wIco, { backgroundColor: hexToRgba(UI_COLORS.gold, 0.12) }]}><Ionicons name="home" size={12} color={UI_COLORS.gold} /></View>
-              <Text style={[styles.rr, { color: UI_COLORS.gold }]}>Kas keluarga</Text>
+              <View style={[styles.wIco, { backgroundColor: hexToRgba(data.catColor, 0.15) }]}><Ionicons name={data.catIcon as any} size={12} color={data.catColor} /></View>
+              <Text style={styles.rr}>{data.category}</Text>
             </View>
           </View>
           <View style={styles.rrow}>
-            <View style={styles.rl}><Ionicons name="person" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Dicatat oleh</Text></View>
+            <View style={styles.rl}><Ionicons name="calendar" size={15} color={COLORS.t2} /><Text style={styles.rlTxt}>Tanggal</Text></View>
+            <Text style={styles.rr}>{data.shortDate}</Text>
+          </View>
+          <View style={styles.rrow}>
+            <View style={styles.rl}><Ionicons name="person" size={15} color={COLORS.t2} /><Text style={styles.rlTxt}>Dicatat oleh</Text></View>
             <View style={styles.wPill}>
-              <View style={styles.avatarIstri}><Text style={styles.avatarTxt}>I</Text></View>
-              <Text style={styles.rr}>Istri</Text>
+              <View style={[styles.wIco, { backgroundColor: hexToRgba(COLORS.t1, 0.1), borderRadius: 10 }]}><Text style={{fontSize:10, fontWeight:'600', color: COLORS.t1}}>{data.userInitial}</Text></View>
+              <Text style={styles.rr}>{data.userName}</Text>
             </View>
           </View>
-          <View style={styles.rrow}>
-            <View style={styles.rl}><Ionicons name="calendar" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Tanggal</Text></View>
-            <Text style={styles.rr}>11 Jun 2026 · 11:24</Text>
-          </View>
-          <View style={styles.rrow}>
-            <View style={styles.rl}><Ionicons name="pencil" size={15} color={UI_COLORS.t2} /><Text style={styles.rlTxt}>Catatan</Text></View>
-            <Text style={[styles.rr, { maxWidth: 140 }]} numberOfLines={2}>Belanja Indomaret — snack + minum</Text>
-          </View>
-          
-          <View style={styles.divider} />
-          
+
+          {/* BAGIAN SALDO SEBELUM & SESUDAH */}
+          <View style={styles.dividerDashed} />
           <View style={styles.saldoSection}>
-            <View style={[styles.rrow, { borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 }]}>
+            <View style={styles.rrowSaldo}>
               <Text style={styles.rlTxt}>Saldo sebelum</Text>
-              <Text style={styles.rr}>Rp 6.887.500</Text>
+              <Text style={styles.rr}>{data.balBefore}</Text>
             </View>
-            <View style={[styles.rrow, { borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 }]}>
+            <View style={styles.rrowSaldo}>
               <Text style={styles.rlTxt}>Nominal</Text>
-              <Text style={[styles.rr, { color: UI_COLORS.red }]}>- Rp 87.500</Text>
+              <Text style={[styles.rr, { color: isIncome ? COLORS.mint : COLORS.coral }]}>{data.rawAmt}</Text>
             </View>
-            <View style={styles.rrow}>
-              <Text style={[styles.rlTxt, { fontWeight: '600', color: UI_COLORS.text }]}>Saldo sesudah</Text>
-              <Text style={[styles.rr, { fontSize: 14, color: UI_COLORS.mint }]}>Rp 6.800.000</Text>
+            <View style={[styles.rrowSaldo, { borderBottomWidth: 0, marginTop: 4 }]}>
+              <Text style={[styles.rlTxt, { fontWeight: '600', color: COLORS.t1 }]}>Saldo sesudah</Text>
+              <Text style={[styles.rr, { fontSize: 14, color: COLORS.mint }]}>{data.balAfter}</Text>
             </View>
           </View>
         </View>
 
-        {/* FOTO STRUK */}
-        <TouchableOpacity style={styles.strukCard} activeOpacity={0.8}>
-          <View style={styles.strukImg}>
-            <Ionicons name="image" size={22} color={UI_COLORS.mint} />
-            <Text style={styles.strukImgTxt}>Foto struk tersedia — ketuk untuk lihat</Text>
-          </View>
-          <View style={styles.strukInfo}>
-            <Ionicons name="document-text" size={16} color={UI_COLORS.t2} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.strukFileName}>struk_indomaret_11jun.jpg</Text>
-              <Text style={styles.strukFileMeta}>128 KB · diupload 11:25</Text>
-            </View>
-            <Ionicons name="search" size={16} color={UI_COLORS.t3} />
-          </View>
-        </TouchableOpacity>
-
-        {/* TX ID */}
-        <View style={styles.txIdCard}>
-          <View>
-            <Text style={styles.txIdLbl}>ID transaksi</Text>
-            <Text style={styles.txIdVal}>TXN-2026061100042</Text>
-          </View>
-          <TouchableOpacity><Ionicons name="copy-outline" size={16} color={UI_COLORS.t3} /></TouchableOpacity>
+        {/* CATATAN */}
+        <View style={styles.notesCard}>
+          <Text style={styles.notesLbl}>Catatan</Text>
+          <Text style={styles.notesTxt}>{data.note}</Text>
         </View>
 
-        {/* ACTION BUTTONS (EDIT & DELETE) */}
+        {/* BUKTI STRUK */}
+        {data.hasReceipt ? (
+          <View style={styles.strukCard}>
+            <View style={styles.strukThumb}><Ionicons name="receipt" size={20} color={COLORS.t2} /></View>
+            <View style={styles.strukInfo}>
+              <Text style={styles.strukName}>Foto struk / bukti</Text>
+              <Text style={styles.strukSub}>struk-2026.jpg · 1.2 MB</Text>
+            </View>
+            <Text style={styles.strukView}>Lihat</Text>
+          </View>
+        ) : (
+          <TouchableOpacity style={[styles.strukCard, { opacity: 0.5 }]}>
+            <View style={[styles.strukThumb, { backgroundColor: 'transparent', borderColor: 'transparent' }]}>
+              <Ionicons name="image-outline" size={20} color={COLORS.t3} />
+            </View>
+            <View style={styles.strukInfo}>
+              <Text style={[styles.strukName, { color: COLORS.t2 }]}>Tidak ada foto struk</Text>
+              <Text style={styles.strukSub}>Tap untuk tambahkan bukti</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+
+        {/* ACTION ROW */}
         <View style={styles.actionRow}>
-          <TouchableOpacity style={styles.btnEdit} onPress={() => setIsEditing(true)}>
-            <Ionicons name="create-outline" size={16} color="#A89FF9" />
-            <Text style={styles.btnEditTxt}>Edit transaksi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnDel} onPress={handleDelete}>
-            <Ionicons name="trash-outline" size={16} color="#FF9090" />
-            <Text style={styles.btnDelTxt}>Hapus</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* TRANSAKSI LAIN HARI INI */}
-        <Text style={styles.secLblRelated}>Transaksi lain hari ini</Text>
-        <View style={styles.relatedCard}>
           <TouchableOpacity 
-            style={styles.relRow}
-            onPress={() => navigation.navigate('TransactionDetail')}
-          >
-            <View style={[styles.relIcon, { backgroundColor: hexToRgba(UI_COLORS.red, 0.1) }]}><Ionicons name="fast-food" size={16} color={UI_COLORS.red} /></View>
-            <View style={styles.relInfo}>
-              <Text style={styles.relName}>Makan siang warung</Text>
-              <Text style={styles.relSub}>Bayu · Kas keluarga · 12:05</Text>
-            </View>
-            <Text style={[styles.relAmt, { color: UI_COLORS.red }]}>-Rp 35.000</Text>
+            style={styles.actBtn}
+            onPress={() => navigation.navigate('Add', { isEdit: true, transaction: data })} 
+          >                
+            <Ionicons name="pencil" size={16} color={COLORS.t2} />
+            <Text style={styles.actLbl}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={[styles.relRow, { borderBottomWidth: 0 }]}
-            onPress={() => navigation.navigate('TransactionDetail')}
-          >
-            <View style={[styles.relIcon, { backgroundColor: hexToRgba(UI_COLORS.violet, 0.1) }]}><Ionicons name="flash" size={16} color={UI_COLORS.violet} /></View>
-            <View style={styles.relInfo}>
-              <Text style={styles.relName}>Listrik PLN</Text>
-              <Text style={styles.relSub}>Bayu · GoPay Istri · 09:15</Text>
-            </View>
-            <Text style={[styles.relAmt, { color: UI_COLORS.red }]}>-Rp 150.000</Text>
+          <TouchableOpacity style={styles.actBtn}>
+            <Ionicons name="share-social" size={16} color={COLORS.t2} />
+            <Text style={styles.actLbl}>Bagikan</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.actBtn, styles.actBtnDanger]}>
+            <Ionicons name="trash" size={16} color={COLORS.coral} />
+            <Text style={[styles.actLbl, { color: COLORS.coral }]}>Hapus</Text>
           </TouchableOpacity>
         </View>
 
@@ -307,97 +213,72 @@ export const TransactionDetailScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: UI_COLORS.bg },
-  scrollBody: { paddingBottom: 20 },
+  safeArea: { flex: 1, backgroundColor: COLORS.bg },
+  scrollBody: { paddingHorizontal: 18, paddingBottom: 30 },
   
   // TOPBAR
-  topbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18, paddingTop: 10, paddingBottom: 6 },
-  backBtn: { width: 32, height: 32, borderRadius: 10, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, alignItems: 'center', justifyContent: 'center' },
-  pageTitle: { fontSize: 15, fontWeight: '500', color: UI_COLORS.text },
-  topbarRight: { flexDirection: 'row', gap: 8 },
-  iconBtn: { width: 32, height: 32, borderRadius: 10, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, alignItems: 'center', justifyContent: 'center' },
+  topbar: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingTop: 10 },
+  iconBtn: { width: 34, height: 34, borderRadius: 17, backgroundColor: '#1A2D47', borderWidth: 1, borderColor: '#253E60', alignItems: 'center', justifyContent: 'center' },
+  pageTitle: { flex: 1, textAlign: 'center', fontSize: 14, fontWeight: '600', color: COLORS.t1 },
+
+  // CODE, COPY & STATUS
+  codeRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
+  codeBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8, borderWidth: 1 },
+  cbPrj: { backgroundColor: 'rgba(124,111,247,0.15)', borderColor: 'rgba(124,111,247,0.3)' },
+  cbTrx: { backgroundColor: 'rgba(90,120,144,0.2)', borderColor: 'rgba(90,120,144,0.25)' },
+  codeBadgeTxt: { fontSize: 11, fontWeight: '600', letterSpacing: 0.5 },
+  copyBtn: { marginLeft: 8, padding: 4 },
+  statusDot: { width: 7, height: 7, borderRadius: 3.5, marginRight: 6 },
+  statusLbl: { fontSize: 11, fontWeight: '500' },
 
   // HERO
-  hero: { alignItems: 'center', paddingVertical: 14, paddingHorizontal: 18 },
-  heroIconWrap: { width: 56, height: 56, borderRadius: 18, backgroundColor: hexToRgba(UI_COLORS.red, 0.12), alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
-  heroAmt: { fontSize: 32, fontWeight: '600', color: UI_COLORS.red, letterSpacing: -1, marginBottom: 4 },
-  heroDesc: { fontSize: 13, color: UI_COLORS.t2 },
-  tipeChip: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: hexToRgba(UI_COLORS.red, 0.1), borderRadius: 20, paddingHorizontal: 12, paddingVertical: 4, marginTop: 8 },
-  tipeChipTxt: { fontSize: 11, fontWeight: '600', color: '#FF9090' },
+  hero: { alignItems: 'center', paddingBottom: 16 },
+  heroLbl: { fontSize: 11, color: COLORS.t2, marginBottom: 4 },
+  heroAmt: { fontSize: 28, fontWeight: '600' },
+  heroDate: { fontSize: 11, color: COLORS.t3, marginTop: 4 },
 
-  // RECEIPT
-  receipt: { marginHorizontal: 16, marginBottom: 14, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, borderRadius: 16, overflow: 'hidden' },
-  rrow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 },
+  sectionTitle: { fontSize: 10, color: COLORS.t2, letterSpacing: 0.5, textTransform: 'uppercase', marginBottom: 8, marginTop: 8, fontWeight: '500' },
+
+  // PROJECT CONTEXT CARD
+  ctxCard: { backgroundColor: 'rgba(124,111,247,0.07)', borderWidth: 1.5, borderColor: 'rgba(124,111,247,0.25)', borderRadius: 12, padding: 12, marginBottom: 10 },
+  ctxHeader: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 },
+  ctxIcon: { width: 32, height: 32, borderRadius: 8, backgroundColor: 'rgba(124,111,247,0.2)', borderWidth: 1, borderColor: 'rgba(124,111,247,0.3)', alignItems: 'center', justifyContent: 'center' },
+  ctxLabel: { fontSize: 10, color: COLORS.t2 },
+  ctxName: { fontSize: 13, fontWeight: '600', color: COLORS.t1 },
+  dividerSolid: { height: 1, backgroundColor: '#1A2D47' },
+  ctxRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
+  ctxKey: { fontSize: 11, color: COLORS.t2 },
+  ctxVal: { fontSize: 11, fontWeight: '600' },
+
+  // RECEIPT CARD
+  receiptCard: { backgroundColor: COLORS.sf2, borderWidth: 1, borderColor: COLORS.bd, borderRadius: 12, overflow: 'hidden', marginBottom: 10 },
+  rrow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#1A2D47' },
   rl: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  rlTxt: { fontSize: 12, color: UI_COLORS.t2 },
-  rr: { fontSize: 12, fontWeight: '500', color: UI_COLORS.text, textAlign: 'right' },
-  wPill: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  rlTxt: { fontSize: 12, color: COLORS.t2 },
+  rr: { fontSize: 12, fontWeight: '500', color: COLORS.t1, textAlign: 'right' },
+  wPill: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   wIco: { width: 22, height: 22, borderRadius: 6, alignItems: 'center', justifyContent: 'center' },
-  avatarIstri: { width: 20, height: 20, borderRadius: 10, backgroundColor: UI_COLORS.gold, alignItems: 'center', justifyContent: 'center' },
-  avatarTxt: { fontSize: 10, fontWeight: '600', color: UI_COLORS.bg },
-  divider: { height: 0, borderWidth: 0.5, borderColor: 'rgba(255,255,255,0.1)', borderStyle: 'dashed', marginHorizontal: 10 },
-  saldoSection: { backgroundColor: 'rgba(255,255,255,0.02)' },
-
-  // FOTO STRUK
-  strukCard: { marginHorizontal: 16, marginBottom: 14, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, borderRadius: 14, overflow: 'hidden' },
-  strukImg: { height: 80, backgroundColor: 'rgba(45,212,164,0.05)', alignItems: 'center', justifyContent: 'center', gap: 6, borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 },
-  strukImgTxt: { fontSize: 11, color: UI_COLORS.mint },
-  strukInfo: { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 12 },
-  strukFileName: { fontSize: 12, fontWeight: '500', color: UI_COLORS.text },
-  strukFileMeta: { fontSize: 10, color: UI_COLORS.t3 },
-
-  // TX ID
-  txIdCard: { marginHorizontal: 16, marginBottom: 14, backgroundColor: 'rgba(255,255,255,0.02)', borderWidth: 0.5, borderColor: UI_COLORS.b1, borderRadius: 12, padding: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  txIdLbl: { fontSize: 10, color: UI_COLORS.t3, marginBottom: 2 },
-  txIdVal: { fontSize: 12, fontWeight: '500', color: UI_COLORS.text },
-
-  // ACTIONS ROW
-  actionRow: { flexDirection: 'row', gap: 8, paddingHorizontal: 16, marginBottom: 12 },
-  btnEdit: { flex: 1, height: 44, borderRadius: 13, backgroundColor: 'rgba(124,111,247,0.1)', borderWidth: 0.5, borderColor: 'rgba(124,111,247,0.3)', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 },
-  btnEditTxt: { fontSize: 12, fontWeight: '600', color: '#A89FF9' },
-  btnDel: { flex: 1, height: 44, borderRadius: 13, backgroundColor: 'rgba(255,107,107,0.08)', borderWidth: 0.5, borderColor: 'rgba(255,107,107,0.2)', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 },
-  btnDelTxt: { fontSize: 12, fontWeight: '600', color: '#FF9090' },
-
-  // RELATED TX
-  secLblRelated: { fontSize: 11, color: UI_COLORS.t3, letterSpacing: 0.5, textTransform: 'uppercase', paddingHorizontal: 18, marginBottom: 6 },
-  relatedCard: { marginHorizontal: 16, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, borderRadius: 14, overflow: 'hidden' },
-  relRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 },
-  relIcon: { width: 34, height: 34, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
-  relInfo: { flex: 1 },
-  relName: { fontSize: 12, fontWeight: '500', color: UI_COLORS.text, marginBottom: 2 },
-  relSub: { fontSize: 10, color: UI_COLORS.t3 },
-  relAmt: { fontSize: 12, fontWeight: '600' },
-
-  // ====================
-  // MODE EDIT STYLES
-  // ====================
-  warningBanner: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: 'rgba(255,107,107,0.07)', borderTopWidth: 0.5, borderBottomWidth: 0.5, borderColor: 'rgba(255,107,107,0.15)', paddingHorizontal: 18, paddingVertical: 10, marginBottom: 14 },
-  warningTxt: { fontSize: 11, color: '#FF9090', lineHeight: 16, flex: 1 },
   
-  secLbl: { fontSize: 11, color: UI_COLORS.t3, letterSpacing: 0.5, textTransform: 'uppercase', paddingHorizontal: 18, marginBottom: 8 },
-  
-  editNominalRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingBottom: 16 },
-  editNominalPrefix: { fontSize: 18, color: UI_COLORS.t2 },
-  editNominalInput: { fontSize: 32, fontWeight: '600', color: UI_COLORS.red, padding: 0 },
+  dividerDashed: { height: 0, borderWidth: 0.5, borderColor: 'rgba(255,255,255,0.1)', borderStyle: 'dashed', marginHorizontal: 10 },
+  saldoSection: { backgroundColor: 'rgba(255,255,255,0.02)', paddingVertical: 4 },
+  rrowSaldo: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#1A2D47' },
 
-  fieldEdit: { flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: 'rgba(255,255,255,0.04)', borderWidth: 0.5, borderColor: UI_COLORS.b2, borderRadius: 12, paddingHorizontal: 14, height: 46, marginHorizontal: 16, marginBottom: 14 },
-  fieldFocused: { borderColor: UI_COLORS.gold },
-  feIcon: { flexShrink: 0 },
-  feInput: { flex: 1, fontSize: 14, color: UI_COLORS.text },
-  feInputText: { flex: 1, fontSize: 13, color: UI_COLORS.text },
+  // NOTES
+  notesCard: { backgroundColor: COLORS.sf2, borderWidth: 1, borderColor: COLORS.bd, borderRadius: 12, padding: 12, marginBottom: 10 },
+  notesLbl: { fontSize: 10, color: COLORS.t2, marginBottom: 6 },
+  notesTxt: { fontSize: 12, color: COLORS.t1, lineHeight: 18 },
 
-  catScroll: { paddingHorizontal: 16, paddingBottom: 16, gap: 12 },
-  catChip: { alignItems: 'center', gap: 6 },
-  catIco: { width: 44, height: 44, borderRadius: 14, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: 'transparent' },
-  catName: { fontSize: 10, color: UI_COLORS.t2 },
+  // STRUK
+  strukCard: { backgroundColor: COLORS.sf2, borderWidth: 1, borderColor: COLORS.bd, borderRadius: 12, padding: 10, marginBottom: 14, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  strukThumb: { width: 48, height: 48, borderRadius: 8, backgroundColor: '#1A2D47', borderWidth: 1, borderColor: '#253E60', alignItems: 'center', justifyContent: 'center' },
+  strukInfo: { flex: 1 },
+  strukName: { fontSize: 12, fontWeight: '500', color: COLORS.t1, marginBottom: 2 },
+  strukSub: { fontSize: 10, color: COLORS.t2 },
+  strukView: { fontSize: 11, fontWeight: '600', color: COLORS.violet },
 
-  dangerZone: { marginHorizontal: 16, marginBottom: 16, backgroundColor: 'rgba(255,107,107,0.06)', borderWidth: 0.5, borderColor: 'rgba(255,107,107,0.18)', borderRadius: 12, padding: 12 },
-  dzHeader: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
-  dzTitle: { fontSize: 11, fontWeight: '600', color: '#FF9090' },
-  dzSub: { fontSize: 11, color: 'rgba(255,107,107,0.8)', lineHeight: 16 },
-
-  btnSave: { marginHorizontal: 16, marginBottom: 10, height: 48, borderRadius: 14, backgroundColor: UI_COLORS.gold, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  btnSaveTxt: { fontSize: 14, fontWeight: '600', color: '#0A1628' },
-  btnCancel: { marginHorizontal: 16, height: 40, borderRadius: 12, backgroundColor: 'transparent', borderWidth: 0.5, borderColor: UI_COLORS.b2, alignItems: 'center', justifyContent: 'center' },
-  btnCancelTxt: { fontSize: 13, color: UI_COLORS.t2 }
+  // ACTIONS
+  actionRow: { flexDirection: 'row', gap: 8, marginBottom: 16 },
+  actBtn: { flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#253E60', alignItems: 'center', gap: 4 },
+  actLbl: { fontSize: 10, color: COLORS.t2, fontWeight: '500' },
+  actBtnDanger: { borderColor: 'rgba(255,107,107,0.3)' }
 });

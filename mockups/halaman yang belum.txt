@@ -1,0 +1,5 @@
+- catatan operasional baru di detail project
+- cashflow project tertentu
+- halaman edit detail project
+- cashflow detail di cashflow project
+

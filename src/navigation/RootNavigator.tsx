@@ -9,6 +9,7 @@ import { LoginScreen } from '../screens/Auth/LoginScreen';
 import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { SplashScreen } from '../screens/Auth/SplashScreen';
+import { MonthlyBudgetScreen } from '../screens/Budget/MonthlyBudgetScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
 import { CurrencySettingsScreen } from '../screens/Profile/CurrencySettingsScreen';
@@ -71,6 +72,7 @@ export function RootNavigator() {
 		<Stack.Screen name="MonthlyStats" component={MonthlyStatsScreen} />
 		<Stack.Screen name="TransactionDetail" component={TransactionDetailScreen} />
 		<Stack.Screen name="ProjectCashflow" component={ProjectCashflowScreen} />
+		<Stack.Screen name="MonthlyBudget" component={MonthlyBudgetScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UI_COLORS = {
@@ -12,10 +12,42 @@ const UI_COLORS = {
 
 const { width } = Dimensions.get('window');
 
+// Fungsi pembantu untuk opasitas warna
+const hexToRgba = (hex: string, alpha: number) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 export const AddTransactionScreen = ({ navigation, route }: any) => {
-  const initialType = route?.params?.type ?? 'expense';
-  const [txType, setTxType] = useState<'expense' | 'income' | 'transfer'>(initialType);
-  const [amount, setAmount] = useState('6500000');
+  // Tangkap nilainya di sini. Jika tidak ada, otomatis false.
+  const isEdit = route.params?.isEdit || false; 
+  const transactionData = route.params?.transaction || null;
+
+  // 1. Tentukan tipe transaksi secara otomatis dari data yang diedit
+  const getInitialType = () => {
+    if (isEdit && transactionData) {
+      return transactionData.amount.includes('+') ? 'income' : 'expense';
+    }
+    return route?.params?.type ?? 'expense';
+  };
+
+  // 2. Tarik nominal asli dari data yang diedit
+  const getInitialAmount = () => {
+    if (isEdit && transactionData) {
+      return transactionData.amount.replace(/[^0-9]/g, '');
+    }
+    return '6500000'; // Default awal
+  };
+
+  const [txType, setTxType] = useState<'expense' | 'income' | 'transfer'>(getInitialType());
+  const [amount, setAmount] = useState(getInitialAmount());
+  
+  // 3. Tarik catatan asli dari data yang diedit
+  const initialNote = isEdit && transactionData ? transactionData.note : '';
+  const [note, setNote] = useState(initialNote);
+
   const [showCursor, setShowCursor] = useState(true);
 
   // States khusus Form
@@ -42,7 +74,7 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
 
   const themeColor = txType === 'expense' ? UI_COLORS.red : txType === 'income' ? UI_COLORS.mint : UI_COLORS.violet;
 
-  // ==================== SUB-RENDER: PENGELUARAN (Sesuai Mockup) ====================
+  // ==================== SUB-RENDER: PENGELUARAN ====================
   const renderExpense = () => (
     <View style={styles.section}>
       <Text style={styles.secLbl}>Kategori</Text>
@@ -72,16 +104,28 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
         <Ionicons name="chevron-forward" size={16} color={UI_COLORS.t3} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.fieldRow}>
+      <TouchableOpacity style={styles.fieldRow} onPress={() => Alert.alert('Pilih Tanggal', 'Popup kalender akan muncul di sini.')}>
         <View style={[styles.fieldIcon, { backgroundColor: 'rgba(124,111,247,0.12)' }]}><Ionicons name="calendar" size={16} color={UI_COLORS.violet} /></View>
         <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Tanggal & waktu</Text><Text style={styles.fieldVal}>Hari ini, 11 Jun 2026 · 11:24</Text></View>
         <Ionicons name="chevron-forward" size={16} color={UI_COLORS.t3} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.noteField, { borderColor: 'rgba(245,200,66,0.3)' }]}>
-        <View style={[styles.fieldIcon, { backgroundColor: 'rgba(245,200,66,0.1)' }]}><Ionicons name="pencil" size={16} color={UI_COLORS.gold} /></View>
-        <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Catatan</Text><Text style={styles.fieldVal}>Belanja Indomaret — snack + minum</Text></View>
-      </TouchableOpacity>
+      <View style={[styles.noteField, { borderColor: hexToRgba(themeColor, 0.3) }]}>
+        <View style={[styles.fieldIcon, { backgroundColor: hexToRgba(themeColor, 0.1) }]}>
+          <Ionicons name="pencil" size={16} color={themeColor} />
+        </View>
+        <View style={styles.fieldInfo}>
+          <Text style={styles.fieldLbl}>Catatan</Text>
+          <TextInput
+            style={styles.fieldValInput}
+            placeholder="Tulis catatan di sini..."
+            placeholderTextColor={UI_COLORS.t3}
+            value={note}
+            onChangeText={setNote}
+            multiline={true}
+          />
+        </View>
+      </View>
 
       <View style={styles.extrasRow}>
         <TouchableOpacity style={styles.extraBtn}><Ionicons name="camera" size={16} color={UI_COLORS.t2} /><Text style={styles.extraBtnTxt}>Foto struk</Text></TouchableOpacity>
@@ -89,10 +133,9 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
         <TouchableOpacity 
           style={styles.extraBtn} 
           onPress={() => navigation.navigate('Recurring', {
-            // Kita buat nama otomatis dari kategori dan catatan
             prefillName: `${selectedExpenseCat.toUpperCase()} - Pengeluaran Rutin`,
-            prefillAmount: amount, // Pakai state amount langsung (tanpa titik format)
-            prefillWallet: 'Kas keluarga' // Sesuai dengan mockup yang sedang aktif
+            prefillAmount: amount,
+            prefillWallet: 'Kas keluarga'
           })}
         >
           <Ionicons name="repeat" size={16} color={UI_COLORS.t2} />
@@ -110,7 +153,7 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
     </View>
   );
 
-  // ==================== SUB-RENDER: PEMASUKAN (Sesuai Mockup) ====================
+  // ==================== SUB-RENDER: PEMASUKAN ====================
   const renderIncome = () => (
     <View style={styles.section}>
       <Text style={styles.secLbl}>Sumber pemasukan</Text>
@@ -164,25 +207,36 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
         <View style={styles.splitBarWrap}><View style={styles.splitBarTrack}><View style={[styles.splitBarFill, {width: '10%', backgroundColor: UI_COLORS.violet}]} /></View></View>
       </View>
 
-      <TouchableOpacity style={styles.fieldRow}>
+      <TouchableOpacity style={styles.fieldRow} onPress={() => Alert.alert('Pilih Tanggal', 'Popup kalender akan muncul di sini.')}>
         <View style={[styles.fieldIcon, { backgroundColor: 'rgba(124,111,247,0.12)' }]}><Ionicons name="calendar" size={16} color={UI_COLORS.violet} /></View>
         <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Tanggal & waktu</Text><Text style={styles.fieldVal}>Hari ini, 11 Jun 2026 · 08:00</Text></View>
         <Ionicons name="chevron-forward" size={16} color={UI_COLORS.t3} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.noteField, { borderColor: 'rgba(45,212,164,0.25)' }]}>
-        <View style={[styles.fieldIcon, { backgroundColor: 'rgba(45,212,164,0.1)' }]}><Ionicons name="pencil" size={16} color={UI_COLORS.mint} /></View>
-        <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Catatan</Text><Text style={styles.fieldVal}>Gaji Juni 2026</Text></View>
-      </TouchableOpacity>
+      <View style={[styles.noteField, { borderColor: hexToRgba(themeColor, 0.3) }]}>
+        <View style={[styles.fieldIcon, { backgroundColor: hexToRgba(themeColor, 0.1) }]}>
+          <Ionicons name="pencil" size={16} color={themeColor} />
+        </View>
+        <View style={styles.fieldInfo}>
+          <Text style={styles.fieldLbl}>Catatan</Text>
+          <TextInput
+            style={styles.fieldValInput}
+            placeholder="Tulis catatan di sini..."
+            placeholderTextColor={UI_COLORS.t3}
+            value={note}
+            onChangeText={setNote}
+            multiline={true}
+          />
+        </View>
+      </View>
 
       <View style={styles.extrasRow}>
         <TouchableOpacity 
           style={styles.extraBtn} 
           onPress={() => navigation.navigate('Recurring', {
-            // Kita buat nama otomatis dari sumber pemasukan
             prefillName: `${selectedIncomeSource.toUpperCase()} - Pemasukan Rutin`,
-            prefillAmount: amount, // Pakai state amount
-            prefillWallet: 'BCA Bayu' // Sesuai dompet pemasukan di mockup
+            prefillAmount: amount,
+            prefillWallet: 'BCA Bayu'
           })}
         >
           <Ionicons name="repeat" size={16} color={UI_COLORS.t2} />
@@ -194,7 +248,7 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
     </View>
   );
 
-  // ==================== SUB-RENDER: TRANSFER (Sesuai Mockup) ====================
+  // ==================== SUB-RENDER: TRANSFER ====================
   const renderTransfer = () => (
     <View style={styles.section}>
       <Text style={styles.secLbl}>Dari & ke dompet</Text>
@@ -254,16 +308,28 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.fieldRow}>
+      <TouchableOpacity style={styles.fieldRow} onPress={() => Alert.alert('Pilih Tanggal', 'Popup kalender akan muncul di sini.')}>
         <View style={[styles.fieldIcon, { backgroundColor: 'rgba(124,111,247,0.12)' }]}><Ionicons name="calendar" size={16} color={UI_COLORS.violet} /></View>
         <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Tanggal & waktu</Text><Text style={styles.fieldVal}>Hari ini, 11 Jun 2026 · 09:41</Text></View>
         <Ionicons name="chevron-forward" size={16} color={UI_COLORS.t3} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.noteField, { borderColor: 'rgba(124,111,247,0.25)' }]}>
-        <View style={[styles.fieldIcon, { backgroundColor: 'rgba(124,111,247,0.1)' }]}><Ionicons name="pencil" size={16} color={UI_COLORS.violet} /></View>
-        <View style={styles.fieldInfo}><Text style={styles.fieldLbl}>Catatan</Text><Text style={styles.fieldVal}>Setor kas bulanan dari gaji</Text></View>
-      </TouchableOpacity>
+      <View style={[styles.noteField, { borderColor: hexToRgba(themeColor, 0.3) }]}>
+        <View style={[styles.fieldIcon, { backgroundColor: hexToRgba(themeColor, 0.1) }]}>
+          <Ionicons name="pencil" size={16} color={themeColor} />
+        </View>
+        <View style={styles.fieldInfo}>
+          <Text style={styles.fieldLbl}>Catatan</Text>
+          <TextInput
+            style={styles.fieldValInput}
+            placeholder="Tulis catatan di sini..."
+            placeholderTextColor={UI_COLORS.t3}
+            value={note}
+            onChangeText={setNote}
+            multiline={true}
+          />
+        </View>
+      </View>
     </View>
   );
 
@@ -273,11 +339,12 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
       {/* TOPBAR */}
       <View style={styles.topbar}>
         <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()}><Ionicons name="arrow-back" size={16} color={UI_COLORS.t2} /></TouchableOpacity>
-        <View style={styles.topbarCenter}><Text style={styles.pageTitle}>Catat transaksi</Text></View>
+        <View style={styles.topbarCenter}><Text style={styles.pageTitle}>{isEdit ? 'Edit transaksi' : 'Catat transaksi'}</Text></View>
         <TouchableOpacity style={styles.iconBtn}><Ionicons name="time" size={16} color={UI_COLORS.t2} /></TouchableOpacity>
       </View>
 
-      {/* TABS (TETAP DI ATAS) */}
+      {/* JIKA BUKAN MODE EDIT, TAMPILKAN SELECTOR TIPE TRANSAKSI */}
+      {!isEdit && (
       <View style={styles.tabsWrap}>
         <TouchableOpacity style={[styles.tab, txType === 'expense' && styles.tabActiveRed]} onPress={() => setTxType('expense')}>
           <Ionicons name="arrow-up" size={14} color={txType === 'expense' ? UI_COLORS.bg : UI_COLORS.t3} />
@@ -292,6 +359,20 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
           <Text style={[styles.tabTxt, { color: txType === 'transfer' ? '#FFF' : UI_COLORS.t3 }]}>Transfer</Text>
         </TouchableOpacity>
       </View>
+      )}
+
+      {/* JIKA DALAM MODE EDIT, TAMPILKAN BANNER TEKS BIASA */}
+      {isEdit && (
+        <View style={styles.editInfoBanner}>
+          <Ionicons name="information-circle" size={18} color={UI_COLORS.t2} style={{ marginTop: 2 }} />
+          <Text style={{ fontSize: 13, color: UI_COLORS.text, flex: 1, lineHeight: 20 }}>
+            Mengedit Transaksi:{' '}
+            <Text style={{ fontWeight: 'bold', color: themeColor }}>
+              {txType === 'expense' ? 'Pengeluaran' : txType === 'income' ? 'Pemasukan' : 'Transfer'}
+            </Text>
+          </Text>
+        </View>
+      )}
 
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
         
@@ -345,12 +426,12 @@ export const AddTransactionScreen = ({ navigation, route }: any) => {
           ))}
         </View>
         <TouchableOpacity 
-		  style={[styles.btnSave, { backgroundColor: themeColor }]}
-		  onPress={() => navigation.navigate('Confirmation', { type: txType, amount: formattedAmount })}
-		>
+          style={[styles.btnSave, { backgroundColor: themeColor }]}
+          onPress={() => navigation.navigate('Confirmation', { type: txType, amount: formattedAmount })}
+        >
           <Ionicons name={txType === 'expense' ? "checkmark" : txType === 'income' ? "checkmark" : "send"} size={18} color={txType === 'transfer' ? '#FFF' : UI_COLORS.bg} />
           <Text style={[styles.btnSaveTxt, txType === 'transfer' && { color: '#FFF' }]}>
-            {txType === 'expense' ? 'Simpan pengeluaran' : txType === 'income' ? 'Simpan pemasukan' : 'Transfer sekarang'}
+            {isEdit ? 'Simpan perubahan' : (txType === 'expense' ? 'Simpan pengeluaran' : txType === 'income' ? 'Simpan pemasukan' : 'Transfer sekarang')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -454,7 +535,11 @@ const styles = StyleSheet.create({
   fieldInfo: { flex: 1 },
   fieldLbl: { fontSize: 11, color: UI_COLORS.t3, marginBottom: 1 },
   fieldVal: { fontSize: 13, fontWeight: '500', color: UI_COLORS.text },
+  
+  // FORM CATATAN BARU
   noteField: { flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderRadius: 13, padding: 11, marginBottom: 8 },
+  fieldValInput: { fontSize: 13, fontWeight: '500', color: UI_COLORS.text, padding: 0, margin: 0, height: 40 },
+  
   extrasRow: { flexDirection: 'row', gap: 8, marginBottom: 14 },
   extraBtn: { flex: 1, height: 38, borderRadius: 11, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
   extraBtnTxt: { fontSize: 12, color: UI_COLORS.t2 },
@@ -465,5 +550,8 @@ const styles = StyleSheet.create({
   nkey: { width: '32%', height: 46, borderRadius: 13, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b1, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
   nkeyTxt: { fontSize: 20, fontWeight: '500', color: UI_COLORS.text },
   btnSave: { width: '100%', height: 50, borderRadius: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  btnSaveTxt: { fontSize: 15, fontWeight: '500', color: UI_COLORS.bg }
+  btnSaveTxt: { fontSize: 15, fontWeight: '500', color: UI_COLORS.bg },
+
+  // EDIT BANNER
+  editInfoBanner: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: UI_COLORS.b2, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginHorizontal: 18, marginBottom: 14 }
 });
