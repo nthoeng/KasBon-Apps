@@ -88,7 +88,7 @@ const WalletCard = ({ item }: any) => {
       case 'global': return { bg: 'rgba(45,212,164,0.12)', text: '#2DD4A4' };
       case 'saving': return { bg: 'rgba(124,111,247,0.15)', text: '#A89FF9' };
       case 'debt': return { bg: 'rgba(255,107,107,0.12)', text: '#FF9090' };
-      default: return { bg: 'rgba(255,255,255,0.06)', text: colors.textSecondary || '#8FA8CC' }; // private
+      default: return { bg: 'rgba(255,255,255,0.06)', text: colors.textMuted || '#8FA8CC' }; // private
     }
   };
 
@@ -171,7 +171,7 @@ export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
         </View>
         <View style={styles.topbarRight}>
           <TouchableOpacity style={styles.iconBtn}>
-            <Ionicons name="search" size={18} color={colors.textSecondary || '#8FA8CC'} />
+            <Ionicons name="search" size={18} color={colors.textMuted || '#8FA8CC'} />
           </TouchableOpacity>
           <TouchableOpacity 
 		    style={styles.iconBtn}
@@ -223,17 +223,46 @@ export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
         {walletGroups.map((group, gIdx) => (
           <View key={gIdx}>
             <View style={styles.secHeader}>
-              <Text style={styles.secTitle}>{group.title}</Text>
-              <TouchableOpacity style={styles.secAdd}>
+              
+              {/* MODIFIKASI: Jika title-nya 'Tabungan & target', buat judulnya jadi bisa diklik */}
+              {group.title === 'Tabungan & target' ? (
+                <TouchableOpacity 
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
+                  onPress={() => navigation.navigate('SavingsPlan')} // 👈 TRIGGER DI SINI
+                  activeOpacity={0.7}
+                >
+                  <Text style={[styles.secTitle, { color: colors.primary || '#7C6FF7' }]}>
+                    {group.title}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={14} color={colors.primary || '#7C6FF7'} />
+                </TouchableOpacity>
+              ) : (
+                <Text style={styles.secTitle}>{group.title}</Text>
+              )}
+
+              {/* Tombol Add (+) di kanan */}
+              <TouchableOpacity 
+                style={styles.secAdd}
+                // MODIFIKASI: Arahkan tombol add tabungan ke CreateSavingsPlan
+                onPress={() => {
+                  if(group.title === 'Tabungan & target') {
+                     navigation.navigate('CreateSavingsPlan');
+                  } else {
+                     navigation.navigate('CreateWallet');
+                  }
+                }}
+              >
                 <Ionicons name="add" size={16} color="#F5C842" />
               </TouchableOpacity>
             </View>
+
+            {/* Render Kartu */}
             {group.items.map((wallet) => (
               <WalletCard 
-			    key={wallet.id} 
-				item={wallet} 
-				navigation={navigation} // Kirim prop navigation ke dalam
-			  />
+                key={wallet.id} 
+                item={wallet} 
+                navigation={navigation}
+              />
             ))}
             <View style={styles.spacerSec} />
           </View>
@@ -261,7 +290,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: colors.textPrimary || '#F0F4FF',
+    color: colors.text || '#F0F4FF',
   },
   pageSub: {
     fontSize: 12,
@@ -294,20 +323,20 @@ const styles = StyleSheet.create({
   },
   totalLbl: {
     fontSize: 12,
-    color: colors.textSecondary || '#8FA8CC',
+    color: colors.textMuted || '#8FA8CC',
     marginBottom: 4,
   },
   totalAmt: {
     fontSize: 32,
     fontWeight: '600',
-    color: colors.textPrimary || '#F0F4FF',
+    color: colors.text || '#F0F4FF',
     marginBottom: 16,
     letterSpacing: -0.5,
   },
   totalAmtCurrency: {
     fontSize: 18,
     fontWeight: '400',
-    color: colors.textSecondary || '#8FA8CC',
+    color: colors.textMuted || '#8FA8CC',
   },
   miniStats: {
     flexDirection: 'row',
@@ -326,7 +355,7 @@ const styles = StyleSheet.create({
   },
   mStatLbl: {
     fontSize: 11,
-    color: colors.textSecondary || '#8FA8CC',
+    color: colors.textMuted || '#8FA8CC',
     marginBottom: 4,
   },
   mStatDot: {
@@ -337,7 +366,7 @@ const styles = StyleSheet.create({
   mStatVal: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.textPrimary || '#F0F4FF',
+    color: colors.text || '#F0F4FF',
   },
   secHeader: {
     flexDirection: 'row',
@@ -349,7 +378,7 @@ const styles = StyleSheet.create({
   secTitle: {
     fontSize: 13,
     fontWeight: '600',
-    color: colors.textSecondary || '#8FA8CC',
+    color: colors.textMuted || '#8FA8CC',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
@@ -386,7 +415,7 @@ const styles = StyleSheet.create({
   wcName: {
     fontSize: 15,
     fontWeight: '600',
-    color: colors.textPrimary || '#F0F4FF',
+    color: colors.text || '#F0F4FF',
     marginBottom: 4,
   },
   wcMeta: {
@@ -433,7 +462,7 @@ const styles = StyleSheet.create({
   wcSaldo: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.textPrimary || '#F0F4FF',
+    color: colors.text || '#F0F4FF',
   },
   wcChange: {
     fontSize: 11,
@@ -449,7 +478,7 @@ const styles = StyleSheet.create({
   },
   progTextLeft: {
     fontSize: 11,
-    color: '#3E5878',
+    color: colors.textMuted || '#8FA8CC',
   },
   progTextRight: {
     fontSize: 11,

@@ -1,5 +1,4 @@
-Get-ChildItem -Path src -Recurse -Include *.tsx, *.ts | Select-Object FullName
-
+PS C:\Users\micha\Documents\My Apps\KasBonApps-Clean> Get-ChildItem -Path src -Recurse -Include *.tsx, *.ts | Select-Object FullName
 
 FullName                                                                                                    
 --------                                                                                                    
@@ -18,7 +17,6 @@ C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\OnboardingScr
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\RegisterScreen.tsx                       
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\SplashScreen.tsx                         
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Budget\MonthlyBudgetScreen.tsx                
-C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Budget\MonthlyBudgetScreen2.tsx               
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Business\BusinessDashboardScreen.tsx          
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Home\HomeScreen.tsx                           
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Notification\NotificationScreen.tsx           
@@ -33,6 +31,7 @@ C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\CreateProj
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectCashflowScreen.tsx             
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectDetailScreen.tsx               
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectListScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Saving\SavingsPlanScreen.tsx                  
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Statistics\MonthlyStatsScreen.tsx             
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\AddTransactionScreen.tsx          
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\ConfirmationScreen.tsx            
@@ -47,4 +46,4 @@ C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Wallet\WalletListS
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\colors.ts                                       
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\index.ts                                        
 C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\spacing.ts                                      
-C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\typography.ts
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\typography.ts   

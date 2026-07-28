@@ -21,6 +21,7 @@
  * ============================================================================
  */
 
+import { Ionicons } from '@expo/vector-icons'; // ← TAMBAHAN: Import Ionicons untuk tombol back
 import React from 'react';
 import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -52,19 +53,27 @@ interface SavingsPlanScreenProps {
   navigation: any;
 }
 
-export default function SavingsPlanScreen({ navigation }: SavingsPlanScreenProps) {
+export function SavingsPlanScreen({ navigation }: SavingsPlanScreenProps) {
   return (
-    <SafeAreaView style={styles.container}>
+    // Edges hanya 'top' agar area bawah fleksibel terhadap bottom nav global
+    <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar barStyle="light-content" />
       
-      {/* HEADER BAR */}
+      {/* ── HEADER BAR (DIUBAH DENGAN TOMBOL BACK) ── */}
       <View style={styles.topbar}>
-        <View>
-          <Text style={styles.headerTitle}>Rencana tabungan</Text>
-          <Text style={styles.headerSubtitle}>3 target aktif</Text>
+        <View style={styles.headerLeft}>
+          {/* 👇 TAMBAHAN: Tombol Back */}
+          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()} activeOpacity={0.7}>
+            <Ionicons name="chevron-back" size={22} color={UI_COLORS.text} />
+          </TouchableOpacity>
+          
+          <View>
+            <Text style={styles.headerTitle}>Rencana tabungan</Text>
+            <Text style={styles.headerSubtitle}>3 target aktif</Text>
+          </View>
         </View>
+
         <View style={styles.headerActions}>
-          {/* Menggunakan teks pengganti ikon agar aman tanpa dependency luar */}
           <TouchableOpacity style={styles.iconBtn} activeOpacity={0.7}>
             <Text style={{ color: UI_COLORS.t2, fontSize: 14 }}>🕒</Text>
           </TouchableOpacity>
@@ -126,7 +135,7 @@ export default function SavingsPlanScreen({ navigation }: SavingsPlanScreenProps
         <View style={styles.secHeader}>
           <Text style={styles.secLbl}>Target aktif</Text>
           <TouchableOpacity onPress={() => navigation.navigate('CreateSavingsPlanScreen')}>
-            <Text style={styles.secLink}>+ TambAx target ↗</Text>
+            <Text style={styles.secLink}>+ Tambah target ↗</Text>
           </TouchableOpacity>
         </View>
 
@@ -285,6 +294,9 @@ export default function SavingsPlanScreen({ navigation }: SavingsPlanScreenProps
           <Text style={styles.addBtnBigText}>Tambah rencana tabungan baru</Text>
         </TouchableOpacity>
 
+        {/* 👇 TAMBAHAN: Spacer pengaman bawah agar tidak tertutup bottom nav menu bar */}
+        <View style={{ height: 100 }} />
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -295,12 +307,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: UI_COLORS.bg,
   },
+  // 👇 DIUBAH: topbar sekarang pakai susunan flexrow dengan gap
   topbar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 18,
+    paddingHorizontal: 14,
     paddingVertical: 12,
+    gap: 10,
+  },
+  // 👇 TAMBAHAN: Container kiri untuk tombol back + teks judul
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flex: 1,
+  },
+  // 👇 TAMBAHAN: Styling tombol back bergaya glassmorphism
+  backBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: UI_COLORS.card,
+    borderWidth: 0.5,
+    borderColor: hexToRgba(UI_COLORS.text, 0.14),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headerTitle: {
     fontSize: 18,
@@ -326,8 +358,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // 👇 DIUBAH: Di-set 0 karena jarak bawah sudah dihandle oleh Spacer View
   scrollContent: {
-    paddingBottom: 24,
+    paddingBottom: 0,
   },
   summaryCard: {
     marginHorizontal: 16,
