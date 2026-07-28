@@ -97,7 +97,13 @@ export const HomeScreen = ({ navigation }: any) => {
             </View>
           </View>
 
-          <View style={styles.budgetRow}>
+          {/* BUDGET PROGRESS */}
+          {/* BUDGET PROGRESS (SEKARANG BISA DI-KLIK) */}
+          <TouchableOpacity 
+            style={styles.budgetRow} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('MonthlyBudget')}
+          >
             <View style={styles.budgetLblWrap}>
               <Text style={styles.budgetLbl}>Budget bulan ini</Text>
               <Text style={styles.budgetTag}>68% terpakai</Text>
@@ -105,7 +111,7 @@ export const HomeScreen = ({ navigation }: any) => {
             <View style={styles.budgetBar}>
               <View style={[styles.budgetFill, { width: '68%' }]} />
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* DOMPET SAYA */}

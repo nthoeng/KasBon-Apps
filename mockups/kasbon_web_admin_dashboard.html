@@ -1,0 +1,261 @@
+
+<style>
+*{box-sizing:border-box;}
+.adm-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:600px;font-size:13px;}
+.adm-sidebar{width:208px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;display:flex;flex-direction:column;flex-shrink:0;}
+.adm-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.adm-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.adm-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.adm-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.adm-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);cursor:pointer;margin-bottom:2px;}
+.adm-nav-item:hover{background:var(--surface-2);}
+.adm-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.adm-content{flex:1;padding:22px 26px;overflow:auto;}
+.adm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.adm-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.adm-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.adm-period{display:flex;gap:6px;}
+.period-chip{padding:5px 12px;border-radius:8px;font-size:12px;border:0.5px solid var(--border-strong);color:var(--text-secondary);cursor:pointer;background:transparent;}
+.period-chip.on{background:var(--text-primary);color:var(--surface-2);border-color:var(--text-primary);}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.metric-card{background:var(--surface-1);border-radius:8px;padding:14px 16px;}
+.metric-lbl{font-size:11px;color:var(--text-secondary);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;}
+.metric-val{font-size:22px;font-weight:500;color:var(--text-primary);}
+.metric-delta{font-size:11px;margin-top:4px;display:flex;align-items:center;gap:3px;}
+.delta-up{color:var(--text-success);}
+.delta-down{color:var(--text-danger);}
+.main-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:14px;}
+.panel{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:16px;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.panel-title{font-size:13px;font-weight:500;color:var(--text-primary);}
+.panel-link{font-size:11px;color:var(--text-accent);cursor:pointer;}
+.legend-row{display:flex;gap:14px;margin-bottom:6px;font-size:11px;color:var(--text-secondary);}
+.legend-item{display:flex;align-items:center;gap:5px;}
+.legend-sw{width:9px;height:9px;border-radius:2px;}
+.member-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.member-row:last-child{border-bottom:none;}
+.m-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;}
+.m-info{flex:1;min-width:0;}
+.m-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.m-role{font-size:10px;color:var(--text-muted);}
+.m-amount{font-size:12px;font-weight:500;color:var(--text-primary);text-align:right;}
+.m-sub{font-size:10px;color:var(--text-muted);text-align:right;}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.proj-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.proj-row:last-child{border-bottom:none;}
+.proj-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.proj-info{flex:1;min-width:0;}
+.proj-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.proj-bar-track{height:4px;background:var(--surface-1);border-radius:2px;margin-top:4px;overflow:hidden;}
+.proj-bar-fill{height:100%;border-radius:2px;}
+.proj-pct{font-size:11px;color:var(--text-secondary);flex-shrink:0;}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.toggle-row:last-child{border-bottom:none;}
+.toggle-lbl{font-size:12px;color:var(--text-primary);font-weight:500;}
+.toggle-sub{font-size:10px;color:var(--text-muted);margin-top:1px;}
+.toggle-sw{width:34px;height:19px;border-radius:10px;background:var(--fill-success);position:relative;cursor:pointer;flex-shrink:0;}
+.toggle-sw.off{background:var(--surface-1);border:0.5px solid var(--border-strong);}
+.toggle-th{position:absolute;top:2px;width:15px;height:15px;border-radius:50%;background:#fff;right:2px;}
+.toggle-sw.off .toggle-th{right:auto;left:2px;background:var(--text-muted);}
+</style>
+
+<h2 class="sr-only">Mockup dashboard web admin KasBon untuk desktop, menampilkan statistik keuangan keluarga, kontribusi anggota, progress project, dan pengaturan fitur</h2>
+
+<div class="adm-wrap">
+  <div class="adm-sidebar">
+    <div class="adm-brand">
+      <div class="adm-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="adm-brand-name">KasBon Admin</span>
+    </div>
+    <div class="adm-nav-sect">Utama</div>
+    <div class="adm-nav-item active"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="adm-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="adm-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="adm-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="adm-nav-sect">Keluarga</div>
+    <div class="adm-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="adm-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="adm-nav-sect">Sistem</div>
+    <div class="adm-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="adm-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+    <div style="margin-top:auto;display:flex;align-items:center;gap:8px;padding:10px 6px;border-top:0.5px solid var(--border);">
+      <div class="m-avatar" style="background:var(--bg-accent);color:var(--text-accent)">B</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--text-primary)">Bos</div><div style="font-size:10px;color:var(--text-muted)">Admin keluarga</div></div>
+    </div>
+  </div>
+
+  <div class="adm-content">
+    <div class="adm-header">
+      <div>
+        <h1 class="adm-h1">Dashboard keluarga</h1>
+        <div class="adm-h-sub">Ringkasan keuangan Keluarga Bos · Juni 2025</div>
+      </div>
+      <div class="adm-period">
+        <button class="period-chip">7 hari</button>
+        <button class="period-chip on">30 hari</button>
+        <button class="period-chip">Tahun ini</button>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">Total saldo keluarga <i class="ti ti-wallet" style="font-size:13px" aria-hidden="true"></i></div>
+        <div class="metric-val">Rp 26,4jt</div>
+        <div class="metric-delta delta-up"><i class="ti ti-arrow-up-right" style="font-size:12px" aria-hidden="true"></i> 8.2% dari bulan lalu</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Pemasukan bulan ini <i class="ti ti-arrow-down-left" style="font-size:13px" aria-hidden="true"></i></div>
+        <div class="metric-val">Rp 12,8jt</div>
+        <div class="metric-delta delta-up"><i class="ti ti-arrow-up-right" style="font-size:12px" aria-hidden="true"></i> 12% dari bulan lalu</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Pengeluaran bulan ini <i class="ti ti-arrow-up-right" style="font-size:13px" aria-hidden="true"></i></div>
+        <div class="metric-val">Rp 9,1jt</div>
+        <div class="metric-delta delta-down"><i class="ti ti-arrow-down-right" style="font-size:12px" aria-hidden="true"></i> 3% dari bulan lalu</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Budget terpakai <i class="ti ti-progress" style="font-size:13px" aria-hidden="true"></i></div>
+        <div class="metric-val">76%</div>
+        <div class="metric-delta" style="color:var(--text-secondary)">Rp 9,1jt dari Rp 12jt</div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Arus kas keluarga</span>
+          <span class="panel-link">Lihat detail</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-sw" style="background:#1baf7a"></span>Pemasukan</span>
+          <span class="legend-item"><span class="legend-sw" style="background:#e34948"></span>Pengeluaran</span>
+        </div>
+        <div style="position:relative;width:100%;height:230px;">
+          <canvas id="cashflowChart" role="img" aria-label="Grafik garis arus kas keluarga 6 bulan terakhir, menunjukkan tren pemasukan dan pengeluaran">Pemasukan dan pengeluaran keluarga dari Januari hingga Juni 2025, dengan tren pemasukan naik dari 9,2 juta ke 12,8 juta.</canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Kontribusi anggota</span>
+          <span class="panel-link">Lihat semua</span>
+        </div>
+        <div class="member-row">
+          <div class="m-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <div class="m-info"><div class="m-name">Bos</div><div class="m-role">Admin · 18 transaksi</div></div>
+          <div><div class="m-amount">Rp 7,2jt</div><div class="m-sub">56% kontribusi</div></div>
+        </div>
+        <div class="member-row">
+          <div class="m-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <div class="m-info"><div class="m-name">Istri</div><div class="m-role">Anggota · 14 transaksi</div></div>
+          <div><div class="m-amount">Rp 4,6jt</div><div class="m-sub">36% kontribusi</div></div>
+        </div>
+        <div class="member-row">
+          <div class="m-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <div class="m-info"><div class="m-name">Andi</div><div class="m-role">Anak · 3 transaksi</div></div>
+          <div><div class="m-amount">Rp 1,0jt</div><div class="m-sub">8% kontribusi</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Progress project & tabungan</span>
+          <span class="panel-link">Kelola project</span>
+        </div>
+        <div class="proj-row">
+          <div class="proj-icon" style="background:rgba(124,111,247,.15)"><i class="ti ti-shopping-cart" style="font-size:14px;color:#534AB7" aria-hidden="true"></i></div>
+          <div class="proj-info">
+            <div class="proj-name">Usaha Cimol Pak Bos</div>
+            <div class="proj-bar-track"><div class="proj-bar-fill" style="width:83%;background:#1baf7a"></div></div>
+          </div>
+          <span class="proj-pct">83%</span>
+        </div>
+        <div class="proj-row">
+          <div class="proj-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-car" style="font-size:14px;color:#7A5A0C" aria-hidden="true"></i></div>
+          <div class="proj-info">
+            <div class="proj-name">Tabungan Mobil</div>
+            <div class="proj-bar-track"><div class="proj-bar-fill" style="width:47%;background:#eda100"></div></div>
+          </div>
+          <span class="proj-pct">47%</span>
+        </div>
+        <div class="proj-row">
+          <div class="proj-icon" style="background:rgba(74,144,217,.15)"><i class="ti ti-shield" style="font-size:14px;color:#185FA5" aria-hidden="true"></i></div>
+          <div class="proj-info">
+            <div class="proj-name">Dana Darurat</div>
+            <div class="proj-bar-track"><div class="proj-bar-fill" style="width:62%;background:#2a78d6"></div></div>
+          </div>
+          <span class="proj-pct">62%</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Pengaturan fitur cepat</span>
+          <span class="panel-link">Semua pengaturan</span>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-lbl">Konfirmasi PIN transaksi besar</div><div class="toggle-sub">Wajib di atas Rp 200.000</div></div>
+          <div class="toggle-sw"><div class="toggle-th"></div></div>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-lbl">Notifikasi pengeluaran harian</div><div class="toggle-sub">Kirim ringkasan jam 21:00</div></div>
+          <div class="toggle-sw"><div class="toggle-th"></div></div>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-lbl">Akun anak dibatasi</div><div class="toggle-sub">Andi hanya bisa lihat, tidak catat</div></div>
+          <div class="toggle-sw"><div class="toggle-th"></div></div>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-lbl">Deteksi lokasi mencurigakan</div><div class="toggle-sub">Tandai login dari lokasi tidak biasa</div></div>
+          <div class="toggle-sw off"><div class="toggle-th"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const ctx = document.getElementById('cashflowChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','Mei','Jun'],
+    datasets: [
+      {
+        label: 'Pemasukan',
+        data: [9.2, 9.8, 10.5, 11.2, 11.9, 12.8],
+        borderColor: '#1baf7a',
+        backgroundColor: 'rgba(27,175,122,0.1)',
+        fill: true,
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: '#1baf7a'
+      },
+      {
+        label: 'Pengeluaran',
+        data: [7.5, 8.1, 8.4, 9.3, 9.4, 9.1],
+        borderColor: '#e34948',
+        backgroundColor: 'rgba(227,73,72,0.08)',
+        fill: true,
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: '#e34948'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: '#e1e0d9' }, ticks: { color: '#898781', callback: v => 'Rp ' + v + 'jt' } },
+      x: { grid: { display: false }, ticks: { color: '#898781' } }
+    }
+  }
+});
+</script>

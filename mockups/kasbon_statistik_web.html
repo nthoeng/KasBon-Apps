@@ -1,0 +1,260 @@
+
+<style>
+*{box-sizing:border-box;}
+.st-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:720px;font-size:13px;}
+.st-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.st-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.st-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.st-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.st-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.st-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.st-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.st-content{flex:1;padding:22px 26px;overflow:auto;}
+.st-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.st-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.st-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.st-period{display:flex;gap:6px;}
+.st-period-chip{padding:5px 12px;border-radius:8px;font-size:12px;border:0.5px solid var(--border-strong);color:var(--text-secondary);cursor:pointer;background:transparent;}
+.st-period-chip.on{background:var(--text-primary);color:var(--surface-2);border-color:var(--text-primary);}
+.st-metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.st-metric-card{background:var(--surface-1);border-radius:8px;padding:13px 15px;}
+.st-metric-lbl{font-size:11px;color:var(--text-secondary);margin-bottom:6px;}
+.st-metric-val{font-size:18px;font-weight:500;color:var(--text-primary);}
+.st-metric-sub{font-size:10px;margin-top:3px;}
+.st-main-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:14px;}
+.st-panel{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:16px;}
+.st-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.st-panel-title{font-size:13px;font-weight:500;color:var(--text-primary);}
+.st-legend-row{display:flex;gap:14px;margin-bottom:8px;font-size:11px;color:var(--text-secondary);flex-wrap:wrap;}
+.st-legend-item{display:flex;align-items:center;gap:5px;}
+.st-legend-sw{width:9px;height:9px;border-radius:2px;}
+.st-cat-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.st-cat-row:last-child{border-bottom:none;}
+.st-cat-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+.st-cat-info{flex:1;min-width:0;}
+.st-cat-name{font-size:12px;color:var(--text-primary);}
+.st-cat-bar-track{height:4px;background:var(--surface-1);border-radius:2px;margin-top:4px;overflow:hidden;}
+.st-cat-bar-fill{height:100%;border-radius:2px;}
+.st-cat-val{font-size:11.5px;color:var(--text-secondary);text-align:right;flex-shrink:0;}
+.st-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.st-compare-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.st-compare-row:last-child{border-bottom:none;}
+.st-compare-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;}
+.st-compare-info{flex:1;min-width:0;}
+.st-compare-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.st-compare-bar-track{height:5px;background:var(--surface-1);border-radius:3px;margin-top:4px;overflow:hidden;display:flex;}
+.st-compare-bar-in{height:100%;background:#1baf7a;}
+.st-compare-bar-out{height:100%;background:#e34948;}
+.st-compare-val{font-size:11px;color:var(--text-muted);text-align:right;flex-shrink:0;}
+.st-insight-card{background:var(--bg-accent);border:0.5px solid var(--border-accent);border-radius:10px;padding:11px 13px;display:flex;align-items:flex-start;gap:9px;margin-bottom:8px;}
+.st-insight-icon{font-size:15px;color:var(--text-accent);flex-shrink:0;}
+.st-insight-txt{font-size:11.5px;color:var(--text-primary);line-height:1.5;}
+.st-insight-txt b{font-weight:500;}
+</style>
+
+<h2 class="sr-only">Mockup halaman Statistik di web admin KasBon, menampilkan grafik tren cashflow, distribusi kategori pengeluaran, perbandingan antar anggota, dan insight otomatis</h2>
+
+<div class="st-wrap">
+  <div class="st-sidebar">
+    <div class="st-brand">
+      <div class="st-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="st-brand-name">KasBon Admin</span>
+    </div>
+    <div class="st-nav-sect">Utama</div>
+    <div class="st-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="st-nav-item active"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="st-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="st-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="st-nav-sect">Keluarga</div>
+    <div class="st-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="st-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="st-nav-sect">Sistem</div>
+    <div class="st-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="st-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="st-content">
+    <div class="st-header">
+      <div>
+        <h1 class="st-h1">Statistik keluarga</h1>
+        <div class="st-h-sub">Analisis mendalam keuangan Keluarga Bos</div>
+      </div>
+      <div class="st-period">
+        <button class="st-period-chip">3 bulan</button>
+        <button class="st-period-chip on">6 bulan</button>
+        <button class="st-period-chip">1 tahun</button>
+      </div>
+    </div>
+
+    <div class="st-metric-grid">
+      <div class="st-metric-card">
+        <div class="st-metric-lbl">Rata-rata pemasukan/bulan</div>
+        <div class="st-metric-val">Rp 10,9jt</div>
+        <div class="st-metric-sub" style="color:var(--text-success)">↑ tren naik stabil</div>
+      </div>
+      <div class="st-metric-card">
+        <div class="st-metric-lbl">Rata-rata pengeluaran/bulan</div>
+        <div class="st-metric-val">Rp 8,6jt</div>
+        <div class="st-metric-sub" style="color:var(--text-secondary)">Rasio tabung 21%</div>
+      </div>
+      <div class="st-metric-card">
+        <div class="st-metric-lbl">Kategori terbesar</div>
+        <div class="st-metric-val" style="font-size:15px">Belanja Rumah</div>
+        <div class="st-metric-sub" style="color:var(--text-secondary)">32% dari total keluar</div>
+      </div>
+      <div class="st-metric-card">
+        <div class="st-metric-lbl">Hari paling boros</div>
+        <div class="st-metric-val" style="font-size:15px">Sabtu</div>
+        <div class="st-metric-sub" style="color:var(--text-secondary)">Rata Rp 410rb/Sabtu</div>
+      </div>
+    </div>
+
+    <div class="st-main-grid">
+      <div class="st-panel">
+        <div class="st-panel-head">
+          <span class="st-panel-title">Tren pemasukan vs pengeluaran</span>
+        </div>
+        <div class="st-legend-row">
+          <span class="st-legend-item"><span class="st-legend-sw" style="background:#1baf7a"></span>Pemasukan</span>
+          <span class="st-legend-item"><span class="st-legend-sw" style="background:#e34948"></span>Pengeluaran</span>
+          <span class="st-legend-item"><span class="st-legend-sw" style="background:#eda100"></span>Selisih (tabungan)</span>
+        </div>
+        <div style="position:relative;width:100%;height:240px;">
+          <canvas id="trendChart" role="img" aria-label="Grafik tren pemasukan, pengeluaran, dan selisih tabungan keluarga 6 bulan terakhir">Tren 6 bulan menunjukkan pemasukan naik bertahap dari 9,2 juta ke 12,8 juta, sementara pengeluaran relatif stabil di kisaran 8 hingga 9 juta.</canvas>
+        </div>
+      </div>
+
+      <div class="st-panel">
+        <div class="st-panel-head">
+          <span class="st-panel-title">Distribusi kategori pengeluaran</span>
+        </div>
+        <div style="position:relative;width:100%;height:160px;margin-bottom:10px;">
+          <canvas id="categoryDonut" role="img" aria-label="Grafik donat distribusi kategori pengeluaran keluarga bulan ini">Belanja rumah merupakan kategori pengeluaran terbesar sebesar 32 persen, diikuti makan minum 24 persen, transportasi 16 persen.</canvas>
+        </div>
+        <div class="st-cat-row">
+          <div class="st-cat-dot" style="background:#eda100"></div>
+          <div class="st-cat-info"><div class="st-cat-name">Belanja Rumah</div></div>
+          <div class="st-cat-val">32%</div>
+        </div>
+        <div class="st-cat-row">
+          <div class="st-cat-dot" style="background:#e34948"></div>
+          <div class="st-cat-info"><div class="st-cat-name">Makan & Minum</div></div>
+          <div class="st-cat-val">24%</div>
+        </div>
+        <div class="st-cat-row">
+          <div class="st-cat-dot" style="background:#185FA5"></div>
+          <div class="st-cat-info"><div class="st-cat-name">Transportasi</div></div>
+          <div class="st-cat-val">16%</div>
+        </div>
+        <div class="st-cat-row">
+          <div class="st-cat-dot" style="background:#534AB7"></div>
+          <div class="st-cat-info"><div class="st-cat-name">Pendidikan</div></div>
+          <div class="st-cat-val">13%</div>
+        </div>
+        <div class="st-cat-row">
+          <div class="st-cat-dot" style="background:#8b8a85"></div>
+          <div class="st-cat-info"><div class="st-cat-name">Lainnya</div></div>
+          <div class="st-cat-val">15%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-bottom-grid">
+      <div class="st-panel">
+        <div class="st-panel-head">
+          <span class="st-panel-title">Perbandingan antar anggota</span>
+        </div>
+        <div class="st-legend-row">
+          <span class="st-legend-item"><span class="st-legend-sw" style="background:#1baf7a"></span>Masuk</span>
+          <span class="st-legend-item"><span class="st-legend-sw" style="background:#e34948"></span>Keluar</span>
+        </div>
+        <div class="st-compare-row">
+          <div class="st-compare-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <div class="st-compare-info">
+            <div class="st-compare-name">Bos</div>
+            <div class="st-compare-bar-track"><div class="st-compare-bar-in" style="width:62%"></div><div class="st-compare-bar-out" style="width:38%"></div></div>
+          </div>
+          <div class="st-compare-val">Rp 7,2jt / Rp 4,4jt</div>
+        </div>
+        <div class="st-compare-row">
+          <div class="st-compare-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <div class="st-compare-info">
+            <div class="st-compare-name">Istri</div>
+            <div class="st-compare-bar-track"><div class="st-compare-bar-in" style="width:55%"></div><div class="st-compare-bar-out" style="width:45%"></div></div>
+          </div>
+          <div class="st-compare-val">Rp 4,6jt / Rp 3,8jt</div>
+        </div>
+        <div class="st-compare-row">
+          <div class="st-compare-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <div class="st-compare-info">
+            <div class="st-compare-name">Andi</div>
+            <div class="st-compare-bar-track"><div class="st-compare-bar-in" style="width:25%"></div><div class="st-compare-bar-out" style="width:75%"></div></div>
+          </div>
+          <div class="st-compare-val">Rp 1,0jt / Rp 900rb</div>
+        </div>
+      </div>
+
+      <div class="st-panel">
+        <div class="st-panel-head">
+          <span class="st-panel-title">Insight otomatis</span>
+        </div>
+        <div class="st-insight-card">
+          <i class="ti ti-trending-up st-insight-icon" aria-hidden="true"></i>
+          <div class="st-insight-txt">Pemasukan keluarga naik <b>12% bulan ini</b>, didorong oleh kenaikan omset Usaha Cimol.</div>
+        </div>
+        <div class="st-insight-card" style="background:rgba(255,107,107,.08);border-color:rgba(227,73,72,.25)">
+          <i class="ti ti-alert-triangle st-insight-icon" style="color:var(--text-danger)" aria-hidden="true"></i>
+          <div class="st-insight-txt">Pengeluaran <b>Belanja Rumah naik 18%</b> dibanding rata-rata 3 bulan terakhir.</div>
+        </div>
+        <div class="st-insight-card">
+          <i class="ti ti-piggy-bank st-insight-icon" aria-hidden="true"></i>
+          <div class="st-insight-txt">Rasio tabungan keluarga <b>21%</b> dari total pemasukan — di atas target sehat 20%.</div>
+        </div>
+        <div class="st-insight-card" style="background:rgba(124,111,247,.08);border-color:rgba(124,111,247,.25)">
+          <i class="ti ti-calendar-stats st-insight-icon" style="color:#534AB7" aria-hidden="true"></i>
+          <div class="st-insight-txt">Pengeluaran cenderung naik setiap <b>akhir pekan</b>, terutama hari Sabtu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','Mei','Jun'],
+    datasets: [
+      { label:'Pemasukan', data:[9.2,9.8,10.5,11.2,11.9,12.8], borderColor:'#1baf7a', backgroundColor:'rgba(27,175,122,0.08)', fill:true, tension:0.35, borderWidth:2, pointRadius:3 },
+      { label:'Pengeluaran', data:[7.5,8.1,8.4,9.3,9.4,9.1], borderColor:'#e34948', backgroundColor:'rgba(227,73,72,0.06)', fill:true, tension:0.35, borderWidth:2, pointRadius:3 },
+      { label:'Selisih', data:[1.7,1.7,2.1,1.9,2.5,3.7], borderColor:'#eda100', backgroundColor:'transparent', borderDash:[5,4], tension:0.35, borderWidth:2, pointRadius:2 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      y:{ grid:{ color:'#e1e0d9' }, ticks:{ color:'#898781', callback: v => 'Rp '+v+'jt' } },
+      x:{ grid:{ display:false }, ticks:{ color:'#898781' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('categoryDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Belanja Rumah','Makan & Minum','Transportasi','Pendidikan','Lainnya'],
+    datasets: [{
+      data: [32,24,16,13,15],
+      backgroundColor: ['#eda100','#e34948','#185FA5','#534AB7','#8b8a85'],
+      borderWidth: 2,
+      borderColor: '#ffffff'
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, cutout:'68%',
+    plugins:{ legend:{ display:false } }
+  }
+});
+</script>

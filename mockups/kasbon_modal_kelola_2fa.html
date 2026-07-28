@@ -1,0 +1,251 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.faux-viewport{min-height:540px;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;border-radius:12px;padding:24px;}
+.modal{background:var(--surface-2);border-radius:14px;border:0.5px solid var(--border);width:100%;max-width:480px;overflow:hidden;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:0.5px solid var(--border);}
+.modal-title{font-size:15px;font-weight:500;color:var(--text-primary);}
+.modal-close{width:28px;height:28px;border-radius:6px;border:0.5px solid var(--border-strong);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.modal-body{padding:18px 20px;}
+.modal-foot{padding:14px 20px;border-top:0.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.step{display:none;}
+.step.on{display:block;}
+.info-bar{display:flex;align-items:flex-start;gap:9px;background:var(--bg-accent);border:0.5px solid var(--border-accent);border-radius:8px;padding:10px 12px;margin-bottom:16px;}
+.info-bar-txt{font-size:12px;color:var(--text-accent);line-height:1.5;}
+.member-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:0.5px solid var(--border);}
+.member-row:last-child{border-bottom:none;}
+.m-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;}
+.m-info{flex:1;min-width:0;}
+.m-name{font-size:13px;font-weight:500;color:var(--text-primary);}
+.m-sub{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.status-badge{padding:3px 9px;border-radius:6px;font-size:11px;font-weight:500;flex-shrink:0;}
+.badge-on{background:var(--bg-success);color:var(--text-success);}
+.badge-off{background:var(--bg-danger);color:var(--text-danger);}
+.badge-wait{background:var(--bg-warning);color:var(--text-warning);}
+.sect-lbl{font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin:16px 0 10px;}
+.method-card{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;margin-bottom:8px;}
+.method-card.sel{border-color:var(--border-accent);background:var(--bg-accent);}
+.method-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.method-info{flex:1;}
+.method-name{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:2px;}
+.method-desc{font-size:11.5px;color:var(--text-secondary);line-height:1.4;}
+.radio-c{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--border-strong);flex-shrink:0;margin-top:1px;}
+.radio-c.on{border-color:var(--fill-accent);background:radial-gradient(circle,var(--fill-accent) 0 4.5px,transparent 4.5px);}
+.warn-note{display:flex;align-items:flex-start;gap:8px;background:var(--bg-warning);border:0.5px solid var(--border-warning);border-radius:8px;padding:10px 12px;margin-top:12px;}
+.warn-note-txt{font-size:11.5px;color:var(--text-warning);line-height:1.5;}
+.confirm-box{background:var(--surface-1);border-radius:10px;padding:14px;margin-bottom:14px;}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:12.5px;}
+.confirm-row:last-child{border-bottom:none;}
+.confirm-key{color:var(--text-secondary);}
+.confirm-val{font-weight:500;color:var(--text-primary);}
+.success-icon{width:52px;height:52px;border-radius:50%;background:var(--bg-success);border:0.5px solid var(--border-success);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.success-title{font-size:16px;font-weight:500;color:var(--text-primary);text-align:center;margin-bottom:6px;}
+.success-sub{font-size:12.5px;color:var(--text-secondary);text-align:center;line-height:1.6;margin-bottom:16px;}
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;align-items:flex-start;gap:12px;padding-bottom:14px;position:relative;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:15px;top:30px;width:1px;height:calc(100% - 14px);background:var(--border-strong);}
+.tl-dot{width:32px;height:32px;border-radius:50%;background:var(--bg-accent);border:0.5px solid var(--border-accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.tl-text{flex:1;padding-top:6px;}
+.tl-title{font-size:12.5px;font-weight:500;color:var(--text-primary);margin-bottom:2px;}
+.tl-sub{font-size:11.5px;color:var(--text-secondary);line-height:1.4;}
+.step-indicator{display:flex;align-items:center;gap:6px;margin-bottom:16px;}
+.step-dot{width:7px;height:7px;border-radius:50%;background:var(--border-strong);}
+.step-dot.act{background:var(--fill-accent);width:20px;border-radius:4px;}
+.step-dot.done{background:var(--fill-success);}
+.btn-primary{height:36px;padding:0 16px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:13px;font-weight:500;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.btn-secondary{height:36px;padding:0 14px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:13px;cursor:pointer;}
+.btn-success{height:36px;padding:0 16px;border-radius:8px;background:var(--fill-success);color:var(--on-success);font-size:13px;font-weight:500;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;}
+</style>
+
+<h2 class="sr-only">Mockup modal Kelola Verifikasi Dua Langkah di web admin KasBon, menampilkan status 2FA semua anggota dan alur pengiriman permintaan aktivasi ke anggota yang belum aktif</h2>
+
+<div class="faux-viewport">
+<div class="modal">
+  <div class="modal-head">
+    <div>
+      <div class="modal-title" id="modal-title">Kelola verifikasi dua langkah</div>
+    </div>
+    <div class="modal-close" aria-label="Tutup modal"><i class="ti ti-x" style="font-size:14px;color:var(--text-muted)" aria-hidden="true"></i></div>
+  </div>
+
+  <div class="modal-body">
+
+    <div id="step-1" class="step on">
+      <div class="step-indicator">
+        <div class="step-dot act"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="info-bar">
+        <i class="ti ti-shield" style="font-size:15px;flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+        <div class="info-bar-txt">2 dari 3 anggota sudah aktifkan 2FA. Admin tidak bisa mengaktifkan langsung atas nama anggota — hanya bisa mengirim permintaan aktivasi.</div>
+      </div>
+      <div style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Status anggota</div>
+      <div class="member-row">
+        <div class="m-avatar" style="background:var(--bg-warning);color:var(--text-warning)">B</div>
+        <div class="m-info"><div class="m-name">Bos</div><div class="m-sub">Google Authenticator (TOTP)</div></div>
+        <span class="status-badge badge-on">Aktif</span>
+      </div>
+      <div class="member-row">
+        <div class="m-avatar" style="background:var(--bg-success);color:var(--text-success)">I</div>
+        <div class="m-info"><div class="m-name">Istri</div><div class="m-sub">Email OTP</div></div>
+        <span class="status-badge badge-on">Aktif</span>
+      </div>
+      <div class="member-row" id="andi-row">
+        <div class="m-avatar" style="background:var(--bg-pro);color:var(--text-pro)">A</div>
+        <div class="m-info"><div class="m-name">Andi</div><div class="m-sub" id="andi-sub">Belum diaktifkan</div></div>
+        <span class="status-badge badge-off" id="andi-badge">Nonaktif</span>
+      </div>
+    </div>
+
+    <div id="step-2" class="step">
+      <div class="step-indicator">
+        <div class="step-dot done"></div>
+        <div class="step-dot act"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="m-avatar" style="background:var(--bg-pro);color:var(--text-pro);width:36px;height:36px;font-size:13px;flex-shrink:0">A</div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--text-primary)">Kirim permintaan ke Andi</div>
+          <div style="font-size:11.5px;color:var(--text-muted);">andi@email.com</div>
+        </div>
+      </div>
+      <div class="sect-lbl">Pilih metode 2FA yang disarankan</div>
+      <div class="method-card sel" id="card-email" onclick="selectMethod('email')">
+        <div class="method-icon" style="background:var(--bg-accent)"><i class="ti ti-mail" style="font-size:16px;color:var(--text-accent)" aria-hidden="true"></i></div>
+        <div class="method-info">
+          <div class="method-name">Email OTP</div>
+          <div class="method-desc">Kode dikirim ke email saat login. Mudah untuk pengguna baru, termasuk anak-anak.</div>
+        </div>
+        <div class="radio-c on" id="r-email"></div>
+      </div>
+      <div class="method-card" id="card-auth" onclick="selectMethod('auth')">
+        <div class="method-icon" style="background:var(--bg-pro)"><i class="ti ti-device-mobile" style="font-size:16px;color:var(--text-pro)" aria-hidden="true"></i></div>
+        <div class="method-info">
+          <div class="method-name">Google Authenticator / TOTP</div>
+          <div class="method-desc">Kode 6 digit dari app authenticator. Lebih aman, cocok untuk pengguna yang sudah familiar.</div>
+        </div>
+        <div class="radio-c" id="r-auth"></div>
+      </div>
+      <div class="warn-note">
+        <i class="ti ti-info-circle" style="font-size:15px;flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+        <div class="warn-note-txt">Andi tetap harus menyelesaikan setup 2FA sendiri di perangkatnya. Kamu hanya mengirim notifikasi permintaan.</div>
+      </div>
+    </div>
+
+    <div id="step-3" class="step">
+      <div class="step-indicator">
+        <div class="step-dot done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-dot act"></div>
+      </div>
+      <div style="font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:12px;">Konfirmasi permintaan</div>
+      <div class="confirm-box">
+        <div class="confirm-row"><span class="confirm-key">Anggota</span><span class="confirm-val">Andi · andi@email.com</span></div>
+        <div class="confirm-row"><span class="confirm-key">Metode</span><span class="confirm-val" id="confirm-method">Email OTP</span></div>
+        <div class="confirm-row"><span class="confirm-key">Notifikasi</span><span class="confirm-val">Email + push notification</span></div>
+        <div class="confirm-row"><span class="confirm-key">Batas waktu</span><span class="confirm-val">7 hari untuk merespons</span></div>
+      </div>
+      <div style="font-size:11.5px;color:var(--text-muted);line-height:1.6;">Andi akan menerima email dan notifikasi push berisi panduan setup 2FA. Setelah selesai, status di halaman Keamanan akan diperbarui otomatis.</div>
+    </div>
+
+    <div id="step-4" class="step">
+      <div class="success-icon"><i class="ti ti-send" style="font-size:22px;color:var(--text-success)" aria-hidden="true"></i></div>
+      <div class="success-title">Permintaan terkirim</div>
+      <div class="success-sub">Andi akan menerima email dan notifikasi untuk mengaktifkan 2FA. Kamu bisa pantau statusnya di halaman Keamanan.</div>
+      <div style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Langkah selanjutnya bagi Andi</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-mail" style="font-size:14px;color:var(--text-accent)" aria-hidden="true"></i></div>
+          <div class="tl-text"><div class="tl-title">Cek email atau notifikasi</div><div class="tl-sub">Andi mendapat link panduan setup dari KasBon</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-settings" style="font-size:14px;color:var(--text-accent)" aria-hidden="true"></i></div>
+          <div class="tl-text"><div class="tl-title">Setup 2FA di perangkatnya</div><div class="tl-sub">Masuk ke Pengaturan > Keamanan, lalu ikuti panduan</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-check" style="font-size:14px;color:var(--text-accent)" aria-hidden="true"></i></div>
+          <div class="tl-text"><div class="tl-title">Status otomatis diperbarui</div><div class="tl-sub">Skor keamanan keluarga naik ke 100%</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-foot" id="modal-foot">
+    <button class="btn-secondary" id="btn-back" style="display:none" onclick="goBack()">Kembali</button>
+    <button class="btn-secondary" id="btn-cancel" onclick="resetModal()">Batal</button>
+    <button class="btn-primary" id="btn-next" onclick="goNext()">
+      <span id="btn-next-label">Kirim permintaan ke Andi</span>
+      <i class="ti ti-arrow-right" style="font-size:14px" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+</div>
+
+<script>
+let currentStep = 1;
+let selectedMethod = 'email';
+
+function updateUI() {
+  for (let i=1; i<=4; i++) {
+    document.getElementById('step-'+i).classList.toggle('on', i === currentStep);
+  }
+  const btnBack = document.getElementById('btn-back');
+  const btnCancel = document.getElementById('btn-cancel');
+  const btnNext = document.getElementById('btn-next');
+  const label = document.getElementById('btn-next-label');
+  const titles = ['Kelola verifikasi dua langkah','Pilih metode untuk Andi','Konfirmasi permintaan','Permintaan terkirim'];
+  document.getElementById('modal-title').textContent = titles[currentStep-1];
+
+  btnBack.style.display = currentStep > 1 && currentStep < 4 ? 'flex' : 'none';
+  btnCancel.style.display = currentStep === 4 ? 'none' : 'inline-flex';
+
+  if (currentStep === 1) { label.textContent = 'Kirim permintaan ke Andi'; btnNext.className = 'btn-primary'; }
+  else if (currentStep === 2) { label.textContent = 'Lanjut konfirmasi'; btnNext.className = 'btn-primary'; }
+  else if (currentStep === 3) { label.textContent = 'Kirim sekarang'; btnNext.className = 'btn-primary'; }
+  else if (currentStep === 4) {
+    label.textContent = 'Selesai';
+    btnNext.className = 'btn-success';
+    btnNext.querySelector('i').className = 'ti ti-check';
+    document.getElementById('andi-sub').textContent = 'Email OTP · Menunggu konfirmasi';
+    document.getElementById('andi-badge').className = 'status-badge badge-wait';
+    document.getElementById('andi-badge').textContent = 'Menunggu';
+  }
+}
+
+function goNext() {
+  if (currentStep === 4) { resetModal(); return; }
+  if (currentStep === 3) {
+    document.getElementById('confirm-method').textContent = selectedMethod === 'email' ? 'Email OTP' : 'Google Authenticator (TOTP)';
+  }
+  currentStep++;
+  updateUI();
+}
+
+function goBack() {
+  if (currentStep > 1) { currentStep--; updateUI(); }
+}
+
+function resetModal() {
+  currentStep = 1;
+  selectedMethod = 'email';
+  selectMethod('email');
+  document.getElementById('andi-sub').textContent = 'Belum diaktifkan';
+  document.getElementById('andi-badge').className = 'status-badge badge-off';
+  document.getElementById('andi-badge').textContent = 'Nonaktif';
+  updateUI();
+}
+
+function selectMethod(m) {
+  selectedMethod = m;
+  document.getElementById('card-email').classList.toggle('sel', m === 'email');
+  document.getElementById('card-auth').classList.toggle('sel', m === 'auth');
+  document.getElementById('r-email').classList.toggle('on', m === 'email');
+  document.getElementById('r-auth').classList.toggle('on', m === 'auth');
+}
+
+updateUI();
+</script>

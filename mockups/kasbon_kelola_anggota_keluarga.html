@@ -1,0 +1,283 @@
+
+<style>
+*{box-sizing:border-box;}
+.km-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:680px;font-size:13px;}
+.km-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.km-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.km-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.km-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.km-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.km-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.km-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.km-content{flex:1;padding:22px 26px;overflow:auto;}
+.km-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.km-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.km-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.km-invite-btn{height:36px;padding:0 14px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12px;font-weight:500;border:none;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.km-summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.km-sum-card{background:var(--surface-1);border-radius:8px;padding:12px 15px;display:flex;align-items:center;gap:12px;}
+.km-sum-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.km-sum-val{font-size:17px;font-weight:500;color:var(--text-primary);}
+.km-sum-lbl{font-size:11px;color:var(--text-secondary);}
+.km-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;}
+.km-member-card{background:var(--surface-1);border-radius:10px;padding:15px;border:0.5px solid transparent;}
+.km-member-top{display:flex;align-items:flex-start;gap:11px;margin-bottom:12px;}
+.km-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;flex-shrink:0;}
+.km-m-info{flex:1;min-width:0;}
+.km-m-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.km-m-email{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.km-role-badge{padding:2px 9px;border-radius:7px;font-size:10px;font-weight:500;flex-shrink:0;}
+.role-admin{background:rgba(245,200,66,.15);color:#7A5A0C;}
+.role-member{background:rgba(45,212,164,.13);color:#0F6E56;}
+.role-limited{background:rgba(124,111,247,.13);color:#534AB7;}
+.km-stat-row{display:flex;gap:16px;margin-bottom:12px;padding:10px 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);}
+.km-stat{flex:1;}
+.km-stat-val{font-size:13px;font-weight:500;color:var(--text-primary);}
+.km-stat-lbl{font-size:10px;color:var(--text-muted);margin-top:1px;}
+.km-wallet-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.km-wtag{padding:2px 8px;border-radius:6px;font-size:10px;background:var(--surface-2);color:var(--text-secondary);border:0.5px solid var(--border);}
+.km-card-actions{display:flex;gap:8px;}
+.km-act-btn{flex:1;height:32px;border-radius:7px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:11.5px;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;}
+.km-act-btn.danger{color:var(--text-danger);border-color:rgba(227,73,72,.3);}
+.km-act-btn:hover{background:var(--surface-2);}
+.km-pending-card{background:var(--surface-1);border:1px dashed var(--border-strong);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:12px;}
+.km-pending-icon{width:36px;height:36px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text-muted);flex-shrink:0;}
+.km-pending-info{flex:1;}
+.km-pending-email{font-size:12.5px;font-weight:500;color:var(--text-primary);}
+.km-pending-sub{font-size:10.5px;color:var(--text-muted);margin-top:1px;}
+.km-pending-actions{display:flex;gap:6px;}
+.km-resend-btn{height:28px;padding:0 10px;border-radius:6px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:11px;cursor:pointer;}
+.km-cancel-btn{width:28px;height:28px;border-radius:6px;border:0.5px solid rgba(227,73,72,.3);background:transparent;color:var(--text-danger);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.km-sect-lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin:6px 0 10px;}
+
+.km-modal-overlay{position:absolute;inset:0;background:rgba(20,20,18,0.45);display:none;align-items:center;justify-content:center;z-index:30;}
+.km-modal-overlay.show{display:flex;}
+.km-modal-box{width:380px;background:var(--surface-2);border-radius:14px;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,.18);}
+.km-modal-title{font-size:15px;font-weight:500;color:var(--text-primary);margin-bottom:4px;}
+.km-modal-sub{font-size:12px;color:var(--text-secondary);margin-bottom:18px;line-height:1.5;}
+.km-modal-field{margin-bottom:14px;}
+.km-modal-label{font-size:11.5px;font-weight:500;color:var(--text-primary);margin-bottom:6px;display:block;}
+.km-modal-input{width:100%;height:38px;padding:0 12px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--fill-field);color:var(--text-primary);font-size:12.5px;outline:none;}
+.km-modal-input:focus{border-color:var(--border-accent);box-shadow:0 0 0 2px var(--bg-accent);}
+.km-role-options{display:flex;flex-direction:column;gap:7px;}
+.km-role-opt{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;}
+.km-role-opt.selected{border-color:var(--border-accent);background:var(--bg-accent);}
+.km-role-radio{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--border-strong);flex-shrink:0;}
+.km-role-radio.on{border-color:var(--text-accent);background:radial-gradient(circle,var(--text-accent) 0 4px,transparent 4px);}
+.km-role-text{flex:1;}
+.km-role-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.km-role-desc{font-size:10.5px;color:var(--text-muted);margin-top:1px;}
+.km-modal-btns{display:flex;gap:8px;margin-top:18px;}
+.km-mbtn-cancel{flex:1;height:38px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:12.5px;cursor:pointer;}
+.km-mbtn-send{flex:1;height:38px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12.5px;font-weight:500;border:none;cursor:pointer;}
+.km-toast{position:absolute;top:18px;right:26px;background:var(--bg-success);border:0.5px solid var(--border-success);border-radius:9px;padding:10px 14px;display:none;align-items:center;gap:8px;font-size:12px;color:var(--text-success);z-index:40;}
+.km-toast.show{display:flex;}
+.km-relative{position:relative;}
+</style>
+
+<h2 class="sr-only">Mockup halaman Kelola Anggota Keluarga di web admin KasBon, menampilkan kartu anggota dengan peran, statistik kontribusi, undangan tertunda, dan modal undang anggota baru</h2>
+
+<div class="km-relative">
+<div class="km-wrap">
+  <div class="km-sidebar">
+    <div class="km-brand">
+      <div class="km-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="km-brand-name">KasBon Admin</span>
+    </div>
+    <div class="km-nav-sect">Utama</div>
+    <div class="km-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="km-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="km-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="km-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="km-nav-sect">Keluarga</div>
+    <div class="km-nav-item active"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="km-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="km-nav-sect">Sistem</div>
+    <div class="km-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="km-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="km-content">
+    <div class="km-header">
+      <div>
+        <h1 class="km-h1">Anggota keluarga</h1>
+        <div class="km-h-sub">Kelola siapa saja yang punya akses ke KasBon Keluarga Bos</div>
+      </div>
+      <button class="km-invite-btn" onclick="openInvite()"><i class="ti ti-user-plus" style="font-size:14px" aria-hidden="true"></i> Undang anggota</button>
+    </div>
+
+    <div class="km-summary-row">
+      <div class="km-sum-card">
+        <div class="km-sum-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-users" style="font-size:16px;color:#7A5A0C" aria-hidden="true"></i></div>
+        <div><div class="km-sum-val">3</div><div class="km-sum-lbl">Total anggota aktif</div></div>
+      </div>
+      <div class="km-sum-card">
+        <div class="km-sum-icon" style="background:rgba(74,144,217,.13)"><i class="ti ti-mail" style="font-size:16px;color:#185FA5" aria-hidden="true"></i></div>
+        <div><div class="km-sum-val">1</div><div class="km-sum-lbl">Undangan tertunda</div></div>
+      </div>
+      <div class="km-sum-card">
+        <div class="km-sum-icon" style="background:rgba(45,212,164,.13)"><i class="ti ti-receipt" style="font-size:16px;color:#0F6E56" aria-hidden="true"></i></div>
+        <div><div class="km-sum-val">41</div><div class="km-sum-lbl">Transaksi 30 hari terakhir</div></div>
+      </div>
+    </div>
+
+    <div class="km-sect-lbl">Anggota aktif</div>
+    <div class="km-grid">
+      <div class="km-member-card">
+        <div class="km-member-top">
+          <div class="km-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <div class="km-m-info"><div class="km-m-name">Bos</div><div class="km-m-email">bos@email.com</div></div>
+          <span class="km-role-badge role-admin">Admin · Pemilik</span>
+        </div>
+        <div class="km-stat-row">
+          <div class="km-stat"><div class="km-stat-val">18</div><div class="km-stat-lbl">Transaksi</div></div>
+          <div class="km-stat"><div class="km-stat-val">Rp 7,2jt</div><div class="km-stat-lbl">Kontribusi</div></div>
+          <div class="km-stat"><div class="km-stat-val">Hari ini</div><div class="km-stat-lbl">Aktif terakhir</div></div>
+        </div>
+        <div class="km-wallet-tags">
+          <span class="km-wtag">Kas Keluarga</span><span class="km-wtag">Dana Darurat</span><span class="km-wtag">+3 lainnya</span>
+        </div>
+        <div class="km-card-actions">
+          <div class="km-act-btn"><i class="ti ti-wallet" style="font-size:13px" aria-hidden="true"></i> Atur akses dompet</div>
+        </div>
+      </div>
+
+      <div class="km-member-card">
+        <div class="km-member-top">
+          <div class="km-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <div class="km-m-info"><div class="km-m-name">Istri</div><div class="km-m-email">istri@email.com</div></div>
+          <span class="km-role-badge role-member">Anggota</span>
+        </div>
+        <div class="km-stat-row">
+          <div class="km-stat"><div class="km-stat-val">14</div><div class="km-stat-lbl">Transaksi</div></div>
+          <div class="km-stat"><div class="km-stat-val">Rp 4,6jt</div><div class="km-stat-lbl">Kontribusi</div></div>
+          <div class="km-stat"><div class="km-stat-val">2 jam lalu</div><div class="km-stat-lbl">Aktif terakhir</div></div>
+        </div>
+        <div class="km-wallet-tags">
+          <span class="km-wtag">Kas Keluarga</span><span class="km-wtag">Kas Usaha Cimol</span>
+        </div>
+        <div class="km-card-actions">
+          <div class="km-act-btn"><i class="ti ti-wallet" style="font-size:13px" aria-hidden="true"></i> Atur akses dompet</div>
+          <div class="km-act-btn"><i class="ti ti-edit" style="font-size:13px" aria-hidden="true"></i> Ubah peran</div>
+        </div>
+      </div>
+
+      <div class="km-member-card">
+        <div class="km-member-top">
+          <div class="km-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <div class="km-m-info"><div class="km-m-name">Andi</div><div class="km-m-email">andi@email.com</div></div>
+          <span class="km-role-badge role-limited">Akun terbatas</span>
+        </div>
+        <div class="km-stat-row">
+          <div class="km-stat"><div class="km-stat-val">3</div><div class="km-stat-lbl">Transaksi</div></div>
+          <div class="km-stat"><div class="km-stat-val">Rp 1,0jt</div><div class="km-stat-lbl">Kontribusi</div></div>
+          <div class="km-stat"><div class="km-stat-val">Kemarin</div><div class="km-stat-lbl">Aktif terakhir</div></div>
+        </div>
+        <div class="km-wallet-tags">
+          <span class="km-wtag">Kas Keluarga (lihat saja)</span>
+        </div>
+        <div class="km-card-actions">
+          <div class="km-act-btn"><i class="ti ti-wallet" style="font-size:13px" aria-hidden="true"></i> Atur akses dompet</div>
+          <div class="km-act-btn"><i class="ti ti-edit" style="font-size:13px" aria-hidden="true"></i> Ubah peran</div>
+          <div class="km-act-btn danger" onclick="openRemove('Andi')"><i class="ti ti-user-x" style="font-size:13px" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="km-sect-lbl">Undangan tertunda</div>
+    <div class="km-pending-card">
+      <div class="km-pending-icon"><i class="ti ti-clock" style="font-size:16px" aria-hidden="true"></i></div>
+      <div class="km-pending-info">
+        <div class="km-pending-email">budhe.sri@email.com</div>
+        <div class="km-pending-sub">Diundang sebagai Anggota · 2 hari lalu · Belum diterima</div>
+      </div>
+      <div class="km-pending-actions">
+        <button class="km-resend-btn" onclick="resendInvite()">Kirim ulang</button>
+        <button class="km-cancel-btn" onclick="openRemove('budhe.sri@email.com')" aria-label="Batalkan undangan"><i class="ti ti-x" style="font-size:13px" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="km-modal-overlay" id="invite-overlay">
+    <div class="km-modal-box">
+      <div class="km-modal-title">Undang anggota keluarga</div>
+      <div class="km-modal-sub">Anggota baru akan menerima email undangan untuk bergabung ke KasBon Keluarga Bos.</div>
+      <div class="km-modal-field">
+        <label class="km-modal-label">Alamat email</label>
+        <input type="email" class="km-modal-input" placeholder="nama@email.com"/>
+      </div>
+      <div class="km-modal-field">
+        <label class="km-modal-label">Peran</label>
+        <div class="km-role-options">
+          <div class="km-role-opt selected" onclick="selectRole(this)">
+            <div class="km-role-radio on"></div>
+            <div class="km-role-text"><div class="km-role-name">Anggota</div><div class="km-role-desc">Bisa catat & lihat dompet yang dibagikan</div></div>
+          </div>
+          <div class="km-role-opt" onclick="selectRole(this)">
+            <div class="km-role-radio"></div>
+            <div class="km-role-text"><div class="km-role-name">Akun terbatas</div><div class="km-role-desc">Hanya bisa lihat, cocok untuk anak</div></div>
+          </div>
+          <div class="km-role-opt" onclick="selectRole(this)">
+            <div class="km-role-radio"></div>
+            <div class="km-role-text"><div class="km-role-name">Admin</div><div class="km-role-desc">Akses penuh termasuk pengaturan sistem</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="km-modal-btns">
+        <button class="km-mbtn-cancel" onclick="closeInvite()">Batal</button>
+        <button class="km-mbtn-send" onclick="sendInvite()">Kirim undangan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="km-modal-overlay" id="remove-overlay">
+    <div class="km-modal-box">
+      <div class="km-modal-title" id="remove-title">Hapus anggota ini?</div>
+      <div class="km-modal-sub" id="remove-sub">Mereka akan kehilangan akses ke semua dompet keluarga yang dibagikan. Riwayat transaksi yang sudah dicatat tetap tersimpan.</div>
+      <div class="km-modal-btns">
+        <button class="km-mbtn-cancel" onclick="closeRemove()">Batal</button>
+        <button class="km-mbtn-send" style="background:var(--fill-danger)" onclick="confirmRemove()">Ya, hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="km-toast" id="km-toast">
+    <i class="ti ti-circle-check" style="font-size:15px" aria-hidden="true"></i>
+    <span id="km-toast-txt">Undangan berhasil dikirim</span>
+  </div>
+</div>
+</div>
+
+<script>
+function openInvite() { document.getElementById('invite-overlay').classList.add('show'); }
+function closeInvite() { document.getElementById('invite-overlay').classList.remove('show'); }
+function selectRole(el) {
+  document.querySelectorAll('.km-role-opt').forEach(o => { o.classList.remove('selected'); o.querySelector('.km-role-radio').classList.remove('on'); });
+  el.classList.add('selected');
+  el.querySelector('.km-role-radio').classList.add('on');
+}
+function sendInvite() {
+  closeInvite();
+  showToast('Undangan berhasil dikirim');
+}
+function resendInvite() { showToast('Undangan dikirim ulang'); }
+
+let removeTarget = null;
+function openRemove(name) {
+  removeTarget = name;
+  document.getElementById('remove-title').textContent = `Hapus ${name} dari keluarga?`;
+  document.getElementById('remove-overlay').classList.add('show');
+}
+function closeRemove() { document.getElementById('remove-overlay').classList.remove('show'); }
+function confirmRemove() {
+  closeRemove();
+  showToast(`${removeTarget} berhasil dihapus dari keluarga`);
+}
+
+function showToast(msg) {
+  document.getElementById('km-toast-txt').textContent = msg;
+  const t = document.getElementById('km-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+</script>

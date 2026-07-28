@@ -1,0 +1,226 @@
+
+<style>
+*{box-sizing:border-box;}
+.lg-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:560px;}
+.lg-left{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 56px;max-width:440px;}
+.lg-brand{display:flex;align-items:center;gap:10px;margin-bottom:36px;}
+.lg-brand-icon{width:34px;height:34px;border-radius:9px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:17px;color:#26211C;flex-shrink:0;}
+.lg-brand-name{font-size:16px;font-weight:500;color:var(--text-primary);}
+.lg-title{font-size:22px;font-weight:500;color:var(--text-primary);margin-bottom:6px;}
+.lg-sub{font-size:13px;color:var(--text-secondary);margin-bottom:28px;line-height:1.6;}
+.lg-field-group{margin-bottom:16px;}
+.lg-label{font-size:12px;font-weight:500;color:var(--text-primary);margin-bottom:6px;display:block;}
+.lg-input-wrap{position:relative;}
+.lg-input{width:100%;height:40px;padding:0 14px 0 38px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--fill-field);color:var(--text-primary);font-size:13px;outline:none;}
+.lg-input:focus{border-color:var(--border-accent);box-shadow:0 0 0 2px var(--bg-accent);}
+.lg-input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text-muted);}
+.lg-input-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text-muted);cursor:pointer;}
+.lg-row-between{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.lg-remember{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-secondary);cursor:pointer;}
+.lg-checkbox{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border-strong);cursor:pointer;flex-shrink:0;}
+.lg-checkbox.checked{background:var(--fill-accent);border-color:var(--fill-accent);display:flex;align-items:center;justify-content:center;}
+.lg-forgot{font-size:12px;color:var(--text-accent);cursor:pointer;}
+.lg-submit{width:100%;height:42px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:13px;font-weight:500;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
+.lg-submit:hover{background:var(--fill-primary-hover);}
+.lg-error{display:none;align-items:center;gap:8px;background:var(--bg-danger);border:0.5px solid var(--border-danger);border-radius:8px;padding:9px 12px;margin-bottom:14px;font-size:12px;color:var(--text-danger);}
+.lg-error.show{display:flex;}
+.lg-divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
+.lg-divider-line{flex:1;height:0.5px;background:var(--border);}
+.lg-divider-txt{font-size:11px;color:var(--text-muted);}
+.lg-alt-row{display:flex;gap:10px;}
+.lg-alt-btn{flex:1;height:38px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-primary);font-size:12px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
+.lg-alt-btn:hover{background:var(--surface-1);}
+.lg-footer{font-size:12px;color:var(--text-secondary);text-align:center;margin-top:24px;}
+.lg-footer a{color:var(--text-accent);cursor:pointer;}
+.lg-right{flex:1;background:linear-gradient(160deg,#0A1628 0%,#152338 100%);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;}
+.lg-glass-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;width:280px;backdrop-filter:blur(8px);}
+.lg-glass-lbl{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:8px;}
+.lg-glass-amt{font-size:26px;font-weight:500;color:#F5C842;margin-bottom:16px;}
+.lg-glass-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.lg-glass-row:last-child{border-bottom:none;}
+.lg-glass-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.lg-glass-info{flex:1;}
+.lg-glass-name{font-size:11px;color:rgba(255,255,255,0.85);}
+.lg-glass-sub{font-size:9.5px;color:rgba(255,255,255,0.45);}
+.lg-glass-val{font-size:11px;font-weight:500;}
+.lg-quote{position:absolute;bottom:36px;left:40px;right:40px;color:rgba(255,255,255,0.55);font-size:12px;line-height:1.6;}
+.lg-quote b{color:rgba(255,255,255,0.85);font-weight:500;}
+.lg-2fa-overlay{display:none;position:absolute;inset:0;background:rgba(255,255,255,0.97);align-items:center;justify-content:center;z-index:10;}
+[data-mode="dark"] .lg-2fa-overlay{background:rgba(26,26,25,0.97);}
+.lg-2fa-overlay.show{display:flex;}
+.lg-2fa-box{width:320px;text-align:center;}
+.lg-2fa-icon{width:50px;height:50px;border-radius:50%;background:var(--bg-accent);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.lg-2fa-title{font-size:16px;font-weight:500;color:var(--text-primary);margin-bottom:6px;}
+.lg-2fa-sub{font-size:12px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6;}
+.lg-otp-row{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+.lg-otp-box{width:42px;height:48px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--fill-field);font-size:18px;text-align:center;color:var(--text-primary);outline:none;}
+.lg-otp-box:focus{border-color:var(--border-accent);box-shadow:0 0 0 2px var(--bg-accent);}
+.lg-2fa-resend{font-size:12px;color:var(--text-muted);}
+.lg-2fa-resend span{color:var(--text-accent);cursor:pointer;}
+.lg-relative{position:relative;}
+</style>
+
+<h2 class="sr-only">Mockup halaman login admin web KasBon dengan form email password, opsi ingat saya, dan verifikasi dua langkah via OTP</h2>
+
+<div class="lg-relative">
+<div class="lg-wrap">
+  <div class="lg-left">
+    <div class="lg-brand">
+      <div class="lg-brand-icon"><i class="ti ti-home" style="font-size:18px" aria-hidden="true"></i></div>
+      <span class="lg-brand-name">KasBon Admin</span>
+    </div>
+
+    <div class="lg-title">Masuk ke dashboard</div>
+    <div class="lg-sub">Kelola statistik dan pengaturan keuangan keluarga Bos dari sini.</div>
+
+    <div class="lg-error" id="lg-error">
+      <i class="ti ti-alert-circle" style="font-size:15px" aria-hidden="true"></i>
+      <span>Email atau password salah. Coba lagi.</span>
+    </div>
+
+    <div class="lg-field-group">
+      <label class="lg-label">Email</label>
+      <div class="lg-input-wrap">
+        <i class="ti ti-mail lg-input-icon" aria-hidden="true"></i>
+        <input type="email" class="lg-input" placeholder="nama@email.com" id="lg-email"/>
+      </div>
+    </div>
+
+    <div class="lg-field-group">
+      <label class="lg-label">Password</label>
+      <div class="lg-input-wrap">
+        <i class="ti ti-lock lg-input-icon" aria-hidden="true"></i>
+        <input type="password" class="lg-input" placeholder="Masukkan password" id="lg-pass"/>
+        <i class="ti ti-eye lg-input-eye" id="eye-icon" onclick="togglePass()" aria-label="Tampilkan password"></i>
+      </div>
+    </div>
+
+    <div class="lg-row-between">
+      <div class="lg-remember" onclick="toggleRemember(this)">
+        <div class="lg-checkbox" id="remember-box"></div>
+        <span>Ingat saya</span>
+      </div>
+      <span class="lg-forgot" onclick="sendPrompt('Bagaimana flow lupa password untuk admin KasBon?')">Lupa password?</span>
+    </div>
+
+    <button class="lg-submit" onclick="doLogin()">
+      <i class="ti ti-login-2" style="font-size:15px" aria-hidden="true"></i> Masuk
+    </button>
+
+    <div class="lg-divider">
+      <div class="lg-divider-line"></div>
+      <span class="lg-divider-txt">atau</span>
+      <div class="lg-divider-line"></div>
+    </div>
+
+    <div class="lg-alt-row">
+      <button class="lg-alt-btn"><i class="ti ti-brand-google" style="font-size:15px" aria-hidden="true"></i> Google</button>
+      <button class="lg-alt-btn"><i class="ti ti-fingerprint" style="font-size:15px" aria-hidden="true"></i> Biometrik</button>
+    </div>
+
+    <div class="lg-footer">Belum punya akses admin? <a onclick="sendPrompt('Bagaimana flow undang admin baru ke KasBon Web Admin?')">Hubungi pemilik keluarga</a></div>
+  </div>
+
+  <div class="lg-right">
+    <div class="lg-glass-card">
+      <div class="lg-glass-lbl">Total saldo keluarga</div>
+      <div class="lg-glass-amt">Rp 26.420.000</div>
+      <div class="lg-glass-row">
+        <div class="lg-glass-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-home" style="font-size:14px;color:#F5C842" aria-hidden="true"></i></div>
+        <div class="lg-glass-info"><div class="lg-glass-name">Kas Keluarga</div><div class="lg-glass-sub">Dompet global</div></div>
+        <div class="lg-glass-val" style="color:#F5C842">Rp 4,2jt</div>
+      </div>
+      <div class="lg-glass-row">
+        <div class="lg-glass-icon" style="background:rgba(124,111,247,.15)"><i class="ti ti-shopping-cart" style="font-size:14px;color:#9085E9" aria-hidden="true"></i></div>
+        <div class="lg-glass-info"><div class="lg-glass-name">Usaha Cimol</div><div class="lg-glass-sub">83% target tercapai</div></div>
+        <div class="lg-glass-val" style="color:#9085E9">Rp 2,2jt</div>
+      </div>
+      <div class="lg-glass-row">
+        <div class="lg-glass-icon" style="background:rgba(45,212,164,.15)"><i class="ti ti-shield" style="font-size:14px;color:#5DCAA5" aria-hidden="true"></i></div>
+        <div class="lg-glass-info"><div class="lg-glass-name">Dana Darurat</div><div class="lg-glass-sub">62% target tercapai</div></div>
+        <div class="lg-glass-val" style="color:#5DCAA5">Rp 8jt</div>
+      </div>
+    </div>
+    <div class="lg-quote">Dipantau dan dikelola bersama oleh <b>3 anggota keluarga</b>, sinkron real-time dari mana saja.</div>
+  </div>
+
+  <div class="lg-2fa-overlay" id="overlay-2fa">
+    <div class="lg-2fa-box">
+      <div class="lg-2fa-icon"><i class="ti ti-shield-lock" style="font-size:22px;color:var(--text-accent)" aria-hidden="true"></i></div>
+      <div class="lg-2fa-title">Verifikasi dua langkah</div>
+      <div class="lg-2fa-sub">Kode 6 digit sudah dikirim ke email <b>b***@gmail.com</b>. Masukkan untuk lanjut.</div>
+      <div class="lg-otp-row">
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,0)"/>
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,1)"/>
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,2)"/>
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,3)"/>
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,4)"/>
+        <input type="text" maxlength="1" class="lg-otp-box" oninput="otpNext(this,5)"/>
+      </div>
+      <button class="lg-submit" onclick="verifyOtp()">Verifikasi & masuk</button>
+      <div class="lg-2fa-resend">Tidak menerima kode? <span onclick="resendOtp()">Kirim ulang</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+let remembered = false;
+
+function togglePass() {
+  const inp = document.getElementById('lg-pass');
+  const icon = document.getElementById('eye-icon');
+  if (inp.type === 'password') { inp.type = 'text'; icon.className = 'ti ti-eye-off lg-input-eye'; }
+  else { inp.type = 'password'; icon.className = 'ti ti-eye lg-input-eye'; }
+}
+
+function toggleRemember(el) {
+  remembered = !remembered;
+  const box = document.getElementById('remember-box');
+  if (remembered) { box.classList.add('checked'); box.innerHTML = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'; }
+  else { box.classList.remove('checked'); box.innerHTML = ''; }
+}
+
+function doLogin() {
+  const email = document.getElementById('lg-email').value.trim();
+  const pass = document.getElementById('lg-pass').value.trim();
+  const err = document.getElementById('lg-error');
+  if (!email || !pass) {
+    err.classList.add('show');
+    err.querySelector('span').textContent = 'Lengkapi email dan password terlebih dahulu.';
+    return;
+  }
+  err.classList.remove('show');
+  document.getElementById('overlay-2fa').classList.add('show');
+  setTimeout(() => { document.querySelector('.lg-otp-box').focus(); }, 100);
+}
+
+function otpNext(el, idx) {
+  if (el.value && idx < 5) {
+    const inputs = document.querySelectorAll('.lg-otp-box');
+    inputs[idx+1].focus();
+  }
+}
+
+function verifyOtp() {
+  const inputs = document.querySelectorAll('.lg-otp-box');
+  let filled = true;
+  inputs.forEach(i => { if (!i.value) filled = false; });
+  if (!filled) {
+    inputs[0].style.borderColor = 'var(--border-danger)';
+    setTimeout(() => { inputs[0].style.borderColor = ''; }, 800);
+    return;
+  }
+  const btn = document.querySelector('.lg-2fa-box .lg-submit');
+  btn.innerHTML = '<i class="ti ti-check" style="font-size:15px"></i> Berhasil, mengalihkan...';
+  btn.style.background = 'var(--fill-success)';
+  setTimeout(() => { document.getElementById('overlay-2fa').classList.remove('show'); }, 1400);
+}
+
+function resendOtp() {
+  const sub = document.querySelector('.lg-2fa-sub');
+  const orig = sub.innerHTML;
+  sub.innerHTML = 'Kode baru sudah dikirim ulang ke email kamu.';
+  setTimeout(() => { sub.innerHTML = orig; }, 2000);
+}
+</script>

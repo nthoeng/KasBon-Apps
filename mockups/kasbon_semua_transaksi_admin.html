@@ -1,0 +1,200 @@
+
+<style>
+*{box-sizing:border-box;}
+.tx-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:640px;font-size:13px;}
+.tx-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.tx-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.tx-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.tx-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.tx-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.tx-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.tx-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.tx-content{flex:1;padding:22px 26px;overflow:auto;}
+.tx-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.tx-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.tx-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.tx-export-btn{height:36px;padding:0 14px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12px;font-weight:500;border:none;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.tx-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.tx-search{flex:1;min-width:180px;height:36px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--fill-field);display:flex;align-items:center;gap:8px;padding:0 12px;}
+.tx-search input{border:none;background:transparent;outline:none;flex:1;font-size:12px;color:var(--text-primary);}
+.tx-filter-chip{height:36px;padding:0 12px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:12px;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.tx-filter-chip.active{background:var(--text-primary);color:var(--surface-2);border-color:var(--text-primary);}
+.tx-summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.tx-sum-card{background:var(--surface-1);border-radius:8px;padding:11px 14px;}
+.tx-sum-lbl{font-size:11px;color:var(--text-secondary);margin-bottom:4px;}
+.tx-sum-val{font-size:16px;font-weight:500;}
+.tx-table-wrap{border:0.5px solid var(--border);border-radius:10px;overflow:hidden;}
+.tx-table{width:100%;border-collapse:collapse;table-layout:fixed;}
+.tx-table th{text-align:left;font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;background:var(--surface-1);border-bottom:0.5px solid var(--border);}
+.tx-table td{padding:10px 12px;border-bottom:0.5px solid var(--border);font-size:12px;color:var(--text-primary);vertical-align:middle;}
+.tx-table tr:last-child td{border-bottom:none;}
+.tx-table tr:hover td{background:var(--surface-1);}
+.tx-code{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);}
+.tx-badge{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:500;display:inline-block;}
+.bg-prj{background:rgba(124,111,247,.13);color:#534AB7;}
+.bg-trx{background:var(--surface-1);color:var(--text-secondary);}
+.bg-bsn{background:rgba(245,200,66,.15);color:#7A5A0C;}
+.bg-trf{background:rgba(74,144,217,.13);color:#185FA5;}
+.bg-sav{background:rgba(45,212,164,.13);color:#0F6E56;}
+.tx-amt-in{color:var(--text-success);font-weight:500;}
+.tx-amt-out{color:var(--text-danger);font-weight:500;}
+.tx-user-cell{display:flex;align-items:center;gap:7px;}
+.tx-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0;}
+.tx-status-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px;}
+.tx-row-action{color:var(--text-muted);cursor:pointer;font-size:14px;}
+.tx-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+.tx-foot-info{font-size:12px;color:var(--text-secondary);}
+.tx-pagination{display:flex;gap:4px;}
+.tx-page-btn{width:30px;height:30px;border-radius:7px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.tx-page-btn.active{background:var(--text-primary);color:var(--surface-2);border-color:var(--text-primary);}
+</style>
+
+<h2 class="sr-only">Mockup tabel admin Semua Transaksi KasBon di web, dengan filter, pencarian, ringkasan, dan paginasi</h2>
+
+<div class="tx-wrap">
+  <div class="tx-sidebar">
+    <div class="tx-brand">
+      <div class="tx-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="tx-brand-name">KasBon Admin</span>
+    </div>
+    <div class="tx-nav-sect">Utama</div>
+    <div class="tx-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="tx-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="tx-nav-item active"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="tx-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="tx-nav-sect">Keluarga</div>
+    <div class="tx-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="tx-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="tx-nav-sect">Sistem</div>
+    <div class="tx-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="tx-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="tx-content">
+    <div class="tx-header">
+      <div>
+        <h1 class="tx-h1">Semua transaksi</h1>
+        <div class="tx-h-sub">1.284 transaksi tercatat dari seluruh anggota keluarga</div>
+      </div>
+      <button class="tx-export-btn"><i class="ti ti-download" style="font-size:14px" aria-hidden="true"></i> Export laporan</button>
+    </div>
+
+    <div class="tx-summary-row">
+      <div class="tx-sum-card">
+        <div class="tx-sum-lbl">Total pemasukan (30 hari)</div>
+        <div class="tx-sum-val" style="color:var(--text-success)">Rp 12.840.000</div>
+      </div>
+      <div class="tx-sum-card">
+        <div class="tx-sum-lbl">Total pengeluaran (30 hari)</div>
+        <div class="tx-sum-val" style="color:var(--text-danger)">Rp 9.120.000</div>
+      </div>
+      <div class="tx-sum-card">
+        <div class="tx-sum-lbl">Transaksi project (PRJ-)</div>
+        <div class="tx-sum-val" style="color:#534AB7">187 transaksi</div>
+      </div>
+    </div>
+
+    <div class="tx-toolbar">
+      <div class="tx-search">
+        <i class="ti ti-search" style="font-size:14px;color:var(--text-muted)" aria-hidden="true"></i>
+        <input type="text" placeholder="Cari kode, catatan, atau dompet..." id="tx-search-input" oninput="filterTable()"/>
+      </div>
+      <button class="tx-filter-chip active" onclick="setTypeFilter('all',this)">Semua tipe</button>
+      <button class="tx-filter-chip" onclick="setTypeFilter('PRJ',this)">PRJ-</button>
+      <button class="tx-filter-chip" onclick="setTypeFilter('TRX',this)">TRX-</button>
+      <button class="tx-filter-chip" onclick="setTypeFilter('TRF',this)">TRF-</button>
+      <button class="tx-filter-chip"><i class="ti ti-calendar" style="font-size:13px" aria-hidden="true"></i> 30 hari</button>
+    </div>
+
+    <div class="tx-table-wrap">
+      <table class="tx-table">
+        <colgroup>
+          <col style="width:13%"><col style="width:12%"><col style="width:9%"><col style="width:15%"><col style="width:13%"><col style="width:14%"><col style="width:11%"><col style="width:8%"><col style="width:5%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Kode</th><th>Tanggal</th><th>Tipe</th><th>Dompet</th><th>Dicatat oleh</th><th>Kategori</th><th>Nominal</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tx-tbody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tx-footer">
+      <div class="tx-foot-info">Menampilkan 1-8 dari 1.284 transaksi</div>
+      <div class="tx-pagination">
+        <div class="tx-page-btn"><i class="ti ti-chevron-left" style="font-size:13px" aria-hidden="true"></i></div>
+        <div class="tx-page-btn active">1</div>
+        <div class="tx-page-btn">2</div>
+        <div class="tx-page-btn">3</div>
+        <div class="tx-page-btn">...</div>
+        <div class="tx-page-btn">161</div>
+        <div class="tx-page-btn"><i class="ti ti-chevron-right" style="font-size:13px" aria-hidden="true"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const transactions = [
+  {code:'PRJ-20250612-001',date:'12 Jun 2025',time:'14:32',type:'PRJ',wallet:'Kas Usaha Cimol',user:'Bos',userInit:'B',userColor:'gold',cat:'Pemasukan Usaha',amount:420000,dir:'in',status:'ok'},
+  {code:'TRX-20250612-088',date:'12 Jun 2025',time:'12:10',type:'TRX',wallet:'Dompet Pribadi Bos',user:'Bos',userInit:'B',userColor:'gold',cat:'Makan & Minum',amount:75000,dir:'out',status:'ok'},
+  {code:'PRJ-20250612-007',date:'12 Jun 2025',time:'09:15',type:'PRJ',wallet:'Kas Usaha Cimol',user:'Istri',userInit:'I',userColor:'mint',cat:'Modal Bahan Baku',amount:185000,dir:'out',status:'ok'},
+  {code:'TRF-20250611-017',date:'11 Jun 2025',time:'19:42',type:'TRF',wallet:'BCA → GoPay',user:'Bos',userInit:'B',userColor:'gold',cat:'Transfer Dompet',amount:500000,dir:'out',status:'ok'},
+  {code:'PRJ-20250611-006',date:'11 Jun 2025',time:'16:20',type:'PRJ',wallet:'Kas Usaha Cimol',user:'Istri',userInit:'I',userColor:'mint',cat:'Order Online',amount:850000,dir:'in',status:'ok'},
+  {code:'TRX-20250611-087',date:'11 Jun 2025',time:'10:05',type:'TRX',wallet:'Kas Keluarga',user:'Andi',userInit:'A',userColor:'violet',cat:'Uang Saku',amount:50000,dir:'out',status:'pending'},
+  {code:'SAV-20250610-005',date:'10 Jun 2025',time:'21:00',type:'SAV',wallet:'Tabungan Mobil',user:'Bos',userInit:'B',userColor:'gold',cat:'Setoran Tabungan',amount:1000000,dir:'in',status:'ok'},
+  {code:'TRX-20250610-086',date:'10 Jun 2025',time:'08:30',type:'TRX',wallet:'Kas Keluarga',user:'Istri',userInit:'I',userColor:'mint',cat:'Belanja Bulanan',amount:620000,dir:'out',status:'flagged'},
+];
+
+const typeBadge = { PRJ:'bg-prj', TRX:'bg-trx', TRF:'bg-trf', SAV:'bg-sav', BSN:'bg-bsn' };
+const avatarColor = { gold:'background:rgba(245,200,66,.2);color:#7A5A0C', mint:'background:rgba(45,212,164,.2);color:#0F6E56', violet:'background:rgba(124,111,247,.2);color:#534AB7' };
+const statusInfo = { ok:{c:'#1baf7a',l:'Terkonfirmasi'}, pending:{c:'#eda100',l:'Menunggu'}, flagged:{c:'#e34948',l:'Ditandai'} };
+
+let currentTypeFilter = 'all';
+
+function renderTable() {
+  const q = (document.getElementById('tx-search-input').value || '').toLowerCase().trim();
+  const tbody = document.getElementById('tx-tbody');
+  tbody.innerHTML = '';
+  const filtered = transactions.filter(t => {
+    const matchType = currentTypeFilter === 'all' || t.type === currentTypeFilter;
+    const matchQ = !q || t.code.toLowerCase().includes(q) || t.wallet.toLowerCase().includes(q) || t.cat.toLowerCase().includes(q) || t.user.toLowerCase().includes(q);
+    return matchType && matchQ;
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text-muted)">Tidak ada transaksi yang cocok</td></tr>`;
+    return;
+  }
+
+  filtered.forEach(t => {
+    const st = statusInfo[t.status];
+    const amtStr = (t.dir === 'in' ? '+ Rp ' : '- Rp ') + t.amount.toLocaleString('id-ID');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="tx-code">${t.code}</td>
+      <td>${t.date}<br><span style="color:var(--text-muted);font-size:10px">${t.time}</span></td>
+      <td><span class="tx-badge ${typeBadge[t.type]}">${t.type}-</span></td>
+      <td>${t.wallet}</td>
+      <td><div class="tx-user-cell"><div class="tx-avatar" style="${avatarColor[t.userColor]}">${t.userInit}</div>${t.user}</div></td>
+      <td>${t.cat}</td>
+      <td class="${t.dir === 'in' ? 'tx-amt-in' : 'tx-amt-out'}">${amtStr}</td>
+      <td><span class="tx-status-dot" style="background:${st.c}"></span>${st.l}</td>
+      <td><i class="ti ti-dots-vertical tx-row-action" aria-label="Aksi lainnya"></i></td>`;
+    tbody.appendChild(row);
+  });
+}
+
+function setTypeFilter(type, btn) {
+  currentTypeFilter = type;
+  document.querySelectorAll('.tx-filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filterTable() { renderTable(); }
+
+renderTable();
+</script>

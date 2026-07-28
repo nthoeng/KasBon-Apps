@@ -1,0 +1,357 @@
+
+<style>
+*{box-sizing:border-box;}
+.dw-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:680px;font-size:13px;}
+.dw-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.dw-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.dw-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.dw-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.dw-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.dw-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.dw-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.dw-content{flex:1;padding:22px 26px;overflow:auto;}
+.dw-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.dw-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.dw-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.dw-add-btn{height:36px;padding:0 14px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12px;font-weight:500;border:none;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.dw-tabs{display:flex;gap:4px;border-bottom:0.5px solid var(--border);margin-bottom:18px;}
+.dw-tab{padding:9px 4px;margin-right:18px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;}
+.dw-tab.active{color:var(--text-primary);font-weight:500;border-bottom-color:var(--text-accent);}
+.dw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.dw-card{background:var(--surface-1);border-radius:10px;padding:15px;}
+.dw-card-top{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.dw-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.dw-w-info{flex:1;min-width:0;}
+.dw-w-name{font-size:13.5px;font-weight:500;color:var(--text-primary);}
+.dw-w-type{font-size:10.5px;color:var(--text-muted);margin-top:1px;}
+.dw-w-bal{font-size:14px;font-weight:500;color:var(--text-primary);text-align:right;flex-shrink:0;}
+.dw-type-badge{padding:2px 8px;border-radius:6px;font-size:9.5px;font-weight:500;display:inline-block;margin-top:13px;margin-bottom:10px;}
+.bg-global{background:rgba(245,200,66,.15);color:#7A5A0C;}
+.bg-pribadi{background:rgba(45,212,164,.13);color:#0F6E56;}
+.bg-project{background:rgba(124,111,247,.13);color:#534AB7;}
+.bg-bank{background:rgba(74,144,217,.13);color:#185FA5;}
+.dw-access-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.dw-access-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.dw-mini-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0;}
+.dw-access-name{font-size:11.5px;color:var(--text-primary);flex:1;}
+.dw-access-level{padding:2px 7px;border-radius:6px;font-size:9.5px;font-weight:500;}
+.lvl-full{background:rgba(245,200,66,.13);color:#7A5A0C;}
+.lvl-view{background:rgba(45,212,164,.13);color:#0F6E56;}
+.lvl-none{background:var(--surface-2);color:var(--text-muted);}
+.dw-card-footer{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border);}
+.dw-act-btn{flex:1;height:31px;border-radius:7px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:11px;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;}
+.dw-act-btn:hover{background:var(--surface-2);}
+
+.dw-modal-overlay{position:absolute;inset:0;background:rgba(20,20,18,0.45);display:none;align-items:center;justify-content:center;z-index:30;}
+.dw-modal-overlay.show{display:flex;}
+.dw-modal-box{width:380px;background:var(--surface-2);border-radius:14px;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,.18);}
+.dw-modal-title{font-size:15px;font-weight:500;color:var(--text-primary);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.dw-modal-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.dw-modal-member{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:0.5px solid var(--border);}
+.dw-modal-member:last-child{border-bottom:none;}
+.dw-modal-m-info{flex:1;}
+.dw-modal-m-name{font-size:12.5px;font-weight:500;color:var(--text-primary);}
+.dw-access-select{display:flex;gap:4px;}
+.dw-access-pill{padding:5px 9px;border-radius:7px;font-size:10.5px;border:1.5px solid var(--border);color:var(--text-secondary);cursor:pointer;}
+.dw-access-pill.on-gold{border-color:#eda100;background:rgba(245,200,66,.15);color:#7A5A0C;}
+.dw-access-pill.on-mint{border-color:#1baf7a;background:rgba(45,212,164,.13);color:#0F6E56;}
+.dw-access-pill.on-gray{border-color:var(--text-muted);background:var(--surface-1);color:var(--text-secondary);}
+.dw-modal-btns{display:flex;gap:8px;margin-top:18px;}
+.dw-mbtn-cancel{flex:1;height:38px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:12.5px;cursor:pointer;}
+.dw-mbtn-save{flex:1;height:38px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12.5px;font-weight:500;border:none;cursor:pointer;}
+.dw-toast{position:absolute;top:18px;right:26px;background:var(--bg-success);border:0.5px solid var(--border-success);border-radius:9px;padding:10px 14px;display:none;align-items:center;gap:8px;font-size:12px;color:var(--text-success);z-index:40;}
+.dw-toast.show{display:flex;}
+.dw-relative{position:relative;}
+</style>
+
+<h2 class="sr-only">Mockup halaman Dompet dan Akses di web admin KasBon, menampilkan kartu semua dompet keluarga beserta level akses tiap anggota dan modal pengaturan akses</h2>
+
+<div class="dw-relative">
+<div class="dw-wrap">
+  <div class="dw-sidebar">
+    <div class="dw-brand">
+      <div class="dw-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="dw-brand-name">KasBon Admin</span>
+    </div>
+    <div class="dw-nav-sect">Utama</div>
+    <div class="dw-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="dw-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="dw-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="dw-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="dw-nav-sect">Keluarga</div>
+    <div class="dw-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="dw-nav-item active"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="dw-nav-sect">Sistem</div>
+    <div class="dw-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="dw-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="dw-content">
+    <div class="dw-header">
+      <div>
+        <h1 class="dw-h1">Dompet & akses</h1>
+        <div class="dw-h-sub">8 dompet terdaftar · kelola siapa bisa lihat dan catat di tiap dompet</div>
+      </div>
+      <button class="dw-add-btn"><i class="ti ti-plus" style="font-size:14px" aria-hidden="true"></i> Tambah dompet</button>
+    </div>
+
+    <div class="dw-tabs">
+      <div class="dw-tab active" onclick="setDwTab('all',this)">Semua (8)</div>
+      <div class="dw-tab" onclick="setDwTab('global',this)">Global (2)</div>
+      <div class="dw-tab" onclick="setDwTab('pribadi',this)">Pribadi (2)</div>
+      <div class="dw-tab" onclick="setDwTab('project',this)">Project (2)</div>
+      <div class="dw-tab" onclick="setDwTab('bank',this)">Bank & E-wallet (2)</div>
+    </div>
+
+    <div class="dw-grid">
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(245,200,66,.15)">🏠</div>
+          <div class="dw-w-info"><div class="dw-w-name">Kas Keluarga</div><div class="dw-w-type">Dibuat oleh Bos</div></div>
+          <div class="dw-w-bal">Rp 4,25jt</div>
+        </div>
+        <span class="dw-type-badge bg-global">Dompet Global</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <span class="dw-access-name">Istri</span>
+          <span class="dw-access-level lvl-full">Lihat & catat</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <span class="dw-access-name">Andi</span>
+          <span class="dw-access-level lvl-view">Lihat saja</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('Kas Keluarga','🏠','rgba(245,200,66,.15)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(245,200,66,.15)">🛡</div>
+          <div class="dw-w-info"><div class="dw-w-name">Dana Darurat</div><div class="dw-w-type">Dibuat oleh Bos</div></div>
+          <div class="dw-w-bal">Rp 8,00jt</div>
+        </div>
+        <span class="dw-type-badge bg-global">Dompet Global</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <span class="dw-access-name">Istri</span>
+          <span class="dw-access-level lvl-full">Lihat & catat</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <span class="dw-access-name">Andi</span>
+          <span class="dw-access-level lvl-none">Tanpa akses</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('Dana Darurat','🛡','rgba(245,200,66,.15)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(45,212,164,.15)">👔</div>
+          <div class="dw-w-info"><div class="dw-w-name">Dompet Bos</div><div class="dw-w-type">Milik Bos</div></div>
+          <div class="dw-w-bal">Rp 1,32jt</div>
+        </div>
+        <span class="dw-type-badge bg-pribadi">Dompet Pribadi</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <span class="dw-access-name" style="color:var(--text-muted)">Anggota lain tidak punya akses</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" style="opacity:.5;pointer-events:none"><i class="ti ti-lock" style="font-size:12px" aria-hidden="true"></i> Pribadi terkunci</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(45,212,164,.15)">👜</div>
+          <div class="dw-w-info"><div class="dw-w-name">Dompet Istri</div><div class="dw-w-type">Milik Istri</div></div>
+          <div class="dw-w-bal">Rp 870rb</div>
+        </div>
+        <span class="dw-type-badge bg-pribadi">Dompet Pribadi</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <span class="dw-access-name">Istri</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <span class="dw-access-name" style="color:var(--text-muted)">Anggota lain tidak punya akses</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" style="opacity:.5;pointer-events:none"><i class="ti ti-lock" style="font-size:12px" aria-hidden="true"></i> Pribadi terkunci</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(124,111,247,.15)">🛒</div>
+          <div class="dw-w-info"><div class="dw-w-name">Kas Usaha Cimol</div><div class="dw-w-type">Project: Usaha Cimol</div></div>
+          <div class="dw-w-bal">Rp 2,18jt</div>
+        </div>
+        <span class="dw-type-badge bg-project">Dompet Project</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <span class="dw-access-name">Istri</span>
+          <span class="dw-access-level lvl-full">Lihat & catat</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('Kas Usaha Cimol','🛒','rgba(124,111,247,.15)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(124,111,247,.15)">🚗</div>
+          <div class="dw-w-info"><div class="dw-w-name">Tabungan Mobil</div><div class="dw-w-type">Project: Tabungan Mobil</div></div>
+          <div class="dw-w-bal">Rp 5,60jt</div>
+        </div>
+        <span class="dw-type-badge bg-project">Dompet Project</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <span class="dw-access-name">Istri</span>
+          <span class="dw-access-level lvl-view">Lihat saja</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('Tabungan Mobil','🚗','rgba(124,111,247,.15)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(74,144,217,.13)">🏦</div>
+          <div class="dw-w-info"><div class="dw-w-name">BCA - 3891</div><div class="dw-w-type">Rekening bank</div></div>
+          <div class="dw-w-bal">Rp 12,5jt</div>
+        </div>
+        <span class="dw-type-badge bg-bank">Bank & E-wallet</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('BCA - 3891','🏦','rgba(74,144,217,.13)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-card-top">
+          <div class="dw-icon" style="background:rgba(74,144,217,.13)">💚</div>
+          <div class="dw-w-info"><div class="dw-w-name">GoPay</div><div class="dw-w-type">E-wallet</div></div>
+          <div class="dw-w-bal">Rp 245rb</div>
+        </div>
+        <span class="dw-type-badge bg-bank">Bank & E-wallet</span>
+        <div class="dw-access-lbl">Akses anggota</div>
+        <div class="dw-access-row">
+          <div class="dw-mini-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <span class="dw-access-name">Bos</span>
+          <span class="dw-access-level lvl-full">Pemilik</span>
+        </div>
+        <div class="dw-card-footer">
+          <div class="dw-act-btn" onclick="openAccessModal('GoPay','💚','rgba(74,144,217,.13)')"><i class="ti ti-settings" style="font-size:12px" aria-hidden="true"></i> Atur akses</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="dw-modal-overlay" id="access-modal">
+    <div class="dw-modal-box">
+      <div class="dw-modal-title">
+        <div class="dw-modal-icon" id="modal-icon-bg">🏠</div>
+        <span id="modal-wallet-name">Kas Keluarga</span>
+      </div>
+      <div class="dw-modal-member">
+        <div class="dw-mini-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56;width:28px;height:28px;font-size:11px">I</div>
+        <div class="dw-modal-m-info"><div class="dw-modal-m-name">Istri</div></div>
+        <div class="dw-access-select">
+          <div class="dw-access-pill on-gold" onclick="setPill(this,'full')">Catat</div>
+          <div class="dw-access-pill" onclick="setPill(this,'view')">Lihat</div>
+          <div class="dw-access-pill" onclick="setPill(this,'none')">Tidak</div>
+        </div>
+      </div>
+      <div class="dw-modal-member">
+        <div class="dw-mini-avatar" style="background:rgba(124,111,247,.2);color:#534AB7;width:28px;height:28px;font-size:11px">A</div>
+        <div class="dw-modal-m-info"><div class="dw-modal-m-name">Andi</div></div>
+        <div class="dw-access-select">
+          <div class="dw-access-pill" onclick="setPill(this,'full')">Catat</div>
+          <div class="dw-access-pill on-mint" onclick="setPill(this,'view')">Lihat</div>
+          <div class="dw-access-pill" onclick="setPill(this,'none')">Tidak</div>
+        </div>
+      </div>
+      <div class="dw-modal-btns">
+        <button class="dw-mbtn-cancel" onclick="closeAccessModal()">Batal</button>
+        <button class="dw-mbtn-save" onclick="saveAccessModal()">Simpan perubahan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-toast" id="dw-toast">
+    <i class="ti ti-circle-check" style="font-size:15px" aria-hidden="true"></i>
+    <span>Akses dompet berhasil diperbarui</span>
+  </div>
+</div>
+</div>
+
+<script>
+function setDwTab(name, el) {
+  document.querySelectorAll('.dw-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openAccessModal(name, icon, bg) {
+  document.getElementById('modal-wallet-name').textContent = name;
+  document.getElementById('modal-icon-bg').textContent = icon;
+  document.getElementById('modal-icon-bg').style.background = bg;
+  document.getElementById('access-modal').classList.add('show');
+}
+function closeAccessModal() { document.getElementById('access-modal').classList.remove('show'); }
+
+function setPill(el, level) {
+  const group = el.parentElement;
+  group.querySelectorAll('.dw-access-pill').forEach(p => p.className = 'dw-access-pill');
+  if (level === 'full') el.classList.add('on-gold');
+  else if (level === 'view') el.classList.add('on-mint');
+  else el.classList.add('on-gray');
+}
+
+function saveAccessModal() {
+  closeAccessModal();
+  const t = document.getElementById('dw-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+</script>

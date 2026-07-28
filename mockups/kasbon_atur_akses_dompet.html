@@ -1,0 +1,208 @@
+
+<style>
+:root{--bg:#0A1628;--sf:#111F35;--sf2:#152338;--bd:#1E3050;--gold:#F5C842;--mint:#2DD4A4;--coral:#FF6B6B;--violet:#7C6FF7;--blue:#4A90D9;--t1:#E8EDF5;--t2:#8AA0BE;--t3:#3E5878;}
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{background:var(--surface-1);border-radius:12px;padding:12px;}
+.phone{background:var(--bg);border-radius:26px;border:2px solid #1E3050;overflow:hidden;max-width:340px;margin:0 auto;}
+.notch{width:70px;height:5px;background:#1E3050;border-radius:3px;margin:10px auto 12px;}
+.pin{padding:0 14px 16px;}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.ibtn{width:34px;height:34px;border-radius:50%;background:#1A2D47;border:1px solid #253E60;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ptitle{font-size:14px;font-weight:500;color:var(--t1);flex:1;text-align:center;}
+.wallet-banner{background:#152338;border:1px solid #1E3050;border-radius:12px;padding:11px 12px;display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.wb-icon{width:38px;height:38px;border-radius:10px;background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.wb-info{flex:1;}
+.wb-name{font-size:13px;font-weight:500;color:var(--t1);}
+.wb-bal{font-size:11px;color:var(--t2);margin-top:1px;}
+.wb-badge{padding:3px 8px;border-radius:8px;font-size:10px;font-weight:500;background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2);flex-shrink:0;}
+.sect-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-weight:500;margin-bottom:8px;}
+.member-card{background:#152338;border:1px solid #1E3050;border-radius:12px;padding:12px;margin-bottom:8px;}
+.member-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;}
+.av-gold{background:rgba(245,200,66,.2);border:1px solid rgba(245,200,66,.3);color:var(--gold);}
+.av-mint{background:rgba(45,212,164,.2);border:1px solid rgba(45,212,164,.3);color:var(--mint);}
+.av-violet{background:rgba(124,111,247,.2);border:1px solid rgba(124,111,247,.3);color:var(--violet);}
+.m-info{flex:1;}
+.m-name{font-size:13px;font-weight:500;color:var(--t1);}
+.m-role{font-size:10px;color:var(--t2);margin-top:1px;}
+.owner-tag{padding:2px 7px;border-radius:8px;font-size:9px;font-weight:500;background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2);flex-shrink:0;}
+.access-options{display:flex;flex-direction:column;gap:6px;}
+.access-opt{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;border:1.5px solid #1E3050;cursor:pointer;}
+.access-opt.selected{border-color:rgba(245,200,66,.45);background:rgba(245,200,66,.06);}
+.access-opt.selected.mint-sel{border-color:rgba(45,212,164,.45);background:rgba(45,212,164,.06);}
+.access-opt.selected.gray-sel{border-color:rgba(90,120,144,.4);background:rgba(90,120,144,.06);}
+.ao-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ao-text{flex:1;}
+.ao-title{font-size:11px;font-weight:500;color:var(--t1);}
+.ao-sub{font-size:9.5px;color:var(--t2);margin-top:1px;}
+.radio-sm{width:16px;height:16px;border-radius:50%;border:1.5px solid #253E60;flex-shrink:0;}
+.radio-sm.on-gold{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 0 4.5px,transparent 4.5px);}
+.radio-sm.on-mint{border-color:var(--mint);background:radial-gradient(circle,var(--mint) 0 4.5px,transparent 4.5px);}
+.radio-sm.on-gray{border-color:var(--t2);background:radial-gradient(circle,var(--t2) 0 4.5px,transparent 4.5px);}
+.disabled-card{opacity:.55;}
+.locked-note{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--t3);margin-top:8px;padding-top:8px;border-top:1px solid #1A2D47;}
+.invite-card{background:rgba(124,111,247,.06);border:1.5px dashed rgba(124,111,247,.3);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;margin-top:6px;cursor:pointer;}
+.invite-icon{width:34px;height:34px;border-radius:50%;background:rgba(124,111,247,.15);border:1px solid rgba(124,111,247,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.invite-text{flex:1;}
+.invite-title{font-size:12px;font-weight:500;color:var(--violet);}
+.invite-sub{font-size:10px;color:var(--t2);margin-top:1px;}
+.summary-strip{display:flex;gap:6px;margin-top:14px;margin-bottom:12px;}
+.sum-chip{flex:1;background:#152338;border:1px solid #1E3050;border-radius:9px;padding:8px;text-align:center;}
+.sum-chip-num{font-size:14px;font-weight:500;}
+.sum-chip-lbl{font-size:9px;color:var(--t2);margin-top:1px;}
+.save-bar{margin-top:6px;}
+.save-btn{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#F5C842,#E8B820);color:#0A1628;font-size:13px;font-weight:500;text-align:center;cursor:pointer;}
+.toast{position:fixed;bottom:0;left:0;right:0;display:none;}
+</style>
+
+<h2 class="sr-only">Mockup interaktif halaman Atur Akses Dompet per Anggota KasBon, dengan tiga level visibilitas per anggota keluarga</h2>
+
+<div class="wrap">
+<div class="phone">
+  <div class="notch"></div>
+  <div class="pin">
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">Atur Akses Anggota</span>
+      <div style="width:34px"></div>
+    </div>
+
+    <div class="wallet-banner">
+      <div class="wb-icon"><i class="ti ti-home" style="font-size:17px;color:#F5C842" aria-hidden="true"></i></div>
+      <div class="wb-info">
+        <div class="wb-name">Kas Keluarga</div>
+        <div class="wb-bal">Rp 4.250.000 · Dompet Global</div>
+      </div>
+      <span class="wb-badge">3 anggota</span>
+    </div>
+
+    <div class="sect-lbl">Atur izin per anggota</div>
+
+    <div class="member-card">
+      <div class="member-head">
+        <div class="avatar av-gold">B</div>
+        <div class="m-info">
+          <div class="m-name">Bos (Saya)</div>
+          <div class="m-role">Admin keluarga · Pembuat dompet</div>
+        </div>
+        <span class="owner-tag">Pemilik</span>
+      </div>
+      <div class="locked-note">
+        <i class="ti ti-lock" style="font-size:11px" aria-hidden="true"></i> Akses pemilik tidak bisa diubah
+      </div>
+    </div>
+
+    <div class="member-card" id="member-istri">
+      <div class="member-head">
+        <div class="avatar av-mint">I</div>
+        <div class="m-info">
+          <div class="m-name">Istri</div>
+          <div class="m-role">Anggota keluarga</div>
+        </div>
+      </div>
+      <div class="access-options" id="opts-istri">
+        <div class="access-opt selected" onclick="selectAccess('istri','full',this)">
+          <div class="ao-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-edit" style="font-size:13px;color:#F5C842" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Bisa lihat & catat</div><div class="ao-sub">Boleh menambah transaksi di dompet ini</div></div>
+          <div class="radio-sm on-gold"></div>
+        </div>
+        <div class="access-opt" onclick="selectAccess('istri','view',this)">
+          <div class="ao-icon" style="background:rgba(45,212,164,.15)"><i class="ti ti-eye" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Bisa lihat saja</div><div class="ao-sub">Hanya bisa memantau, tidak bisa catat</div></div>
+          <div class="radio-sm"></div>
+        </div>
+        <div class="access-opt" onclick="selectAccess('istri','none',this)">
+          <div class="ao-icon" style="background:rgba(90,120,144,.15)"><i class="ti ti-eye-off" style="font-size:13px;color:#8AA0BE" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Tidak ada akses</div><div class="ao-sub">Dompet disembunyikan dari anggota ini</div></div>
+          <div class="radio-sm"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-card" id="member-anak">
+      <div class="member-head">
+        <div class="avatar av-violet">A</div>
+        <div class="m-info">
+          <div class="m-name">Andi (Anak)</div>
+          <div class="m-role">Anggota keluarga · Akun terbatas</div>
+        </div>
+      </div>
+      <div class="access-options" id="opts-anak">
+        <div class="access-opt" onclick="selectAccess('anak','full',this)">
+          <div class="ao-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-edit" style="font-size:13px;color:#F5C842" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Bisa lihat & catat</div><div class="ao-sub">Boleh menambah transaksi di dompet ini</div></div>
+          <div class="radio-sm"></div>
+        </div>
+        <div class="access-opt selected mint-sel" onclick="selectAccess('anak','view',this)">
+          <div class="ao-icon" style="background:rgba(45,212,164,.15)"><i class="ti ti-eye" style="font-size:13px;color:#2DD4A4" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Bisa lihat saja</div><div class="ao-sub">Hanya bisa memantau, tidak bisa catat</div></div>
+          <div class="radio-sm on-mint"></div>
+        </div>
+        <div class="access-opt" onclick="selectAccess('anak','none',this)">
+          <div class="ao-icon" style="background:rgba(90,120,144,.15)"><i class="ti ti-eye-off" style="font-size:13px;color:#8AA0BE" aria-hidden="true"></i></div>
+          <div class="ao-text"><div class="ao-title">Tidak ada akses</div><div class="ao-sub">Dompet disembunyikan dari anggota ini</div></div>
+          <div class="radio-sm"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="invite-card" onclick="sendPrompt('Bagaimana flow mengundang anggota keluarga baru ke KasBon?')">
+      <div class="invite-icon"><i class="ti ti-user-plus" style="font-size:16px;color:#7C6FF7" aria-hidden="true"></i></div>
+      <div class="invite-text">
+        <div class="invite-title">Undang anggota baru</div>
+        <div class="invite-sub">Tambahkan anggota keluarga lain ke KasBon</div>
+      </div>
+    </div>
+
+    <div class="summary-strip">
+      <div class="sum-chip"><div class="sum-chip-num" style="color:var(--gold)" id="sum-full">1</div><div class="sum-chip-lbl">Bisa catat</div></div>
+      <div class="sum-chip"><div class="sum-chip-num" style="color:var(--mint)" id="sum-view">1</div><div class="sum-chip-lbl">Lihat saja</div></div>
+      <div class="sum-chip"><div class="sum-chip-num" style="color:var(--t2)" id="sum-none">0</div><div class="sum-chip-lbl">Tanpa akses</div></div>
+    </div>
+
+    <div class="save-bar">
+      <div class="save-btn" onclick="saveAccess()">Simpan Perubahan Akses</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const state = { istri: 'full', anak: 'view' };
+
+function selectAccess(member, level, el) {
+  state[member] = level;
+  const container = document.getElementById('opts-' + member);
+  container.querySelectorAll('.access-opt').forEach(opt => {
+    opt.classList.remove('selected','mint-sel','gray-sel');
+    opt.querySelector('.radio-sm').className = 'radio-sm';
+  });
+  let selClass = '';
+  let radioClass = 'radio-sm';
+  if (level === 'full') radioClass += ' on-gold';
+  else if (level === 'view') { selClass = 'mint-sel'; radioClass += ' on-mint'; }
+  else { selClass = 'gray-sel'; radioClass += ' on-gray'; }
+  el.classList.add('selected');
+  if (selClass) el.classList.add(selClass);
+  el.querySelector('.radio-sm').className = radioClass;
+  updateSummary();
+}
+
+function updateSummary() {
+  const vals = Object.values(state);
+  document.getElementById('sum-full').textContent = vals.filter(v => v === 'full').length;
+  document.getElementById('sum-view').textContent = vals.filter(v => v === 'view').length;
+  document.getElementById('sum-none').textContent = vals.filter(v => v === 'none').length;
+}
+
+function saveAccess() {
+  const btn = document.querySelector('.save-btn');
+  const orig = btn.textContent;
+  btn.textContent = 'Tersimpan';
+  btn.style.background = 'linear-gradient(135deg,#2DD4A4,#1FA888)';
+  btn.style.color = '#06281F';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = 'linear-gradient(135deg,#F5C842,#E8B820)'; btn.style.color = '#0A1628'; }, 1800);
+}
+
+updateSummary();
+</script>

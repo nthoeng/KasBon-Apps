@@ -1,0 +1,213 @@
+
+<style>
+*{box-sizing:border-box;}
+.sc-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:720px;font-size:13px;}
+.sc-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.sc-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.sc-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.sc-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.sc-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.sc-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.sc-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.sc-content{flex:1;padding:22px 26px;overflow:auto;}
+.sc-header{margin-bottom:18px;}
+.sc-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.sc-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.sc-score-card{background:linear-gradient(135deg,rgba(45,212,164,.1),rgba(45,212,164,.03));border:0.5px solid rgba(45,212,164,.3);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:18px;margin-bottom:20px;}
+.sc-score-ring{width:64px;height:64px;border-radius:50%;background:conic-gradient(#1baf7a 0% 82%, #e1e0d9 82% 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+.sc-score-ring::before{content:'';position:absolute;width:48px;height:48px;border-radius:50%;background:var(--surface-2);}
+.sc-score-num{position:relative;font-size:15px;font-weight:500;color:var(--text-primary);}
+.sc-score-info{flex:1;}
+.sc-score-title{font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:3px;}
+.sc-score-sub{font-size:11.5px;color:var(--text-secondary);line-height:1.5;}
+.sc-score-action{height:34px;padding:0 14px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--surface-2);color:var(--text-primary);font-size:12px;cursor:pointer;flex-shrink:0;}
+.sc-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.sc-panel{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:16px;}
+.sc-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sc-panel-title{font-size:13px;font-weight:500;color:var(--text-primary);}
+.sc-panel-link{font-size:11px;color:var(--text-accent);cursor:pointer;}
+.sc-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:0.5px solid var(--border);gap:14px;}
+.sc-row:last-child{border-bottom:none;}
+.sc-row-text{flex:1;min-width:0;}
+.sc-row-title{font-size:12.5px;font-weight:500;color:var(--text-primary);}
+.sc-row-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.sc-toggle{width:36px;height:21px;border-radius:11px;background:var(--fill-success);position:relative;cursor:pointer;flex-shrink:0;}
+.sc-toggle.off{background:var(--surface-1);border:1px solid var(--border-strong);}
+.sc-toggle-th{position:absolute;top:2px;width:17px;height:17px;border-radius:50%;background:#fff;right:2px;}
+.sc-toggle.off .sc-toggle-th{right:auto;left:2px;background:var(--text-muted);}
+.sc-select-wrap{position:relative;flex-shrink:0;}
+.sc-select{height:32px;padding:0 28px 0 12px;border-radius:7px;border:0.5px solid var(--border-strong);background:var(--fill-field);color:var(--text-primary);font-size:12px;cursor:pointer;appearance:none;}
+.sc-select-chev{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-muted);pointer-events:none;}
+.sc-member-row{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.sc-member-row:last-child{border-bottom:none;}
+.sc-m-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:500;flex-shrink:0;}
+.sc-m-info{flex:1;min-width:0;}
+.sc-m-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.sc-m-sub{font-size:10.5px;color:var(--text-muted);}
+.sc-2fa-badge{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:500;flex-shrink:0;}
+.bg-on{background:rgba(45,212,164,.13);color:#0F6E56;}
+.bg-off{background:rgba(227,73,72,.1);color:var(--text-danger);}
+.sc-fullwidth-panel{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:16px;}
+.sc-log-row{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:0.5px solid var(--border);}
+.sc-log-row:last-child{border-bottom:none;}
+.sc-log-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px;}
+.sc-log-info{flex:1;min-width:0;}
+.sc-log-title{font-size:12.5px;color:var(--text-primary);}
+.sc-log-title b{font-weight:500;}
+.sc-log-meta{font-size:10.5px;color:var(--text-muted);margin-top:2px;}
+.sc-log-tag{padding:2px 7px;border-radius:6px;font-size:9.5px;font-weight:500;flex-shrink:0;margin-top:1px;}
+.tag-danger{background:rgba(227,73,72,.1);color:var(--text-danger);}
+.tag-warning{background:rgba(245,200,66,.13);color:#7A5A0C;}
+.tag-info{background:rgba(74,144,217,.1);color:#185FA5;}
+.tag-success{background:rgba(45,212,164,.1);color:#0F6E56;}
+.sc-log-action{font-size:11px;color:var(--text-accent);cursor:pointer;flex-shrink:0;align-self:center;}
+</style>
+
+<h2 class="sr-only">Mockup halaman Keamanan di web admin KasBon, menampilkan skor keamanan keluarga, status 2FA per anggota, kebijakan password, dan log aktivitas mencurigakan</h2>
+
+<div class="sc-wrap">
+  <div class="sc-sidebar">
+    <div class="sc-brand">
+      <div class="sc-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="sc-brand-name">KasBon Admin</span>
+    </div>
+    <div class="sc-nav-sect">Utama</div>
+    <div class="sc-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="sc-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="sc-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="sc-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="sc-nav-sect">Keluarga</div>
+    <div class="sc-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="sc-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="sc-nav-sect">Sistem</div>
+    <div class="sc-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="sc-nav-item active"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="sc-content">
+    <div class="sc-header">
+      <h1 class="sc-h1">Keamanan</h1>
+      <div class="sc-h-sub">Pantau dan kelola perlindungan akun seluruh keluarga</div>
+    </div>
+
+    <div class="sc-score-card">
+      <div class="sc-score-ring"><span class="sc-score-num">82</span></div>
+      <div class="sc-score-info">
+        <div class="sc-score-title">Skor keamanan keluarga: Baik</div>
+        <div class="sc-score-sub">2 dari 3 anggota sudah aktifkan verifikasi dua langkah. Aktifkan untuk Andi agar skor maksimal.</div>
+      </div>
+      <button class="sc-score-action" onclick="sendPrompt('Bagaimana cara mengaktifkan verifikasi dua langkah untuk anggota keluarga di KasBon?')">Perbaiki sekarang</button>
+    </div>
+
+    <div class="sc-main-grid">
+      <div class="sc-panel">
+        <div class="sc-panel-head">
+          <span class="sc-panel-title">Verifikasi dua langkah (2FA)</span>
+          <span class="sc-panel-link">Kelola</span>
+        </div>
+        <div class="sc-member-row">
+          <div class="sc-m-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+          <div class="sc-m-info"><div class="sc-m-name">Bos</div><div class="sc-m-sub">Email + Google Authenticator</div></div>
+          <span class="sc-2fa-badge bg-on">Aktif</span>
+        </div>
+        <div class="sc-member-row">
+          <div class="sc-m-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+          <div class="sc-m-info"><div class="sc-m-name">Istri</div><div class="sc-m-sub">Email OTP</div></div>
+          <span class="sc-2fa-badge bg-on">Aktif</span>
+        </div>
+        <div class="sc-member-row">
+          <div class="sc-m-avatar" style="background:rgba(124,111,247,.2);color:#534AB7">A</div>
+          <div class="sc-m-info"><div class="sc-m-name">Andi</div><div class="sc-m-sub">Belum diaktifkan</div></div>
+          <span class="sc-2fa-badge bg-off">Nonaktif</span>
+        </div>
+      </div>
+
+      <div class="sc-panel">
+        <div class="sc-panel-head">
+          <span class="sc-panel-title">Kebijakan keamanan</span>
+        </div>
+        <div class="sc-row">
+          <div class="sc-row-text"><div class="sc-row-title">Wajibkan 2FA untuk semua anggota</div><div class="sc-row-sub">Anggota baru wajib aktifkan saat daftar</div></div>
+          <div class="sc-toggle off" onclick="toggleSecurity(this)"><div class="sc-toggle-th"></div></div>
+        </div>
+        <div class="sc-row">
+          <div class="sc-row-text"><div class="sc-row-title">Auto-logout setelah tidak aktif</div></div>
+          <div class="sc-select-wrap">
+            <select class="sc-select"><option>30 menit</option><option>1 jam</option><option>4 jam</option></select>
+            <i class="ti ti-chevron-down sc-select-chev" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="sc-row">
+          <div class="sc-row-text"><div class="sc-row-title">Maksimal percobaan PIN salah</div></div>
+          <div class="sc-select-wrap">
+            <select class="sc-select"><option>3 kali</option><option>5 kali</option></select>
+            <i class="ti ti-chevron-down sc-select-chev" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="sc-row">
+          <div class="sc-row-text"><div class="sc-row-title">Deteksi lokasi mencurigakan</div><div class="sc-row-sub">Tandai login dari lokasi tidak biasa</div></div>
+          <div class="sc-toggle" onclick="toggleSecurity(this)"><div class="sc-toggle-th"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-fullwidth-panel">
+      <div class="sc-panel-head">
+        <span class="sc-panel-title">Log aktivitas keamanan</span>
+        <span class="sc-panel-link">Lihat semua log</span>
+      </div>
+
+      <div class="sc-log-row">
+        <div class="sc-log-icon" style="background:rgba(227,73,72,.1)"><i class="ti ti-alert-triangle" style="font-size:14px;color:#e34948" aria-hidden="true"></i></div>
+        <div class="sc-log-info">
+          <div class="sc-log-title">Login mencurigakan terdeteksi pada akun <b>Bos</b></div>
+          <div class="sc-log-meta">Dari Xiaomi Redmi Note · Jakarta, ID · 2 hari lalu</div>
+        </div>
+        <span class="sc-log-tag tag-danger">Perlu ditinjau</span>
+        <span class="sc-log-action" onclick="sendPrompt('Tampilkan detail login mencurigakan dari Jakarta untuk akun Bos')">Lihat</span>
+      </div>
+
+      <div class="sc-log-row">
+        <div class="sc-log-icon" style="background:rgba(245,200,66,.13)"><i class="ti ti-key" style="font-size:14px;color:#7A5A0C" aria-hidden="true"></i></div>
+        <div class="sc-log-info">
+          <div class="sc-log-title"><b>Istri</b> mengganti PIN transaksi</div>
+          <div class="sc-log-meta">Dari Samsung Galaxy S22 · Semarang, ID · 3 hari lalu</div>
+        </div>
+        <span class="sc-log-tag tag-warning">Perubahan keamanan</span>
+      </div>
+
+      <div class="sc-log-row">
+        <div class="sc-log-icon" style="background:rgba(74,144,217,.1)"><i class="ti ti-device-laptop" style="font-size:14px;color:#185FA5" aria-hidden="true"></i></div>
+        <div class="sc-log-info">
+          <div class="sc-log-title">Login baru ke <b>Web Admin</b> oleh Bos</div>
+          <div class="sc-log-meta">Chrome · Windows 11 · Semarang, ID · 5 hari lalu</div>
+        </div>
+        <span class="sc-log-tag tag-info">Login normal</span>
+      </div>
+
+      <div class="sc-log-row">
+        <div class="sc-log-icon" style="background:rgba(45,212,164,.1)"><i class="ti ti-shield-check" style="font-size:14px;color:#1baf7a" aria-hidden="true"></i></div>
+        <div class="sc-log-info">
+          <div class="sc-log-title"><b>Bos</b> mengaktifkan verifikasi dua langkah</div>
+          <div class="sc-log-meta">Dari iPhone 14 Pro · Semarang, ID · 1 minggu lalu</div>
+        </div>
+        <span class="sc-log-tag tag-success">Keamanan ditingkatkan</span>
+      </div>
+
+      <div class="sc-log-row">
+        <div class="sc-log-icon" style="background:rgba(227,73,72,.1)"><i class="ti ti-lock" style="font-size:14px;color:#e34948" aria-hidden="true"></i></div>
+        <div class="sc-log-info">
+          <div class="sc-log-title">Akun <b>Andi</b> terkunci sementara</div>
+          <div class="sc-log-meta">3 kali percobaan PIN salah · Mobile App · 1 minggu lalu</div>
+        </div>
+        <span class="sc-log-tag tag-danger">Terkunci 30 detik</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSecurity(el) {
+  el.classList.toggle('off');
+}
+</script>

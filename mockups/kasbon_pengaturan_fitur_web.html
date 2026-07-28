@@ -1,0 +1,316 @@
+
+<style>
+*{box-sizing:border-box;}
+.pf-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:720px;font-size:13px;}
+.pf-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.pf-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.pf-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.pf-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.pf-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.pf-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.pf-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.pf-content{flex:1;display:flex;}
+.pf-subnav{width:190px;border-right:0.5px solid var(--border);padding:22px 14px;flex-shrink:0;}
+.pf-subnav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:12.5px;color:var(--text-secondary);margin-bottom:2px;cursor:pointer;}
+.pf-subnav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.pf-main{flex:1;padding:22px 28px;overflow:auto;}
+.pf-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0 0 2px;}
+.pf-h-sub{font-size:12px;color:var(--text-secondary);margin-bottom:22px;}
+.pf-section{margin-bottom:26px;}
+.pf-sect-title{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:3px;}
+.pf-sect-sub{font-size:11.5px;color:var(--text-muted);margin-bottom:12px;}
+.pf-card{background:var(--surface-1);border-radius:10px;padding:4px 16px;}
+.pf-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:0.5px solid var(--border);gap:16px;}
+.pf-row:last-child{border-bottom:none;}
+.pf-row-text{flex:1;min-width:0;}
+.pf-row-title{font-size:12.5px;font-weight:500;color:var(--text-primary);}
+.pf-row-sub{font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.4;}
+.pf-toggle{width:36px;height:21px;border-radius:11px;background:var(--fill-success);position:relative;cursor:pointer;flex-shrink:0;transition:background .15s;}
+.pf-toggle.off{background:var(--surface-2);border:1px solid var(--border-strong);}
+.pf-toggle-th{position:absolute;top:2px;width:17px;height:17px;border-radius:50%;background:#fff;right:2px;transition:all .15s;}
+.pf-toggle.off .pf-toggle-th{right:auto;left:2px;background:var(--text-muted);}
+.pf-select-wrap{position:relative;flex-shrink:0;}
+.pf-select{height:32px;padding:0 30px 0 12px;border-radius:7px;border:0.5px solid var(--border-strong);background:var(--fill-field);color:var(--text-primary);font-size:12px;cursor:pointer;appearance:none;min-width:120px;}
+.pf-select-chev{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-muted);pointer-events:none;}
+.pf-input-inline{width:110px;height:32px;padding:0 10px;border-radius:7px;border:0.5px solid var(--border-strong);background:var(--fill-field);color:var(--text-primary);font-size:12px;flex-shrink:0;text-align:right;}
+.pf-radio-group{display:flex;gap:8px;flex-shrink:0;}
+.pf-radio-pill{padding:6px 12px;border-radius:7px;font-size:11.5px;border:1.5px solid var(--border);color:var(--text-secondary);cursor:pointer;}
+.pf-radio-pill.on{border-color:var(--border-accent);background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.pf-disabled-row{opacity:.45;pointer-events:none;}
+.pf-save-bar{position:sticky;bottom:0;background:var(--surface-2);border-top:0.5px solid var(--border);margin:0 -28px -22px;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.pf-save-info{font-size:11.5px;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.pf-save-btns{display:flex;gap:8px;}
+.pf-btn-discard{height:34px;padding:0 14px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;}
+.pf-btn-save{height:34px;padding:0 16px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12px;font-weight:500;border:none;cursor:pointer;}
+.pf-toast{position:absolute;top:18px;right:26px;background:var(--bg-success);border:0.5px solid var(--border-success);border-radius:9px;padding:10px 14px;display:none;align-items:center;gap:8px;font-size:12px;color:var(--text-success);z-index:40;}
+.pf-toast.show{display:flex;}
+.pf-relative{position:relative;}
+</style>
+
+<h2 class="sr-only">Mockup halaman Pengaturan Fitur di web admin KasBon, menampilkan kontrol keamanan transaksi, notifikasi, akses anak, dan preferensi tampilan</h2>
+
+<div class="pf-relative">
+<div class="pf-wrap">
+  <div class="pf-sidebar">
+    <div class="pf-brand">
+      <div class="pf-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="pf-brand-name">KasBon Admin</span>
+    </div>
+    <div class="pf-nav-sect">Utama</div>
+    <div class="pf-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="pf-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="pf-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="pf-nav-item"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="pf-nav-sect">Keluarga</div>
+    <div class="pf-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="pf-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="pf-nav-sect">Sistem</div>
+    <div class="pf-nav-item active"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="pf-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="pf-content">
+    <div class="pf-subnav">
+      <div class="pf-subnav-item active" onclick="setPfTab('transaksi',this)"><i class="ti ti-receipt-2" style="font-size:15px" aria-hidden="true"></i> Transaksi</div>
+      <div class="pf-subnav-item" onclick="setPfTab('notif',this)"><i class="ti ti-bell" style="font-size:15px" aria-hidden="true"></i> Notifikasi</div>
+      <div class="pf-subnav-item" onclick="setPfTab('anak',this)"><i class="ti ti-baby-carriage" style="font-size:15px" aria-hidden="true"></i> Akun anak</div>
+      <div class="pf-subnav-item" onclick="setPfTab('tampilan',this)"><i class="ti ti-palette" style="font-size:15px" aria-hidden="true"></i> Tampilan</div>
+    </div>
+
+    <div class="pf-main">
+
+      <div id="pf-tab-transaksi">
+        <h1 class="pf-h1">Pengaturan transaksi</h1>
+        <div class="pf-h-sub">Atur aturan keamanan dan validasi untuk pencatatan transaksi keluarga</div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Konfirmasi PIN</div>
+          <div class="pf-sect-sub">Wajibkan PIN untuk transaksi di atas nominal tertentu</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Aktifkan konfirmasi PIN</div><div class="pf-row-sub">Berlaku untuk semua anggota keluarga</div></div>
+              <div class="pf-toggle" id="tg-pin" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row" id="row-threshold">
+              <div class="pf-row-text"><div class="pf-row-title">Threshold nominal</div><div class="pf-row-sub">PIN wajib untuk transaksi di atas jumlah ini</div></div>
+              <input type="text" class="pf-input-inline" value="Rp 200.000"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Validasi & approval</div>
+          <div class="pf-sect-sub">Kontrol tambahan untuk transaksi bernilai besar</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Approval admin untuk transaksi besar</div><div class="pf-row-sub">Transaksi di atas Rp 1.000.000 perlu disetujui admin dulu</div></div>
+              <div class="pf-toggle off" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Wajib foto struk</div><div class="pf-row-sub">Transaksi di atas Rp 100.000 wajib lampirkan bukti</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Izinkan edit transaksi lama</div><div class="pf-row-sub">Boleh edit transaksi yang sudah lebih dari 7 hari</div></div>
+              <div class="pf-toggle off" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Mata uang & format</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Mata uang utama</div></div>
+              <div class="pf-select-wrap">
+                <select class="pf-select"><option>Rupiah (Rp)</option><option>US Dollar ($)</option></select>
+                <i class="ti ti-chevron-down pf-select-chev" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Awal tahun fiskal</div><div class="pf-row-sub">Untuk perhitungan laporan tahunan</div></div>
+              <div class="pf-select-wrap">
+                <select class="pf-select"><option>Januari</option><option>April</option><option>Juli</option></select>
+                <i class="ti ti-chevron-down pf-select-chev" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pf-tab-notif" style="display:none">
+        <h1 class="pf-h1">Pengaturan notifikasi</h1>
+        <div class="pf-h-sub">Atur kapan dan bagaimana keluarga menerima pemberitahuan</div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Ringkasan harian</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Kirim ringkasan pengeluaran harian</div><div class="pf-row-sub">Notifikasi push ke semua anggota</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Waktu pengiriman</div></div>
+              <div class="pf-select-wrap">
+                <select class="pf-select"><option>21:00</option><option>20:00</option><option>22:00</option></select>
+                <i class="ti ti-chevron-down pf-select-chev" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Peringatan budget</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Notifikasi budget hampir habis</div><div class="pf-row-sub">Saat budget kategori mencapai threshold tertentu</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Kirim peringatan saat</div></div>
+              <div class="pf-radio-group">
+                <div class="pf-radio-pill" onclick="setRadio(this)">70%</div>
+                <div class="pf-radio-pill on" onclick="setRadio(this)">85%</div>
+                <div class="pf-radio-pill" onclick="setRadio(this)">100%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Aktivitas anggota</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Notifikasi transaksi besar dari anggota lain</div><div class="pf-row-sub">Kirim ke admin saat ada transaksi di atas Rp 500.000</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Notifikasi login dari perangkat baru</div><div class="pf-row-sub">Kirim email saat ada login dari device tidak dikenal</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pf-tab-anak" style="display:none">
+        <h1 class="pf-h1">Pengaturan akun anak</h1>
+        <div class="pf-h-sub">Kontrol khusus untuk anggota keluarga dengan akun terbatas</div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Batasan akses</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Akun anak hanya bisa lihat, tidak catat</div><div class="pf-row-sub">Berlaku otomatis untuk semua akun bertipe "Akun terbatas"</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Sembunyikan dompet pribadi orang tua</div><div class="pf-row-sub">Anak tidak bisa lihat dompet pribadi Bos & Istri</div></div>
+              <div class="pf-toggle" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Uang saku</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Uang saku otomatis mingguan</div><div class="pf-row-sub">Transfer otomatis dari Kas Keluarga setiap Senin</div></div>
+              <div class="pf-toggle off" onclick="toggleSetting(this)"><div class="pf-toggle-th"></div></div>
+            </div>
+            <div class="pf-row pf-disabled-row">
+              <div class="pf-row-text"><div class="pf-row-title">Jumlah uang saku per minggu</div></div>
+              <input type="text" class="pf-input-inline" value="Rp 50.000"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pf-tab-tampilan" style="display:none">
+        <h1 class="pf-h1">Pengaturan tampilan</h1>
+        <div class="pf-h-sub">Sesuaikan preferensi tampilan aplikasi mobile keluarga</div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Tema</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Mode tampilan default</div><div class="pf-row-sub">Berlaku untuk anggota baru yang bergabung</div></div>
+              <div class="pf-radio-group">
+                <div class="pf-radio-pill" onclick="setRadio(this)">Terang</div>
+                <div class="pf-radio-pill on" onclick="setRadio(this)">Gelap</div>
+                <div class="pf-radio-pill" onclick="setRadio(this)">Otomatis</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section">
+          <div class="pf-sect-title">Bahasa</div>
+          <div class="pf-card">
+            <div class="pf-row">
+              <div class="pf-row-text"><div class="pf-row-title">Bahasa aplikasi</div></div>
+              <div class="pf-select-wrap">
+                <select class="pf-select"><option>Bahasa Indonesia</option><option>English</option></select>
+                <i class="ti ti-chevron-down pf-select-chev" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf-save-bar">
+        <div class="pf-save-info"><i class="ti ti-info-circle" style="font-size:14px" aria-hidden="true"></i> Perubahan berlaku untuk semua anggota keluarga</div>
+        <div class="pf-save-btns">
+          <button class="pf-btn-discard" onclick="discardChanges()">Batalkan</button>
+          <button class="pf-btn-save" onclick="saveSettings()">Simpan pengaturan</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="pf-toast" id="pf-toast">
+  <i class="ti ti-circle-check" style="font-size:15px" aria-hidden="true"></i>
+  <span>Pengaturan berhasil disimpan</span>
+</div>
+</div>
+
+<script>
+function setPfTab(name, el) {
+  document.querySelectorAll('.pf-subnav-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  ['transaksi','notif','anak','tampilan'].forEach(t => {
+    document.getElementById('pf-tab-' + t).style.display = (t === name) ? 'block' : 'none';
+  });
+}
+
+function toggleSetting(el) {
+  el.classList.toggle('off');
+  if (el.id === 'tg-pin') {
+    const row = document.getElementById('row-threshold');
+    row.classList.toggle('pf-disabled-row', el.classList.contains('off'));
+  }
+}
+
+function setRadio(el) {
+  const group = el.parentElement;
+  group.querySelectorAll('.pf-radio-pill').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function saveSettings() {
+  const t = document.getElementById('pf-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function discardChanges() {
+  const t = document.getElementById('pf-toast');
+  t.querySelector('span').textContent = 'Perubahan dibatalkan';
+  t.style.background = 'var(--surface-1)';
+  t.style.color = 'var(--text-secondary)';
+  t.style.borderColor = 'var(--border)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>

@@ -1,0 +1,722 @@
+
+<style>
+:root {
+  --bg: #0A1628;
+  --surface: #111F35;
+  --surface2: #152338;
+  --border: #1E3050;
+  --gold: #F5C842;
+  --mint: #2DD4A4;
+  --coral: #FF6B6B;
+  --violet: #7C6FF7;
+  --blue2: #4A90D9;
+  --text1: #E8EDF5;
+  --text2: #8AA0BE;
+  --text3: #5A7890;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 20px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.frame {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 12px;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-border-tertiary);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  border-color: #F5C842;
+  background: rgba(245,200,66,0.1);
+  color: #F5C842;
+  font-weight: 500;
+}
+
+.phone {
+  background: var(--bg);
+  border-radius: 26px;
+  border: 2px solid #1E3050;
+  overflow: hidden;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.notch {
+  width: 72px; height: 5px;
+  background: #1E3050;
+  border-radius: 3px;
+  margin: 10px auto 0;
+}
+
+.pinner { padding: 12px 14px 0; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.back-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #1A2D47;
+  border: 1px solid #253E60;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.back-icon { width: 14px; height: 14px; stroke: #8AA0BE; stroke-width: 2.5; fill: none; }
+.page-title { font-size: 15px; font-weight: 500; color: var(--text1); flex: 1; }
+.add-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(245,200,66,0.15);
+  border: 1px solid rgba(245,200,66,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.add-icon { width: 14px; height: 14px; stroke: #F5C842; stroke-width: 2.5; fill: none; }
+
+.project-banner {
+  background: #152338;
+  border: 1px solid #1E3050;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.proj-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(124,111,247,0.2);
+  border: 1px solid rgba(124,111,247,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.proj-info { flex: 1; }
+.proj-name { font-size: 13px; font-weight: 500; color: var(--text1); margin-bottom: 2px; }
+.proj-sub { font-size: 11px; color: var(--text2); }
+.proj-badge {
+  background: rgba(45,212,164,0.15);
+  border: 1px solid rgba(45,212,164,0.3);
+  border-radius: 10px;
+  padding: 3px 8px;
+  font-size: 10px;
+  color: var(--mint);
+  font-weight: 500;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sum-card {
+  background: #152338;
+  border: 1px solid #1E3050;
+  border-radius: 10px;
+  padding: 10px 10px 8px;
+}
+.sum-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; }
+.sum-val { font-size: 13px; font-weight: 500; }
+.sum-val.gold { color: var(--gold); }
+.sum-val.mint { color: var(--mint); }
+.sum-val.violet { color: var(--violet); }
+
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 8px;
+}
+
+.income-card {
+  background: #152338;
+  border: 1px solid #1E3050;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.income-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.income-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.bg-mint { background: rgba(45,212,164,0.15); border: 1px solid rgba(45,212,164,0.25); }
+.bg-gold { background: rgba(245,200,66,0.15); border: 1px solid rgba(245,200,66,0.25); }
+.bg-violet { background: rgba(124,111,247,0.15); border: 1px solid rgba(124,111,247,0.25); }
+.bg-coral { background: rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.25); }
+.bg-blue { background: rgba(74,144,217,0.15); border: 1px solid rgba(74,144,217,0.25); }
+
+.income-meta { flex: 1; }
+.income-name { font-size: 13px; font-weight: 500; color: var(--text1); margin-bottom: 3px; }
+.income-amount { font-size: 15px; font-weight: 500; color: var(--mint); }
+
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.tag {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.tag-blue { background: rgba(74,144,217,0.15); color: #4A90D9; border: 1px solid rgba(74,144,217,0.25); }
+.tag-gold { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.25); }
+.tag-mint { background: rgba(45,212,164,0.15); color: var(--mint); border: 1px solid rgba(45,212,164,0.25); }
+.tag-violet { background: rgba(124,111,247,0.15); color: var(--violet); border: 1px solid rgba(124,111,247,0.25); }
+.tag-coral { background: rgba(255,107,107,0.15); color: var(--coral); border: 1px solid rgba(255,107,107,0.25); }
+.tag-gray { background: rgba(90,120,144,0.2); color: var(--text2); border: 1px solid rgba(90,120,144,0.2); }
+
+.divider { height: 1px; background: #1A2D47; margin: 8px 0; }
+
+.income-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.income-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.avatar {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.av-gold { background: rgba(245,200,66,0.2); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
+.av-mint { background: rgba(45,212,164,0.2); color: var(--mint); border: 1px solid rgba(45,212,164,0.3); }
+.income-user-name { font-size: 10px; color: var(--text2); }
+
+.progress-wrap { margin-top: 8px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text2); margin-bottom: 4px; }
+.progress-bar { height: 4px; background: #1E3050; border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; }
+
+.bottom-bar {
+  background: #111F35;
+  border-top: 1px solid #1E3050;
+  padding: 12px 14px 16px;
+  margin-top: 4px;
+}
+.add-source-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(245,200,66,0.12);
+  border: 1.5px dashed rgba(245,200,66,0.4);
+  border-radius: 10px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+.detail-header {
+  background: #152338;
+  border: 1px solid #1E3050;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.detail-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 10px;
+}
+.detail-name { font-size: 16px; font-weight: 500; color: var(--text1); margin-bottom: 4px; }
+.detail-amount { font-size: 24px; font-weight: 500; color: var(--mint); margin-bottom: 8px; }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1A2D47;
+}
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: 12px; color: var(--text2); }
+.info-val { font-size: 12px; font-weight: 500; color: var(--text1); }
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #1A2D47;
+}
+.history-item:last-child { border-bottom: none; }
+.hist-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.hist-info { flex: 1; }
+.hist-title { font-size: 12px; color: var(--text1); margin-bottom: 2px; }
+.hist-date { font-size: 10px; color: var(--text2); }
+.hist-amount { font-size: 12px; font-weight: 500; color: var(--mint); }
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.action-btn-outline {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #253E60;
+  background: transparent;
+  color: var(--text1);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+.action-btn-fill {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(245,200,66,0.15);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(245,200,66,0.3);
+}
+
+.form-group { margin-bottom: 12px; }
+.form-label { font-size: 11px; color: var(--text2); margin-bottom: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input {
+  width: 100%;
+  background: #152338;
+  border: 1px solid #253E60;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text1);
+  font-size: 13px;
+  outline: none;
+}
+.form-input:focus { border-color: rgba(245,200,66,0.5); }
+.form-input::placeholder { color: var(--text3); }
+
+.type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.type-option {
+  background: #152338;
+  border: 1.5px solid #1E3050;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.type-option.selected {
+  border-color: rgba(245,200,66,0.5);
+  background: rgba(245,200,66,0.08);
+}
+.type-emoji { font-size: 18px; }
+.type-label { font-size: 11px; font-weight: 500; color: var(--text1); }
+.type-sub { font-size: 10px; color: var(--text2); }
+
+.freq-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.freq-chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  border: 1px solid #253E60;
+  color: var(--text2);
+  background: transparent;
+  cursor: pointer;
+}
+.freq-chip.selected {
+  border-color: rgba(45,212,164,0.5);
+  background: rgba(45,212,164,0.1);
+  color: var(--mint);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+.toggle-info .tl { font-size: 12px; font-weight: 500; color: var(--text1); }
+.toggle-info .ts { font-size: 10px; color: var(--text2); margin-top: 2px; }
+.toggle-switch {
+  width: 40px; height: 22px;
+  border-radius: 11px;
+  background: rgba(45,212,164,0.3);
+  position: relative;
+  border: 1px solid rgba(45,212,164,0.4);
+}
+.toggle-thumb {
+  position: absolute;
+  right: 2px; top: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--mint);
+}
+
+.save-btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #F5C842, #E8B820);
+  border: none;
+  border-radius: 12px;
+  color: #0A1628;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.scrollable {
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.scrollable::-webkit-scrollbar { display: none; }
+</style>
+
+<h2 class="sr-only">Mockup halaman Sumber Pemasukan KasBon — tampilkan list, detail, dan form tambah sumber pemasukan dalam project/usaha</h2>
+
+<div class="frame">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('list', this)">📋 Daftar Sumber</button>
+    <button class="tab-btn" onclick="switchTab('detail', this)">🔍 Detail</button>
+    <button class="tab-btn" onclick="switchTab('form', this)">➕ Tambah Baru</button>
+  </div>
+
+  <div class="phone">
+    <div class="notch"></div>
+
+    <div id="screen-list" class="screen active">
+      <div class="pinner">
+        <div class="topbar">
+          <div class="back-btn">
+            <svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <span class="page-title">Sumber Pemasukan</span>
+          <div class="add-btn">
+            <svg class="add-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+
+        <div class="project-banner">
+          <div class="proj-icon">🛒</div>
+          <div class="proj-info">
+            <div class="proj-name">Usaha Cimol Pak Bos</div>
+            <div class="proj-sub">Project Bisnis · Dibuat Jun 2025</div>
+          </div>
+          <div class="proj-badge">Aktif</div>
+        </div>
+
+        <div class="summary-row">
+          <div class="sum-card">
+            <div class="sum-label">Total sumber</div>
+            <div class="sum-val violet">4</div>
+          </div>
+          <div class="sum-card">
+            <div class="sum-label">Bulan ini</div>
+            <div class="sum-val mint">4,2 jt</div>
+          </div>
+          <div class="sum-card">
+            <div class="sum-label">Rata/bulan</div>
+            <div class="sum-val gold">3,8 jt</div>
+          </div>
+        </div>
+
+        <div class="section-title">Sumber pemasukan aktif</div>
+      </div>
+
+      <div class="scrollable" style="padding: 0 14px;">
+        <div class="income-card">
+          <div class="income-header">
+            <div class="income-icon bg-gold">💰</div>
+            <div class="income-meta">
+              <div class="income-name">Penjualan Langsung</div>
+              <div class="income-amount">Rp 2.500.000</div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag tag-gold">Berulang · Harian</span>
+            <span class="tag tag-mint">Dikonfirmasi</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Target bulan ini</span><span style="color:var(--mint)">Rp 3.000.000</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:83%;background:var(--mint)"></div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="income-footer">
+            <div class="income-user">
+              <div class="avatar av-gold">B</div>
+              <span class="income-user-name">Bos · 12 Jun</span>
+            </div>
+            <span class="tag tag-blue">Kas Fisik</span>
+          </div>
+        </div>
+
+        <div class="income-card">
+          <div class="income-header">
+            <div class="income-icon bg-violet">📱</div>
+            <div class="income-meta">
+              <div class="income-name">Order Online (WA/IG)</div>
+              <div class="income-amount">Rp 850.000</div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag tag-violet">Berulang · Mingguan</span>
+            <span class="tag tag-mint">Dikonfirmasi</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Target bulan ini</span><span style="color:var(--gold)">Rp 1.200.000</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:71%;background:var(--gold)"></div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="income-footer">
+            <div class="income-user">
+              <div class="avatar av-mint">I</div>
+              <span class="income-user-name">Istri · 11 Jun</span>
+            </div>
+            <span class="tag tag-mint">GoPay / Qris</span>
+          </div>
+        </div>
+
+        <div class="income-card">
+          <div class="income-header">
+            <div class="income-icon bg-mint">🏪</div>
+            <div class="income-meta">
+              <div class="income-name">Titipan Warung</div>
+              <div class="income-amount">Rp 600.000</div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag tag-blue">Tidak tentu</span>
+            <span class="tag tag-gray">Menunggu</span>
+          </div>
+          <div class="divider"></div>
+          <div class="income-footer">
+            <div class="income-user">
+              <div class="avatar av-gold">B</div>
+              <span class="income-user-name">Bos · 10 Jun</span>
+            </div>
+            <span class="tag tag-gray">Tunai</span>
+          </div>
+        </div>
+
+        <div class="income-card" style="border-style: dashed; border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.04);">
+          <div class="income-header">
+            <div class="income-icon bg-coral">📦</div>
+            <div class="income-meta">
+              <div class="income-name">Reseller / Dropship</div>
+              <div class="income-amount" style="color:var(--text2)">Belum ada</div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag tag-coral">Rencana</span>
+            <span class="tag tag-gray">Belum aktif</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <div class="add-source-btn" onclick="switchTabByName('form')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5C842" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tambah Sumber Pemasukan
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-detail" class="screen">
+      <div class="pinner scrollable" style="max-height:560px">
+        <div class="topbar">
+          <div class="back-btn">
+            <svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <span class="page-title">Detail Sumber</span>
+          <div class="add-btn" style="background:rgba(255,107,107,0.1);border-color:rgba(255,107,107,0.3)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </div>
+        </div>
+
+        <div class="detail-header">
+          <div class="detail-icon bg-gold" style="width:56px;height:56px;border-radius:16px;">💰</div>
+          <div class="detail-name">Penjualan Langsung</div>
+          <div class="detail-amount">Rp 2.500.000</div>
+          <div class="tag-row" style="justify-content:center">
+            <span class="tag tag-gold">Harian</span>
+            <span class="tag tag-mint">Aktif</span>
+            <span class="tag tag-blue">Kas Fisik</span>
+          </div>
+        </div>
+
+        <div class="income-card" style="margin-bottom:10px">
+          <div class="section-title" style="margin-bottom:8px">Informasi sumber</div>
+          <div class="info-row"><span class="info-label">Dicatat oleh</span><span class="info-val">Bos (Saya)</span></div>
+          <div class="info-row"><span class="info-label">Terakhir masuk</span><span class="info-val">12 Jun 2025</span></div>
+          <div class="info-row"><span class="info-label">Frekuensi</span><span class="info-val">Berulang · Harian</span></div>
+          <div class="info-row"><span class="info-label">Target / bulan</span><span class="info-val" style="color:var(--gold)">Rp 3.000.000</span></div>
+          <div class="info-row"><span class="info-label">Realisasi</span><span class="info-val" style="color:var(--mint)">Rp 2.500.000 (83%)</span></div>
+          <div class="info-row"><span class="info-label">Visibilitas</span><span class="info-val">Semua anggota</span></div>
+        </div>
+
+        <div class="income-card">
+          <div class="section-title" style="margin-bottom:8px">Riwayat pencatatan</div>
+          <div class="history-item"><div class="hist-dot" style="background:var(--mint)"></div><div class="hist-info"><div class="hist-title">Penjualan Rabu</div><div class="hist-date">12 Jun · oleh Bos</div></div><div class="hist-amount">+Rp 420.000</div></div>
+          <div class="history-item"><div class="hist-dot" style="background:var(--mint)"></div><div class="hist-info"><div class="hist-title">Penjualan Selasa</div><div class="hist-date">11 Jun · oleh Bos</div></div><div class="hist-amount">+Rp 380.000</div></div>
+          <div class="history-item"><div class="hist-dot" style="background:var(--mint)"></div><div class="hist-info"><div class="hist-title">Penjualan Senin</div><div class="hist-date">10 Jun · oleh Bos</div></div><div class="hist-amount">+Rp 450.000</div></div>
+          <div class="history-item" style="border:none"><div class="hist-dot" style="background:var(--text3)"></div><div class="hist-info"><div class="hist-title">Lihat semua riwayat</div><div class="hist-date">12 entri total</div></div><div style="color:var(--text2);font-size:12px">›</div></div>
+        </div>
+
+        <div class="action-row">
+          <div class="action-btn-outline">✏️ Edit Sumber</div>
+          <div class="action-btn-fill">+ Catat Masuk</div>
+        </div>
+        <div style="height:16px"></div>
+      </div>
+    </div>
+
+    <div id="screen-form" class="screen">
+      <div class="pinner scrollable" style="max-height:560px">
+        <div class="topbar">
+          <div class="back-btn">
+            <svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <span class="page-title">Tambah Sumber</span>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Nama sumber pemasukan</div>
+          <input class="form-input" placeholder="cth: Penjualan Langsung, Reseller..." style="background:#152338;border:1px solid #253E60;color:var(--text1);font-size:13px"/>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Tipe sumber</div>
+          <div class="type-grid">
+            <div class="type-option selected">
+              <div class="type-emoji">💰</div>
+              <div><div class="type-label">Penjualan</div><div class="type-sub">Produk / jasa</div></div>
+            </div>
+            <div class="type-option">
+              <div class="type-emoji">🤝</div>
+              <div><div class="type-label">Komisi</div><div class="type-sub">Hasil kerjasama</div></div>
+            </div>
+            <div class="type-option">
+              <div class="type-emoji">📦</div>
+              <div><div class="type-label">Reseller</div><div class="type-sub">Titipan / dropship</div></div>
+            </div>
+            <div class="type-option">
+              <div class="type-emoji">✨</div>
+              <div><div class="type-label">Lainnya</div><div class="type-sub">Masukkan sendiri</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Target nominal / periode</div>
+          <input class="form-input" placeholder="Rp 0" style="background:#152338;border:1px solid #253E60;color:var(--gold);font-size:16px;font-weight:500"/>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Frekuensi</div>
+          <div class="freq-row">
+            <div class="freq-chip selected">Harian</div>
+            <div class="freq-chip">Mingguan</div>
+            <div class="freq-chip">Bulanan</div>
+            <div class="freq-chip">Tidak tentu</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Dompet tujuan</div>
+          <div class="form-input" style="background:#152338;border:1px solid #253E60;color:var(--text1);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px">🛒 Kas Usaha Cimol</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8AA0BE" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+
+        <div class="income-card" style="gap:0;padding:10px 12px">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="tl">Semua anggota bisa lihat</div>
+              <div class="ts">Istri & member lain bisa pantau</div>
+            </div>
+            <div class="toggle-switch"><div class="toggle-thumb"></div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="tl">Ingatkan jika belum dicatat</div>
+              <div class="ts">Notif harian jika lupa input</div>
+            </div>
+            <div class="toggle-switch" style="background:rgba(90,120,144,0.2);border-color:rgba(90,120,144,0.3)"><div class="toggle-thumb" style="left:2px;right:auto;background:var(--text3)"></div></div>
+          </div>
+        </div>
+
+        <div class="save-btn">Simpan Sumber Pemasukan</div>
+        <div style="height:16px"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+function switchTabByName(name) {
+  const idx = { list:0, detail:1, form:2 }[name];
+  const btns = document.querySelectorAll('.tab-btn');
+  switchTab(name, btns[idx]);
+}
+</script>

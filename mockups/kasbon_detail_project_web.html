@@ -1,0 +1,265 @@
+
+<style>
+*{box-sizing:border-box;}
+.pd-wrap{display:flex;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-2);min-height:680px;font-size:13px;}
+.pd-sidebar{width:200px;background:var(--surface-1);border-right:0.5px solid var(--border);padding:18px 14px;flex-shrink:0;}
+.pd-brand{display:flex;align-items:center;gap:8px;padding:0 6px 18px;margin-bottom:6px;border-bottom:0.5px solid var(--border);}
+.pd-brand-icon{width:28px;height:28px;border-radius:8px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-size:14px;color:#26211C;flex-shrink:0;}
+.pd-brand-name{font-size:14px;font-weight:500;color:var(--text-primary);}
+.pd-nav-sect{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 6px 6px;}
+.pd-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);margin-bottom:2px;}
+.pd-nav-item.active{background:var(--bg-accent);color:var(--text-accent);font-weight:500;}
+.pd-content{flex:1;padding:22px 26px;overflow:auto;}
+.pd-breadcrumb{font-size:11px;color:var(--text-muted);margin-bottom:10px;}
+.pd-breadcrumb span{color:var(--text-accent);cursor:pointer;}
+.pd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.pd-head-left{display:flex;align-items:center;gap:14px;}
+.pd-icon-big{width:48px;height:48px;border-radius:12px;background:rgba(124,111,247,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.pd-h1{font-size:18px;font-weight:500;color:var(--text-primary);margin:0;}
+.pd-h-sub{font-size:12px;color:var(--text-secondary);margin-top:2px;display:flex;align-items:center;gap:8px;}
+.pd-status-badge{padding:2px 9px;border-radius:7px;font-size:10px;font-weight:500;background:rgba(45,212,164,.15);color:#0F6E56;}
+.pd-actions{display:flex;gap:8px;}
+.pd-btn-outline{height:34px;padding:0 13px;border-radius:8px;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-primary);font-size:12px;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.pd-btn-primary{height:34px;padding:0 13px;border-radius:8px;background:var(--fill-primary);color:var(--on-primary);font-size:12px;font-weight:500;border:none;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.pd-metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.pd-metric-card{background:var(--surface-1);border-radius:8px;padding:13px 15px;}
+.pd-metric-lbl{font-size:11px;color:var(--text-secondary);margin-bottom:6px;}
+.pd-metric-val{font-size:19px;font-weight:500;color:var(--text-primary);}
+.pd-metric-sub{font-size:10px;color:var(--text-muted);margin-top:3px;}
+.pd-target-card{background:var(--surface-1);border-radius:8px;padding:14px 16px;margin-bottom:18px;}
+.pd-target-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.pd-target-lbl{font-size:12px;color:var(--text-secondary);}
+.pd-target-pct{font-size:13px;font-weight:500;color:var(--text-primary);}
+.pd-progress-track{height:7px;background:var(--surface-2);border-radius:4px;overflow:hidden;}
+.pd-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#1baf7a,#16955f);}
+.pd-tabs{display:flex;gap:4px;border-bottom:0.5px solid var(--border);margin-bottom:16px;}
+.pd-tab{padding:9px 4px;margin-right:18px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;}
+.pd-tab.active{color:var(--text-primary);font-weight:500;border-bottom-color:var(--text-accent);}
+.pd-main-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;}
+.pd-panel{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:16px;}
+.pd-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.pd-panel-title{font-size:13px;font-weight:500;color:var(--text-primary);}
+.pd-legend-row{display:flex;gap:14px;margin-bottom:8px;font-size:11px;color:var(--text-secondary);}
+.pd-legend-item{display:flex;align-items:center;gap:5px;}
+.pd-legend-sw{width:9px;height:9px;border-radius:2px;}
+.pd-source-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.pd-source-row:last-child{border-bottom:none;}
+.pd-src-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.pd-src-info{flex:1;min-width:0;}
+.pd-src-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.pd-src-bar-track{height:4px;background:var(--surface-1);border-radius:2px;margin-top:4px;overflow:hidden;}
+.pd-src-bar-fill{height:100%;border-radius:2px;}
+.pd-src-val{font-size:11px;color:var(--text-secondary);text-align:right;flex-shrink:0;}
+.pd-list-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.pd-list-row:last-child{border-bottom:none;}
+.pd-list-code{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);}
+.pd-list-info{flex:1;min-width:0;}
+.pd-list-cat{font-size:11.5px;color:var(--text-primary);}
+.pd-list-date{font-size:10px;color:var(--text-muted);}
+.pd-list-amt-in{color:var(--text-success);font-weight:500;font-size:12px;}
+.pd-list-amt-out{color:var(--text-danger);font-weight:500;font-size:12px;}
+.pd-team-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.pd-team-row:last-child{border-bottom:none;}
+.pd-team-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;}
+.pd-team-info{flex:1;}
+.pd-team-name{font-size:12px;font-weight:500;color:var(--text-primary);}
+.pd-team-role{font-size:10px;color:var(--text-muted);}
+.pd-team-count{font-size:11px;color:var(--text-secondary);}
+</style>
+
+<h2 class="sr-only">Mockup halaman Detail Project di web admin KasBon, menampilkan ringkasan modal omset laba, grafik cashflow, sumber pemasukan, dan transaksi terbaru untuk Usaha Cimol</h2>
+
+<div class="pd-wrap">
+  <div class="pd-sidebar">
+    <div class="pd-brand">
+      <div class="pd-brand-icon"><i class="ti ti-home" style="font-size:15px" aria-hidden="true"></i></div>
+      <span class="pd-brand-name">KasBon Admin</span>
+    </div>
+    <div class="pd-nav-sect">Utama</div>
+    <div class="pd-nav-item"><i class="ti ti-layout-dashboard" style="font-size:16px" aria-hidden="true"></i> Dashboard</div>
+    <div class="pd-nav-item"><i class="ti ti-chart-bar" style="font-size:16px" aria-hidden="true"></i> Statistik</div>
+    <div class="pd-nav-item"><i class="ti ti-receipt" style="font-size:16px" aria-hidden="true"></i> Semua transaksi</div>
+    <div class="pd-nav-item active"><i class="ti ti-briefcase" style="font-size:16px" aria-hidden="true"></i> Project & usaha</div>
+    <div class="pd-nav-sect">Keluarga</div>
+    <div class="pd-nav-item"><i class="ti ti-users" style="font-size:16px" aria-hidden="true"></i> Anggota</div>
+    <div class="pd-nav-item"><i class="ti ti-wallet" style="font-size:16px" aria-hidden="true"></i> Dompet & akses</div>
+    <div class="pd-nav-sect">Sistem</div>
+    <div class="pd-nav-item"><i class="ti ti-settings" style="font-size:16px" aria-hidden="true"></i> Pengaturan fitur</div>
+    <div class="pd-nav-item"><i class="ti ti-shield-lock" style="font-size:16px" aria-hidden="true"></i> Keamanan</div>
+  </div>
+
+  <div class="pd-content">
+    <div class="pd-breadcrumb"><span>Project & usaha</span> / Usaha Cimol Pak Bos</div>
+
+    <div class="pd-header">
+      <div class="pd-head-left">
+        <div class="pd-icon-big">🛒</div>
+        <div>
+          <h1 class="pd-h1">Usaha Cimol Pak Bos</h1>
+          <div class="pd-h-sub"><span class="pd-status-badge">Aktif</span> Dibuat Juni 2025 · Kategori Bisnis UMKM</div>
+        </div>
+      </div>
+      <div class="pd-actions">
+        <button class="pd-btn-outline"><i class="ti ti-edit" style="font-size:14px" aria-hidden="true"></i> Edit project</button>
+        <button class="pd-btn-primary"><i class="ti ti-download" style="font-size:14px" aria-hidden="true"></i> Export laporan</button>
+      </div>
+    </div>
+
+    <div class="pd-metric-grid">
+      <div class="pd-metric-card">
+        <div class="pd-metric-lbl">Omset bulan ini</div>
+        <div class="pd-metric-val" style="color:var(--text-success)">Rp 3.270.000</div>
+        <div class="pd-metric-sub">↑ 18% dari bulan lalu</div>
+      </div>
+      <div class="pd-metric-card">
+        <div class="pd-metric-lbl">Modal terpakai</div>
+        <div class="pd-metric-val" style="color:var(--text-danger)">Rp 1.090.000</div>
+        <div class="pd-metric-sub">9 transaksi pengeluaran</div>
+      </div>
+      <div class="pd-metric-card">
+        <div class="pd-metric-lbl">Laba kotor</div>
+        <div class="pd-metric-val">Rp 2.180.000</div>
+        <div class="pd-metric-sub">Margin 66,7%</div>
+      </div>
+      <div class="pd-metric-card">
+        <div class="pd-metric-lbl">Saldo kas project</div>
+        <div class="pd-metric-val" style="color:#7A5A0C">Rp 2.180.000</div>
+        <div class="pd-metric-sub">Kas Usaha Cimol</div>
+      </div>
+    </div>
+
+    <div class="pd-target-card">
+      <div class="pd-target-row">
+        <span class="pd-target-lbl">Target omset bulanan: Rp 3.500.000</span>
+        <span class="pd-target-pct">93%</span>
+      </div>
+      <div class="pd-progress-track"><div class="pd-progress-fill" style="width:93%"></div></div>
+    </div>
+
+    <div class="pd-tabs">
+      <div class="pd-tab active" onclick="setTab('overview',this)">Ringkasan</div>
+      <div class="pd-tab" onclick="setTab('cashflow',this)">Semua cashflow</div>
+      <div class="pd-tab" onclick="setTab('sources',this)">Sumber pemasukan</div>
+      <div class="pd-tab" onclick="setTab('budget',this)">Budget & modal</div>
+    </div>
+
+    <div class="pd-main-grid">
+      <div class="pd-panel">
+        <div class="pd-panel-head">
+          <span class="pd-panel-title">Cashflow 30 hari terakhir</span>
+          <span style="font-size:11px;color:var(--text-accent);cursor:pointer">Lihat semua</span>
+        </div>
+        <div class="pd-legend-row">
+          <span class="pd-legend-item"><span class="pd-legend-sw" style="background:#1baf7a"></span>Pemasukan</span>
+          <span class="pd-legend-item"><span class="pd-legend-sw" style="background:#e34948"></span>Pengeluaran</span>
+        </div>
+        <div style="position:relative;width:100%;height:200px;margin-bottom:14px;">
+          <canvas id="projectCashflowChart" role="img" aria-label="Grafik batang cashflow harian Usaha Cimol 30 hari terakhir">Cashflow harian Usaha Cimol Pak Bos menunjukkan pemasukan konsisten lebih tinggi dari pengeluaran setiap minggunya.</canvas>
+        </div>
+
+        <div class="pd-panel-head" style="margin-top:4px">
+          <span class="pd-panel-title">Transaksi terbaru</span>
+          <span style="font-size:11px;color:var(--text-accent);cursor:pointer">Lihat semua transaksi</span>
+        </div>
+        <div class="pd-list-row">
+          <span class="pd-list-code">PRJ-001</span>
+          <div class="pd-list-info"><div class="pd-list-cat">Penjualan Langsung</div><div class="pd-list-date">12 Jun · Bos</div></div>
+          <span class="pd-list-amt-in">+ Rp 420.000</span>
+        </div>
+        <div class="pd-list-row">
+          <span class="pd-list-code">PRJ-007</span>
+          <div class="pd-list-info"><div class="pd-list-cat">Modal Bahan Baku</div><div class="pd-list-date">12 Jun · Istri</div></div>
+          <span class="pd-list-amt-out">- Rp 185.000</span>
+        </div>
+        <div class="pd-list-row">
+          <span class="pd-list-code">PRJ-006</span>
+          <div class="pd-list-info"><div class="pd-list-cat">Order Online</div><div class="pd-list-date">11 Jun · Istri</div></div>
+          <span class="pd-list-amt-in">+ Rp 850.000</span>
+        </div>
+        <div class="pd-list-row">
+          <span class="pd-list-code">PRJ-004</span>
+          <div class="pd-list-info"><div class="pd-list-cat">Titipan Warung</div><div class="pd-list-date">10 Jun · Bos</div></div>
+          <span class="pd-list-amt-in">+ Rp 600.000</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="pd-panel">
+          <div class="pd-panel-head">
+            <span class="pd-panel-title">Sumber pemasukan</span>
+            <span style="font-size:11px;color:var(--text-accent);cursor:pointer">Kelola</span>
+          </div>
+          <div class="pd-source-row">
+            <div class="pd-src-icon" style="background:rgba(245,200,66,.15)"><i class="ti ti-coin" style="font-size:14px;color:#7A5A0C" aria-hidden="true"></i></div>
+            <div class="pd-src-info">
+              <div class="pd-src-name">Penjualan Langsung</div>
+              <div class="pd-src-bar-track"><div class="pd-src-bar-fill" style="width:83%;background:#eda100"></div></div>
+            </div>
+            <div class="pd-src-val">Rp 2,5jt</div>
+          </div>
+          <div class="pd-source-row">
+            <div class="pd-src-icon" style="background:rgba(124,111,247,.15)"><i class="ti ti-device-mobile" style="font-size:14px;color:#534AB7" aria-hidden="true"></i></div>
+            <div class="pd-src-info">
+              <div class="pd-src-name">Order Online (WA/IG)</div>
+              <div class="pd-src-bar-track"><div class="pd-src-bar-fill" style="width:71%;background:#7d72e0"></div></div>
+            </div>
+            <div class="pd-src-val">Rp 850rb</div>
+          </div>
+          <div class="pd-source-row">
+            <div class="pd-src-icon" style="background:rgba(45,212,164,.15)"><i class="ti ti-building-store" style="font-size:14px;color:#0F6E56" aria-hidden="true"></i></div>
+            <div class="pd-src-info">
+              <div class="pd-src-name">Titipan Warung</div>
+              <div class="pd-src-bar-track"><div class="pd-src-bar-fill" style="width:45%;background:#1baf7a"></div></div>
+            </div>
+            <div class="pd-src-val">Rp 600rb</div>
+          </div>
+        </div>
+
+        <div class="pd-panel">
+          <div class="pd-panel-head">
+            <span class="pd-panel-title">Tim pencatat</span>
+          </div>
+          <div class="pd-team-row">
+            <div class="pd-team-avatar" style="background:rgba(245,200,66,.2);color:#7A5A0C">B</div>
+            <div class="pd-team-info"><div class="pd-team-name">Bos</div><div class="pd-team-role">Pemilik project</div></div>
+            <span class="pd-team-count">14 catatan</span>
+          </div>
+          <div class="pd-team-row">
+            <div class="pd-team-avatar" style="background:rgba(45,212,164,.2);color:#0F6E56">I</div>
+            <div class="pd-team-info"><div class="pd-team-name">Istri</div><div class="pd-team-role">Kontributor</div></div>
+            <span class="pd-team-count">9 catatan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function setTab(name, el) {
+  document.querySelectorAll('.pd-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+const ctx = document.getElementById('projectCashflowChart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Mg1','Mg2','Mg3','Mg4'],
+    datasets: [
+      { label:'Pemasukan', data:[680,820,910,860], backgroundColor:'#1baf7a', borderRadius:4, barPercentage:0.55 },
+      { label:'Pengeluaran', data:[210,260,290,330], backgroundColor:'#e34948', borderRadius:4, barPercentage:0.55 }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display:false } },
+    scales: {
+      y: { grid:{ color:'#e1e0d9' }, ticks:{ color:'#898781', callback: v => 'Rp '+v+'rb' } },
+      x: { grid:{ display:false }, ticks:{ color:'#898781' } }
+    }
+  }
+});
+</script>

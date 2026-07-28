@@ -1,0 +1,370 @@
+
+<style>
+:root{--bg:#0A1628;--sf:#111F35;--sf2:#152338;--bd:#1E3050;--gold:#F5C842;--mint:#2DD4A4;--coral:#FF6B6B;--violet:#7C6FF7;--t1:#E8EDF5;--t2:#8AA0BE;--t3:#3E5878;}
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px;}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.tb{padding:5px 12px;border-radius:20px;border:1.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-secondary);font-size:11px;cursor:pointer;}
+.tb.on{border-color:#F5C842;background:rgba(245,200,66,.1);color:#F5C842;font-weight:500;}
+.phone{background:var(--bg);border-radius:26px;border:2px solid #1E3050;overflow:hidden;max-width:320px;margin:0 auto;height:610px;position:relative;}
+.notch{width:70px;height:5px;background:#1E3050;border-radius:3px;margin:10px auto 10px;}
+.pin-screen{padding:0 18px 16px;display:flex;flex-direction:column;height:calc(100% - 30px);}
+
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.ibtn{width:32px;height:32px;border-radius:50%;background:#1A2D47;border:1px solid #253E60;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ptitle{font-size:14px;font-weight:500;color:var(--t1);flex:1;text-align:center;}
+
+.ctx-card{background:#152338;border:1px solid #1E3050;border-radius:12px;padding:11px 13px;margin-bottom:14px;flex-shrink:0;}
+.ctx-type{font-size:10px;color:var(--t2);margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+.ctx-amount{font-size:20px;font-weight:500;color:var(--coral);margin-bottom:6px;}
+.ctx-amount.income{color:var(--mint);}
+.ctx-row{display:flex;align-items:center;justify-content:space-between;}
+.ctx-wallet{font-size:11px;color:var(--t2);}
+.ctx-wallet span{color:var(--t1);font-weight:500;}
+.ctx-arrow{font-size:13px;color:var(--t3);}
+
+.pin-header{text-align:center;margin-bottom:16px;flex-shrink:0;}
+.pin-title{font-size:15px;font-weight:500;color:var(--t1);margin-bottom:4px;}
+.pin-sub{font-size:12px;color:var(--t2);}
+.pin-sub.error{color:var(--coral);}
+.pin-sub.success{color:var(--mint);}
+
+.dots-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;flex-shrink:0;}
+.dot{width:14px;height:14px;border-radius:50%;border:1.5px solid #253E60;background:transparent;transition:all .15s;}
+.dot.filled{background:var(--gold);border-color:var(--gold);}
+.dot.error-dot{background:var(--coral);border-color:var(--coral);}
+.dot.success-dot{background:var(--mint);border-color:var(--mint);}
+
+@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-8px);}30%{transform:translateX(8px);}45%{transform:translateX(-6px);}60%{transform:translateX(6px);}75%{transform:translateX(-4px);}90%{transform:translateX(4px);}}
+.shake{animation:shake .45s ease-in-out;}
+@keyframes pulse-success{0%{transform:scale(1);}50%{transform:scale(1.18);}100%{transform:scale(1);}}
+.pulse{animation:pulse-success .3s ease-in-out;}
+
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;align-content:start;}
+.key{height:56px;border-radius:14px;background:#152338;border:1px solid #1E3050;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .1s, transform .08s;user-select:none;-webkit-user-select:none;}
+.key:active{background:#1E3050;transform:scale(.95);}
+.key.key-empty{background:transparent;border:none;cursor:default;}
+.key.key-del{background:transparent;border:1px solid #1E3050;}
+.key.key-bio{background:transparent;border:1px solid #1E3050;}
+.key-num{font-size:20px;font-weight:500;color:var(--t1);}
+.key-sub{font-size:8px;color:var(--t3);letter-spacing:.08em;margin-top:1px;}
+
+.lockout-card{background:#152338;border:1.5px solid rgba(255,107,107,.3);border-radius:14px;padding:20px 16px;text-align:center;margin-bottom:16px;flex-shrink:0;}
+.lockout-icon{font-size:32px;color:var(--coral);margin-bottom:10px;}
+.lockout-title{font-size:15px;font-weight:500;color:var(--t1);margin-bottom:4px;}
+.lockout-sub{font-size:12px;color:var(--t2);line-height:1.5;}
+.countdown{font-size:28px;font-weight:500;color:var(--coral);margin:12px 0;}
+.progress-bar{height:4px;background:#1E3050;border-radius:2px;overflow:hidden;margin-top:12px;}
+.progress-fill{height:100%;background:var(--coral);border-radius:2px;transition:width 1s linear;}
+
+.hint-badge{background:rgba(45,212,164,.1);border:1px solid rgba(45,212,164,.2);border-radius:8px;padding:6px 10px;text-align:center;font-size:11px;color:var(--mint);margin-bottom:12px;flex-shrink:0;}
+
+.step-indicator{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:14px;flex-shrink:0;}
+.step-dot{width:6px;height:6px;border-radius:50%;background:#253E60;}
+.step-dot.active{background:var(--gold);width:18px;border-radius:3px;}
+.step-dot.done{background:var(--mint);}
+
+.success-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:20px 0;}
+.success-icon{width:60px;height:60px;border-radius:50%;background:rgba(45,212,164,.15);border:1.5px solid rgba(45,212,164,.3);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+</style>
+
+<h2 class="sr-only">Mockup interaktif Numpad PIN KasBon dengan tiga mode: konfirmasi transaksi, setup PIN baru, dan tampilan terkunci</h2>
+
+<div class="wrap">
+<div class="tabs">
+  <button class="tb on" onclick="setMode('confirm',this)">Konfirmasi Transaksi</button>
+  <button class="tb" onclick="setMode('setup',this)">Setup PIN Baru</button>
+  <button class="tb" onclick="setMode('locked',this)">Terkunci</button>
+</div>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="pin-screen" id="pin-screen"></div>
+</div>
+</div>
+
+<script>
+let mode = 'confirm';
+let entered = [];
+let setupStep = 1;
+let firstPin = [];
+let wrongCount = 0;
+let lockCountdown = 30;
+let lockTimer = null;
+let screenState = 'idle';
+const CORRECT_PIN = '1234';
+const PIN_LEN = 6;
+
+const keyMap = [
+  {n:'1',s:''},  {n:'2',s:'ABC'},{n:'3',s:'DEF'},
+  {n:'4',s:'GHI'},{n:'5',s:'JKL'},{n:'6',s:'MNO'},
+  {n:'7',s:'PQRS'},{n:'8',s:'TUV'},{n:'9',s:'WXYZ'},
+  {n:'bio',s:''},{n:'0',s:''},{n:'del',s:''},
+];
+
+function setMode(m, btn) {
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  mode = m;
+  entered = []; firstPin = []; setupStep = 1; wrongCount = 0; screenState = 'idle';
+  if (lockTimer) { clearInterval(lockTimer); lockTimer = null; }
+  render();
+}
+
+function render() {
+  const el = document.getElementById('pin-screen');
+  if (mode === 'locked') { renderLocked(el); return; }
+  if (screenState === 'success' && mode !== 'setup') { renderSuccess(el); return; }
+  if (mode === 'confirm') renderConfirm(el);
+  else renderSetup(el);
+}
+
+function renderConfirm(el) {
+  const isErr = screenState === 'error';
+  const isOk  = screenState === 'success';
+  if (isOk) { renderSuccess(el); return; }
+
+  let subTxt = isErr
+    ? `PIN salah. ${3 - wrongCount} percobaan tersisa`
+    : 'Masukkan PIN 6 digit untuk melanjutkan';
+  let subCls = isErr ? 'error' : '';
+
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:14px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">Konfirmasi PIN</span>
+      <div style="width:32px"></div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-type"><i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i> Transfer Dompet</div>
+      <div class="ctx-amount">- Rp 500.000</div>
+      <div class="ctx-row">
+        <div class="ctx-wallet">Dari <span>Dompet Bos</span></div>
+        <i class="ti ti-arrow-right" class="ctx-arrow" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <div class="ctx-wallet">Ke <span>Kas Keluarga</span></div>
+      </div>
+    </div>
+    <div class="hint-badge"><i class="ti ti-bulb" style="font-size:12px" aria-hidden="true"></i> Demo: PIN yang benar adalah <strong>1 2 3 4 _ _</strong></div>
+    <div class="pin-header">
+      <div class="pin-title">Masukkan PIN kamu</div>
+      <div class="pin-sub ${subCls}" id="pin-sub">${subTxt}</div>
+    </div>
+    <div class="dots-row" id="dots-row">${dotsHtml(isErr)}</div>
+    <div class="numpad" id="numpad">${numpadHtml()}</div>`;
+}
+
+function renderSetup(el) {
+  const titles = ['Buat PIN baru','Konfirmasi PIN baru'];
+  const subs   = ['Pilih 6 angka yang mudah kamu ingat','Masukkan PIN yang sama sekali lagi'];
+  const isErr  = screenState === 'error';
+  const isOk   = screenState === 'setup-done';
+
+  if (isOk) { renderSetupDone(el); return; }
+
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:14px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">Atur PIN</span>
+      <div style="width:32px"></div>
+    </div>
+    <div class="step-indicator">
+      <div class="step-dot ${setupStep===1?'active':'done'}"></div>
+      <div class="step-dot ${setupStep===2?'active':''}"></div>
+    </div>
+    <div class="pin-header">
+      <div class="pin-title">${titles[setupStep-1]}</div>
+      <div class="pin-sub ${isErr?'error':''}" id="pin-sub">${isErr ? 'PIN tidak cocok, coba lagi dari awal' : subs[setupStep-1]}</div>
+    </div>
+    <div class="dots-row" id="dots-row">${dotsHtml(isErr)}</div>
+    <div class="numpad" id="numpad">${numpadHtml()}</div>`;
+}
+
+function renderSetupDone(el) {
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="ibtn" style="opacity:0"></div>
+      <span class="ptitle">Atur PIN</span>
+      <div style="width:32px"></div>
+    </div>
+    <div class="success-screen">
+      <div class="success-icon"><i class="ti ti-check" style="font-size:28px;color:#2DD4A4" aria-hidden="true"></i></div>
+      <div class="pin-title" style="margin-bottom:6px">PIN berhasil dibuat!</div>
+      <div class="pin-sub success" style="margin-bottom:20px">Kamu sudah bisa menggunakan PIN untuk konfirmasi transaksi</div>
+      <div style="width:100%;padding:12px;border-radius:12px;background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:#F5C842;font-size:13px;font-weight:500;text-align:center;cursor:pointer;" onclick="resetSetup()">Selesai</div>
+    </div>`;
+}
+
+function renderSuccess(el) {
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="ibtn" style="opacity:0"></div>
+      <span class="ptitle">Konfirmasi PIN</span>
+      <div style="width:32px"></div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-type"><i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i> Transfer Dompet</div>
+      <div class="ctx-amount">- Rp 500.000</div>
+      <div class="ctx-row">
+        <div class="ctx-wallet">Dari <span>Dompet Bos</span></div>
+        <i class="ti ti-arrow-right" style="font-size:13px;color:#3E5878" aria-hidden="true"></i>
+        <div class="ctx-wallet">Ke <span>Kas Keluarga</span></div>
+      </div>
+    </div>
+    <div class="success-screen">
+      <div class="success-icon"><i class="ti ti-check" style="font-size:28px;color:#2DD4A4" aria-hidden="true"></i></div>
+      <div class="pin-title" style="margin-bottom:6px">Transaksi dikonfirmasi!</div>
+      <div class="pin-sub success" style="margin-bottom:20px">Transfer Rp 500.000 sedang diproses</div>
+      <div style="width:100%;padding:12px;border-radius:12px;background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:#F5C842;font-size:13px;font-weight:500;text-align:center;cursor:pointer;" onclick="resetConfirm()">Kembali ke Beranda</div>
+    </div>`;
+}
+
+function renderLocked(el) {
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:14px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">PIN Terkunci</span>
+      <div style="width:32px"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+      <div class="lockout-card">
+        <div class="lockout-icon"><i class="ti ti-lock" style="font-size:32px;color:#FF6B6B" aria-hidden="true"></i></div>
+        <div class="lockout-title">Akun sementara terkunci</div>
+        <div class="lockout-sub">Terlalu banyak PIN salah. Untuk keamanan, PIN dikunci selama:</div>
+        <div class="countdown" id="countdown">00:${String(lockCountdown).padStart(2,'0')}</div>
+        <div class="progress-bar"><div class="progress-fill" id="lock-bar" style="width:100%"></div></div>
+      </div>
+      <div style="background:#152338;border:1px solid #1E3050;border-radius:12px;padding:12px 14px;">
+        <div style="font-size:11px;color:#3E5878;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Opsi lain</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1A2D47;cursor:pointer;">
+          <i class="ti ti-fingerprint" style="font-size:18px;color:#7C6FF7" aria-hidden="true"></i>
+          <div>
+            <div style="font-size:13px;color:#E8EDF5;font-weight:500">Gunakan biometrik</div>
+            <div style="font-size:11px;color:#8AA0BE">Sidik jari / Face ID</div>
+          </div>
+          <i class="ti ti-chevron-right" style="font-size:14px;color:#3E5878;margin-left:auto" aria-hidden="true"></i>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;">
+          <i class="ti ti-help-circle" style="font-size:18px;color:#4A90D9" aria-hidden="true"></i>
+          <div>
+            <div style="font-size:13px;color:#E8EDF5;font-weight:500">Lupa PIN?</div>
+            <div style="font-size:11px;color:#8AA0BE">Reset via email atau OTP</div>
+          </div>
+          <i class="ti ti-chevron-right" style="font-size:14px;color:#3E5878;margin-left:auto" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>`;
+  startLockTimer();
+}
+
+function startLockTimer() {
+  if (lockTimer) clearInterval(lockTimer);
+  lockCountdown = 30;
+  lockTimer = setInterval(() => {
+    lockCountdown--;
+    const cd = document.getElementById('countdown');
+    const bar = document.getElementById('lock-bar');
+    if (cd) cd.textContent = '00:' + String(lockCountdown).padStart(2,'0');
+    if (bar) bar.style.width = Math.round((lockCountdown/30)*100) + '%';
+    if (lockCountdown <= 0) {
+      clearInterval(lockTimer);
+      lockTimer = null;
+      wrongCount = 0;
+      screenState = 'idle';
+      mode = 'confirm';
+      entered = [];
+      document.querySelectorAll('.tb')[0].click();
+    }
+  }, 1000);
+}
+
+function dotsHtml(isErr) {
+  return Array.from({length:PIN_LEN}, (_,i) => {
+    let cls = 'dot';
+    if (i < entered.length) cls += isErr ? ' error-dot' : ' filled';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+}
+
+function numpadHtml() {
+  return keyMap.map(k => {
+    if (k.n === 'bio') return `<div class="key key-bio" onclick="doBio()" aria-label="Biometrik"><i class="ti ti-fingerprint" style="font-size:22px;color:#7C6FF7" aria-hidden="true"></i></div>`;
+    if (k.n === 'del') return `<div class="key key-del" onclick="doDelete()" aria-label="Hapus"><i class="ti ti-backspace" style="font-size:20px;color:#8AA0BE" aria-hidden="true"></i></div>`;
+    return `<div class="key" onclick="doPress('${k.n}')" role="button" aria-label="${k.n}">
+      <span class="key-num">${k.n}</span>
+      ${k.s ? `<span class="key-sub">${k.s}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function doPress(n) {
+  if (screenState === 'error' || screenState === 'success' || screenState === 'setup-done') return;
+  if (entered.length >= PIN_LEN) return;
+  entered.push(n);
+  updateDots(false);
+  if (entered.length === PIN_LEN) {
+    setTimeout(() => checkPin(), 180);
+  }
+}
+
+function doDelete() {
+  if (screenState === 'error') { screenState = 'idle'; entered = []; render(); return; }
+  if (entered.length > 0) { entered.pop(); updateDots(false); }
+}
+
+function doBio() {
+  const sub = document.getElementById('pin-sub');
+  if (sub) { sub.textContent = 'Biometrik tidak tersedia di demo ini'; sub.className = 'pin-sub error'; }
+  setTimeout(() => { if (sub) { sub.textContent = 'Masukkan PIN 6 digit untuk melanjutkan'; sub.className = 'pin-sub'; }}, 1500);
+}
+
+function updateDots(isErr) {
+  const row = document.getElementById('dots-row');
+  if (row) row.innerHTML = dotsHtml(isErr);
+}
+
+function checkPin() {
+  const pinStr = entered.join('');
+  if (mode === 'confirm') {
+    if (pinStr.startsWith(CORRECT_PIN)) {
+      screenState = 'success';
+      updateDots(false);
+      setTimeout(() => { document.querySelectorAll('.dot.filled').forEach(d => d.classList.add('success-dot','pulse')); }, 50);
+      setTimeout(render, 600);
+    } else {
+      wrongCount++;
+      screenState = 'error';
+      updateDots(true);
+      const row = document.getElementById('dots-row');
+      if (row) row.classList.add('shake');
+      const sub = document.getElementById('pin-sub');
+      if (sub) { sub.textContent = `PIN salah. ${3-wrongCount} percobaan tersisa`; sub.className='pin-sub error'; }
+      if (wrongCount >= 3) { setTimeout(() => { mode='locked'; render(); }, 800); }
+      else { setTimeout(() => { entered=[]; screenState='idle'; updateDots(false); const s=document.getElementById('pin-sub'); if(s){s.textContent='Masukkan PIN 6 digit untuk melanjutkan';s.className='pin-sub';}; }, 900); }
+    }
+  } else {
+    if (setupStep === 1) {
+      firstPin = [...entered];
+      setupStep = 2;
+      entered = [];
+      screenState = 'idle';
+      render();
+    } else {
+      if (pinStr === firstPin.join('')) {
+        screenState = 'setup-done';
+        render();
+      } else {
+        screenState = 'error';
+        updateDots(true);
+        const row = document.getElementById('dots-row');
+        if (row) row.classList.add('shake');
+        setTimeout(() => { entered=[]; firstPin=[]; setupStep=1; screenState='idle'; render(); }, 900);
+      }
+    }
+  }
+}
+
+function resetConfirm() { entered=[]; wrongCount=0; screenState='idle'; render(); }
+function resetSetup() { entered=[]; firstPin=[]; setupStep=1; screenState='idle'; render(); }
+
+render();
+</script>

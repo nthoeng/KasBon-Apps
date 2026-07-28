@@ -1,0 +1,201 @@
+
+<style>
+:root{--bg:#0A1628;--sf:#111F35;--sf2:#152338;--bd:#1E3050;--gold:#F5C842;--mint:#2DD4A4;--coral:#FF6B6B;--violet:#7C6FF7;--blue:#4A90D9;--t1:#E8EDF5;--t2:#8AA0BE;--t3:#3E5878;}
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{background:var(--surface-1);border-radius:12px;padding:12px;}
+.phone{background:var(--bg);border-radius:26px;border:2px solid #1E3050;overflow:hidden;max-width:340px;margin:0 auto;}
+.notch{width:70px;height:5px;background:#1E3050;border-radius:3px;margin:10px auto 12px;}
+.pin{padding:0 14px 16px;}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.ibtn{width:34px;height:34px;border-radius:50%;background:#1A2D47;border:1px solid #253E60;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;}
+.ptitle{font-size:14px;font-weight:500;color:var(--t1);flex:1;text-align:center;}
+.intro{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:14px;}
+.sect-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-weight:500;margin-bottom:8px;}
+.current-card{background:rgba(45,212,164,.07);border:1.5px solid rgba(45,212,164,.3);border-radius:12px;padding:12px;margin-bottom:16px;}
+.cur-row{display:flex;align-items:flex-start;gap:10px;}
+.dev-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.bg-mint{background:rgba(45,212,164,.15);border:1px solid rgba(45,212,164,.3);}
+.bg-gray{background:rgba(90,120,144,.15);border:1px solid rgba(90,120,144,.3);}
+.dev-info{flex:1;min-width:0;}
+.dev-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:2px;}
+.dev-meta{font-size:11px;color:var(--t2);}
+.dev-loc{font-size:10px;color:var(--t3);margin-top:3px;}
+.now-badge{padding:3px 8px;border-radius:8px;font-size:10px;font-weight:500;background:rgba(45,212,164,.15);color:var(--mint);border:1px solid rgba(45,212,164,.25);flex-shrink:0;}
+.session-card{background:#152338;border:1px solid #1E3050;border-radius:12px;padding:12px;margin-bottom:8px;}
+.sess-row{display:flex;align-items:flex-start;gap:10px;}
+.sess-actions{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #1A2D47;}
+.act-link{font-size:11px;color:var(--coral);cursor:pointer;display:flex;align-items:center;gap:4px;}
+.act-link.neutral{color:var(--t2);}
+.suspicious-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:500;background:rgba(255,107,107,.15);color:var(--coral);border:1px solid rgba(255,107,107,.25);margin-top:4px;}
+.logout-all-btn{width:100%;padding:13px;border-radius:12px;border:1.5px solid rgba(255,107,107,.35);background:rgba(255,107,107,.08);color:var(--coral);font-size:13px;font-weight:500;text-align:center;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;}
+.security-tip{background:rgba(74,144,217,.08);border:1px solid rgba(74,144,217,.2);border-radius:10px;padding:10px 12px;margin-top:14px;display:flex;align-items:flex-start;gap:8px;}
+.security-tip-txt{font-size:11px;color:var(--t2);line-height:1.5;}
+.modal-overlay{position:absolute;inset:0;background:rgba(5,10,20,.7);display:flex;align-items:center;justify-content:center;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-overlay.show{opacity:1;pointer-events:auto;}
+.modal-box{background:#152338;border:1px solid #1E3050;border-radius:16px;padding:18px;width:85%;max-width:280px;}
+.modal-icon{width:44px;height:44px;border-radius:50%;background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.modal-title{font-size:14px;font-weight:500;color:var(--t1);text-align:center;margin-bottom:6px;}
+.modal-sub{font-size:12px;color:var(--t2);text-align:center;line-height:1.5;margin-bottom:16px;}
+.modal-btns{display:flex;gap:8px;}
+.mbtn{flex:1;padding:11px;border-radius:10px;font-size:12px;font-weight:500;text-align:center;cursor:pointer;}
+.mbtn-cancel{background:transparent;border:1px solid #253E60;color:var(--t2);}
+.mbtn-confirm{background:var(--coral);border:none;color:#2C0808;}
+.toast{position:absolute;bottom:16px;left:14px;right:14px;background:#152338;border:1px solid rgba(45,212,164,.3);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;z-index:40;transform:translateY(60px);opacity:0;transition:all .25s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-txt{font-size:12px;color:var(--t1);}
+.phone-relative{position:relative;}
+.fading{opacity:0;transform:translateX(-12px);transition:all .25s;}
+</style>
+
+<h2 class="sr-only">Mockup interaktif halaman Kelola Sesi Aktif KasBon, menampilkan perangkat yang login dan opsi untuk logout per sesi atau semua sesi</h2>
+
+<div class="wrap">
+<div class="phone">
+  <div class="notch"></div>
+  <div class="phone-relative">
+  <div class="pin">
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">Kelola Sesi Aktif</span>
+      <div style="width:34px"></div>
+    </div>
+
+    <div class="intro">Daftar perangkat yang sedang login ke akun kamu. Kalau ada yang tidak kamu kenali, segera keluarkan demi keamanan.</div>
+
+    <div class="sect-lbl">Perangkat ini</div>
+    <div class="current-card">
+      <div class="cur-row">
+        <div class="dev-icon bg-mint"><i class="ti ti-device-mobile" style="font-size:18px;color:#2DD4A4" aria-hidden="true"></i></div>
+        <div class="dev-info">
+          <div class="dev-name">iPhone 14 Pro · KasBon App</div>
+          <div class="dev-meta">Android tidak terdeteksi · v1.2.0</div>
+          <div class="dev-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i> Semarang, ID · Aktif sekarang</div>
+        </div>
+        <span class="now-badge">Sesi ini</span>
+      </div>
+    </div>
+
+    <div class="sect-lbl">Perangkat lain (3)</div>
+
+    <div class="session-card" id="sess-1">
+      <div class="sess-row">
+        <div class="dev-icon bg-gray"><i class="ti ti-device-laptop" style="font-size:18px;color:#8AA0BE" aria-hidden="true"></i></div>
+        <div class="dev-info">
+          <div class="dev-name">Chrome · Web Admin</div>
+          <div class="dev-meta">Windows 11 · Terakhir aktif 2 jam lalu</div>
+          <div class="dev-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i> Semarang, ID</div>
+        </div>
+      </div>
+      <div class="sess-actions">
+        <span class="act-link" onclick="openModal('sess-1','Chrome · Web Admin')"><i class="ti ti-logout" style="font-size:13px" aria-hidden="true"></i> Keluarkan perangkat ini</span>
+      </div>
+    </div>
+
+    <div class="session-card" id="sess-2">
+      <div class="sess-row">
+        <div class="dev-icon bg-gray"><i class="ti ti-device-mobile" style="font-size:18px;color:#8AA0BE" aria-hidden="true"></i></div>
+        <div class="dev-info">
+          <div class="dev-name">Samsung Galaxy S22 · Istri</div>
+          <div class="dev-meta">Android 14 · Terakhir aktif kemarin</div>
+          <div class="dev-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i> Semarang, ID</div>
+        </div>
+      </div>
+      <div class="sess-actions">
+        <span class="act-link" onclick="openModal('sess-2','Samsung Galaxy S22 · Istri')"><i class="ti ti-logout" style="font-size:13px" aria-hidden="true"></i> Keluarkan perangkat ini</span>
+      </div>
+    </div>
+
+    <div class="session-card" id="sess-3" style="border-color:rgba(255,107,107,.3);background:rgba(255,107,107,.05)">
+      <div class="sess-row">
+        <div class="dev-icon" style="background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3)"><i class="ti ti-device-mobile" style="font-size:18px;color:#FF6B6B" aria-hidden="true"></i></div>
+        <div class="dev-info">
+          <div class="dev-name">Xiaomi Redmi Note · Tidak dikenal</div>
+          <div class="dev-meta">Android 12 · Terakhir aktif 4 hari lalu</div>
+          <div class="dev-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i> Jakarta, ID</div>
+          <div class="suspicious-tag"><i class="ti ti-alert-triangle" style="font-size:10px" aria-hidden="true"></i> Lokasi tidak biasa</div>
+        </div>
+      </div>
+      <div class="sess-actions">
+        <span class="act-link" style="font-weight:600" onclick="openModal('sess-3','Xiaomi Redmi Note · Tidak dikenal')"><i class="ti ti-logout" style="font-size:13px" aria-hidden="true"></i> Keluarkan sekarang</span>
+      </div>
+    </div>
+
+    <div class="logout-all-btn" onclick="openModalAll()">
+      <i class="ti ti-logout-2" style="font-size:15px" aria-hidden="true"></i> Keluar dari Semua Perangkat Lain
+    </div>
+
+    <div class="security-tip">
+      <i class="ti ti-shield-check" style="font-size:15px;color:#4A90D9;flex-shrink:0" aria-hidden="true"></i>
+      <div class="security-tip-txt">Mengeluarkan sesi akan meminta perangkat itu login ulang dengan PIN atau password. Transaksi yang belum disimpan di perangkat itu bisa hilang.</div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-icon"><i class="ti ti-alert-triangle" style="font-size:20px;color:#FF6B6B" aria-hidden="true"></i></div>
+      <div class="modal-title" id="modal-title">Keluarkan perangkat ini?</div>
+      <div class="modal-sub" id="modal-sub">Perangkat tersebut harus login ulang untuk mengakses akun KasBon kamu.</div>
+      <div class="modal-btns">
+        <div class="mbtn mbtn-cancel" onclick="closeModal()">Batal</div>
+        <div class="mbtn mbtn-confirm" onclick="confirmLogout()">Keluarkan</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="ti ti-circle-check" style="font-size:15px;color:#2DD4A4" aria-hidden="true"></i>
+    <span class="toast-txt" id="toast-txt">Sesi berhasil dikeluarkan</span>
+  </div>
+  </div>
+</div>
+</div>
+
+<script>
+let targetId = null;
+let targetIsAll = false;
+
+function openModal(id, name) {
+  targetId = id;
+  targetIsAll = false;
+  document.getElementById('modal-title').textContent = 'Keluarkan perangkat ini?';
+  document.getElementById('modal-sub').textContent = name + ' harus login ulang untuk mengakses akun KasBon kamu.';
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+function openModalAll() {
+  targetIsAll = true;
+  document.getElementById('modal-title').textContent = 'Keluar dari semua perangkat lain?';
+  document.getElementById('modal-sub').textContent = 'Semua perangkat selain yang ini akan diminta login ulang. Aksi ini tidak memengaruhi sesi yang sedang kamu gunakan sekarang.';
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+
+function confirmLogout() {
+  closeModal();
+  if (targetIsAll) {
+    ['sess-1','sess-2','sess-3'].forEach(id => fadeOutCard(id));
+    showToast('Semua perangkat lain berhasil dikeluarkan');
+    document.querySelector('.sect-lbl + .current-card').nextElementSibling.textContent = 'Perangkat lain (0)';
+  } else if (targetId) {
+    fadeOutCard(targetId);
+    showToast('Perangkat berhasil dikeluarkan');
+  }
+}
+
+function fadeOutCard(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('fading');
+  setTimeout(() => { el.style.display = 'none'; }, 250);
+}
+
+function showToast(msg) {
+  document.getElementById('toast-txt').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>

@@ -1,0 +1,383 @@
+
+<style>
+:root {
+  --bg: #0A1628; --sf: #111F35; --sf2: #152338; --bd: #1E3050;
+  --gold: #F5C842; --mint: #2DD4A4; --coral: #FF6B6B; --violet: #7C6FF7;
+  --t1: #E8EDF5; --t2: #8AA0BE; --t3: #3E5878;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 12px; }
+.phone { background: var(--bg); border-radius: 26px; border: 2px solid #1E3050; overflow: hidden; max-width: 340px; margin: 0 auto; }
+.notch { width: 70px; height: 5px; background: #1E3050; border-radius: 3px; margin: 10px auto 12px; }
+.pin { padding: 0 14px 14px; }
+
+.topbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.ibtn { width: 34px; height: 34px; border-radius: 50%; background: #1A2D47; border: 1px solid #253E60; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+.ptitle { font-size: 14px; font-weight: 500; color: var(--t1); flex: 1; text-align: center; }
+
+.field-preview {
+  background: #152338; border: 1.5px solid #253E60; border-radius: 10px;
+  padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.field-preview.active { border-color: rgba(245,200,66,0.6); }
+.field-icon { font-size: 16px; color: var(--t2); flex-shrink: 0; }
+.field-val { font-size: 13px; font-weight: 500; color: var(--t1); flex: 1; }
+.field-clear { font-size: 14px; color: var(--t3); cursor: pointer; padding: 2px; }
+
+.quick-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.qchip {
+  padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 500;
+  border: 1px solid #253E60; background: transparent; color: var(--t2); cursor: pointer;
+  transition: all 0.15s;
+}
+.qchip.active { border-color: rgba(245,200,66,0.5); background: rgba(245,200,66,0.1); color: var(--gold); }
+
+.cal-card { background: #111F35; border: 1px solid #1E3050; border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.cal-nav { width: 30px; height: 30px; border-radius: 50%; background: #1A2D47; border: 1px solid #253E60; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.cal-month { font-size: 14px; font-weight: 500; color: var(--t1); text-align: center; }
+.cal-year { font-size: 11px; color: var(--t2); text-align: center; margin-top: 1px; }
+
+.dow-row { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
+.dow { font-size: 10px; color: var(--t3); text-align: center; padding: 2px 0; font-weight: 500; }
+
+.day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.day {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--t2); border-radius: 50%; cursor: pointer;
+  transition: background 0.12s, color 0.12s; position: relative;
+}
+.day:hover:not(.empty):not(.disabled) { background: rgba(255,255,255,0.06); color: var(--t1); }
+.day.other-month { color: var(--t3); }
+.day.disabled { color: var(--t3); opacity: 0.4; cursor: not-allowed; }
+.day.today { color: var(--mint); font-weight: 500; }
+.day.today::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--mint); }
+.day.selected { background: var(--gold) !important; color: #0A1628 !important; font-weight: 500; }
+.day.selected::after { display: none; }
+.day.in-range { background: rgba(245,200,66,0.12); color: var(--gold); border-radius: 0; }
+.day.range-start { border-radius: 50% 0 0 50%; }
+.day.range-end { border-radius: 0 50% 50% 0; }
+.day.empty { cursor: default; }
+
+.time-card { background: #111F35; border: 1px solid #1E3050; border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.time-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.time-lbl { font-size: 12px; color: var(--t2); }
+.time-toggle { display: flex; align-items: center; gap: 6px; }
+.toggle-track { width: 36px; height: 20px; border-radius: 10px; background: rgba(45,212,164,0.3); border: 1px solid rgba(45,212,164,0.4); position: relative; cursor: pointer; transition: all 0.2s; }
+.toggle-track.off { background: rgba(90,120,144,0.2); border-color: rgba(90,120,144,0.3); }
+.toggle-thumb { position: absolute; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--mint); right: 2px; transition: all 0.2s; }
+.toggle-track.off .toggle-thumb { background: var(--t3); right: auto; left: 2px; }
+.toggle-label { font-size: 11px; color: var(--t2); }
+
+.time-display { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 12px; }
+.time-seg {
+  background: #152338; border: 1px solid #253E60; border-radius: 10px;
+  padding: 8px 14px; font-size: 22px; font-weight: 500; color: var(--gold);
+  text-align: center; min-width: 60px; cursor: pointer; user-select: none;
+  transition: border-color 0.15s;
+}
+.time-seg.active { border-color: rgba(245,200,66,0.5); }
+.time-sep { font-size: 22px; font-weight: 500; color: var(--t2); }
+
+.time-scroll { display: flex; gap: 8px; }
+.time-col { flex: 1; }
+.time-col-lbl { font-size: 10px; color: var(--t3); text-align: center; margin-bottom: 6px; }
+.time-options { display: flex; flex-direction: column; gap: 3px; max-height: 120px; overflow-y: auto; scrollbar-width: none; }
+.time-options::-webkit-scrollbar { display: none; }
+.time-opt { padding: 5px 0; text-align: center; font-size: 12px; color: var(--t2); cursor: pointer; border-radius: 6px; }
+.time-opt:hover { background: rgba(255,255,255,0.05); color: var(--t1); }
+.time-opt.selected { background: rgba(245,200,66,0.15); color: var(--gold); font-weight: 500; }
+
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-cancel { padding: 12px; border-radius: 10px; border: 1px solid #253E60; background: transparent; color: var(--t2); font-size: 13px; cursor: pointer; text-align: center; }
+.btn-confirm { padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #F5C842, #E8B820); color: #0A1628; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; }
+
+.result-banner { background: rgba(45,212,164,0.08); border: 1px solid rgba(45,212,164,0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; display: none; }
+.result-banner.show { display: flex; align-items: center; gap: 8px; }
+.result-text { font-size: 12px; color: var(--mint); flex: 1; }
+</style>
+
+<h2 class="sr-only">Komponen Date Picker interaktif untuk aplikasi KasBon — dengan kalender, pemilih waktu, dan pilihan cepat</h2>
+
+<div class="wrap">
+<div class="phone">
+  <div class="notch"></div>
+  <div class="pin">
+
+    <div class="topbar">
+      <div class="ibtn"><i class="ti ti-arrow-left" style="font-size:15px;color:#8AA0BE" aria-hidden="true"></i></div>
+      <span class="ptitle">Pilih Tanggal</span>
+      <div class="ibtn" style="background:transparent;border:none"></div>
+    </div>
+
+    <div id="result-banner" class="result-banner">
+      <i class="ti ti-circle-check" style="font-size:16px;color:#2DD4A4;flex-shrink:0" aria-hidden="true"></i>
+      <span class="result-text" id="result-text">Tanggal dipilih</span>
+    </div>
+
+    <div class="field-preview active" id="field-preview">
+      <i class="ti ti-calendar" class="field-icon" style="font-size:16px;color:#8AA0BE" aria-hidden="true"></i>
+      <span class="field-val" id="field-val">Pilih tanggal...</span>
+      <i class="ti ti-x" class="field-clear" id="field-clear" style="font-size:14px;color:#5A7890;display:none" aria-label="Hapus pilihan tanggal"></i>
+    </div>
+
+    <div class="quick-row">
+      <div class="qchip" onclick="quickSelect('today', this)">Hari ini</div>
+      <div class="qchip" onclick="quickSelect('yesterday', this)">Kemarin</div>
+      <div class="qchip" onclick="quickSelect('thisweek', this)">Minggu ini</div>
+      <div class="qchip" onclick="quickSelect('thismonth', this)">Bulan ini</div>
+    </div>
+
+    <div class="cal-card">
+      <div class="cal-header">
+        <div class="cal-nav" onclick="changeMonth(-1)" aria-label="Bulan sebelumnya">
+          <i class="ti ti-chevron-left" style="font-size:14px;color:#8AA0BE" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="cal-month" id="cal-month-lbl"></div>
+          <div class="cal-year" id="cal-year-lbl"></div>
+        </div>
+        <div class="cal-nav" onclick="changeMonth(1)" aria-label="Bulan berikutnya">
+          <i class="ti ti-chevron-right" style="font-size:14px;color:#8AA0BE" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="dow-row">
+        <div class="dow">Min</div><div class="dow">Sen</div><div class="dow">Sel</div>
+        <div class="dow">Rab</div><div class="dow">Kam</div><div class="dow">Jum</div>
+        <div class="dow">Sab</div>
+      </div>
+      <div class="day-grid" id="day-grid"></div>
+    </div>
+
+    <div class="time-card">
+      <div class="time-header">
+        <span class="time-lbl">Waktu transaksi</span>
+        <div class="time-toggle">
+          <span class="toggle-label">Atur waktu</span>
+          <div class="toggle-track" id="time-toggle" onclick="toggleTime()" role="switch" aria-checked="true">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="time-section">
+        <div class="time-display">
+          <div class="time-seg active" id="seg-hour" onclick="focusSeg('hour')" aria-label="Jam"></div>
+          <span class="time-sep">:</span>
+          <div class="time-seg" id="seg-min" onclick="focusSeg('min')" aria-label="Menit"></div>
+          <div class="time-seg" style="font-size:13px;min-width:44px;" id="seg-ampm" onclick="toggleAmpm()" aria-label="AM/PM"></div>
+        </div>
+        <div class="time-scroll" id="time-scroll">
+          <div class="time-col">
+            <div class="time-col-lbl">Jam</div>
+            <div class="time-options" id="hour-opts"></div>
+          </div>
+          <div class="time-col">
+            <div class="time-col-lbl">Menit</div>
+            <div class="time-options" id="min-opts"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <div class="btn-cancel" onclick="cancelPick()">Batal</div>
+      <div class="btn-confirm" onclick="confirmPick()">Konfirmasi</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const MONTHS_ID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+let now = new Date();
+let viewYear = now.getFullYear();
+let viewMonth = now.getMonth();
+let selectedDate = null;
+let selHour = now.getHours() % 12 || 12;
+let selMin = Math.floor(now.getMinutes() / 5) * 5;
+let selAmpm = now.getHours() >= 12 ? 'PM' : 'AM';
+let activeSeg = 'hour';
+let timeEnabled = true;
+
+function renderCalendar() {
+  document.getElementById('cal-month-lbl').textContent = MONTHS_ID[viewMonth];
+  document.getElementById('cal-year-lbl').textContent = viewYear;
+  const grid = document.getElementById('day-grid');
+  grid.innerHTML = '';
+  const first = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const daysInPrev = new Date(viewYear, viewMonth, 0).getDate();
+  const todayStr = dateStr(now);
+
+  for (let i = 0; i < first; i++) {
+    const d = daysInPrev - first + 1 + i;
+    const el = document.createElement('div');
+    el.className = 'day other-month';
+    el.textContent = d;
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(viewYear, viewMonth, d);
+    const ds = dateStr(date);
+    const el = document.createElement('div');
+    el.textContent = d;
+    let cls = 'day';
+    const isFuture = date > now && ds !== todayStr;
+    if (isFuture) cls += ' disabled';
+    else {
+      if (ds === todayStr) cls += ' today';
+      if (selectedDate && ds === dateStr(selectedDate)) cls += ' selected';
+      el.onclick = () => selectDate(new Date(viewYear, viewMonth, d));
+    }
+    el.className = cls;
+    grid.appendChild(el);
+  }
+
+  const remaining = (7 - (first + daysInMonth) % 7) % 7;
+  for (let d = 1; d <= remaining; d++) {
+    const el = document.createElement('div');
+    el.className = 'day other-month';
+    el.textContent = d;
+    grid.appendChild(el);
+  }
+}
+
+function dateStr(d) {
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function selectDate(date) {
+  selectedDate = date;
+  document.querySelectorAll('.qchip').forEach(c => c.classList.remove('active'));
+  updateField();
+  renderCalendar();
+}
+
+function quickSelect(type, btn) {
+  document.querySelectorAll('.qchip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const d = new Date();
+  if (type === 'today') { selectedDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  else if (type === 'yesterday') { selectedDate = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1); }
+  else if (type === 'thisweek') { selectedDate = new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()); }
+  else if (type === 'thismonth') { selectedDate = new Date(d.getFullYear(), d.getMonth(), 1); }
+  viewYear = selectedDate.getFullYear();
+  viewMonth = selectedDate.getMonth();
+  updateField();
+  renderCalendar();
+}
+
+function updateField() {
+  const fv = document.getElementById('field-val');
+  const fc = document.getElementById('field-clear');
+  if (selectedDate) {
+    const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    fv.textContent = `${days[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_ID[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+    fv.style.color = '#E8EDF5';
+    fc.style.display = 'block';
+  } else {
+    fv.textContent = 'Pilih tanggal...';
+    fv.style.color = '#3E5878';
+    fc.style.display = 'none';
+  }
+}
+
+document.getElementById('field-clear').onclick = (e) => {
+  e.stopPropagation();
+  selectedDate = null;
+  document.querySelectorAll('.qchip').forEach(c => c.classList.remove('active'));
+  updateField();
+  renderCalendar();
+};
+
+function changeMonth(dir) {
+  viewMonth += dir;
+  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+  renderCalendar();
+}
+
+function renderTimeOpts() {
+  const ho = document.getElementById('hour-opts');
+  const mo = document.getElementById('min-opts');
+  ho.innerHTML = '';
+  mo.innerHTML = '';
+  for (let h = 1; h <= 12; h++) {
+    const el = document.createElement('div');
+    el.className = 'time-opt' + (h === selHour ? ' selected' : '');
+    el.textContent = String(h).padStart(2, '0');
+    el.onclick = () => { selHour = h; renderTimeOpts(); updateTimeSeg(); };
+    ho.appendChild(el);
+  }
+  for (let m = 0; m < 60; m += 5) {
+    const el = document.createElement('div');
+    el.className = 'time-opt' + (m === selMin ? ' selected' : '');
+    el.textContent = String(m).padStart(2, '0');
+    el.onclick = () => { selMin = m; renderTimeOpts(); updateTimeSeg(); };
+    mo.appendChild(el);
+  }
+  const sel = ho.querySelector('.selected');
+  if (sel) sel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  const sel2 = mo.querySelector('.selected');
+  if (sel2) sel2.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
+function updateTimeSeg() {
+  document.getElementById('seg-hour').textContent = String(selHour).padStart(2, '0');
+  document.getElementById('seg-min').textContent = String(selMin).padStart(2, '0');
+  document.getElementById('seg-ampm').textContent = selAmpm;
+}
+
+function focusSeg(seg) {
+  activeSeg = seg;
+  document.getElementById('seg-hour').className = 'time-seg' + (seg === 'hour' ? ' active' : '');
+  document.getElementById('seg-min').className = 'time-seg' + (seg === 'min' ? ' active' : '');
+}
+
+function toggleAmpm() {
+  selAmpm = selAmpm === 'AM' ? 'PM' : 'AM';
+  updateTimeSeg();
+}
+
+function toggleTime() {
+  timeEnabled = !timeEnabled;
+  const t = document.getElementById('time-toggle');
+  const s = document.getElementById('time-section');
+  t.className = 'toggle-track' + (timeEnabled ? '' : ' off');
+  s.style.opacity = timeEnabled ? '1' : '0.35';
+  s.style.pointerEvents = timeEnabled ? 'auto' : 'none';
+}
+
+function confirmPick() {
+  if (!selectedDate) {
+    document.getElementById('field-preview').style.borderColor = 'rgba(255,107,107,0.6)';
+    setTimeout(() => document.getElementById('field-preview').style.borderColor = '', 1000);
+    return;
+  }
+  const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  let msg = `${days[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_ID[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+  if (timeEnabled) msg += ` · ${String(selHour).padStart(2,'0')}:${String(selMin).padStart(2,'0')} ${selAmpm}`;
+  const b = document.getElementById('result-banner');
+  document.getElementById('result-text').textContent = `Terpilih: ${msg}`;
+  b.classList.add('show');
+  setTimeout(() => b.classList.remove('show'), 3500);
+}
+
+function cancelPick() {
+  selectedDate = null;
+  document.querySelectorAll('.qchip').forEach(c => c.classList.remove('active'));
+  updateField();
+  renderCalendar();
+}
+
+renderCalendar();
+updateField();
+updateTimeSeg();
+renderTimeOpts();
+</script>
