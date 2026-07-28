@@ -1,0 +1,50 @@
+Get-ChildItem -Path src -Recurse -Include *.tsx, *.ts | Select-Object FullName
+
+
+FullName                                                                                                    
+--------                                                                                                    
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\AmountText.tsx                          
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\GlassCard.tsx                           
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\index.ts                                
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\PrimaryButton.tsx                       
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\TransactionCard.tsx                     
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\components\ui\TransactionItem.tsx                     
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\navigation\RootNavigator.tsx                          
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\navigation\TabNavigator.tsx                           
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\ForgotPasswordScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\LoginErrorScreen.tsx                     
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\LoginScreen.tsx                          
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\OnboardingScreen.tsx                     
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\RegisterScreen.tsx                       
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Auth\SplashScreen.tsx                         
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Budget\MonthlyBudgetScreen.tsx                
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Budget\MonthlyBudgetScreen2.tsx               
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Business\BusinessDashboardScreen.tsx          
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Home\HomeScreen.tsx                           
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Notification\NotificationScreen.tsx           
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\CategorySettingsScreen.tsx            
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\CurrencySettingsScreen.tsx            
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\ExportDataScreen.tsx                  
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\HelpSupportScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\ManageMembersScreen.tsx               
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\ProfileScreen.tsx                     
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Profile\SettingsScreen.tsx                    
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\CreateProjectScreen.tsx               
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectCashflowScreen.tsx             
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectDetailScreen.tsx               
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Project\ProjectListScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Statistics\MonthlyStatsScreen.tsx             
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\AddTransactionScreen.tsx          
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\ConfirmationScreen.tsx            
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\QRWalletScreen.tsx                
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\RecurringScreen.tsx               
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\TransactionDetailScreen.tsx       
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\TransactionHistoryScreen.tsx      
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Transaction\TransactionTypeSelectionScreen.tsx
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Wallet\CreateWalletScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Wallet\WalletDetailScreen.tsx                 
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\screens\Wallet\WalletListScreen.tsx                   
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\colors.ts                                       
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\index.ts                                        
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\spacing.ts                                      
+C:\Users\micha\Documents\My Apps\KasBonApps-Clean\src\theme\typography.ts

@@ -9,7 +9,7 @@ import { LoginScreen } from '../screens/Auth/LoginScreen';
 import { OnboardingScreen } from '../screens/Auth/OnboardingScreen';
 import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { SplashScreen } from '../screens/Auth/SplashScreen';
-import { MonthlyBudgetScreen } from '../screens/Budget/MonthlyBudgetScreen2';
+import { MonthlyBudgetScreen } from '../screens/Budget/MonthlyBudgetScreen';
 import { BusinessDashboardScreen } from '../screens/Business/BusinessDashboardScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
