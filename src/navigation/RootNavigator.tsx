@@ -11,6 +11,7 @@ import { RegisterScreen } from '../screens/Auth/RegisterScreen';
 import { SplashScreen } from '../screens/Auth/SplashScreen';
 import { MonthlyBudgetScreen } from '../screens/Budget/MonthlyBudgetScreen';
 import { BusinessDashboardScreen } from '../screens/Business/BusinessDashboardScreen';
+import { DebtManagementScreen } from '../screens/Debt/DebtManagementScreen';
 import { NotificationScreen } from '../screens/Notification/NotificationScreen';
 import { CategorySettingsScreen } from '../screens/Profile/CategorySettingsScreen';
 import { CurrencySettingsScreen } from '../screens/Profile/CurrencySettingsScreen';
@@ -77,6 +78,8 @@ export function RootNavigator() {
 		<Stack.Screen name="MonthlyBudget" component={MonthlyBudgetScreen} />
 		<Stack.Screen name="BusinessDashboard" component={BusinessDashboardScreen} />
 		<Stack.Screen name="SavingsPlan" component={SavingsPlanScreen} />
+		<Stack.Screen name="DebtManagement" component={DebtManagementScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
