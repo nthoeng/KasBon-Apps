@@ -13,7 +13,7 @@ const { colors, spacing, typography } = theme;
 // --- STRUKTUR DATA MOCKUP ---
 const walletGroups = [
   {
-    title: 'Bersama keluarga',
+    title: 'Budget Bulanan',
     items: [
       {
         id: 'w1', name: 'Kas keluarga', icon: 'home', iconColor: '#F5C842', iconBg: 'rgba(245,200,66,0.12)',
@@ -224,11 +224,24 @@ export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
           <View key={gIdx}>
             <View style={styles.secHeader}>
               
-              {/* MODIFIKASI: Jika title-nya 'Tabungan & target', buat judulnya jadi bisa diklik */}
-              {group.title === 'Tabungan & target' ? (
+              {/* ── 1. JUDUL DINAMIS YANG BISA DIKLIK (ANTI-GAGAL) ── */}
+              {group.title.toLowerCase().includes('budget') ? (
+                /* 👇 TRIGGER BUDGET BULANAN */
                 <TouchableOpacity 
                   style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
-                  onPress={() => navigation.navigate('SavingsPlan')} // 👈 TRIGGER DI SINI
+                  onPress={() => navigation.navigate('MonthlyBudget')} // Pastikan nama rute sesuai di RootNavigator
+                  activeOpacity={0.7}
+                >
+                  <Text style={[styles.secTitle, { color: '#F5C842' }]}>
+                    {group.title}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={14} color="#F5C842" />
+                </TouchableOpacity>
+              ) : group.title.toLowerCase().includes('tabungan') ? (
+                /* 👇 TRIGGER RENCANA TABUNGAN */
+                <TouchableOpacity 
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
+                  onPress={() => navigation.navigate('SavingsPlan')}
                   activeOpacity={0.7}
                 >
                   <Text style={[styles.secTitle, { color: colors.primary || '#7C6FF7' }]}>
@@ -236,24 +249,41 @@ export const WalletListScreen = ({ navigation }: any) => { // Terima lewat props
                   </Text>
                   <Ionicons name="chevron-forward" size={14} color={colors.primary || '#7C6FF7'} />
                 </TouchableOpacity>
+              ) : group.title.toLowerCase().includes('hutang') ? (
+                /* 👇 TRIGGER HUTANG & PIUTANG */
+                <TouchableOpacity 
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
+                  onPress={() => navigation.navigate('DebtManagement')}
+                  activeOpacity={0.7}
+                >
+                  <Text style={[styles.secTitle, { color: '#FF6B6B' }]}>
+                    {group.title}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={14} color="#FF6B6B" />
+                </TouchableOpacity>
               ) : (
+                /* 👇 JUDUL BIASA (MISAL: DOMPET PRIBADI) */
                 <Text style={styles.secTitle}>{group.title}</Text>
               )}
 
-              {/* Tombol Add (+) di kanan */}
+              {/* ── 2. TOMBOL ADD (+) DINAMIS DI SEBELAH KANAN ── */}
               <TouchableOpacity 
                 style={styles.secAdd}
-                // MODIFIKASI: Arahkan tombol add tabungan ke CreateSavingsPlan
                 onPress={() => {
-                  if(group.title === 'Tabungan & target') {
-                     navigation.navigate('CreateSavingsPlan');
+                  if (group.title.toLowerCase().includes('budget')) {
+                    navigation.navigate('CreateWallet'); // Atau bisa diarahkan ke 'AddBudgetCategory' jika mau
+                  } else if (group.title.toLowerCase().includes('tabungan')) {
+                    navigation.navigate('CreateWallet');
+                  } else if (group.title.toLowerCase().includes('hutang')) {
+                    navigation.navigate('CreateWallet'); 
                   } else {
-                     navigation.navigate('CreateWallet');
+                    navigation.navigate('CreateWallet');
                   }
                 }}
               >
                 <Ionicons name="add" size={16} color="#F5C842" />
               </TouchableOpacity>
+
             </View>
 
             {/* Render Kartu */}
