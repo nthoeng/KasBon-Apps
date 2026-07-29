@@ -31,7 +31,13 @@ export const ManageMembersScreen = () => {
           <Ionicons name="arrow-back" size={16} color={UI_COLORS.t2} />
         </TouchableOpacity>
         <Text style={styles.pageTitle}>Kelola anggota</Text>
-        <TouchableOpacity style={styles.iconBtn}>
+        
+        {/* 👇 TRIGGER 1: IKON GEAR DI HEADER */}
+        <TouchableOpacity 
+          style={styles.iconBtn}
+          onPress={() => navigation.navigate('WalletAccess')}
+          activeOpacity={0.7}
+        >
           <Ionicons name="settings-outline" size={16} color={UI_COLORS.t2} />
         </TouchableOpacity>
       </View>
@@ -153,10 +159,16 @@ export const ManageMembersScreen = () => {
           </View>
 
           <View style={styles.mcActions}>
-            <TouchableOpacity style={styles.mcActionBtn}>
+            {/* 👇 TRIGGER 2: TOMBOL "ATUR AKSES" PADA ANGGOTA */}
+            <TouchableOpacity 
+              style={styles.mcActionBtn}
+              onPress={() => navigation.navigate('WalletAccess')}
+              activeOpacity={0.7}
+            >
               <Ionicons name="shield" size={14} color={UI_COLORS.violet} />
               <Text style={[styles.mcActionTxt, { color: UI_COLORS.violet }]}>Atur akses</Text>
             </TouchableOpacity>
+            
             <TouchableOpacity style={[styles.mcActionBtn, { borderLeftWidth: 0.5, borderRightWidth: 0.5, borderColor: UI_COLORS.b1 }]}>
               <Ionicons name="star" size={14} color={UI_COLORS.gold} />
               <Text style={[styles.mcActionTxt, { color: UI_COLORS.gold }]}>Jadikan admin</Text>

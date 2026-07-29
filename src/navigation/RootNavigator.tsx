@@ -19,6 +19,7 @@ import { ExportDataScreen } from '../screens/Profile/ExportDataScreen';
 import { HelpSupportScreen } from '../screens/Profile/HelpSupportScreen';
 import { ManageMembersScreen } from '../screens/Profile/ManageMembersScreen';
 import { SettingsScreen } from '../screens/Profile/SettingsScreen';
+import { WalletAccessScreen } from '../screens/Profile/WalletAccessScreen';
 import { CreateProjectScreen } from '../screens/Project/CreateProjectScreen';
 import { ProjectCashflowScreen } from '../screens/Project/ProjectCashflowScreen';
 import { ProjectDetailScreen } from '../screens/Project/ProjectDetailScreen';
@@ -79,6 +80,7 @@ export function RootNavigator() {
 		<Stack.Screen name="BusinessDashboard" component={BusinessDashboardScreen} />
 		<Stack.Screen name="SavingsPlan" component={SavingsPlanScreen} />
 		<Stack.Screen name="DebtManagement" component={DebtManagementScreen} />
+		<Stack.Screen name="WalletAccess" component={WalletAccessScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
