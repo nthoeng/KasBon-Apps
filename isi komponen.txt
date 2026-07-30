@@ -1,0 +1,413 @@
+AmountText.tsx
+
+import React from 'react';
+import { Text, StyleSheet, TextProps } from 'react-native';
+import { theme } from '../../theme';
+
+interface AmountTextProps extends TextProps {
+  amount: number;
+  type?: 'income' | 'expense' | 'neutral';
+  showSign?: boolean;
+}
+
+export const AmountText: React.FC<AmountTextProps> = ({ 
+  amount, 
+  type = 'neutral', 
+  showSign = false,
+  style,
+  ...props 
+}) => {
+  const formattedAmount = Math.abs(amount).toLocaleString('id-ID');
+  
+  const getPrefix = () => {
+    if (!showSign) return '';
+    return amount > 0 || type === 'income' ? '+Rp ' : '-Rp ';
+  };
+
+  const getPrefixWithoutSign = () => {
+    return 'Rp ';
+  };
+
+  const getColor = () => {
+    switch (type) {
+      case 'income': return theme.colors.income;
+      case 'expense': return theme.colors.expense;
+      default: return theme.colors.text;
+    }
+  };
+
+  return (
+    <Text style={[styles.amount, { color: getColor() }, style]} {...props}>
+      <Text style={styles.currency}>
+        {showSign ? getPrefix() : getPrefixWithoutSign()}
+      </Text>
+      {formattedAmount}
+    </Text>
+  );
+};
+
+const styles = StyleSheet.create({
+  amount: {
+    fontWeight: '500',
+    letterSpacing: -0.3,
+  },
+  currency: {
+    fontWeight: '400',
+  }
+});
+
+
+GlassCard.tsx
+
+import React from 'react';
+import { View, StyleSheet, ViewProps, StyleProp, ViewStyle } from 'react-native';
+import { theme } from '../../theme';
+import {colors} from '../../theme/colors';
+
+interface GlassCardProps extends ViewProps {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  variant?: 'light' | 'dark';
+}
+
+export const GlassCard: React.FC<GlassCardProps> = ({ 
+  children, 
+  style, 
+  variant = 'light',
+  ...props 
+}) => {
+  return (
+    <View 
+      style={[
+        styles.card, 
+        variant === 'dark' ? styles.darkVariant : styles.lightVariant,
+        style
+      ]} 
+      {...props}
+    >
+      {children}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  card: {
+    borderRadius: theme.spacing.radius.lg,
+    padding: theme.spacing.cardPadding,
+    borderWidth: 0.5,
+    overflow: 'hidden',
+  },
+  lightVariant: {
+    backgroundColor: theme.colors.surface,
+    borderColor: theme.colors.borderLight,
+  },
+  darkVariant: {
+    backgroundColor: theme.colors.glassDarker,
+    borderColor: theme.colors.border,
+  }
+});
+
+
+PrimaryButton.tsx
+
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps, ActivityIndicator } from 'react-native';
+import { theme } from '../../theme';
+
+interface PrimaryButtonProps extends TouchableOpacityProps {
+  title: string;
+  loading?: boolean;
+  variant?: 'primary' | 'secondary' | 'danger';
+}
+
+export const PrimaryButton: React.FC<PrimaryButtonProps> = ({ 
+  title, 
+  loading = false, 
+  variant = 'primary',
+  style,
+  disabled,
+  ...props 
+}) => {
+  const getBackgroundColor = () => {
+    switch (variant) {
+      case 'primary': return theme.colors.primary;
+      case 'secondary': return theme.colors.surface;
+      case 'danger': return theme.colors.tagExpense;
+      default: return theme.colors.primary;
+    }
+  };
+
+  const getTextColor = () => {
+    switch (variant) {
+      case 'primary': return theme.typography.button.color;
+      case 'secondary': return theme.colors.text;
+      case 'danger': return theme.colors.expense;
+      default: return theme.typography.button.color;
+    }
+  };
+
+  return (
+    <TouchableOpacity 
+      style={[
+        styles.button, 
+        { backgroundColor: getBackgroundColor() },
+        (disabled || loading) && styles.disabled,
+        variant === 'secondary' && styles.secondaryBorder,
+        style
+      ]} 
+      disabled={disabled || loading}
+      activeOpacity={0.8}
+      {...props}
+    >
+      {loading ? (
+        <ActivityIndicator color={getTextColor()} />
+      ) : (
+        <Text style={[styles.text, { color: getTextColor() }]}>
+          {title}
+        </Text>
+      )}
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    height: 48,
+    borderRadius: theme.spacing.radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  text: {
+    ...theme.typography.button,
+  },
+  disabled: {
+    opacity: 0.6,
+  },
+  secondaryBorder: {
+    borderWidth: 0.5,
+    borderColor: theme.colors.borderLight,
+  }
+});
+
+
+TransactionCard.tsx
+
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const UI_COLORS = {
+  bg: '#0A1628', card: '#152238', card2: '#1A2A42', input: '#111E30',
+  text: '#F0F4FF', t2: '#8FA8CC', t3: '#3E5878',
+  gold: '#F5C842', mint: '#2DD4A4', red: '#FF6B6B', violet: '#7C6FF7',
+  b1: 'rgba(255,255,255,0.07)',
+};
+
+interface TransactionCardProps {
+  title: string;
+  category: string;
+  amount: number;
+  type: 'expense' | 'income' | 'transfer';
+  date: string;
+  icon: string;
+  wallet?: string;
+  saldo?: string;
+  avatarText?: string;
+  avatarBg?: string;
+  fromWallet?: string;
+  toWallet?: string;
+  onPress?: () => View;
+}
+
+export const TransactionCard: React.FC<TransactionCardProps> = ({
+  title, category, amount, type, date, icon, wallet, saldo,
+  avatarText = 'B', avatarBg = UI_COLORS.violet, fromWallet, toWallet, onPress
+}) => {
+  const isExpense = type === 'expense';
+  const isIncome = type === 'income';
+  const isTransfer = type === 'transfer';
+
+  // Penentuan warna nominal angka
+  const amtColor = isExpense ? UI_COLORS.red : isIncome ? UI_COLORS.mint : UI_COLORS.violet;
+  // Penentuan tanda + atau -
+  const amtPrefix = isExpense ? '-Rp ' : isIncome ? '+Rp ' : 'Rp ';
+  // Penentuan warna background icon
+  const iconBg = isExpense || isTransfer ? 'rgba(255,107,107,0.12)' : 'rgba(45,212,164,0.1)';
+  const iconColor = isExpense || isTransfer ? UI_COLORS.red : UI_COLORS.mint;
+
+  return (
+    <TouchableOpacity style={styles.txItem} activeOpacity={0.7} onPress={onPress}>
+      {/* KIRI: Icon & Avatar Ring */}
+      <View style={styles.txLeft}>
+        <View style={[styles.txIcon, { backgroundColor: isTransfer ? 'rgba(124,111,247,0.1)' : iconBg }]}>
+          <Ionicons name={isTransfer ? "swap-horizontal" : (icon as any)} size={18} color={isTransfer ? UI_COLORS.violet : iconColor} />
+        </View>
+        <View style={[styles.txAvatar, { backgroundColor: avatarBg }]}>
+          <Text style={styles.txAvatarTxt}>{avatarText}</Text>
+        </View>
+      </View>
+
+      {/* TENGAH: Info Transaksi */}
+      <View style={styles.txInfo}>
+        <Text style={styles.txName} numberOfLines={1}>{title}</Text>
+        
+        {isTransfer ? (
+          /* Tampilan Alur Khusus Transfer (BCA Bayu -> Kas Keluarga) */
+          <View style={styles.transferFlowMini}>
+            <View style={styles.tfPill}>
+              <Text style={styles.tfPillTxt}>{fromWallet}</Text>
+            </View>
+            <Text style={styles.tfArrowTxt}>→</Text>
+            <View style={styles.tfPill}>
+              <Text style={styles.tfPillTxt}>{toWallet}</Text>
+            </View>
+            <View style={styles.txDot} />
+            <Text style={styles.txTime}>{date}</Text>
+          </View>
+        ) : (
+          /* Tampilan Metadata Biasa (Kategori & Nama Dompet) */
+          <View style={styles.txMeta}>
+            <Text style={styles.txCat}>{category}</Text>
+            <View style={styles.txDot} />
+            <Text style={styles.txWallet} numberOfLines={1}>{wallet}</Text>
+            <View style={styles.txDot} />
+            <Text style={styles.txTime}>{date}</Text>
+          </View>
+        )}
+      </View>
+
+      {/* KANAN: Nominal & Sisa Saldo */}
+      <View style={styles.txRight}>
+        <Text style={[styles.txAmt, { color: amtColor }]}>
+          {amtPrefix}{Math.abs(amount).toLocaleString('id-ID')}
+        </Text>
+        <Text style={styles.txSaldo}>{saldo}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  txItem: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 18 },
+  txLeft: { position: 'relative' },
+  txIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
+  txAvatar: { position: 'absolute', bottom: -4, right: -4, width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: UI_COLORS.bg },
+  txAvatarTxt: { fontSize: 10, fontWeight: '700', color: '#FFF' },
+  txInfo: { flex: 1 },
+  txName: { fontSize: 14, fontWeight: '500', color: UI_COLORS.text, marginBottom: 4 },
+  txMeta: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  txCat: { fontSize: 11, color: UI_COLORS.t3 },
+  txDot: { width: 3, height: 3, borderRadius: 1.5, backgroundColor: UI_COLORS.t3 },
+  txWallet: { fontSize: 11, color: UI_COLORS.t3, maxWidth: 90 },
+  txTime: { fontSize: 11, color: UI_COLORS.t3 },
+  txRight: { alignItems: 'flex-end' },
+  txAmt: { fontSize: 14, fontWeight: '600' },
+  txSaldo: { fontSize: 10, color: UI_COLORS.t3, marginTop: 2 },
+  transferFlowMini: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 4 },
+  tfPill: { backgroundColor: 'rgba(124,111,247,0.1)', borderRadius: 6, paddingVertical: 2, paddingHorizontal: 6 },
+  tfPillTxt: { fontSize: 10, color: '#A89FF9', fontWeight: '500' },
+  tfArrowTxt: { fontSize: 10, color: UI_COLORS.t3 },
+});
+
+
+TransactionItem.tsx
+
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { colors } from '../../theme/colors';
+import { spacing } from '../../theme/spacing';
+import { typography } from '../../theme/typography';
+import { GlassCard } from './GlassCard';
+import { AmountText } from './AmountText';
+
+interface TransactionItemProps {
+  title: string;
+  category: string;
+  amount: number;
+  type: 'income' | 'expense' | 'transfer';
+  date?: string;
+  onPress?: () => void;
+}
+
+export const TransactionItem: React.FC<TransactionItemProps> = ({
+  title,
+  category,
+  amount,
+  type,
+  date,
+  onPress,
+}) => {
+  return (
+    <TouchableOpacity activeOpacity={onPress ? 0.8 : 1} onPress={onPress}>
+      <GlassCard style={styles.container}>
+        <View style={styles.leftContent}>
+          <View style={[styles.iconPlaceholder, type === 'income' ? styles.iconIncome : type === 'expense' ? styles.iconExpense : styles.iconTransfer]} />
+          <View style={styles.details}>
+            <Text style={styles.title} numberOfLines={1}>{title}</Text>
+            <Text style={styles.category}>{category}</Text>
+          </View>
+        </View>
+        
+        <View style={styles.rightContent}>
+          <AmountText amount={amount} type={type === 'transfer' ? 'neutral' : type} style={styles.amount} />
+          {date && <Text style={styles.date}>{date}</Text>}
+        </View>
+      </GlassCard>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+  },
+  leftContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  iconPlaceholder: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: spacing.md,
+  },
+  iconIncome: {
+    backgroundColor: colors.tagIncome,
+  },
+  iconExpense: {
+    backgroundColor: colors.tagExpense,
+  },
+  iconTransfer: {
+    backgroundColor: colors.tagGlobal,
+  },
+  details: {
+    flex: 1,
+  },
+  title: {
+    ...typography.body1,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  category: {
+    ...typography.caption,
+  },
+  rightContent: {
+    alignItems: 'flex-end',
+    marginLeft: spacing.md,
+  },
+  amount: {
+    ...typography.body1,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  date: {
+    ...typography.caption,
+  },
+});
+

@@ -111,7 +111,8 @@ export const ProfileScreen = ({ navigation }: any) => {
         <TouchableOpacity 
           style={styles.premiumBanner} 
           activeOpacity={0.8}
-          onPress={() => console.log('Arahkan ke Halaman Paywall/Upgrade nantinya')}
+          // 👇 Trigger membuka ProUpgradeScreen pada Tab Utama
+          onPress={() => navigation.navigate('ProUpgrade', { initialTab: 'utama' })}
         >
           <View style={styles.premiumIconWrap}>
             <Ionicons name="star" size={18} color={UI_COLORS.bg} />
