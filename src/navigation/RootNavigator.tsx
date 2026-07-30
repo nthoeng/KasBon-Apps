@@ -24,6 +24,8 @@ import { ProjectCashflowScreen } from '../screens/Project/ProjectCashflowScreen'
 import { ProjectDetailScreen } from '../screens/Project/ProjectDetailScreen';
 import { SavingsPlanScreen } from '../screens/Saving/SavingsPlanScreen';
 import { MonthlyStatsScreen } from '../screens/Statistics/MonthlyStatsScreen';
+import { ProComparisonFaqScreen } from '../screens/Subscription/ProComparisonFaqScreen';
+import { ProLimitTriggerScreen } from '../screens/Subscription/ProLimitTriggerScreen';
 import { ProUpgradeScreen } from '../screens/Subscription/ProUpgradeScreen';
 import { AddTransactionScreen } from '../screens/Transaction/AddTransactionScreen';
 import { ConfirmationScreen } from '../screens/Transaction/ConfirmationScreen';
@@ -83,6 +85,8 @@ export function RootNavigator() {
 		<Stack.Screen name="DebtManagement" component={DebtManagementScreen} />
 		<Stack.Screen name="WalletAccess" component={WalletAccessScreen} />
 		<Stack.Screen name="ProUpgrade" component={ProUpgradeScreen} />
+		<Stack.Screen name="ProLimitTrigger" component={ProLimitTriggerScreen} />
+		<Stack.Screen name="ProComparisonFaq" component={ProComparisonFaqScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
