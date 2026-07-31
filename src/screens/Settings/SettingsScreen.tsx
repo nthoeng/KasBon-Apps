@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UI_COLORS = {
@@ -17,6 +17,8 @@ const hexToRgba = (hex: string, alpha: number) => {
   const b = parseInt(hex.slice(5, 7), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
+
+// Duplicate top-level renderRow removed — single implementation inside component
 
 export const SettingsScreen = () => {
   const navigation = useNavigation<any>();
@@ -48,9 +50,10 @@ export const SettingsScreen = () => {
   // Komponen bantuan untuk merender Baris Pengaturan agar kode tetap DRY (Don't Repeat Yourself)
   const renderRow = (
     icon: any, iconColor: string, label: string, value: string, isMuted: boolean = false, 
-    rightElement: React.ReactNode, isDanger: boolean = false, isLast: boolean = false
+    rightElement: React.ReactNode, isDanger: boolean = false, isLast: boolean = false,
+    onPress?: () => void
   ) => (
-    <TouchableOpacity style={[styles.fieldRow, isLast && { borderBottomWidth: 0 }, isDanger && { borderBottomColor: 'rgba(255,107,107,0.15)' }]} activeOpacity={0.7}>
+    <TouchableOpacity style={[styles.fieldRow, isLast && { borderBottomWidth: 0 }, isDanger && { borderBottomColor: 'rgba(255,107,107,0.15)' }]} activeOpacity={0.7} onPress={onPress}>
       <View style={[styles.frIcon, { backgroundColor: hexToRgba(iconColor, 0.12) }]}>
         <Ionicons name={icon} size={17} color={iconColor} />
       </View>
@@ -70,6 +73,31 @@ export const SettingsScreen = () => {
       <View style={isActive ? styles.togThumbOn : styles.togThumbOff} />
     </TouchableOpacity>
   );
+
+
+// Handler untuk Keluar Akun
+const handleLogout = () => {
+  Alert.alert(
+    'Keluar dari Akun?',
+    'Kamu harus login kembali untuk mengakses data KasBon keluarga dan project kamu.',
+    [
+      { text: 'Batal', style: 'cancel' },
+      { 
+        text: 'Keluar Sekarang', 
+        style: 'destructive',
+        onPress: () => {
+          // TODO: Bersihkan token sesi & arahkan ke AuthScreen / LoginScreen
+          console.log('User logged out');
+        }
+      }
+    ]
+  );
+};
+
+// Handler untuk Hapus Akun (Masuk ke alur 5-langkah kita)
+const handleDeleteAccount = () => {
+  navigation.navigate('DeleteAccount');
+};
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
@@ -162,9 +190,34 @@ export const SettingsScreen = () => {
         {/* SECTION: ZONA BAHAYA */}
         <Text style={[styles.secLabel, { color: '#FF9090' }]}>Zona bahaya</Text>
         <View style={styles.dangerCard}>
-          {renderRow('log-out', UI_COLORS.red, 'Keluar dari akun', 'Logout semua perangkat', false, <Ionicons name="chevron-forward" size={15} color="rgba(255,107,107,0.4)" />, true)}
-          {renderRow('trash', UI_COLORS.red, 'Hapus akun', 'Hapus akun & semua data', false, <Ionicons name="chevron-forward" size={15} color="rgba(255,107,107,0.4)" />, true, true)}
+          {renderRow(
+            'log-out', 
+            UI_COLORS.red, 
+            'Keluar dari akun', 
+            'Logout semua perangkat', 
+            false, 
+            <Ionicons name="chevron-forward" size={15} color="rgba(255,107,107,0.4)" />, 
+            true, 
+            false,
+            handleLogout // ➔ Trigger Logout Alert
+          )}
+          {renderRow(
+            'trash', 
+            UI_COLORS.red, 
+            'Hapus akun permanen', 
+            'Hapus akun, dompet & riwayat data', 
+            false, 
+            <Ionicons name="chevron-forward" size={15} color="rgba(255,107,107,0.4)" />, 
+            true, 
+            true,
+            handleDeleteAccount // ➔ Navigasi ke DeleteAccountScreen
+          )}
         </View>
+
+        {/* TAMBAHAN: Caption penjelasan kebijakan hapus akun */}
+        <Text style={styles.dangerNote}>
+          * Penghapusan akun memiliki masa tunda 14 hari sebelum data benar-benar dihapus permanen dari server.
+        </Text>
 
         <TouchableOpacity style={styles.btnSaveMain}>
           <Ionicons name="checkmark" size={18} color="#0A1628" />
@@ -201,7 +254,8 @@ const styles = StyleSheet.create({
   secLabel: { fontSize: 11, color: UI_COLORS.t3, letterSpacing: 0.5, textTransform: 'uppercase', paddingHorizontal: 18, paddingTop: 10, paddingBottom: 6 },
   card: { marginHorizontal: 16, marginBottom: 10, backgroundColor: UI_COLORS.card, borderWidth: 0.5, borderColor: UI_COLORS.b2, borderRadius: 16, overflow: 'hidden' },
   dangerCard: { marginHorizontal: 16, marginBottom: 16, backgroundColor: 'rgba(255,107,107,0.06)', borderWidth: 0.5, borderColor: 'rgba(255,107,107,0.2)', borderRadius: 16, overflow: 'hidden' },
-  
+  dangerNote: { fontSize: 11, color: UI_COLORS.t3, lineHeight: 16, marginHorizontal: 20, marginTop: -8, marginBottom: 16, fontStyle: 'italic', textAlign: 'center' },
+
   // ROWS
   fieldRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: UI_COLORS.b1 },
   frIcon: { width: 34, height: 34, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },

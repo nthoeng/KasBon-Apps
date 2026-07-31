@@ -18,11 +18,12 @@ import { CurrencySettingsScreen } from '../screens/Profile/CurrencySettingsScree
 import { ExportDataScreen } from '../screens/Profile/ExportDataScreen';
 import { HelpSupportScreen } from '../screens/Profile/HelpSupportScreen';
 import { ManageMembersScreen } from '../screens/Profile/ManageMembersScreen';
-import { SettingsScreen } from '../screens/Profile/SettingsScreen';
 import { CreateProjectScreen } from '../screens/Project/CreateProjectScreen';
 import { ProjectCashflowScreen } from '../screens/Project/ProjectCashflowScreen';
 import { ProjectDetailScreen } from '../screens/Project/ProjectDetailScreen';
 import { SavingsPlanScreen } from '../screens/Saving/SavingsPlanScreen';
+import { DeleteAccountScreen } from '../screens/Settings/DeleteAccountScreen';
+import { SettingsScreen } from '../screens/Settings/SettingsScreen';
 import { MonthlyStatsScreen } from '../screens/Statistics/MonthlyStatsScreen';
 import { ProComparisonFaqScreen } from '../screens/Subscription/ProComparisonFaqScreen';
 import { ProLimitTriggerScreen } from '../screens/Subscription/ProLimitTriggerScreen';
@@ -87,6 +88,7 @@ export function RootNavigator() {
 		<Stack.Screen name="ProUpgrade" component={ProUpgradeScreen} />
 		<Stack.Screen name="ProLimitTrigger" component={ProLimitTriggerScreen} />
 		<Stack.Screen name="ProComparisonFaq" component={ProComparisonFaqScreen} />
+		<Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
